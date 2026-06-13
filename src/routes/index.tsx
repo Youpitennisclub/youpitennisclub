@@ -134,9 +134,9 @@ function Index() {
 
         <div className="grid md:grid-cols-3 gap-6">
           {[
-            { tag: "Solo", title: "Private 1-on-1", price: "€60", desc: "60 min of focused coaching. You set the goals, we build the plan.", color: "bg-ball", icon: "🎾" },
-            { tag: "Squad", title: "Group lessons", price: "€25", desc: "Train with 3–5 players at your level. Drills, games, real matches.", color: "bg-pink", icon: "👯" },
-            { tag: "Kids", title: "Junior academy", price: "€20", desc: "Ages 6–14. Fun-first sessions building technique and confidence.", color: "bg-court", icon: "⭐" },
+            { tag: "Solo", title: "Private 1-on-1", price: "€60", desc: "60 min of focused coaching — beginner to advanced. Technique, tactics, match prep.", color: "bg-ball", icon: "🎾" },
+            { tag: "Squad", title: "Small group (2–4)", price: "€25", desc: "Train with friends at your level. Weekday afternoons & Saturdays in Berlin.", color: "bg-pink", icon: "👯" },
+            { tag: "Kids & Teams", title: "Juniors & team coaching", price: "€20", desc: "From WTA-500 kids events to Damen/Herren team coaching up to Meisterklasse.", color: "bg-court", icon: "⭐" },
           ].map((l) => (
             <article key={l.title} className="group relative p-7 rounded-3xl bg-card border-2 border-ink/10 hover:border-ink transition hover:-translate-y-1 duration-300">
               <div className={`absolute -top-5 -right-5 w-16 h-16 rounded-full ${l.color} grid place-items-center text-3xl shadow-lg`}>
@@ -160,17 +160,30 @@ function Index() {
           <div>
             <div className="text-xs uppercase tracking-widest font-semibold text-clay mb-4">Meet your coach</div>
             <h2 className="text-5xl md:text-6xl font-display uppercase mb-6">
-              One court.<br/>
-              <span className="text-pink">Every</span> language.
+              Youcef.<br/>
+              <span className="text-pink">One court,</span> three languages.
             </h2>
+            <p className="text-muted-foreground text-lg mb-4">
+              I'm <strong>Youcef Chaouch</strong> — Franco-German lawyer turned full-time tennis
+              coach in Berlin. Two Master's degrees in Franco-German law, then I put the robe down
+              to chase the only thing I love more: tennis.
+            </p>
             <p className="text-muted-foreground text-lg mb-6">
-              Hey, I'm the founder of Youpi Multi Culti Tennis. Born in Paris, based in Berlin,
-              I've coached players from 40+ countries — pros, weekend warriors and total
-              beginners. I run sessions in <strong>English, French & German</strong> and we always
-              find a way for everyone else.
+              Coaching since 2021 — group sessions up to 8, privates from total beginner to
+              advanced, and team coaching for Damen- & Herrenmannschaften up to{" "}
+              <strong>Meisterklasse</strong>. I also work with strong ranked players
+              (DTB Herren 45 #171, Herren 55 #14). Sessions run in{" "}
+              <strong>English, French & German</strong>.
             </p>
             <div className="flex flex-wrap gap-3">
-              {["DTB Certified", "ATP-level sparring", "5+ years coaching", "WTA player practice partner"].map((b) => (
+              {[
+                "DTB Tennisassistent",
+                "5+ years coaching",
+                "Meisterklasse team coach",
+                "WTA 500 Berlin kids program",
+                "ALBA × bett1 Schulcup",
+                "EN · FR · DE",
+              ].map((b) => (
                 <span key={b} className="px-4 py-2 rounded-full bg-muted text-sm font-medium">{b}</span>
               ))}
             </div>
@@ -178,10 +191,10 @@ function Index() {
           <div className="relative">
             <div className="grid grid-cols-2 gap-4">
               {[
-                { n: "40+", l: "Nationalities" },
-                { n: "9", l: "Languages" },
-                { n: "12", l: "Courts in Berlin" },
-                { n: "7/7", l: "Days a week" },
+                { n: "5+", l: "Years coaching" },
+                { n: "3", l: "Languages" },
+                { n: "150", l: "Kids @ Schulcup" },
+                { n: "Mo–Sa", l: "PM & weekends" },
               ].map((s) => (
                 <div key={s.l} className="aspect-square rounded-3xl bg-card border-2 border-ink/10 p-6 flex flex-col justify-between hover:bg-ball hover:border-ink transition">
                   <div className="font-display text-6xl">{s.n}</div>
@@ -189,6 +202,29 @@ function Index() {
                 </div>
               ))}
             </div>
+          </div>
+        </div>
+
+        {/* TRACK RECORD */}
+        <div className="mt-20 rounded-3xl border-2 border-ink/10 p-8 md:p-12 bg-card">
+          <div className="text-xs uppercase tracking-widest font-semibold text-clay mb-6">Track record · Berlin</div>
+          <div className="grid md:grid-cols-2 gap-x-12 gap-y-5">
+            {[
+              { t: "WTA 500 · Rot-Weiß Berlin", d: "Kids program — playful intro to tennis on tour week." },
+              { t: "ALBA × bett1 Schulcup", d: "Tennis drills for ~150 school kids at the Basketball & Tennis Schulcup." },
+              { t: "Jahn-Sportpark", d: "Multisport events for kids across the season." },
+              { t: "Meisterklasse Damen", d: "Match-day coaching during Verbandsspiele." },
+              { t: "DTB top-ranked players", d: "Tactical & technical work with Herren 45 #171 and Herren 55 #14." },
+              { t: "Berlin tennis network", d: "Markus Zoecke (ex ATP #48 · WTA 500 director), TVBB and many trainers." },
+            ].map((x) => (
+              <div key={x.t} className="flex gap-4">
+                <span className="mt-1.5 w-2.5 h-2.5 rounded-full bg-ball shrink-0" />
+                <div>
+                  <div className="font-display text-lg uppercase">{x.t}</div>
+                  <div className="text-sm text-muted-foreground">{x.d}</div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -285,7 +321,7 @@ function Index() {
           <div className="text-sm space-y-2">
             <div className="font-semibold uppercase tracking-widest text-ball mb-3 text-xs">Contact</div>
             <div>hallo@youpitennis.berlin</div>
-            <div>+49 30 000 000</div>
+            <div>Youcef · +49 176 45689622</div>
             <div>WhatsApp · Instagram @youpitennis</div>
           </div>
           <div className="text-sm space-y-2">
