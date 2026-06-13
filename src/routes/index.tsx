@@ -170,7 +170,7 @@ function Index() {
           <article className="group relative p-8 rounded-3xl bg-card border-2 border-ink/10 hover:border-ink transition hover:-translate-y-1 duration-300">
             <div className="absolute -top-5 -right-5 w-16 h-16 rounded-full bg-pink grid place-items-center text-3xl shadow-lg">🥂</div>
             <div className="text-xs uppercase tracking-widest font-semibold text-clay mb-3">After-work</div>
-            <h3 className="text-3xl mb-3">Tennis entre collègues</h3>
+            <h3 className="text-3xl mb-3">After-work tennis with colleagues</h3>
             <p className="text-muted-foreground mb-6">
               The perfect team-building ritual: rally with colleagues, then debrief over drinks.
               Beginner-friendly — no experience needed. I bring rackets, balls, and a relaxed vibe.
