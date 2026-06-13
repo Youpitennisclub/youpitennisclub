@@ -181,7 +181,7 @@ function Index() {
               <span className="text-sm text-muted-foreground">/ pers · 90 min</span>
             </div>
             <ul className="mt-4 space-y-1 text-sm text-muted-foreground">
-              <li className="flex gap-2"><span className="text-ball">✓</span> Groups of 4–8 people</li>
+              <li className="flex gap-2"><span className="text-ball">✓</span> Groups of 2–6 people</li>
               <li className="flex gap-2"><span className="text-ball">✓</span> Tue / Wed / Thu after 18h</li>
               <li className="flex gap-2"><span className="text-ball">✓</span> Fun drills + mini-tournament</li>
             </ul>
