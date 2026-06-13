@@ -321,7 +321,7 @@ function Index() {
           <div className="text-sm space-y-2">
             <div className="font-semibold uppercase tracking-widest text-ball mb-3 text-xs">Contact</div>
             <div>hallo@youpitennis.berlin</div>
-            <div>+49 30 000 000</div>
+            <div>Youcef · +49 176 45689622</div>
             <div>WhatsApp · Instagram @youpitennis</div>
           </div>
           <div className="text-sm space-y-2">
