@@ -170,7 +170,7 @@ function Index() {
               find a way for everyone else.
             </p>
             <div className="flex flex-wrap gap-3">
-              {["DTB Certified", "ATP-level sparring", "10+ years coaching", "WTA player practice partner"].map((b) => (
+              {["DTB Certified", "ATP-level sparring", "5+ years coaching", "WTA player practice partner"].map((b) => (
                 <span key={b} className="px-4 py-2 rounded-full bg-muted text-sm font-medium">{b}</span>
               ))}
             </div>
