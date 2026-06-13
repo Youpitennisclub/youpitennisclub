@@ -1,29 +1,304 @@
 import { createFileRoute } from "@tanstack/react-router";
+import posterAsset from "@/assets/poster-hero.png.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Your App" },
-      { name: "description", content: "Replace this with a one-sentence description of your app." },
-      { property: "og:title", content: "Your App" },
-      { property: "og:description", content: "Replace this with a one-sentence description of your app." },
+      { title: "Youpi Multi Culti Tennis — Tennis lessons in Berlin" },
+      {
+        name: "description",
+        content:
+          "Fun, international tennis lessons in Berlin for young players. All levels, all languages — book your first session today.",
+      },
+      { property: "og:title", content: "Youpi Multi Culti Tennis — Berlin" },
+      {
+        property: "og:description",
+        content: "Tennis lessons in Berlin for a young, international crowd. Beginner to advanced.",
+      },
+      { property: "og:image", content: posterAsset.url },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:image", content: posterAsset.url },
     ],
   }),
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
+const FLAGS = ["🇫🇷", "🇩🇪", "🇺🇸", "🇹🇷", "🇺🇦", "🇪🇸", "🇮🇹", "🇧🇷", "🇯🇵", "🇲🇽", "🇵🇱", "🇪🇬", "🇱🇧", "🇷🇺", "🇬🇷", "🇬🇧", "🇨🇳", "🇸🇪", "🇰🇷", "🇮🇳"];
+
+const LANGS = ["English", "Français", "Deutsch", "Español", "Italiano", "Türkçe", "Português", "العربية", "Русский"];
+
 function Index() {
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
+    <main className="relative overflow-hidden">
+      {/* NAV */}
+      <header className="sticky top-0 z-50 backdrop-blur-md bg-background/70 border-b border-border">
+        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+          <a href="#" className="flex items-center gap-2 font-display text-xl">
+            <span className="inline-block w-7 h-7 rounded-full bg-ball ball-spin shadow-inner" style={{ boxShadow: "inset -4px -4px 0 oklch(0.78 0.18 115)" }} />
+            YOUPI<span className="text-clay">.</span>
+          </a>
+          <nav className="hidden md:flex items-center gap-8 text-sm font-medium">
+            <a href="#lessons" className="hover:text-clay transition">Lessons</a>
+            <a href="#coach" className="hover:text-clay transition">Coach</a>
+            <a href="#pricing" className="hover:text-clay transition">Pricing</a>
+            <a href="#faq" className="hover:text-clay transition">FAQ</a>
+          </nav>
+          <a href="#book" className="px-5 py-2.5 rounded-full bg-ink text-background text-sm font-semibold hover:bg-clay transition">
+            Book a lesson
+          </a>
+        </div>
+      </header>
+
+      {/* HERO */}
+      <section className="relative max-w-7xl mx-auto px-6 pt-14 pb-24">
+        <div className="grid lg:grid-cols-12 gap-10 items-center">
+          <div className="lg:col-span-7 relative z-10">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-ball/40 border border-ink/10 text-xs font-semibold uppercase tracking-widest mb-6">
+              <span className="w-1.5 h-1.5 rounded-full bg-court animate-pulse" />
+              Now booking · Berlin courts
+            </div>
+            <h1 className="text-[clamp(3rem,8vw,7rem)] font-display uppercase">
+              Tennis<br />
+              <span className="text-clay">without</span><br />
+              <span className="relative inline-block">
+                borders
+                <svg className="absolute -bottom-3 left-0 w-full" viewBox="0 0 300 12" fill="none">
+                  <path d="M2 8 C 80 2, 180 2, 298 8" stroke="oklch(0.92 0.21 115)" strokeWidth="6" strokeLinecap="round" />
+                </svg>
+              </span>
+              .
+            </h1>
+            <p className="mt-8 max-w-lg text-lg text-muted-foreground">
+              Young, international, and seriously fun. Group lessons & private coaching across
+              Berlin — taught in nine languages, played on every surface.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <a href="#book" className="px-7 py-4 rounded-full bg-court text-primary-foreground font-semibold hover:bg-ink transition">
+                Reserve a spot
+              </a>
+              <a href="#lessons" className="px-7 py-4 rounded-full border-2 border-ink/15 font-semibold hover:border-clay hover:text-clay transition">
+                See lessons →
+              </a>
+            </div>
+            <div className="mt-10 flex items-center gap-6">
+              <div className="flex -space-x-2 text-2xl">
+                {FLAGS.slice(0, 6).map((f) => (
+                  <span key={f} className="w-10 h-10 rounded-full bg-background border-2 border-background shadow-md grid place-items-center">{f}</span>
+                ))}
+              </div>
+              <div>
+                <div className="font-display text-2xl">+200</div>
+                <div className="text-xs text-muted-foreground uppercase tracking-wider">players · 40 nationalities</div>
+              </div>
+            </div>
+          </div>
+
+          <div className="lg:col-span-5 relative">
+            <div className="absolute -top-6 -left-6 w-24 h-24 rounded-full bg-ball float-y" />
+            <div className="absolute -bottom-8 -right-4 w-16 h-16 rounded-full bg-pink float-y" style={{ animationDelay: "1.5s" }} />
+            <div className="relative rounded-3xl overflow-hidden border-4 border-ink shadow-[12px_12px_0_oklch(0.92_0.21_115)]">
+              <img src={posterAsset.url} alt="Youpi Multi Culti Tennis coach with international players" className="w-full h-auto block" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* MARQUEE */}
+      <section className="relative py-6 bg-ink text-background overflow-hidden border-y-4 border-clay">
+        <div className="marquee font-display text-4xl uppercase">
+          {[...Array(2)].map((_, i) => (
+            <div key={i} className="flex gap-12 items-center pr-12">
+              {LANGS.map((l) => (
+                <span key={`${i}-${l}`} className="flex items-center gap-12">
+                  <span>{l}</span>
+                  <span className="text-ball">●</span>
+                </span>
+              ))}
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* LESSONS */}
+      <section id="lessons" className="max-w-7xl mx-auto px-6 py-24">
+        <div className="flex items-end justify-between flex-wrap gap-6 mb-14">
+          <h2 className="text-5xl md:text-7xl font-display uppercase max-w-2xl">
+            Pick your <span className="text-court">game</span>.
+          </h2>
+          <p className="text-muted-foreground max-w-sm">
+            From your very first serve to tournament prep. All formats taught in English,
+            French, German and beyond.
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-3 gap-6">
+          {[
+            { tag: "Solo", title: "Private 1-on-1", price: "€60", desc: "60 min of focused coaching. You set the goals, we build the plan.", color: "bg-ball", icon: "🎾" },
+            { tag: "Squad", title: "Group lessons", price: "€25", desc: "Train with 3–5 players at your level. Drills, games, real matches.", color: "bg-pink", icon: "👯" },
+            { tag: "Kids", title: "Junior academy", price: "€20", desc: "Ages 6–14. Fun-first sessions building technique and confidence.", color: "bg-court", icon: "⭐" },
+          ].map((l) => (
+            <article key={l.title} className="group relative p-7 rounded-3xl bg-card border-2 border-ink/10 hover:border-ink transition hover:-translate-y-1 duration-300">
+              <div className={`absolute -top-5 -right-5 w-16 h-16 rounded-full ${l.color} grid place-items-center text-3xl shadow-lg`}>
+                {l.icon}
+              </div>
+              <div className="text-xs uppercase tracking-widest font-semibold text-clay mb-3">{l.tag}</div>
+              <h3 className="text-3xl mb-3">{l.title}</h3>
+              <p className="text-muted-foreground mb-6">{l.desc}</p>
+              <div className="flex items-baseline gap-1">
+                <span className="font-display text-4xl">{l.price}</span>
+                <span className="text-sm text-muted-foreground">/ session</span>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      {/* COACH */}
+      <section id="coach" className="relative max-w-7xl mx-auto px-6 py-24">
+        <div className="grid md:grid-cols-2 gap-12 items-center">
+          <div>
+            <div className="text-xs uppercase tracking-widest font-semibold text-clay mb-4">Meet your coach</div>
+            <h2 className="text-5xl md:text-6xl font-display uppercase mb-6">
+              One court.<br/>
+              <span className="text-pink">Every</span> language.
+            </h2>
+            <p className="text-muted-foreground text-lg mb-6">
+              Hey, I'm the founder of Youpi Multi Culti Tennis. Born in Paris, based in Berlin,
+              I've coached players from 40+ countries — pros, weekend warriors and total
+              beginners. I run sessions in <strong>EN · FR · DE · ES · IT</strong> and we always
+              find a way for everyone else.
+            </p>
+            <div className="flex flex-wrap gap-3">
+              {["DTB Certified", "ATP-level sparring", "10+ years coaching", "WTA player practice partner"].map((b) => (
+                <span key={b} className="px-4 py-2 rounded-full bg-muted text-sm font-medium">{b}</span>
+              ))}
+            </div>
+          </div>
+          <div className="relative">
+            <div className="grid grid-cols-2 gap-4">
+              {[
+                { n: "40+", l: "Nationalities" },
+                { n: "9", l: "Languages" },
+                { n: "12", l: "Courts in Berlin" },
+                { n: "7/7", l: "Days a week" },
+              ].map((s) => (
+                <div key={s.l} className="aspect-square rounded-3xl bg-card border-2 border-ink/10 p-6 flex flex-col justify-between hover:bg-ball hover:border-ink transition">
+                  <div className="font-display text-6xl">{s.n}</div>
+                  <div className="text-sm uppercase tracking-widest font-semibold">{s.l}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* PRICING / BOOK */}
+      <section id="pricing" className="max-w-7xl mx-auto px-6 py-24">
+        <div className="rounded-[2rem] bg-ink text-background p-10 md:p-16 relative overflow-hidden">
+          <div className="absolute -top-20 -right-20 w-80 h-80 rounded-full bg-court opacity-30 blur-3xl" />
+          <div className="absolute -bottom-20 -left-20 w-80 h-80 rounded-full bg-pink opacity-20 blur-3xl" />
+          <div className="relative grid md:grid-cols-2 gap-10 items-end">
+            <div>
+              <div className="text-ball text-xs uppercase tracking-widest font-semibold mb-4">Packs & passes</div>
+              <h2 className="text-5xl md:text-7xl font-display uppercase">
+                Play more,<br/>pay <span className="text-ball">less</span>.
+              </h2>
+            </div>
+            <div className="space-y-4">
+              {[
+                { n: "Discovery", p: "€45", d: "First lesson, half price. No commitment." },
+                { n: "10-pack", p: "€220", d: "10 group sessions. Use in 3 months." },
+                { n: "Unlimited", p: "€199 / mo", d: "All group classes + 1 private / month." },
+              ].map((p) => (
+                <div key={p.n} className="flex items-center justify-between p-5 rounded-2xl border border-background/15 hover:border-ball transition">
+                  <div>
+                    <div className="font-display text-2xl uppercase">{p.n}</div>
+                    <div className="text-sm text-background/60">{p.d}</div>
+                  </div>
+                  <div className="font-display text-3xl text-ball">{p.p}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* BOOK */}
+      <section id="book" className="max-w-3xl mx-auto px-6 py-24 text-center">
+        <h2 className="text-5xl md:text-7xl font-display uppercase mb-6">
+          Ready? <span className="text-clay">Los geht's.</span>
+        </h2>
+        <p className="text-muted-foreground text-lg mb-10">
+          Drop a line — name, level, preferred language. I'll come back within 24h with court
+          options near you.
+        </p>
+        <form
+          onSubmit={(e) => { e.preventDefault(); alert("Danke! We'll be in touch within 24h."); }}
+          className="grid gap-3 text-left"
+        >
+          <div className="grid md:grid-cols-2 gap-3">
+            <input required placeholder="Your name" className="px-5 py-4 rounded-2xl bg-card border-2 border-ink/10 focus:border-court outline-none transition" />
+            <input required type="email" placeholder="Email" className="px-5 py-4 rounded-2xl bg-card border-2 border-ink/10 focus:border-court outline-none transition" />
+          </div>
+          <select className="px-5 py-4 rounded-2xl bg-card border-2 border-ink/10 focus:border-court outline-none transition">
+            <option>I'm a total beginner</option>
+            <option>I've played casually before</option>
+            <option>Intermediate — I rally</option>
+            <option>Advanced / competitive</option>
+          </select>
+          <textarea rows={4} placeholder="Tell me about your goals (any language!)" className="px-5 py-4 rounded-2xl bg-card border-2 border-ink/10 focus:border-court outline-none transition" />
+          <button className="mt-2 px-7 py-5 rounded-2xl bg-court text-primary-foreground font-semibold text-lg hover:bg-ink transition">
+            Send & book my first lesson
+          </button>
+        </form>
+      </section>
+
+      {/* FAQ */}
+      <section id="faq" className="max-w-4xl mx-auto px-6 py-24">
+        <h2 className="text-5xl font-display uppercase mb-10">FAQ.</h2>
+        <div className="divide-y divide-border border-y border-border">
+          {[
+            { q: "Where do we play?", a: "Indoor & outdoor courts across Mitte, Kreuzberg, Prenzlauer Berg, Charlottenburg and Tempelhof." },
+            { q: "I don't speak German. Is that ok?", a: "Absolutely — most of our community is international. Lessons run in English by default." },
+            { q: "Do I need my own racket?", a: "Not for your first session. We bring spare rackets and all the balls you can hit." },
+            { q: "How do I pay?", a: "Card, SEPA, PayPal or cash on court. Packs are non-refundable but transferable." },
+          ].map((f) => (
+            <details key={f.q} className="group py-6 cursor-pointer">
+              <summary className="flex items-center justify-between font-display text-xl uppercase list-none">
+                {f.q}
+                <span className="text-clay text-3xl group-open:rotate-45 transition">+</span>
+              </summary>
+              <p className="mt-3 text-muted-foreground">{f.a}</p>
+            </details>
+          ))}
+        </div>
+      </section>
+
+      {/* FOOTER */}
+      <footer className="bg-ink text-background mt-12">
+        <div className="max-w-7xl mx-auto px-6 py-16 grid md:grid-cols-3 gap-10">
+          <div>
+            <div className="font-display text-3xl mb-3">YOUPI<span className="text-clay">.</span></div>
+            <p className="text-background/60 text-sm">Multi Culti Tennis · Berlin since 2019.</p>
+          </div>
+          <div className="text-sm space-y-2">
+            <div className="font-semibold uppercase tracking-widest text-ball mb-3 text-xs">Contact</div>
+            <div>hallo@youpitennis.berlin</div>
+            <div>+49 30 000 000</div>
+            <div>WhatsApp · Instagram @youpitennis</div>
+          </div>
+          <div className="text-sm space-y-2">
+            <div className="font-semibold uppercase tracking-widest text-ball mb-3 text-xs">Languages on court</div>
+            <div className="flex flex-wrap gap-2">
+              {FLAGS.map((f) => <span key={f} className="text-xl">{f}</span>)}
+            </div>
+          </div>
+        </div>
+        <div className="border-t border-background/10 py-5 text-center text-xs text-background/40">
+          © {new Date().getFullYear()} Youpi Multi Culti Tennis · Made with 🎾 in Berlin
+        </div>
+      </footer>
+    </main>
   );
 }
