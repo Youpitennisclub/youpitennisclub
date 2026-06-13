@@ -166,7 +166,7 @@ function Index() {
             <p className="text-muted-foreground text-lg mb-6">
               Hey, I'm the founder of Youpi Multi Culti Tennis. Born in Paris, based in Berlin,
               I've coached players from 40+ countries — pros, weekend warriors and total
-              beginners. I run sessions in <strong>EN · FR · DE · ES · IT</strong> and we always
+              beginners. I run sessions in <strong>English, French & German</strong> and we always
               find a way for everyone else.
             </p>
             <div className="flex flex-wrap gap-3">
