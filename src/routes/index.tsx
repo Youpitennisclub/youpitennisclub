@@ -190,7 +190,7 @@ function Index() {
           <article className="group relative p-8 rounded-3xl bg-card border-2 border-ink/10 hover:border-ink transition hover:-translate-y-1 duration-300">
             <div className="absolute -top-5 -right-5 w-16 h-16 rounded-full bg-ball grid place-items-center text-3xl shadow-lg">💑</div>
             <div className="text-xs uppercase tracking-widest font-semibold text-clay mb-3">Mixed Doubles</div>
-            <h3 className="text-3xl mb-3">Double mixte</h3>
+            <h3 className="text-3xl mb-3">Double mixt tournament</h3>
             <p className="text-muted-foreground mb-6">
               A fun, social mixed-doubles event where levels are balanced so every match is competitive.
               Great for meeting new people in Berlin's international crowd. Rotating partners,
@@ -219,7 +219,7 @@ function Index() {
               <span className="text-pink">One court,</span> three languages.
             </h2>
             <p className="text-muted-foreground text-lg mb-4">
-              I'm <strong>Youcef Chaouch</strong> — Franco-German lawyer turned full-time tennis
+              I'm <strong>Youpi</strong> — Franco-German lawyer turned full-time tennis
               coach in Berlin. Two Master's degrees in Franco-German law, then I put the robe down
               to chase the only thing I love more: tennis.
             </p>
