@@ -40,6 +40,7 @@ function Index() {
           </a>
           <nav className="hidden md:flex items-center gap-8 text-sm font-medium">
             <a href="#lessons" className="hover:text-clay transition">Lessons</a>
+            <a href="#club" className="hover:text-clay transition">Club</a>
             <a href="#events" className="hover:text-clay transition">Events</a>
             <a href="#coach" className="hover:text-clay transition">Coach</a>
             <a href="#pricing" className="hover:text-clay transition">Pricing</a>
@@ -135,9 +136,9 @@ function Index() {
 
         <div className="grid md:grid-cols-3 gap-6">
           {[
-            { tag: "Solo", title: "Private 1-on-1", price: "€60", desc: "60 min of focused coaching — beginner to advanced. Technique, tactics, match prep.", color: "bg-ball", icon: "🎾" },
-            { tag: "Squad", title: "Small group (2–4)", price: "€25", desc: "Train with friends at your level. Weekday afternoons & Saturdays in Berlin.", color: "bg-pink", icon: "👯" },
-            { tag: "Kids & Teams", title: "Juniors & team coaching", price: "€20", desc: "From WTA-500 kids events to Damen/Herren team coaching up to Meisterklasse.", color: "bg-court", icon: "⭐" },
+            { tag: "Solo", title: "Private 1-on-1", price: "€50", desc: "60 min of focused coaching — beginner to advanced. Technique, tactics, match prep.", color: "bg-ball", icon: "🎾" },
+            { tag: "Squad", title: "Group (3–6) · 90 min", price: "€19–28", desc: "Technique, tactics, match play. 90-min sessions from 3 players (€28→€19 as the group grows).", color: "bg-pink", icon: "👯" },
+            { tag: "Duo", title: "2-player · 60 min", price: "€25", desc: "Just two of you? Same energy, focused hour on court. Perfect with a friend or partner.", color: "bg-court", icon: "⚡" },
           ].map((l) => (
             <article key={l.title} className="group relative p-7 rounded-3xl bg-card border-2 border-ink/10 hover:border-ink transition hover:-translate-y-1 duration-300">
               <div className={`absolute -top-5 -right-5 w-16 h-16 rounded-full ${l.color} grid place-items-center text-3xl shadow-lg`}>
@@ -152,6 +153,81 @@ function Index() {
               </div>
             </article>
           ))}
+        </div>
+      </section>
+
+      {/* CLUB */}
+      <section id="club" className="max-w-7xl mx-auto px-6 py-24">
+        <div className="rounded-[2rem] bg-clay/10 border-2 border-clay/30 p-8 md:p-14">
+          <div className="grid lg:grid-cols-2 gap-12 items-start">
+            <div>
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-clay text-background text-xs font-semibold uppercase tracking-widest mb-6">
+                🧱 New home · Clay courts
+              </div>
+              <h2 className="text-5xl md:text-6xl font-display uppercase mb-6">
+                BFC Alemannia<br/>
+                <span className="text-clay">Tennis Club</span>.
+              </h2>
+              <p className="text-muted-foreground text-lg mb-6">
+                After scouting the whole city, I finally found the right home for us: outdoor
+                <strong> clay courts</strong> all summer until October, then indoor for the winter season.
+              </p>
+              <div className="space-y-3 text-ink">
+                <div className="flex gap-3"><span>📍</span><span>Ollenhauerstr. 64e, 13403 Berlin</span></div>
+                <div className="flex gap-3"><span>🚉</span><span>5 min walk from U8 & S25 — easy from all of Berlin</span></div>
+                <div className="flex gap-3"><span>🎾</span><span>Only ~150 members for 6 clay courts (+ 2 in renovation) = real court availability</span></div>
+                <div className="flex gap-3"><span>❄️</span><span>Winter season: coaching agreements with <strong>TC Longline</strong> & <strong>BFC Alemannia</strong> for extra flexibility</span></div>
+              </div>
+              <div className="mt-8 p-5 rounded-2xl bg-ball/40 border-2 border-ink">
+                <div className="font-display text-xl uppercase mb-2">Try before you join 🎁</div>
+                <p className="text-sm text-ink/80">
+                  Special deal with the club: attend <strong>2–3 training sessions</strong> before becoming a member.
+                  Discover the club, meet the crew, then decide.
+                </p>
+              </div>
+            </div>
+
+            <div>
+              <div className="text-xs uppercase tracking-widest font-semibold text-clay mb-4">Club membership</div>
+              <div className="rounded-2xl bg-card border-2 border-ink/10 overflow-hidden">
+                <div className="p-6 bg-ball/30 border-b-2 border-ink/10">
+                  <div className="font-display text-lg uppercase mb-3">Intro rates · First year</div>
+                  <div className="flex justify-between py-1.5"><span>Single</span><span className="font-display text-xl">€160</span></div>
+                  <div className="flex justify-between py-1.5"><span>Couple (same address)</span><span className="font-display text-xl">€290</span></div>
+                </div>
+                <div className="p-6">
+                  <div className="font-display text-lg uppercase mb-3">From year 2</div>
+                  <div className="flex justify-between py-1.5"><span>Single</span><span className="font-display text-xl">€320</span></div>
+                  <div className="flex justify-between py-1.5"><span>Couple</span><span className="font-display text-xl">€580</span></div>
+                  <div className="flex justify-between py-1.5"><span>Already member of another Berlin club</span><span className="font-display text-xl">€160</span></div>
+                </div>
+              </div>
+              <p className="text-sm text-muted-foreground mt-4">
+                Membership isn't just for training — it gives you <strong>unlimited access to the outdoor courts</strong>
+                to play with other members whenever you like.
+              </p>
+
+              <div className="mt-8 text-xs uppercase tracking-widest font-semibold text-clay mb-4">Group training rates · 90 min</div>
+              <div className="rounded-2xl bg-ink text-background p-6">
+                {[
+                  { n: "3 players", p: "€28 / pers" },
+                  { n: "4 players", p: "€25 / pers" },
+                  { n: "5 players", p: "€22 / pers" },
+                  { n: "6 players", p: "€19 / pers" },
+                  { n: "2 players (60 min)", p: "€25 / pers" },
+                  { n: "Private (60 min)", p: "€50" },
+                ].map((r) => (
+                  <div key={r.n} className="flex justify-between py-2 border-b border-background/10 last:border-0">
+                    <span className="text-background/80">{r.n}</span>
+                    <span className="font-display text-ball">{r.p}</span>
+                  </div>
+                ))}
+              </div>
+              <p className="text-xs text-muted-foreground mt-3">
+                90-min sessions require min. 3 players. With only 2 registered, the session runs 60 min.
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -340,8 +416,8 @@ function Index() {
               <p className="text-ink/80">Simple rules so everyone gets a fair, focused session on court.</p>
             </div>
             <ul className="space-y-4 text-ink">
-              <li className="flex gap-3"><span>✅</span><span><strong>1.5-hour sessions</strong> — enough time for warm-up, drills and match play.</span></li>
-              <li className="flex gap-3"><span>✅</span><span><strong>Minimum 2 students</strong> to confirm a group session.</span></li>
+              <li className="flex gap-3"><span>✅</span><span><strong>90-min group sessions</strong> from 3 players — plenty of time for drills, tactics and point play.</span></li>
+              <li className="flex gap-3"><span>✅</span><span><strong>Only 2 registered?</strong> Session runs 60 min instead of 90.</span></li>
               <li className="flex gap-3"><span>✅</span><span><strong>Cancellation:</strong> less than 24h before the session, the full fee is charged.</span></li>
               <li className="flex gap-3"><span>🌧️</span><span><strong>Rain policy:</strong> more than 50% played → no refund. Less than 50% → full refund or reschedule, your call.</span></li>
             </ul>
@@ -349,32 +425,39 @@ function Index() {
         </div>
       </section>
 
-      {/* PRICING / BOOK */}
+      {/* WINTER SEASON */}
       <section id="pricing" className="max-w-7xl mx-auto px-6 py-24">
         <div className="rounded-[2rem] bg-ink text-background p-10 md:p-16 relative overflow-hidden">
           <div className="absolute -top-20 -right-20 w-80 h-80 rounded-full bg-court opacity-30 blur-3xl" />
           <div className="absolute -bottom-20 -left-20 w-80 h-80 rounded-full bg-pink opacity-20 blur-3xl" />
-          <div className="relative grid md:grid-cols-2 gap-10 items-end">
+          <div className="relative grid md:grid-cols-2 gap-10 items-center">
             <div>
-              <div className="text-ball text-xs uppercase tracking-widest font-semibold mb-4">Packs & passes</div>
+              <div className="text-ball text-xs uppercase tracking-widest font-semibold mb-4">❄️ Coming up</div>
               <h2 className="text-5xl md:text-7xl font-display uppercase">
-                Play more,<br/>pay <span className="text-ball">less</span>.
+                Winter<br/>season<span className="text-ball">.</span>
               </h2>
+              <p className="mt-6 text-background/70 text-lg max-w-md">
+                Starting <strong className="text-ball">October</strong> — indoor courts, new schedule, new groups.
+                Full details drop very soon.
+              </p>
             </div>
             <div className="space-y-4">
               {[
-                { n: "Discovery", p: "€45", d: "First lesson, half price. No commitment." },
-                { n: "10-pack", p: "€220", d: "10 group sessions. Use in 3 months." },
-                { n: "Unlimited", p: "€199 / mo", d: "All group classes + 1 private / month." },
+                { n: "TC Longline", d: "Winter coaching agreement — extra indoor slots." },
+                { n: "BFC Alemannia", d: "Indoor courts on our home base." },
+                { n: "More flexibility", d: "Two venues = more times, more options for you." },
               ].map((p) => (
                 <div key={p.n} className="flex items-center justify-between p-5 rounded-2xl border border-background/15 hover:border-ball transition">
                   <div>
                     <div className="font-display text-2xl uppercase">{p.n}</div>
                     <div className="text-sm text-background/60">{p.d}</div>
                   </div>
-                  <div className="font-display text-3xl text-ball">{p.p}</div>
+                  <div className="font-display text-3xl text-ball">🎾</div>
                 </div>
               ))}
+              <a href="#book" className="block text-center mt-4 px-7 py-4 rounded-full bg-ball text-ink font-semibold hover:bg-background transition">
+                Get on the winter list →
+              </a>
             </div>
           </div>
         </div>
