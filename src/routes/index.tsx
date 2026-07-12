@@ -416,8 +416,8 @@ function Index() {
               <p className="text-ink/80">Simple rules so everyone gets a fair, focused session on court.</p>
             </div>
             <ul className="space-y-4 text-ink">
-              <li className="flex gap-3"><span>✅</span><span><strong>1.5-hour sessions</strong> — enough time for warm-up, drills and match play.</span></li>
-              <li className="flex gap-3"><span>✅</span><span><strong>Minimum 2 students</strong> to confirm a group session.</span></li>
+              <li className="flex gap-3"><span>✅</span><span><strong>90-min group sessions</strong> from 3 players — plenty of time for drills, tactics and point play.</span></li>
+              <li className="flex gap-3"><span>✅</span><span><strong>Only 2 registered?</strong> Session runs 60 min instead of 90.</span></li>
               <li className="flex gap-3"><span>✅</span><span><strong>Cancellation:</strong> less than 24h before the session, the full fee is charged.</span></li>
               <li className="flex gap-3"><span>🌧️</span><span><strong>Rain policy:</strong> more than 50% played → no refund. Less than 50% → full refund or reschedule, your call.</span></li>
             </ul>
