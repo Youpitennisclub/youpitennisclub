@@ -40,6 +40,7 @@ function Index() {
           </a>
           <nav className="hidden md:flex items-center gap-8 text-sm font-medium">
             <a href="#lessons" className="hover:text-clay transition">Lessons</a>
+            <a href="#club" className="hover:text-clay transition">Club</a>
             <a href="#events" className="hover:text-clay transition">Events</a>
             <a href="#coach" className="hover:text-clay transition">Coach</a>
             <a href="#pricing" className="hover:text-clay transition">Pricing</a>
