@@ -284,6 +284,71 @@ function Index() {
         </div>
       </section>
 
+      {/* MANIFESTO */}
+      <section className="max-w-7xl mx-auto px-6 py-24">
+        <div className="grid md:grid-cols-2 gap-12 items-start">
+          <div>
+            <div className="text-xs uppercase tracking-widest font-semibold text-clay mb-4">Why Youpi</div>
+            <h2 className="text-5xl md:text-6xl font-display uppercase mb-6">
+              No place in a club?<br/>
+              <span className="text-clay">Tired of ball-feeders?</span>
+            </h2>
+            <p className="text-muted-foreground text-lg mb-4">
+              You don't need to wait for a spot at a Berlin club, and you don't have to settle for a
+              coach who just feeds balls and never corrects your technique. Whether you want to
+              start from zero or take your game to the next level — I'm here for it. 💪🎾
+            </p>
+            <p className="text-muted-foreground text-lg mb-4">
+              🌍 Join our <strong>multicultural tennis classes</strong> and meet players from all over the
+              world in a fun, friendly and supportive atmosphere. 🗣️ Lessons in fluent
+              <strong> English, French & German</strong> so every player feels at home on court.
+            </p>
+            <p className="text-muted-foreground text-lg">
+              💡 Technique, motivation and a real connection between coach and student — that's what
+              makes progress stick and keeps the game fun. 🤝 I'm always open to feedback and
+              committed to helping you improve while enjoying every session.
+            </p>
+          </div>
+          <div className="space-y-4">
+            {[
+              { i: "🎾", t: "Personalized coaching", d: "Every session is built around your level, your goals, and the parts of your game you actually want to fix." },
+              { i: "🌍", t: "Truly multicultural", d: "Berlin's international crowd on one court — new friends, new rally partners, zero cliques." },
+              { i: "💬", t: "Two-way process", d: "Great coaching is a conversation. Tell me what works, what doesn't, and we adjust." },
+              { i: "🔥", t: "Passion first", d: "I left law for this. Expect energy, focus and a coach who actually cares if you improve." },
+            ].map((x) => (
+              <div key={x.t} className="flex gap-4 p-5 rounded-2xl bg-card border-2 border-ink/10 hover:border-ink transition">
+                <div className="text-3xl">{x.i}</div>
+                <div>
+                  <div className="font-display text-xl uppercase mb-1">{x.t}</div>
+                  <div className="text-sm text-muted-foreground">{x.d}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* GOOD TO KNOW */}
+      <section className="max-w-7xl mx-auto px-6 py-16">
+        <div className="rounded-3xl bg-ball/40 border-2 border-ink p-8 md:p-12">
+          <div className="grid md:grid-cols-2 gap-10">
+            <div>
+              <div className="text-xs uppercase tracking-widest font-semibold text-clay mb-4">Good to know</div>
+              <h2 className="text-4xl md:text-5xl font-display uppercase mb-4">
+                How it <span className="text-clay">works</span>.
+              </h2>
+              <p className="text-ink/80">Simple rules so everyone gets a fair, focused session on court.</p>
+            </div>
+            <ul className="space-y-4 text-ink">
+              <li className="flex gap-3"><span>✅</span><span><strong>1.5-hour sessions</strong> — enough time for warm-up, drills and match play.</span></li>
+              <li className="flex gap-3"><span>✅</span><span><strong>Minimum 2 students</strong> to confirm a group session.</span></li>
+              <li className="flex gap-3"><span>✅</span><span><strong>Cancellation:</strong> less than 24h before the session, the full fee is charged.</span></li>
+              <li className="flex gap-3"><span>🌧️</span><span><strong>Rain policy:</strong> more than 50% played → no refund. Less than 50% → full refund or reschedule, your call.</span></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
       {/* PRICING / BOOK */}
       <section id="pricing" className="max-w-7xl mx-auto px-6 py-24">
         <div className="rounded-[2rem] bg-ink text-background p-10 md:p-16 relative overflow-hidden">
