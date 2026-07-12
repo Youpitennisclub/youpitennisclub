@@ -136,9 +136,9 @@ function Index() {
 
         <div className="grid md:grid-cols-3 gap-6">
           {[
-            { tag: "Solo", title: "Private 1-on-1", price: "€60", desc: "60 min of focused coaching — beginner to advanced. Technique, tactics, match prep.", color: "bg-ball", icon: "🎾" },
-            { tag: "Squad", title: "Small group (2–4)", price: "€25", desc: "Train with friends at your level. Weekday afternoons & Saturdays in Berlin.", color: "bg-pink", icon: "👯" },
-            { tag: "Kids & Teams", title: "Juniors & team coaching", price: "€20", desc: "From WTA-500 kids events to Damen/Herren team coaching up to Meisterklasse.", color: "bg-court", icon: "⭐" },
+            { tag: "Solo", title: "Private 1-on-1", price: "€50", desc: "60 min of focused coaching — beginner to advanced. Technique, tactics, match prep.", color: "bg-ball", icon: "🎾" },
+            { tag: "Squad", title: "Group (3–6) · 90 min", price: "€19–28", desc: "Technique, tactics, match play. 90-min sessions from 3 players (€28→€19 as the group grows).", color: "bg-pink", icon: "👯" },
+            { tag: "Duo", title: "2-player · 60 min", price: "€25", desc: "Just two of you? Same energy, focused hour on court. Perfect with a friend or partner.", color: "bg-court", icon: "⚡" },
           ].map((l) => (
             <article key={l.title} className="group relative p-7 rounded-3xl bg-card border-2 border-ink/10 hover:border-ink transition hover:-translate-y-1 duration-300">
               <div className={`absolute -top-5 -right-5 w-16 h-16 rounded-full ${l.color} grid place-items-center text-3xl shadow-lg`}>
