@@ -425,32 +425,39 @@ function Index() {
         </div>
       </section>
 
-      {/* PRICING / BOOK */}
+      {/* WINTER SEASON */}
       <section id="pricing" className="max-w-7xl mx-auto px-6 py-24">
         <div className="rounded-[2rem] bg-ink text-background p-10 md:p-16 relative overflow-hidden">
           <div className="absolute -top-20 -right-20 w-80 h-80 rounded-full bg-court opacity-30 blur-3xl" />
           <div className="absolute -bottom-20 -left-20 w-80 h-80 rounded-full bg-pink opacity-20 blur-3xl" />
-          <div className="relative grid md:grid-cols-2 gap-10 items-end">
+          <div className="relative grid md:grid-cols-2 gap-10 items-center">
             <div>
-              <div className="text-ball text-xs uppercase tracking-widest font-semibold mb-4">Packs & passes</div>
+              <div className="text-ball text-xs uppercase tracking-widest font-semibold mb-4">❄️ Coming up</div>
               <h2 className="text-5xl md:text-7xl font-display uppercase">
-                Play more,<br/>pay <span className="text-ball">less</span>.
+                Winter<br/>season<span className="text-ball">.</span>
               </h2>
+              <p className="mt-6 text-background/70 text-lg max-w-md">
+                Starting <strong className="text-ball">October</strong> — indoor courts, new schedule, new groups.
+                Full details drop very soon.
+              </p>
             </div>
             <div className="space-y-4">
               {[
-                { n: "Discovery", p: "€45", d: "First lesson, half price. No commitment." },
-                { n: "10-pack", p: "€220", d: "10 group sessions. Use in 3 months." },
-                { n: "Unlimited", p: "€199 / mo", d: "All group classes + 1 private / month." },
+                { n: "TC Longline", d: "Winter coaching agreement — extra indoor slots." },
+                { n: "BFC Alemannia", d: "Indoor courts on our home base." },
+                { n: "More flexibility", d: "Two venues = more times, more options for you." },
               ].map((p) => (
                 <div key={p.n} className="flex items-center justify-between p-5 rounded-2xl border border-background/15 hover:border-ball transition">
                   <div>
                     <div className="font-display text-2xl uppercase">{p.n}</div>
                     <div className="text-sm text-background/60">{p.d}</div>
                   </div>
-                  <div className="font-display text-3xl text-ball">{p.p}</div>
+                  <div className="font-display text-3xl text-ball">🎾</div>
                 </div>
               ))}
+              <a href="#book" className="block text-center mt-4 px-7 py-4 rounded-full bg-ball text-ink font-semibold hover:bg-background transition">
+                Get on the winter list →
+              </a>
             </div>
           </div>
         </div>
