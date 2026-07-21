@@ -370,20 +370,41 @@ function Index() {
               <span className="text-clay">Tired of ball-feeders?</span>
             </h2>
             <p className="text-muted-foreground text-lg mb-4">
-              You don't need to wait for a spot at a Berlin club, and you don't have to settle for a
-              coach who just feeds balls and never corrects your technique. Whether you want to
-              start from zero or take your game to the next level — I'm here for it. 💪🎾
+              <strong>No place in a Berlin tennis club?</strong> Tired of coaches who just{" "}
+              <strong>feed balls</strong> and rarely correct your technique? Whether you want to{" "}
+              <strong>learn tennis from scratch</strong> or <strong>take your game to the next level</strong>{" "}
+              with a passionate and dedicated coach — I'm here for it. 💪🎾
             </p>
             <p className="text-muted-foreground text-lg mb-4">
-              🌍 Join our <strong>multicultural tennis classes</strong> and meet players from all over the
-              world in a fun, friendly and supportive atmosphere. 🗣️ Lessons in fluent
-              <strong> English, French & German</strong> so every player feels at home on court.
+              🌍 Join our <strong>multicultural tennis classes</strong> and meet students from all over the
+              world in a fun, friendly and supportive atmosphere. 🗣️ I speak fluent{" "}
+              <strong>English, French & German</strong>, so players from every background feel at
+              home on court.
             </p>
-            <p className="text-muted-foreground text-lg">
-              💡 Technique, motivation and a real connection between coach and student — that's what
-              makes progress stick and keeps the game fun. 🤝 I'm always open to feedback and
-              committed to helping you improve while enjoying every session.
+            <p className="text-muted-foreground text-lg mb-6">
+              💡 <strong>Technique</strong>, <strong>motivation</strong> and a real{" "}
+              <strong>coach–student connection</strong> are the keys to real progress and to
+              actually enjoying the game. 🤝 Great coaching is a{" "}
+              <strong>two-way process</strong> — I'm approachable, open to feedback, and committed
+              to helping you improve every session.
             </p>
+            <div className="flex flex-wrap gap-2">
+              {[
+                "Tennis lessons Berlin",
+                "Multicultural",
+                "EN · FR · DE",
+                "Personalized coaching",
+                "Technique & tactics",
+                "Beginner to advanced",
+                "Clay courts",
+                "Passionate coach",
+              ].map((k) => (
+                <span key={k} className="px-3 py-1.5 rounded-full bg-ball/60 border border-ink/20 text-xs font-semibold uppercase tracking-wide">
+                  #{k}
+                </span>
+              ))}
+            </div>
+
           </div>
           <div className="space-y-4">
             {[
