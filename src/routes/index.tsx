@@ -192,7 +192,7 @@ function Index() {
               <div className="rounded-2xl bg-ball/30 border-2 border-ink/10 p-6">
                 <div className="font-display text-lg uppercase mb-3">Intro rates · First year</div>
                 <div className="flex justify-between py-1.5"><span>Single</span><span className="font-display text-xl">€160</span></div>
-                <div className="flex justify-between py-1.5 border-b-2 border-ink/10 mb-3 pb-3"><span>Couple (same address)</span><span className="font-display text-xl">€290</span></div>
+                <div className="border-b-2 border-ink/10 mb-3 pb-3"></div>
                 <div className="font-display text-lg uppercase mb-3">From year 2</div>
                 <div className="flex justify-between py-1.5"><span>Single</span><span className="font-display text-xl">€320</span></div>
                 <div className="flex justify-between py-1.5"><span>Couple</span><span className="font-display text-xl">€580</span></div>
