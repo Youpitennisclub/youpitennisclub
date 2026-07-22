@@ -227,27 +227,8 @@ function Index() {
                 Membership isn't just for training — it gives you <strong>unlimited access to the outdoor courts</strong>
                 to play with other members whenever you like.
               </p>
-
-              <div className="mt-8 text-xs uppercase tracking-widest font-semibold text-clay mb-4">Group training rates · 90 min</div>
-              <div className="rounded-2xl bg-ink text-background p-6">
-                {[
-                  { n: "3 players", p: "€28 / pers" },
-                  { n: "4 players", p: "€25 / pers" },
-                  { n: "5 players", p: "€22 / pers" },
-                  { n: "6 players", p: "€19 / pers" },
-                  { n: "2 players (60 min)", p: "€25 / pers" },
-                  { n: "Private (60 min)", p: "€50" },
-                ].map((r) => (
-                  <div key={r.n} className="flex justify-between py-2 border-b border-background/10 last:border-0">
-                    <span className="text-background/80">{r.n}</span>
-                    <span className="font-display text-ball">{r.p}</span>
-                  </div>
-                ))}
-              </div>
-              <p className="text-xs text-muted-foreground mt-3">
-                90-min sessions require min. 3 players. With only 2 registered, the session runs 60 min.
-              </p>
             </div>
+
           </div>
         </div>
       </section>
