@@ -134,39 +134,71 @@ function Index() {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-6">
-          {[
-            { tag: "Solo", title: "Private 1-on-1", price: "€50", desc: "60 min of focused coaching — beginner to advanced. Technique, tactics, match prep.", color: "bg-ball", icon: "🎾", unit: "/ session" },
-            {
-              tag: "Squad",
-              title: "Group · 90 min",
-              price: "€19–37",
-              desc: "Technique, tactics, match play. The bigger the squad, the cheaper per player.",
-              color: "bg-pink",
-              icon: "👯",
-              unit: "/ pers",
-              rates: [
-                { n: "2 players", p: "€37" },
-                { n: "3 players", p: "€28" },
-                { n: "4 players", p: "€25" },
-                { n: "5 players", p: "€22" },
-                { n: "6 players", p: "€19" },
-              ] as { n: string; p: string }[] | undefined,
-            },
-            { tag: "Duo", title: "2-player · 60 min", price: "€25", desc: "Just two of you? Same energy, focused hour on court. Perfect with a friend or partner.", color: "bg-court", icon: "⚡", unit: "/ pers" },
-          ].map((l) => (
-            <article key={l.title} className="group relative p-7 rounded-3xl bg-card border-2 border-ink/10 hover:border-ink transition hover:-translate-y-1 duration-300">
-              <div className={`absolute -top-5 -right-5 w-16 h-16 rounded-full ${l.color} grid place-items-center text-3xl shadow-lg`}>
-                {l.icon}
-              </div>
-              <div className="text-xs uppercase tracking-widest font-semibold text-clay mb-3">{l.tag}</div>
-              <h3 className="text-3xl mb-3">{l.title}</h3>
-              <p className="text-muted-foreground mb-6">{l.desc}</p>
-              <div className="flex items-baseline gap-1">
-                <span className="font-display text-4xl">{l.price}</span>
-                <span className="text-sm text-muted-foreground">{l.unit}</span>
-              </div>
-              {"rates" in l && l.rates && (
+        <div className="grid lg:grid-cols-3 gap-6">
+          {/* Left column: Solo + Duo stacked */}
+          <div className="flex flex-col gap-6">
+            {[
+              { tag: "Solo", title: "Private 1-on-1", price: "€50", desc: "60 min of focused coaching — beginner to advanced. Technique, tactics, match prep.", color: "bg-ball", icon: "🎾", unit: "/ session" },
+              { tag: "Duo", title: "2-player · 60 min", price: "€25", desc: "Just two of you? Same energy, focused hour on court. Perfect with a friend or partner.", color: "bg-court", icon: "⚡", unit: "/ pers" },
+            ].map((l) => (
+              <article key={l.title} className="group relative p-7 rounded-3xl bg-card border-2 border-ink/10 hover:border-ink transition hover:-translate-y-1 duration-300 flex-1">
+                <div className={`absolute -top-5 -right-5 w-16 h-16 rounded-full ${l.color} grid place-items-center text-3xl shadow-lg`}>
+                  {l.icon}
+                </div>
+                <div className="text-xs uppercase tracking-widest font-semibold text-clay mb-3">{l.tag}</div>
+                <h3 className="text-3xl mb-3">{l.title}</h3>
+                <p className="text-muted-foreground mb-6">{l.desc}</p>
+                <div className="flex items-baseline gap-1">
+                  <span className="font-display text-4xl">{l.price}</span>
+                  <span className="text-sm text-muted-foreground">{l.unit}</span>
+                </div>
+              </article>
+            ))}
+          </div>
+
+          {/* Squad 90 min & Squad 60 min side by side (span 2 cols on lg) */}
+          <div className="lg:col-span-2 grid md:grid-cols-2 gap-6">
+            {[
+              {
+                title: "Group · 90 min",
+                price: "€19–37",
+                desc: "Full session for technique, tactics and match play. The bigger the squad, the cheaper per player.",
+                color: "bg-pink",
+                icon: "👯",
+                rates: [
+                  { n: "2 players", p: "€37" },
+                  { n: "3 players", p: "€28" },
+                  { n: "4 players", p: "€25" },
+                  { n: "5 players", p: "€22" },
+                  { n: "6 players", p: "€19" },
+                ],
+              },
+              {
+                title: "Group · 60 min",
+                price: "€13–25",
+                desc: "Shorter, punchier version — great for lunch breaks or a quick after-work hit.",
+                color: "bg-court",
+                icon: "⚡",
+                rates: [
+                  { n: "2 players", p: "€25" },
+                  { n: "3 players", p: "€19" },
+                  { n: "4 players", p: "€17" },
+                  { n: "5 players", p: "€15" },
+                  { n: "6 players", p: "€13" },
+                ],
+              },
+            ].map((l) => (
+              <article key={l.title} className="group relative p-7 rounded-3xl bg-card border-2 border-ink/10 hover:border-ink transition hover:-translate-y-1 duration-300">
+                <div className={`absolute -top-5 -right-5 w-16 h-16 rounded-full ${l.color} grid place-items-center text-3xl shadow-lg`}>
+                  {l.icon}
+                </div>
+                <div className="text-xs uppercase tracking-widest font-semibold text-clay mb-3">Squad</div>
+                <h3 className="text-3xl mb-3">{l.title}</h3>
+                <p className="text-muted-foreground mb-6">{l.desc}</p>
+                <div className="flex items-baseline gap-1">
+                  <span className="font-display text-4xl">{l.price}</span>
+                  <span className="text-sm text-muted-foreground">/ pers</span>
+                </div>
                 <ul className="mt-5 rounded-2xl bg-ink text-background p-4 space-y-1.5">
                   {l.rates.map((r) => (
                     <li key={r.n} className="flex justify-between text-sm">
@@ -175,9 +207,9 @@ function Index() {
                     </li>
                   ))}
                 </ul>
-              )}
-            </article>
-          ))}
+              </article>
+            ))}
+          </div>
         </div>
       </section>
 
