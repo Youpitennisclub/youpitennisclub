@@ -1,5 +1,6 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import posterAsset from "@/assets/poster-hero.png.asset.json";
+
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -46,9 +47,10 @@ function Index() {
             <a href="#pricing" className="hover:text-clay transition">Pricing</a>
             <a href="#faq" className="hover:text-clay transition">FAQ</a>
           </nav>
-          <a href="#book" className="px-5 py-2.5 rounded-full bg-ink text-background text-sm font-semibold hover:bg-clay transition">
+          <Link to="/book" className="px-5 py-2.5 rounded-full bg-ink text-background text-sm font-semibold hover:bg-clay transition">
             Book a lesson
-          </a>
+          </Link>
+
         </div>
       </header>
 
@@ -76,13 +78,14 @@ function Index() {
               Berlin — taught in nine languages, played on every surface.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <a href="#book" className="px-7 py-4 rounded-full bg-court text-primary-foreground font-semibold hover:bg-ink transition">
-                Reserve a spot
-              </a>
+              <Link to="/book" className="px-7 py-4 rounded-full bg-court text-primary-foreground font-semibold hover:bg-ink transition">
+                Book your tennis session 🎾
+              </Link>
               <a href="#lessons" className="px-7 py-4 rounded-full border-2 border-ink/15 font-semibold hover:border-clay hover:text-clay transition">
                 See lessons →
               </a>
             </div>
+
             <div className="mt-10 flex items-center gap-6">
               <div className="flex -space-x-2 text-2xl">
                 {FLAGS.slice(0, 6).map((f) => (
@@ -506,43 +509,41 @@ function Index() {
                   <div className="font-display text-3xl text-ball">🎾</div>
                 </div>
               ))}
-              <a href="#book" className="block text-center mt-4 px-7 py-4 rounded-full bg-ball text-ink font-semibold hover:bg-background transition">
+              <Link to="/book" className="block text-center mt-4 px-7 py-4 rounded-full bg-ball text-ink font-semibold hover:bg-background transition">
                 Get on the winter list →
-              </a>
+              </Link>
+
             </div>
           </div>
         </div>
       </section>
 
-      {/* BOOK */}
-      <section id="book" className="max-w-3xl mx-auto px-6 py-24 text-center">
-        <h2 className="text-5xl md:text-7xl font-display uppercase mb-6">
-          Ready? <span className="text-clay">Los geht's.</span>
-        </h2>
-        <p className="text-muted-foreground text-lg mb-10">
-          Drop a line — name, level, preferred language. I'll come back within 24h with court
-          options near you.
-        </p>
-        <form
-          onSubmit={(e) => { e.preventDefault(); alert("Danke! We'll be in touch within 24h."); }}
-          className="grid gap-3 text-left"
-        >
-          <div className="grid md:grid-cols-2 gap-3">
-            <input required placeholder="Your name" className="px-5 py-4 rounded-2xl bg-card border-2 border-ink/10 focus:border-court outline-none transition" />
-            <input required type="email" placeholder="Email" className="px-5 py-4 rounded-2xl bg-card border-2 border-ink/10 focus:border-court outline-none transition" />
+      {/* BOOK CTA */}
+      <section id="book" className="max-w-4xl mx-auto px-6 py-24">
+        <div className="relative rounded-3xl bg-ink text-background overflow-hidden p-10 md:p-16 text-center">
+          <div className="absolute -top-10 -right-10 w-40 h-40 rounded-full bg-ball ball-spin opacity-90" />
+          <div className="absolute -bottom-14 -left-14 w-52 h-52 rounded-full bg-clay/30 blur-2xl" />
+          <div className="relative">
+            <h2 className="text-5xl md:text-7xl font-display uppercase mb-6">
+              Ready? <span className="text-ball">Los geht's.</span>
+            </h2>
+            <p className="text-background/70 text-lg mb-10 max-w-xl mx-auto">
+              Pick your slot, choose your level, and lock it in. Instant confirmation — no
+              back-and-forth.
+            </p>
+            <Link
+              to="/book"
+              className="inline-block px-10 py-5 rounded-full bg-ball text-ink font-semibold text-xl hover:bg-background transition shadow-xl"
+            >
+              Book your tennis session 🎾
+            </Link>
+            <p className="mt-6 text-sm text-background/60">
+              Mon–Fri from 5&nbsp;PM · Sat 10&nbsp;AM–4&nbsp;PM · 90 min sessions
+            </p>
           </div>
-          <select className="px-5 py-4 rounded-2xl bg-card border-2 border-ink/10 focus:border-court outline-none transition">
-            <option>I'm a total beginner</option>
-            <option>I've played casually before</option>
-            <option>Intermediate — I rally</option>
-            <option>Advanced / competitive</option>
-          </select>
-          <textarea rows={4} placeholder="Tell me about your goals (any language!)" className="px-5 py-4 rounded-2xl bg-card border-2 border-ink/10 focus:border-court outline-none transition" />
-          <button className="mt-2 px-7 py-5 rounded-2xl bg-court text-primary-foreground font-semibold text-lg hover:bg-ink transition">
-            Send & book my first lesson
-          </button>
-        </form>
+        </div>
       </section>
+
 
       {/* FAQ */}
       <section id="faq" className="max-w-4xl mx-auto px-6 py-24">
