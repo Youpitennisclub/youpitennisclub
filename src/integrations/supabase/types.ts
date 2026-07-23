@@ -14,16 +14,68 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      bookings: {
+        Row: {
+          created_at: string
+          email: string
+          first_name: string
+          id: string
+          last_name: string
+          level: Database["public"]["Enums"]["tennis_level"]
+          phone: string
+          starts_at: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          first_name: string
+          id?: string
+          last_name: string
+          level: Database["public"]["Enums"]["tennis_level"]
+          phone: string
+          starts_at: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          first_name?: string
+          id?: string
+          last_name?: string
+          level?: Database["public"]["Enums"]["tennis_level"]
+          phone?: string
+          starts_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
-      [_ in never]: never
+      bookings_public: {
+        Row: {
+          first_name: string | null
+          last_initials: string | null
+          level: Database["public"]["Enums"]["tennis_level"] | null
+          starts_at: string | null
+        }
+        Insert: {
+          first_name?: string | null
+          last_initials?: never
+          level?: Database["public"]["Enums"]["tennis_level"] | null
+          starts_at?: string | null
+        }
+        Update: {
+          first_name?: string | null
+          last_initials?: never
+          level?: Database["public"]["Enums"]["tennis_level"] | null
+          starts_at?: string | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      tennis_level: "beginner" | "intermediate" | "advanced"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +202,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      tennis_level: ["beginner", "intermediate", "advanced"],
+    },
   },
 } as const
