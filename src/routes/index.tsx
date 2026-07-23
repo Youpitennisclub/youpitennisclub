@@ -47,9 +47,10 @@ function Index() {
             <a href="#pricing" className="hover:text-clay transition">Pricing</a>
             <a href="#faq" className="hover:text-clay transition">FAQ</a>
           </nav>
-          <a href="#book" className="px-5 py-2.5 rounded-full bg-ink text-background text-sm font-semibold hover:bg-clay transition">
+          <Link to="/book" className="px-5 py-2.5 rounded-full bg-ink text-background text-sm font-semibold hover:bg-clay transition">
             Book a lesson
-          </a>
+          </Link>
+
         </div>
       </header>
 
