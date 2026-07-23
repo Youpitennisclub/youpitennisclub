@@ -509,9 +509,10 @@ function Index() {
                   <div className="font-display text-3xl text-ball">🎾</div>
                 </div>
               ))}
-              <a href="#book" className="block text-center mt-4 px-7 py-4 rounded-full bg-ball text-ink font-semibold hover:bg-background transition">
+              <Link to="/book" className="block text-center mt-4 px-7 py-4 rounded-full bg-ball text-ink font-semibold hover:bg-background transition">
                 Get on the winter list →
-              </a>
+              </Link>
+
             </div>
           </div>
         </div>
