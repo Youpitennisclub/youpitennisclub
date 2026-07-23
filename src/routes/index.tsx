@@ -78,13 +78,14 @@ function Index() {
               Berlin — taught in nine languages, played on every surface.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <a href="#book" className="px-7 py-4 rounded-full bg-court text-primary-foreground font-semibold hover:bg-ink transition">
-                Reserve a spot
-              </a>
+              <Link to="/book" className="px-7 py-4 rounded-full bg-court text-primary-foreground font-semibold hover:bg-ink transition">
+                Book your tennis session 🎾
+              </Link>
               <a href="#lessons" className="px-7 py-4 rounded-full border-2 border-ink/15 font-semibold hover:border-clay hover:text-clay transition">
                 See lessons →
               </a>
             </div>
+
             <div className="mt-10 flex items-center gap-6">
               <div className="flex -space-x-2 text-2xl">
                 {FLAGS.slice(0, 6).map((f) => (
