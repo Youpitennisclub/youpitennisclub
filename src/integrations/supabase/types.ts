@@ -49,30 +49,18 @@ export type Database = {
       }
     }
     Views: {
-      bookings_public: {
-        Row: {
-          first_name: string | null
-          last_initials: string | null
-          level: Database["public"]["Enums"]["tennis_level"] | null
-          starts_at: string | null
-        }
-        Insert: {
-          first_name?: string | null
-          last_initials?: never
-          level?: Database["public"]["Enums"]["tennis_level"] | null
-          starts_at?: string | null
-        }
-        Update: {
-          first_name?: string | null
-          last_initials?: never
-          level?: Database["public"]["Enums"]["tennis_level"] | null
-          starts_at?: string | null
-        }
-        Relationships: []
-      }
+      [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      get_public_bookings: {
+        Args: { from_ts: string }
+        Returns: {
+          first_name: string
+          last_initials: string
+          level: Database["public"]["Enums"]["tennis_level"]
+          starts_at: string
+        }[]
+      }
     }
     Enums: {
       tennis_level: "beginner" | "intermediate" | "advanced"
