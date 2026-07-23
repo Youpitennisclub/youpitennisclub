@@ -128,10 +128,6 @@ function Index() {
           <h2 className="text-5xl md:text-7xl font-display uppercase max-w-2xl">
             Pick your <span className="text-court">game</span>.
           </h2>
-          <p className="text-muted-foreground max-w-sm">
-            From your very first serve to tournament prep. All formats taught in English,
-            French, German and beyond.
-          </p>
         </div>
 
         <div className="grid lg:grid-cols-3 gap-6">
@@ -293,7 +289,7 @@ function Index() {
             <ul className="mt-4 space-y-1 text-sm text-muted-foreground">
               <li className="flex gap-2"><span className="text-ball">✓</span> Groups of 2–6 people</li>
               <li className="flex gap-2"><span className="text-ball">✓</span> Tue / Wed / Thu after 18h</li>
-              <li className="flex gap-2"><span className="text-ball">✓</span> Fun drills + mini-tournament</li>
+              
             </ul>
           </article>
 
@@ -325,7 +321,7 @@ function Index() {
           <div>
             <div className="text-xs uppercase tracking-widest font-semibold text-clay mb-4">Meet your coach</div>
             <h2 className="text-5xl md:text-6xl font-display uppercase mb-6">
-              Youcef.<br/>
+              Youpi.<br/>
               <span className="text-pink">One court,</span> three languages.
             </h2>
             <p className="text-muted-foreground text-lg mb-4">
@@ -578,8 +574,8 @@ function Index() {
           </div>
           <div className="text-sm space-y-2">
             <div className="font-semibold uppercase tracking-widest text-ball mb-3 text-xs">Contact</div>
-            <div>hallo@youpitennis.berlin</div>
-            <div>Youcef · +49 176 45689622</div>
+            <div>chaouchyoucef@yahoo.com</div>
+            <div>Youpi · +49 176 45689622</div>
             <div>WhatsApp · Instagram @youpitennis</div>
           </div>
           <div className="text-sm space-y-2">
