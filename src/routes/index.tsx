@@ -518,35 +518,32 @@ function Index() {
         </div>
       </section>
 
-      {/* BOOK */}
-      <section id="book" className="max-w-3xl mx-auto px-6 py-24 text-center">
-        <h2 className="text-5xl md:text-7xl font-display uppercase mb-6">
-          Ready? <span className="text-clay">Los geht's.</span>
-        </h2>
-        <p className="text-muted-foreground text-lg mb-10">
-          Drop a line — name, level, preferred language. I'll come back within 24h with court
-          options near you.
-        </p>
-        <form
-          onSubmit={(e) => { e.preventDefault(); alert("Danke! We'll be in touch within 24h."); }}
-          className="grid gap-3 text-left"
-        >
-          <div className="grid md:grid-cols-2 gap-3">
-            <input required placeholder="Your name" className="px-5 py-4 rounded-2xl bg-card border-2 border-ink/10 focus:border-court outline-none transition" />
-            <input required type="email" placeholder="Email" className="px-5 py-4 rounded-2xl bg-card border-2 border-ink/10 focus:border-court outline-none transition" />
+      {/* BOOK CTA */}
+      <section id="book" className="max-w-4xl mx-auto px-6 py-24">
+        <div className="relative rounded-3xl bg-ink text-background overflow-hidden p-10 md:p-16 text-center">
+          <div className="absolute -top-10 -right-10 w-40 h-40 rounded-full bg-ball ball-spin opacity-90" />
+          <div className="absolute -bottom-14 -left-14 w-52 h-52 rounded-full bg-clay/30 blur-2xl" />
+          <div className="relative">
+            <h2 className="text-5xl md:text-7xl font-display uppercase mb-6">
+              Ready? <span className="text-ball">Los geht's.</span>
+            </h2>
+            <p className="text-background/70 text-lg mb-10 max-w-xl mx-auto">
+              Pick your slot, choose your level, and lock it in. Instant confirmation — no
+              back-and-forth.
+            </p>
+            <Link
+              to="/book"
+              className="inline-block px-10 py-5 rounded-full bg-ball text-ink font-semibold text-xl hover:bg-background transition shadow-xl"
+            >
+              Book your tennis session 🎾
+            </Link>
+            <p className="mt-6 text-sm text-background/60">
+              Mon–Fri from 5&nbsp;PM · Sat 10&nbsp;AM–4&nbsp;PM · 90 min sessions
+            </p>
           </div>
-          <select className="px-5 py-4 rounded-2xl bg-card border-2 border-ink/10 focus:border-court outline-none transition">
-            <option>I'm a total beginner</option>
-            <option>I've played casually before</option>
-            <option>Intermediate — I rally</option>
-            <option>Advanced / competitive</option>
-          </select>
-          <textarea rows={4} placeholder="Tell me about your goals (any language!)" className="px-5 py-4 rounded-2xl bg-card border-2 border-ink/10 focus:border-court outline-none transition" />
-          <button className="mt-2 px-7 py-5 rounded-2xl bg-court text-primary-foreground font-semibold text-lg hover:bg-ink transition">
-            Send & book my first lesson
-          </button>
-        </form>
+        </div>
       </section>
+
 
       {/* FAQ */}
       <section id="faq" className="max-w-4xl mx-auto px-6 py-24">
