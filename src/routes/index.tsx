@@ -1,5 +1,6 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import posterAsset from "@/assets/poster-hero.png.asset.json";
+
 
 export const Route = createFileRoute("/")({
   head: () => ({
