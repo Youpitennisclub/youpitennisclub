@@ -262,22 +262,22 @@ function Index() {
 
         <div className="grid md:grid-cols-2 gap-6">
           <article className="group relative p-8 rounded-3xl bg-card border-2 border-ink/10 hover:border-ink transition hover:-translate-y-1 duration-300">
-            <div className="absolute -top-5 -right-5 w-16 h-16 rounded-full bg-pink grid place-items-center text-3xl shadow-lg">🥂</div>
-            <div className="text-xs uppercase tracking-widest font-semibold text-clay mb-3">After-work</div>
-            <h3 className="text-3xl mb-3">After-work tennis with colleagues</h3>
+            <div className="absolute -top-5 -right-5 w-16 h-16 rounded-full bg-pink grid place-items-center text-3xl shadow-lg">🏆</div>
+            <div className="text-xs uppercase tracking-widest font-semibold text-clay mb-3">Hobby League</div>
+            <h3 className="text-3xl mb-3">Single hobby tournament</h3>
             <p className="text-muted-foreground mb-6">
-              The perfect team-building ritual: rally with colleagues, then debrief over drinks.
-              Beginner-friendly — no experience needed. I bring rackets, balls, and a relaxed vibe.
-              Ideal for startups, law firms, and creative teams looking for a weekly escape from the desk.
+              A friendly singles tournament for hobby players who love the thrill of match play
+              without the pressure of official rankings. Short-format matches, balanced brackets by level,
+              and a chill Berlin vibe. Perfect way to test your game and meet new rally partners.
             </p>
             <div className="flex items-baseline gap-1">
-              <span className="font-display text-4xl">€30</span>
-              <span className="text-sm text-muted-foreground">/ pers · 90 min</span>
+              <span className="font-display text-4xl">€25</span>
+              <span className="text-sm text-muted-foreground">/ pers · 4h event</span>
             </div>
             <ul className="mt-4 space-y-1 text-sm text-muted-foreground">
-              <li className="flex gap-2"><span className="text-ball">✓</span> Groups of 2–6 people</li>
-              <li className="flex gap-2"><span className="text-ball">✓</span> Tue / Wed / Thu after 18h</li>
-              
+              <li className="flex gap-2"><span className="text-ball">✓</span> Balanced brackets, all levels welcome</li>
+              <li className="flex gap-2"><span className="text-ball">✓</span> Short-format matches</li>
+              <li className="flex gap-2"><span className="text-ball">✓</span> Weekend afternoons</li>
             </ul>
           </article>
 
@@ -291,13 +291,13 @@ function Index() {
               music between sets, and a laid-back atmosphere guaranteed.
             </p>
             <div className="flex items-baseline gap-1">
-              <span className="font-display text-4xl">€20</span>
-              <span className="text-sm text-muted-foreground">/ pers · 2h event</span>
+              <span className="font-display text-4xl">€25</span>
+              <span className="text-sm text-muted-foreground">/ pers · 4h event</span>
             </div>
             <ul className="mt-4 space-y-1 text-sm text-muted-foreground">
-              <li className="flex gap-2"><span className="text-ball">✓</span> 8–16 players, balanced levels</li>
+              <li className="flex gap-2"><span className="text-ball">✓</span> 16–24 players, balanced levels</li>
               <li className="flex gap-2"><span className="text-ball">✓</span> Rotating partners every round</li>
-              <li className="flex gap-2"><span className="text-ball">✓</span> Fri evening or Sat afternoon</li>
+              <li className="flex gap-2"><span className="text-ball">✓</span> Fri &amp; Saturday afternoon or Sunday afternoon</li>
             </ul>
           </article>
         </div>
