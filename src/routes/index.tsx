@@ -109,21 +109,6 @@ function Index() {
         </div>
       </section>
 
-      {/* MARQUEE */}
-      <section className="relative py-6 bg-ink text-background overflow-hidden border-y-4 border-clay">
-        <div className="marquee font-display text-4xl uppercase">
-          {[...Array(2)].map((_, i) => (
-            <div key={i} className="flex gap-12 items-center pr-12">
-              {LANGS.map((l) => (
-                <span key={`${i}-${l}`} className="flex items-center gap-12">
-                  <span>{l}</span>
-                  <span className="text-ball">●</span>
-                </span>
-              ))}
-            </div>
-          ))}
-        </div>
-      </section>
 
       {/* LESSONS */}
       <section id="lessons" className="max-w-7xl mx-auto px-6 py-24">
@@ -230,7 +215,7 @@ function Index() {
               </p>
               <div className="space-y-3 text-ink">
                 <div className="flex gap-3"><span>📍</span><span>Ollenhauerstr. 64e, 13403 Berlin</span></div>
-                <div className="flex gap-3"><span>🚉</span><span>5 min walk from U8 & S25 — easy from all of Berlin</span></div>
+                <div className="flex gap-3"><span>🚉</span><span>4 min walk from U8 Lindauer Allee & S25 Karl-Bonhoeffer-Nervenklinik — easy from all of Berlin</span></div>
                 <div className="flex gap-3"><span>🎾</span><span>Only ~150 members for 6 clay courts (+ 2 in renovation) = real court availability</span></div>
                 <div className="flex gap-3"><span>❄️</span><span>Winter season: coaching agreements with <strong>TC Longline</strong> & <strong>BFC Alemannia</strong> for extra flexibility</span></div>
               </div>
@@ -246,7 +231,7 @@ function Index() {
             <div>
               <div className="text-xs uppercase tracking-widest font-semibold text-clay mb-4">Club membership</div>
               <div className="rounded-2xl bg-ball/30 border-2 border-ink/10 p-6">
-                <div className="font-display text-lg uppercase mb-3">Intro rates · First year</div>
+                <div className="font-display text-lg uppercase mb-3">Intro rates · First year <span className="text-sm normal-case text-muted-foreground">(from July 2026)</span></div>
                 <div className="flex justify-between py-1.5"><span>Single</span><span className="font-display text-xl">€80</span></div>
                 <div className="border-b-2 border-ink/10 mb-3 pb-3"></div>
                 <div className="font-display text-lg uppercase mb-3">From year 2</div>
@@ -277,22 +262,22 @@ function Index() {
 
         <div className="grid md:grid-cols-2 gap-6">
           <article className="group relative p-8 rounded-3xl bg-card border-2 border-ink/10 hover:border-ink transition hover:-translate-y-1 duration-300">
-            <div className="absolute -top-5 -right-5 w-16 h-16 rounded-full bg-pink grid place-items-center text-3xl shadow-lg">🥂</div>
-            <div className="text-xs uppercase tracking-widest font-semibold text-clay mb-3">After-work</div>
-            <h3 className="text-3xl mb-3">After-work tennis with colleagues</h3>
+            <div className="absolute -top-5 -right-5 w-16 h-16 rounded-full bg-pink grid place-items-center text-3xl shadow-lg">🏆</div>
+            <div className="text-xs uppercase tracking-widest font-semibold text-clay mb-3">Hobby League</div>
+            <h3 className="text-3xl mb-3">Single hobby tournament</h3>
             <p className="text-muted-foreground mb-6">
-              The perfect team-building ritual: rally with colleagues, then debrief over drinks.
-              Beginner-friendly — no experience needed. I bring rackets, balls, and a relaxed vibe.
-              Ideal for startups, law firms, and creative teams looking for a weekly escape from the desk.
+              A friendly singles tournament for hobby players who love the thrill of match play
+              without the pressure of official rankings. Short-format matches, balanced brackets by level,
+              and a chill Berlin vibe. Perfect way to test your game and meet new rally partners.
             </p>
             <div className="flex items-baseline gap-1">
-              <span className="font-display text-4xl">€30</span>
-              <span className="text-sm text-muted-foreground">/ pers · 90 min</span>
+              <span className="font-display text-4xl">€25</span>
+              <span className="text-sm text-muted-foreground">/ pers · 4h event</span>
             </div>
             <ul className="mt-4 space-y-1 text-sm text-muted-foreground">
-              <li className="flex gap-2"><span className="text-ball">✓</span> Groups of 2–6 people</li>
-              <li className="flex gap-2"><span className="text-ball">✓</span> Tue / Wed / Thu after 18h</li>
-              
+              <li className="flex gap-2"><span className="text-ball">✓</span> Balanced brackets, all levels welcome</li>
+              <li className="flex gap-2"><span className="text-ball">✓</span> Short-format matches</li>
+              <li className="flex gap-2"><span className="text-ball">✓</span> Weekend afternoons</li>
             </ul>
           </article>
 
@@ -306,13 +291,13 @@ function Index() {
               music between sets, and a laid-back atmosphere guaranteed.
             </p>
             <div className="flex items-baseline gap-1">
-              <span className="font-display text-4xl">€20</span>
-              <span className="text-sm text-muted-foreground">/ pers · 2h event</span>
+              <span className="font-display text-4xl">€25</span>
+              <span className="text-sm text-muted-foreground">/ pers · 4h event</span>
             </div>
             <ul className="mt-4 space-y-1 text-sm text-muted-foreground">
-              <li className="flex gap-2"><span className="text-ball">✓</span> 8–16 players, balanced levels</li>
+              <li className="flex gap-2"><span className="text-ball">✓</span> 16–24 players, balanced levels</li>
               <li className="flex gap-2"><span className="text-ball">✓</span> Rotating partners every round</li>
-              <li className="flex gap-2"><span className="text-ball">✓</span> Fri evening or Sat afternoon</li>
+              <li className="flex gap-2"><span className="text-ball">✓</span> Fri &amp; Saturday afternoon or Sunday afternoon</li>
             </ul>
           </article>
         </div>
@@ -550,7 +535,7 @@ function Index() {
         <h2 className="text-5xl font-display uppercase mb-10">FAQ.</h2>
         <div className="divide-y divide-border border-y border-border">
           {[
-            { q: "Where do we play?", a: "Indoor & outdoor courts across Mitte, Kreuzberg, Prenzlauer Berg, Charlottenburg and Tempelhof." },
+            { q: "Where do we play?", a: "Summer season: BFC Alemannia Tennis Club — Ollenhauerstr. 64e, 13403 Berlin (clay courts). Winter season: TC Longline, with possible extra slots at TCW and Sportcenter Wittenau." },
             { q: "I don't speak German. Is that ok?", a: "Absolutely — most of our community is international. Lessons run in English by default." },
             { q: "Do I need my own racket?", a: "Not for your first session. We bring spare rackets and all the balls you can hit." },
             { q: "How do I pay?", a: "Card, SEPA, PayPal or cash on court. Packs are non-refundable but transferable." },
