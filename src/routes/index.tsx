@@ -535,7 +535,7 @@ function Index() {
         <h2 className="text-5xl font-display uppercase mb-10">FAQ.</h2>
         <div className="divide-y divide-border border-y border-border">
           {[
-            { q: "Where do we play?", a: "Indoor & outdoor courts across Mitte, Kreuzberg, Prenzlauer Berg, Charlottenburg and Tempelhof." },
+            { q: "Where do we play?", a: "Summer season: BFC Alemannia Tennis Club — Ollenhauerstr. 64e, 13403 Berlin (clay courts). Winter season: TC Longline, with possible extra slots at TCW and Sportcenter Wittenau." },
             { q: "I don't speak German. Is that ok?", a: "Absolutely — most of our community is international. Lessons run in English by default." },
             { q: "Do I need my own racket?", a: "Not for your first session. We bring spare rackets and all the balls you can hit." },
             { q: "How do I pay?", a: "Card, SEPA, PayPal or cash on court. Packs are non-refundable but transferable." },
