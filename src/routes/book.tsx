@@ -26,6 +26,8 @@ export const Route = createFileRoute("/book")({
 
 type Level = "beginner" | "intermediate" | "advanced";
 const MAX_PER_SLOT = 6;
+const GATE_UNTIL = new Date("2026-10-15T00:00:00");
+const GATE_STORAGE_KEY = "youpi_visitor_v1";
 
 type PublicBooking = {
   starts_at: string;
@@ -34,28 +36,31 @@ type PublicBooking = {
   last_initials: string;
 };
 
-// Build slots: Mon-Fri 17:00, 18:30, 20:00 · Sat 10:00, 11:30, 13:00, 14:30
-function buildSlotsForDate(date: Date): Date[] {
-  const day = date.getDay(); // 0=Sun … 6=Sat
-  const times: [number, number][] =
+type SlotDef = { hour: number; minute: number; duration: number };
+
+// Mon-Fri: 17:00 (60 min), 18:00 (90 min), 19:30 (90 min)
+// Sat: 10:00, 11:30, 13:00, 14:30 (90 min each)
+function buildSlotsForDate(date: Date): { start: Date; duration: number }[] {
+  const day = date.getDay();
+  const defs: SlotDef[] =
     day === 0
       ? []
       : day === 6
         ? [
-            [10, 0],
-            [11, 30],
-            [13, 0],
-            [14, 30],
+            { hour: 10, minute: 0, duration: 90 },
+            { hour: 11, minute: 30, duration: 90 },
+            { hour: 13, minute: 0, duration: 90 },
+            { hour: 14, minute: 30, duration: 90 },
           ]
         : [
-            [17, 0],
-            [18, 30],
-            [20, 0],
+            { hour: 17, minute: 0, duration: 60 },
+            { hour: 18, minute: 0, duration: 90 },
+            { hour: 19, minute: 30, duration: 90 },
           ];
-  return times.map(([h, m]) => {
+  return defs.map((s) => {
     const d = new Date(date);
-    d.setHours(h, m, 0, 0);
-    return d;
+    d.setHours(s.hour, s.minute, 0, 0);
+    return { start: d, duration: s.duration };
   });
 }
 
