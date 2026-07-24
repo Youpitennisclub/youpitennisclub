@@ -109,21 +109,6 @@ function Index() {
         </div>
       </section>
 
-      {/* MARQUEE */}
-      <section className="relative py-6 bg-ink text-background overflow-hidden border-y-4 border-clay">
-        <div className="marquee font-display text-4xl uppercase">
-          {[...Array(2)].map((_, i) => (
-            <div key={i} className="flex gap-12 items-center pr-12">
-              {LANGS.map((l) => (
-                <span key={`${i}-${l}`} className="flex items-center gap-12">
-                  <span>{l}</span>
-                  <span className="text-ball">●</span>
-                </span>
-              ))}
-            </div>
-          ))}
-        </div>
-      </section>
 
       {/* LESSONS */}
       <section id="lessons" className="max-w-7xl mx-auto px-6 py-24">
