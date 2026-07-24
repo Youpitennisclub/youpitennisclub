@@ -231,7 +231,7 @@ function Index() {
             <div>
               <div className="text-xs uppercase tracking-widest font-semibold text-clay mb-4">Club membership</div>
               <div className="rounded-2xl bg-ball/30 border-2 border-ink/10 p-6">
-                <div className="font-display text-lg uppercase mb-3">Intro rates · First year</div>
+                <div className="font-display text-lg uppercase mb-3">Intro rates · First year <span className="text-sm normal-case text-muted-foreground">(from July 2026)</span></div>
                 <div className="flex justify-between py-1.5"><span>Single</span><span className="font-display text-xl">€80</span></div>
                 <div className="border-b-2 border-ink/10 mb-3 pb-3"></div>
                 <div className="font-display text-lg uppercase mb-3">From year 2</div>
