@@ -215,7 +215,7 @@ function Index() {
               </p>
               <div className="space-y-3 text-ink">
                 <div className="flex gap-3"><span>📍</span><span>Ollenhauerstr. 64e, 13403 Berlin</span></div>
-                <div className="flex gap-3"><span>🚉</span><span>5 min walk from U8 & S25 — easy from all of Berlin</span></div>
+                <div className="flex gap-3"><span>🚉</span><span>4 min walk from U8 Lindauer Allee & S25 Karl-Bonhoeffer-Nervenklinik — easy from all of Berlin</span></div>
                 <div className="flex gap-3"><span>🎾</span><span>Only ~150 members for 6 clay courts (+ 2 in renovation) = real court availability</span></div>
                 <div className="flex gap-3"><span>❄️</span><span>Winter season: coaching agreements with <strong>TC Longline</strong> & <strong>BFC Alemannia</strong> for extra flexibility</span></div>
               </div>
