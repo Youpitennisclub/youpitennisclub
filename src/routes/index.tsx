@@ -27,7 +27,7 @@ export const Route = createFileRoute("/")({
 
 const FLAGS = ["🇫🇷", "🇩🇪", "🇺🇸", "🇹🇷", "🇺🇦", "🇪🇸", "🇮🇹", "🇧🇷", "🇯🇵", "🇲🇽", "🇵🇱", "🇪🇬", "🇱🇧", "🇷🇺", "🇬🇷", "🇬🇧", "🇨🇳", "🇸🇪", "🇰🇷", "🇮🇳"];
 
-const LANGS = ["English", "Français", "Deutsch", "Español", "Italiano", "Türkçe", "Português", "العربية", "Русский"];
+
 
 function Index() {
   return (
@@ -58,10 +58,6 @@ function Index() {
       <section className="relative max-w-7xl mx-auto px-6 pt-14 pb-24">
         <div className="grid lg:grid-cols-12 gap-10 items-center">
           <div className="lg:col-span-7 relative z-10">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-ball/40 border border-ink/10 text-xs font-semibold uppercase tracking-widest mb-6">
-              <span className="w-1.5 h-1.5 rounded-full bg-court animate-pulse" />
-              Now booking · Berlin courts
-            </div>
             <h1 className="text-[clamp(3rem,8vw,7rem)] font-display uppercase">
               Tennis<br />
               <span className="text-clay">without</span><br />
@@ -73,10 +69,6 @@ function Index() {
               </span>
               .
             </h1>
-            <p className="mt-8 max-w-lg text-lg text-muted-foreground">
-              Young, international, and seriously fun. Group lessons & private coaching across
-              Berlin — taught in nine languages, played on every surface.
-            </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link to="/book" className="px-7 py-4 rounded-full bg-court text-primary-foreground font-semibold hover:bg-ink transition">
                 Book your tennis session 🎾
@@ -183,11 +175,11 @@ function Index() {
                   <span className="font-display text-4xl">{l.price}</span>
                   <span className="text-sm text-muted-foreground">/ pers</span>
                 </div>
-                <ul className="mt-5 rounded-2xl bg-ink text-background p-4 space-y-1.5">
+                <ul className="mt-5 rounded-2xl bg-ball/30 border-2 border-ink/10 p-4 space-y-1.5">
                   {l.rates.map((r) => (
                     <li key={r.n} className="flex justify-between text-sm">
-                      <span className="text-background/80">{r.n}</span>
-                      <span className="font-display text-ball">{r.p} / pers</span>
+                      <span className="text-ink/70 font-medium">{r.n}</span>
+                      <span className="font-display text-ink">{r.p} / pers</span>
                     </li>
                   ))}
                 </ul>
@@ -215,8 +207,8 @@ function Index() {
               </p>
               <div className="space-y-3 text-ink">
                 <div className="flex gap-3"><span>📍</span><span>Ollenhauerstr. 64e, 13403 Berlin</span></div>
-                <div className="flex gap-3"><span>🚉</span><span>4 min walk from U8 Lindauer Allee & S25 Karl-Bonhoeffer-Nervenklinik — easy from all of Berlin</span></div>
-                <div className="flex gap-3"><span>🎾</span><span>Only ~150 members for 6 clay courts (+ 2 in renovation) = real court availability</span></div>
+                <div className="flex gap-3"><span>🚉</span><span>4 min walk from U8 Lindauer Allee & S25 Karl-Bonhoeffer-Nervenklinik — <strong>easy from all of Berlin</strong></span></div>
+                <div className="flex gap-3"><span>🎾</span><span>Only ~180 members for 6 clay courts (+ 2 in renovation) = <strong>real court availability in the evening after work</strong></span></div>
                 <div className="flex gap-3"><span>❄️</span><span>Winter season: coaching agreements with <strong>TC Longline</strong> & <strong>BFC Alemannia</strong> for extra flexibility</span></div>
               </div>
               <div className="mt-8 p-5 rounded-2xl bg-ball/40 border-2 border-ink">
@@ -239,12 +231,26 @@ function Index() {
                 <div className="flex justify-between py-1.5"><span>Couple</span><span className="font-display text-xl">€580</span></div>
                 <div className="flex justify-between py-1.5"><span>Already member of another Berlin club</span><span className="font-display text-xl">€160</span></div>
               </div>
-              <p className="text-sm text-muted-foreground mt-4">
-                Membership isn't just for training — it gives you <strong>unlimited access to the outdoor courts</strong>
-                to play with other members whenever you like.
-              </p>
+              <div className="mt-5 p-5 rounded-2xl bg-court text-primary-foreground border-2 border-ink">
+                <div className="font-display text-2xl uppercase mb-2">🔓 Unlimited outdoor access</div>
+                <p className="text-sm">
+                  Membership isn't just for training — you get <strong>unlimited access to the outdoor clay courts</strong>
+                  {" "}to play with other members whenever you like, all summer long.
+                </p>
+              </div>
             </div>
+          </div>
 
+          {/* CTA */}
+          <div className="mt-10 p-6 md:p-8 rounded-2xl bg-ink text-background text-center">
+            <p className="font-display text-2xl md:text-3xl uppercase leading-tight mb-3">
+              You want to play unlimited outdoor tennis on clay this summer,<br className="hidden md:block"/>
+              not far from the center of Berlin, with easy public transport?
+            </p>
+            <p className="text-ball font-display text-3xl md:text-4xl uppercase mb-4">Join us at BFC Alemannia.</p>
+            <a href="mailto:chaouchyoucef@yahoo.com" className="inline-block px-8 py-4 rounded-full bg-ball text-ink font-semibold hover:bg-background transition">
+              Contact me for more information →
+            </a>
           </div>
         </div>
       </section>
@@ -256,7 +262,7 @@ function Index() {
             Social <span className="text-pink">tennis</span>.
           </h2>
           <p className="text-muted-foreground max-w-sm">
-            Meet people, network, and have fun. Relaxed formats designed for young Berliners who want to play and connect.
+            Meet people, network, and have fun. Relaxed formats designed for Berliners who want to play and connect.
           </p>
         </div>
 
@@ -304,53 +310,36 @@ function Index() {
       </section>
 
       {/* COACH */}
-      <section id="coach" className="relative max-w-7xl mx-auto px-6 py-24">
-        <div className="grid md:grid-cols-2 gap-12 items-center">
-          <div>
-            <div className="text-xs uppercase tracking-widest font-semibold text-clay mb-4">Meet your coach</div>
-            <h2 className="text-5xl md:text-6xl font-display uppercase mb-6">
-              Youpi.<br/>
-              <span className="text-pink">One court,</span> three languages.
-            </h2>
-            <p className="text-muted-foreground text-lg mb-4">
-              I'm <strong>Youpi</strong> — Franco-German lawyer turned full-time tennis
-              coach in Berlin. Two Master's degrees in Franco-German law, then I put the robe down
-              to chase the only thing I love more: tennis.
-            </p>
-            <p className="text-muted-foreground text-lg mb-6">
-              Coaching since 2021 — group sessions up to 8, privates from total beginner to
-              advanced, and team coaching for Damen- & Herrenmannschaften up to{" "}
-              <strong>Meisterklasse</strong>. I also work with strong ranked players
-              (DTB Herren 45 #171, Herren 55 #14). Sessions run in{" "}
-              <strong>English, French & German</strong>.
-            </p>
-            <div className="flex flex-wrap gap-3">
-              {[
-                "DTB Tennisassistent",
-                "5+ years coaching",
-                "Meisterklasse team coach",
-                "WTA 500 Berlin kids program",
-                "ALBA × bett1 Schulcup",
-                "EN · FR · DE",
-              ].map((b) => (
-                <span key={b} className="px-4 py-2 rounded-full bg-muted text-sm font-medium">{b}</span>
-              ))}
-            </div>
-          </div>
-          <div className="relative">
-            <div className="grid grid-cols-2 gap-4">
-              {[
-                { n: "5+", l: "Years coaching" },
-                { n: "3", l: "Languages" },
-                { n: "150", l: "Kids @ Schulcup" },
-                { n: "Mo–Sa", l: "PM & weekends" },
-              ].map((s) => (
-                <div key={s.l} className="aspect-square rounded-3xl bg-card border-2 border-ink/10 p-6 flex flex-col justify-between hover:bg-ball hover:border-ink transition">
-                  <div className="font-display text-6xl">{s.n}</div>
-                  <div className="text-sm uppercase tracking-widest font-semibold">{s.l}</div>
-                </div>
-              ))}
-            </div>
+      <section id="coach" className="relative max-w-4xl mx-auto px-6 py-24">
+        <div>
+          <div className="text-xs uppercase tracking-widest font-semibold text-clay mb-4">Meet your coach</div>
+          <h2 className="text-5xl md:text-6xl font-display uppercase mb-6">
+            Youpi.<br/>
+            <span className="text-pink">One court,</span> three languages.
+          </h2>
+          <p className="text-muted-foreground text-lg mb-4">
+            I'm <strong>Youpi</strong> — Franco-German lawyer turned full-time tennis
+            coach in Berlin. Two Master's degrees in Franco-German law, then I put the robe down
+            to chase the only thing I love more: tennis.
+          </p>
+          <p className="text-muted-foreground text-lg mb-6">
+            Coaching since 2021 — group sessions up to 8, privates from total beginner to
+            advanced, and team coaching for Damen- & Herrenmannschaften up to{" "}
+            <strong>Meisterklasse</strong>. I also work with strong ranked players
+            (DTB Herren 45 #171, Herren 55 #14). Sessions run in{" "}
+            <strong>English, French & German</strong>.
+          </p>
+          <div className="flex flex-wrap gap-3">
+            {[
+              "DTB Tennisassistent",
+              "5+ years coaching",
+              "Meisterklasse team coach",
+              "WTA 500 Berlin kids program",
+              "ALBA × bett1 Schulcup",
+              "EN · FR · DE",
+            ].map((b) => (
+              <span key={b} className="px-4 py-2 rounded-full bg-muted text-sm font-medium">{b}</span>
+            ))}
           </div>
         </div>
 
@@ -537,8 +526,8 @@ function Index() {
           {[
             { q: "Where do we play?", a: "Summer season: BFC Alemannia Tennis Club — Ollenhauerstr. 64e, 13403 Berlin (clay courts). Winter season: TC Longline, with possible extra slots at TCW and Sportcenter Wittenau." },
             { q: "I don't speak German. Is that ok?", a: "Absolutely — most of our community is international. Lessons run in English by default." },
-            { q: "Do I need my own racket?", a: "Not for your first session. We bring spare rackets and all the balls you can hit." },
-            { q: "How do I pay?", a: "Card, SEPA, PayPal or cash on court. Packs are non-refundable but transferable." },
+            { q: "Do I need my own racket?", a: "No — but you can rent a racket for €2 per session." },
+            { q: "How do I pay?", a: "PayPal, SEPA or cash on court. Packs are non-refundable but transferable." },
           ].map((f) => (
             <details key={f.q} className="group py-6 cursor-pointer">
               <summary className="flex items-center justify-between font-display text-xl uppercase list-none">
@@ -553,22 +542,11 @@ function Index() {
 
       {/* FOOTER */}
       <footer className="bg-ink text-background mt-12">
-        <div className="max-w-7xl mx-auto px-6 py-16 grid md:grid-cols-3 gap-10">
-          <div>
-            <div className="font-display text-3xl mb-3">YOUPI<span className="text-clay">.</span></div>
-            <p className="text-background/60 text-sm">Multi Culti Tennis · Berlin since 2019.</p>
-          </div>
-          <div className="text-sm space-y-2">
-            <div className="font-semibold uppercase tracking-widest text-ball mb-3 text-xs">Contact</div>
-            <div>chaouchyoucef@yahoo.com</div>
-            <div>Youpi · +49 176 45689622</div>
-            <div>WhatsApp · Instagram @youpitennis</div>
-          </div>
-          <div className="text-sm space-y-2">
-            <div className="font-semibold uppercase tracking-widest text-ball mb-3 text-xs">Languages on court</div>
-            <div className="flex flex-wrap gap-2">
-              {FLAGS.map((f) => <span key={f} className="text-xl">{f}</span>)}
-            </div>
+        <div className="max-w-7xl mx-auto px-6 py-10 flex flex-col md:flex-row items-center justify-between gap-4">
+          <div className="font-display text-2xl">YOUPI<span className="text-clay">.</span></div>
+          <div className="flex gap-6 text-sm text-background/70">
+            <Link to="/privacy" className="hover:text-ball transition">Privacy</Link>
+            <Link to="/cookies" className="hover:text-ball transition">Cookies</Link>
           </div>
         </div>
         <div className="border-t border-background/10 py-5 text-center text-xs text-background/40">
