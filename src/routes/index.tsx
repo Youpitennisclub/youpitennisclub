@@ -175,11 +175,11 @@ function Index() {
                   <span className="font-display text-4xl">{l.price}</span>
                   <span className="text-sm text-muted-foreground">/ pers</span>
                 </div>
-                <ul className="mt-5 rounded-2xl bg-ink text-background p-4 space-y-1.5">
+                <ul className="mt-5 rounded-2xl bg-ball/30 border-2 border-ink/10 p-4 space-y-1.5">
                   {l.rates.map((r) => (
                     <li key={r.n} className="flex justify-between text-sm">
-                      <span className="text-background/80">{r.n}</span>
-                      <span className="font-display text-ball">{r.p} / pers</span>
+                      <span className="text-ink/70 font-medium">{r.n}</span>
+                      <span className="font-display text-ink">{r.p} / pers</span>
                     </li>
                   ))}
                 </ul>
