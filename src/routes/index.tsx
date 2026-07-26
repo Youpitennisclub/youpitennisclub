@@ -9,12 +9,12 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Fun, international tennis lessons in Berlin for young players. All levels, all languages — book your first session today.",
+          "Fun, international tennis lessons in Berlin for all players. All levels, all languages — book your first session today.",
       },
-      { property: "og:title", content: "Youpi Multi Culti Tennis — Berlin" },
+      { property: "og:title", content: "Youpi Multi Culti Tennis — Tennis lessons in Berlin" },
       {
         property: "og:description",
-        content: "Tennis lessons in Berlin for a young, international crowd. Beginner to advanced.",
+        content: "Fun, international tennis lessons in Berlin for all players. All levels, all languages — book your first session today.",
       },
       { property: "og:image", content: posterAsset.url },
       { property: "og:type", content: "website" },
