@@ -526,8 +526,8 @@ function Index() {
           {[
             { q: "Where do we play?", a: "Summer season: BFC Alemannia Tennis Club — Ollenhauerstr. 64e, 13403 Berlin (clay courts). Winter season: TC Longline, with possible extra slots at TCW and Sportcenter Wittenau." },
             { q: "I don't speak German. Is that ok?", a: "Absolutely — most of our community is international. Lessons run in English by default." },
-            { q: "Do I need my own racket?", a: "Not for your first session. We bring spare rackets and all the balls you can hit." },
-            { q: "How do I pay?", a: "Card, SEPA, PayPal or cash on court. Packs are non-refundable but transferable." },
+            { q: "Do I need my own racket?", a: "No — but you can rent a racket for €2 per session." },
+            { q: "How do I pay?", a: "PayPal, SEPA or cash on court. Packs are non-refundable but transferable." },
           ].map((f) => (
             <details key={f.q} className="group py-6 cursor-pointer">
               <summary className="flex items-center justify-between font-display text-xl uppercase list-none">
@@ -542,22 +542,11 @@ function Index() {
 
       {/* FOOTER */}
       <footer className="bg-ink text-background mt-12">
-        <div className="max-w-7xl mx-auto px-6 py-16 grid md:grid-cols-3 gap-10">
-          <div>
-            <div className="font-display text-3xl mb-3">YOUPI<span className="text-clay">.</span></div>
-            <p className="text-background/60 text-sm">Multi Culti Tennis · Berlin since 2019.</p>
-          </div>
-          <div className="text-sm space-y-2">
-            <div className="font-semibold uppercase tracking-widest text-ball mb-3 text-xs">Contact</div>
-            <div>chaouchyoucef@yahoo.com</div>
-            <div>Youpi · +49 176 45689622</div>
-            <div>WhatsApp · Instagram @youpitennis</div>
-          </div>
-          <div className="text-sm space-y-2">
-            <div className="font-semibold uppercase tracking-widest text-ball mb-3 text-xs">Languages on court</div>
-            <div className="flex flex-wrap gap-2">
-              {FLAGS.map((f) => <span key={f} className="text-xl">{f}</span>)}
-            </div>
+        <div className="max-w-7xl mx-auto px-6 py-10 flex flex-col md:flex-row items-center justify-between gap-4">
+          <div className="font-display text-2xl">YOUPI<span className="text-clay">.</span></div>
+          <div className="flex gap-6 text-sm text-background/70">
+            <Link to="/privacy" className="hover:text-ball transition">Privacy</Link>
+            <Link to="/cookies" className="hover:text-ball transition">Cookies</Link>
           </div>
         </div>
         <div className="border-t border-background/10 py-5 text-center text-xs text-background/40">
