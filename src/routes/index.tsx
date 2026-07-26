@@ -27,7 +27,7 @@ export const Route = createFileRoute("/")({
 
 const FLAGS = ["🇫🇷", "🇩🇪", "🇺🇸", "🇹🇷", "🇺🇦", "🇪🇸", "🇮🇹", "🇧🇷", "🇯🇵", "🇲🇽", "🇵🇱", "🇪🇬", "🇱🇧", "🇷🇺", "🇬🇷", "🇬🇧", "🇨🇳", "🇸🇪", "🇰🇷", "🇮🇳"];
 
-const LANGS = ["English", "Français", "Deutsch", "Español", "Italiano", "Türkçe", "Português", "العربية", "Русский"];
+
 
 function Index() {
   return (
