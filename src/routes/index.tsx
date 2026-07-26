@@ -58,10 +58,6 @@ function Index() {
       <section className="relative max-w-7xl mx-auto px-6 pt-14 pb-24">
         <div className="grid lg:grid-cols-12 gap-10 items-center">
           <div className="lg:col-span-7 relative z-10">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-ball/40 border border-ink/10 text-xs font-semibold uppercase tracking-widest mb-6">
-              <span className="w-1.5 h-1.5 rounded-full bg-court animate-pulse" />
-              Now booking · Berlin courts
-            </div>
             <h1 className="text-[clamp(3rem,8vw,7rem)] font-display uppercase">
               Tennis<br />
               <span className="text-clay">without</span><br />
@@ -73,10 +69,6 @@ function Index() {
               </span>
               .
             </h1>
-            <p className="mt-8 max-w-lg text-lg text-muted-foreground">
-              Young, international, and seriously fun. Group lessons & private coaching across
-              Berlin — taught in nine languages, played on every surface.
-            </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link to="/book" className="px-7 py-4 rounded-full bg-court text-primary-foreground font-semibold hover:bg-ink transition">
                 Book your tennis session 🎾
