@@ -304,7 +304,7 @@ function BookPage() {
           {/* CALENDAR */}
           <section className="max-w-6xl mx-auto px-6 pb-10">
             <div className="flex items-center justify-between mb-4">
-              <h2 className="font-display text-2xl uppercase">Available slots</h2>
+              <h2 className="font-display text-2xl uppercase">Available slots <span className="text-muted-foreground text-base normal-case">(Summer season)</span></h2>
               <div className="flex gap-2">
                 <button
                   onClick={() => {
