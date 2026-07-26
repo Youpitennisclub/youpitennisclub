@@ -207,8 +207,8 @@ function Index() {
               </p>
               <div className="space-y-3 text-ink">
                 <div className="flex gap-3"><span>📍</span><span>Ollenhauerstr. 64e, 13403 Berlin</span></div>
-                <div className="flex gap-3"><span>🚉</span><span>4 min walk from U8 Lindauer Allee & S25 Karl-Bonhoeffer-Nervenklinik — easy from all of Berlin</span></div>
-                <div className="flex gap-3"><span>🎾</span><span>Only ~150 members for 6 clay courts (+ 2 in renovation) = real court availability</span></div>
+                <div className="flex gap-3"><span>🚉</span><span>4 min walk from U8 Lindauer Allee & S25 Karl-Bonhoeffer-Nervenklinik — <strong>easy from all of Berlin</strong></span></div>
+                <div className="flex gap-3"><span>🎾</span><span>Only ~180 members for 6 clay courts (+ 2 in renovation) = <strong>real court availability in the evening after work</strong></span></div>
                 <div className="flex gap-3"><span>❄️</span><span>Winter season: coaching agreements with <strong>TC Longline</strong> & <strong>BFC Alemannia</strong> for extra flexibility</span></div>
               </div>
               <div className="mt-8 p-5 rounded-2xl bg-ball/40 border-2 border-ink">
@@ -231,12 +231,26 @@ function Index() {
                 <div className="flex justify-between py-1.5"><span>Couple</span><span className="font-display text-xl">€580</span></div>
                 <div className="flex justify-between py-1.5"><span>Already member of another Berlin club</span><span className="font-display text-xl">€160</span></div>
               </div>
-              <p className="text-sm text-muted-foreground mt-4">
-                Membership isn't just for training — it gives you <strong>unlimited access to the outdoor courts</strong>
-                to play with other members whenever you like.
-              </p>
+              <div className="mt-5 p-5 rounded-2xl bg-court text-primary-foreground border-2 border-ink">
+                <div className="font-display text-2xl uppercase mb-2">🔓 Unlimited outdoor access</div>
+                <p className="text-sm">
+                  Membership isn't just for training — you get <strong>unlimited access to the outdoor clay courts</strong>
+                  {" "}to play with other members whenever you like, all summer long.
+                </p>
+              </div>
             </div>
+          </div>
 
+          {/* CTA */}
+          <div className="mt-10 p-6 md:p-8 rounded-2xl bg-ink text-background text-center">
+            <p className="font-display text-2xl md:text-3xl uppercase leading-tight mb-3">
+              You want to play unlimited outdoor tennis on clay this summer,<br className="hidden md:block"/>
+              not far from the center of Berlin, with easy public transport?
+            </p>
+            <p className="text-ball font-display text-3xl md:text-4xl uppercase mb-4">Join us at BFC Alemannia.</p>
+            <a href="mailto:chaouchyoucef@yahoo.com" className="inline-block px-8 py-4 rounded-full bg-ball text-ink font-semibold hover:bg-background transition">
+              Contact me for more information →
+            </a>
           </div>
         </div>
       </section>
