@@ -472,19 +472,24 @@ function BookPage() {
 
                 <fieldset className="mt-2">
                   <legend className="text-sm font-semibold mb-2">Your tennis level</legend>
-                  <div className="grid grid-cols-3 gap-2">
-                    {(["beginner", "intermediate", "advanced"] as Level[]).map((lv) => (
+                  <div className="grid gap-2">
+                    {([
+                      { key: "beginner", label: "Total beginner", hint: "less than 10 hours of training" },
+                      { key: "intermediate", label: "Intermediate", hint: "more than 6 months of tennis with training" },
+                      { key: "advanced", label: "Advanced", hint: "years of experience, match play" },
+                    ] as { key: Level; label: string; hint: string }[]).map((lv) => (
                       <button
                         type="button"
-                        key={lv}
-                        onClick={() => setLevel(lv)}
-                        className={`px-3 py-3 rounded-2xl border-2 text-sm font-semibold capitalize transition ${
-                          level === lv
+                        key={lv.key}
+                        onClick={() => setLevel(lv.key)}
+                        className={`px-4 py-3 rounded-2xl border-2 text-left transition ${
+                          level === lv.key
                             ? "bg-court text-primary-foreground border-court"
                             : "bg-background border-ink/10 hover:bg-ball/40"
                         }`}
                       >
-                        {lv}
+                        <div className="font-semibold capitalize">{lv.label}</div>
+                        <div className={`text-xs ${level === lv.key ? "text-primary-foreground/80" : "text-muted-foreground"}`}>{lv.hint}</div>
                       </button>
                     ))}
                   </div>
