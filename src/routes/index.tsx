@@ -262,7 +262,7 @@ function Index() {
             Social <span className="text-pink">tennis</span>.
           </h2>
           <p className="text-muted-foreground max-w-sm">
-            Meet people, network, and have fun. Relaxed formats designed for young Berliners who want to play and connect.
+            Meet people, network, and have fun. Relaxed formats designed for Berliners who want to play and connect.
           </p>
         </div>
 
