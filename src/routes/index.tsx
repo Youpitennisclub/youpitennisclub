@@ -310,53 +310,36 @@ function Index() {
       </section>
 
       {/* COACH */}
-      <section id="coach" className="relative max-w-7xl mx-auto px-6 py-24">
-        <div className="grid md:grid-cols-2 gap-12 items-center">
-          <div>
-            <div className="text-xs uppercase tracking-widest font-semibold text-clay mb-4">Meet your coach</div>
-            <h2 className="text-5xl md:text-6xl font-display uppercase mb-6">
-              Youpi.<br/>
-              <span className="text-pink">One court,</span> three languages.
-            </h2>
-            <p className="text-muted-foreground text-lg mb-4">
-              I'm <strong>Youpi</strong> — Franco-German lawyer turned full-time tennis
-              coach in Berlin. Two Master's degrees in Franco-German law, then I put the robe down
-              to chase the only thing I love more: tennis.
-            </p>
-            <p className="text-muted-foreground text-lg mb-6">
-              Coaching since 2021 — group sessions up to 8, privates from total beginner to
-              advanced, and team coaching for Damen- & Herrenmannschaften up to{" "}
-              <strong>Meisterklasse</strong>. I also work with strong ranked players
-              (DTB Herren 45 #171, Herren 55 #14). Sessions run in{" "}
-              <strong>English, French & German</strong>.
-            </p>
-            <div className="flex flex-wrap gap-3">
-              {[
-                "DTB Tennisassistent",
-                "5+ years coaching",
-                "Meisterklasse team coach",
-                "WTA 500 Berlin kids program",
-                "ALBA × bett1 Schulcup",
-                "EN · FR · DE",
-              ].map((b) => (
-                <span key={b} className="px-4 py-2 rounded-full bg-muted text-sm font-medium">{b}</span>
-              ))}
-            </div>
-          </div>
-          <div className="relative">
-            <div className="grid grid-cols-2 gap-4">
-              {[
-                { n: "5+", l: "Years coaching" },
-                { n: "3", l: "Languages" },
-                { n: "150", l: "Kids @ Schulcup" },
-                { n: "Mo–Sa", l: "PM & weekends" },
-              ].map((s) => (
-                <div key={s.l} className="aspect-square rounded-3xl bg-card border-2 border-ink/10 p-6 flex flex-col justify-between hover:bg-ball hover:border-ink transition">
-                  <div className="font-display text-6xl">{s.n}</div>
-                  <div className="text-sm uppercase tracking-widest font-semibold">{s.l}</div>
-                </div>
-              ))}
-            </div>
+      <section id="coach" className="relative max-w-4xl mx-auto px-6 py-24">
+        <div>
+          <div className="text-xs uppercase tracking-widest font-semibold text-clay mb-4">Meet your coach</div>
+          <h2 className="text-5xl md:text-6xl font-display uppercase mb-6">
+            Youpi.<br/>
+            <span className="text-pink">One court,</span> three languages.
+          </h2>
+          <p className="text-muted-foreground text-lg mb-4">
+            I'm <strong>Youpi</strong> — Franco-German lawyer turned full-time tennis
+            coach in Berlin. Two Master's degrees in Franco-German law, then I put the robe down
+            to chase the only thing I love more: tennis.
+          </p>
+          <p className="text-muted-foreground text-lg mb-6">
+            Coaching since 2021 — group sessions up to 8, privates from total beginner to
+            advanced, and team coaching for Damen- & Herrenmannschaften up to{" "}
+            <strong>Meisterklasse</strong>. I also work with strong ranked players
+            (DTB Herren 45 #171, Herren 55 #14). Sessions run in{" "}
+            <strong>English, French & German</strong>.
+          </p>
+          <div className="flex flex-wrap gap-3">
+            {[
+              "DTB Tennisassistent",
+              "5+ years coaching",
+              "Meisterklasse team coach",
+              "WTA 500 Berlin kids program",
+              "ALBA × bett1 Schulcup",
+              "EN · FR · DE",
+            ].map((b) => (
+              <span key={b} className="px-4 py-2 rounded-full bg-muted text-sm font-medium">{b}</span>
+            ))}
           </div>
         </div>
 
