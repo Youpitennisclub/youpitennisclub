@@ -137,11 +137,13 @@ function BookPage() {
     toast.success("Welcome! Calendar unlocked 🎾");
   };
 
+  const SUMMER_END = new Date("2026-10-15T00:00:00");
   const days = useMemo(() => {
     const arr: Date[] = [];
     for (let i = 0; i < 14; i++) {
       const d = new Date(weekStart);
       d.setDate(d.getDate() + i);
+      if (d.getTime() >= SUMMER_END.getTime()) break;
       arr.push(d);
     }
     return arr;
