@@ -454,17 +454,16 @@ function Index() {
 
       {/* WINTER SEASON */}
       <section id="pricing" className="max-w-7xl mx-auto px-6 py-24">
-        <div className="rounded-[2rem] bg-ink text-background p-10 md:p-16 relative overflow-hidden">
-          <div className="absolute -top-20 -right-20 w-80 h-80 rounded-full bg-court opacity-30 blur-3xl" />
-          <div className="absolute -bottom-20 -left-20 w-80 h-80 rounded-full bg-pink opacity-20 blur-3xl" />
+        <div className="rounded-[2rem] bg-navy text-background p-10 md:p-16 relative overflow-hidden">
+          <div className="absolute -top-20 -right-20 w-80 h-80 rounded-full bg-sky opacity-30 blur-3xl" />
           <div className="relative grid md:grid-cols-2 gap-10 items-center">
             <div>
-              <div className="text-ball text-xs uppercase tracking-widest font-semibold mb-4">❄️ Coming up</div>
+              <div className="text-sky text-xs uppercase tracking-widest font-semibold mb-4">❄️ Coming up</div>
               <h2 className="text-5xl md:text-7xl font-display uppercase">
-                Winter<br/>season<span className="text-ball">.</span>
+                Winter<br/>season<span className="text-sky">.</span>
               </h2>
               <p className="mt-6 text-background/70 text-lg max-w-md">
-                Starting <strong className="text-ball">October</strong> — indoor courts, new schedule, new groups.
+                Starting <strong className="text-sky">October</strong> — indoor courts, new schedule, new groups.
                 Full details drop very soon.
               </p>
             </div>
@@ -474,18 +473,17 @@ function Index() {
                 { n: "BFC Alemannia", d: "Indoor courts on our home base." },
                 { n: "More flexibility", d: "Two venues = more times, more options for you." },
               ].map((p) => (
-                <div key={p.n} className="flex items-center justify-between p-5 rounded-2xl border border-background/15 hover:border-ball transition">
+                <div key={p.n} className="flex items-center justify-between p-5 rounded-2xl bg-sky/15 border border-sky/30 hover:border-sky transition">
                   <div>
                     <div className="font-display text-2xl uppercase">{p.n}</div>
                     <div className="text-sm text-background/60">{p.d}</div>
                   </div>
-                  <div className="font-display text-3xl text-ball">🎾</div>
+                  <div className="font-display text-3xl text-sky">🎾</div>
                 </div>
               ))}
-              <Link to="/book" className="block text-center mt-4 px-7 py-4 rounded-full bg-ball text-ink font-semibold hover:bg-background transition">
-                Get on the winter list →
+              <Link to="/book" className="block text-center mt-4 px-7 py-4 rounded-full bg-violet text-violet-foreground font-semibold hover:opacity-90 transition">
+                Book your lesson →
               </Link>
-
             </div>
           </div>
         </div>
@@ -493,25 +491,24 @@ function Index() {
 
       {/* BOOK CTA */}
       <section id="book" className="max-w-4xl mx-auto px-6 py-24">
-        <div className="relative rounded-3xl bg-ink text-background overflow-hidden p-10 md:p-16 text-center">
-          <div className="absolute -top-10 -right-10 w-40 h-40 rounded-full bg-ball ball-spin opacity-90" />
-          <div className="absolute -bottom-14 -left-14 w-52 h-52 rounded-full bg-clay/30 blur-2xl" />
+        <div className="relative rounded-3xl bg-sky text-ink overflow-hidden p-10 md:p-16 text-center">
+          <div className="absolute -bottom-14 -left-14 w-52 h-52 rounded-full bg-navy/20 blur-2xl" />
           <div className="relative">
             <h2 className="text-5xl md:text-7xl font-display uppercase mb-6">
-              Ready? <span className="text-ball">Los geht's.</span>
+              Ready? <span className="text-navy">Los geht's.</span>
             </h2>
-            <p className="text-background/70 text-lg mb-10 max-w-xl mx-auto">
+            <p className="text-ink/70 text-lg mb-10 max-w-xl mx-auto">
               Pick your slot, choose your level, and lock it in. Instant confirmation — no
               back-and-forth.
             </p>
             <Link
               to="/book"
-              className="inline-block px-10 py-5 rounded-full bg-ball text-ink font-semibold text-xl hover:bg-background transition shadow-xl"
+              className="inline-block px-10 py-5 rounded-full bg-violet text-violet-foreground font-semibold text-xl hover:opacity-90 transition shadow-xl"
             >
-              Book your tennis session 🎾
+              Book your lesson 🎾
             </Link>
-            <p className="mt-6 text-sm text-background/60">
-              Mon–Fri from 5&nbsp;PM · Sat 10&nbsp;AM–4&nbsp;PM · 90 min sessions
+            <p className="mt-6 text-sm text-ink/70">
+              Mon–Fri from 5&nbsp;PM · Sat 10&nbsp;AM–4&nbsp;PM
             </p>
           </div>
         </div>
