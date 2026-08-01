@@ -341,7 +341,12 @@ function BookPage() {
           {/* CALENDAR */}
           <section className="max-w-6xl mx-auto px-6 pb-10">
             <div className="flex items-center justify-between mb-4">
-              <h2 className="font-display text-2xl uppercase">Available slots <span className="text-muted-foreground text-base normal-case">(Summer season)</span></h2>
+              <div>
+                <h2 className="font-display text-2xl uppercase">Available slots <span className="text-muted-foreground text-base normal-case">(Summer season)</span></h2>
+                <p className="text-xs text-muted-foreground mt-1">
+                  Each slot shows its level. In <span className="font-semibold text-destructive">red</span>: Summer camp (12.08, 14.08 &amp; 17.08 · 18:00–20:00).
+                </p>
+              </div>
               <div className="flex gap-2">
                 <button
                   onClick={() => {
