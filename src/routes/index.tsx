@@ -430,21 +430,24 @@ function Index() {
 
       {/* GOOD TO KNOW */}
       <section className="max-w-7xl mx-auto px-6 py-16">
-        <div className="rounded-3xl bg-ball/40 border-2 border-ink p-8 md:p-12">
-          <div className="grid md:grid-cols-2 gap-10">
-            <div>
-              <div className="text-xs uppercase tracking-widest font-semibold text-clay mb-4">Good to know</div>
-              <h2 className="text-4xl md:text-5xl font-display uppercase mb-4">
-                How it <span className="text-clay">works</span>.
-              </h2>
-              <p className="text-ink/80">Simple rules so everyone gets a fair, focused session on court.</p>
-            </div>
-            <ul className="space-y-4 text-ink">
-              <li className="flex gap-3"><span>✅</span><span><strong>90-min group sessions</strong> from 3 players — plenty of time for drills, tactics and point play.</span></li>
-              <li className="flex gap-3"><span>✅</span><span><strong>Only 2 registered?</strong> Session runs 60 min instead of 90.</span></li>
-              <li className="flex gap-3"><span>✅</span><span><strong>Cancellation:</strong> less than 24h before the session, the full fee is charged.</span></li>
-              <li className="flex gap-3"><span>🌧️</span><span><strong>Rain policy:</strong> more than 50% played → no refund. Less than 50% → full refund or reschedule, your call.</span></li>
-            </ul>
+        <div className="rounded-3xl bg-clay text-background p-8 md:p-12">
+          <div className="text-xs uppercase tracking-widest font-semibold text-background/80 mb-3">Good to know</div>
+          <h2 className="text-4xl md:text-6xl font-display uppercase mb-8">
+            How it works<span className="text-ink">.</span>
+          </h2>
+          <div className="grid md:grid-cols-2 gap-5">
+            {[
+              { i: "🎾", t: "90-min group sessions", d: "From 3 players — plenty of time for drills, tactics and point play." },
+              { i: "👥", t: "Only 2 registered?", d: "The session runs 60 min instead of 90." },
+              { i: "⏰", t: "Cancellation", d: "Less than 24h before the session, the full fee is charged." },
+              { i: "🌧️", t: "Rain policy", d: "More than 50% played → no refund. Less than 50% → full refund or reschedule, your call." },
+            ].map((r) => (
+              <div key={r.t} className="rounded-2xl bg-background text-ink p-6 md:p-7">
+                <div className="text-3xl mb-2">{r.i}</div>
+                <div className="font-display text-2xl md:text-3xl uppercase mb-2">{r.t}</div>
+                <p className="text-base md:text-lg text-ink/80">{r.d}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
