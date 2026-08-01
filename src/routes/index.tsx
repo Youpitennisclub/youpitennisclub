@@ -86,10 +86,8 @@ function Index() {
           </div>
 
           <div className="lg:col-span-5 relative">
-            <div className="absolute -top-6 -left-6 w-24 h-24 rounded-full bg-ball float-y" />
-            <div className="absolute -bottom-8 -right-4 w-16 h-16 rounded-full bg-pink float-y" style={{ animationDelay: "1.5s" }} />
-            <div className="relative rounded-3xl overflow-hidden border-4 border-ink shadow-[12px_12px_0_oklch(0.92_0.21_115)]">
-              <img src={posterAsset.url} alt="Youpi Multi Culti Tennis coach with international players" className="w-full h-auto block" />
+            <div className="relative rounded-3xl overflow-hidden">
+              <img src={posterAsset.url} alt="Youpi, tennis coach in Berlin, smiling on a clay court" className="w-full h-auto block" />
             </div>
           </div>
         </div>
