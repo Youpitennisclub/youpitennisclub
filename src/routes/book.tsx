@@ -401,7 +401,10 @@ function BookPage() {
                             return (
                               <button
                                 key={slot.start.toISOString()}
-                                onClick={() => setSelectedSlot(slot)}
+                                onClick={() => {
+                                  setSelectedSlot(slot);
+                                  setLevel(slot.level);
+                                }}
                                 disabled={full || past}
                                 className={`text-left rounded-xl px-3 py-2 text-sm font-semibold transition border-2 ${
                                   past
@@ -410,7 +413,9 @@ function BookPage() {
                                       ? "bg-ink/5 text-muted-foreground line-through cursor-not-allowed border-transparent"
                                       : selected
                                         ? "bg-court text-primary-foreground border-court"
-                                        : "bg-background hover:bg-ball/40 border-ink/10"
+                                        : slot.camp
+                                          ? "bg-destructive text-destructive-foreground border-destructive hover:opacity-90"
+                                          : "bg-background hover:bg-ball/40 border-ink/10"
                                 }`}
                               >
                                 <div className="flex items-center justify-between">
@@ -422,16 +427,23 @@ function BookPage() {
                                   </span>
                                   <span
                                     className={`text-[10px] px-1.5 py-0.5 rounded-full ${
-                                      selected ? "bg-primary-foreground/20" : "bg-ink/10"
+                                      selected || slot.camp ? "bg-background/25" : "bg-ink/10"
                                     }`}
                                   >
                                     {parts.length}/{MAX_PER_SLOT}
                                   </span>
                                 </div>
+                                <div
+                                  className={`mt-0.5 text-[10px] font-bold uppercase tracking-wide ${
+                                    selected || slot.camp ? "opacity-90" : "text-clay"
+                                  }`}
+                                >
+                                  {slot.camp ? "🔥 Summer camp" : LEVEL_LABEL[slot.level]}
+                                </div>
                                 {parts.length > 0 && !past && (
                                   <div
                                     className={`mt-1 text-[10px] font-normal truncate ${
-                                      selected ? "text-primary-foreground/80" : "text-muted-foreground"
+                                      selected || slot.camp ? "opacity-80" : "text-muted-foreground"
                                     }`}
                                   >
                                     {parts
