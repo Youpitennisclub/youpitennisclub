@@ -548,9 +548,9 @@ function BookPage() {
                 <button
                   type="submit"
                   disabled={!selectedSlot || submitting}
-                  className="mt-4 px-7 py-5 rounded-2xl bg-court text-primary-foreground font-semibold text-lg hover:bg-ink transition disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="mt-4 px-7 py-5 rounded-2xl bg-violet text-violet-foreground font-semibold text-lg hover:opacity-90 transition disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  {submitting ? "Booking…" : "Book your tennis session 🎾"}
+                  {submitting ? "Booking…" : "Book your lesson 🎾"}
                 </button>
                 <p className="text-xs text-muted-foreground text-center">
                   Free cancellation up to 24h before. Rain policy: 50% refund or reschedule.
