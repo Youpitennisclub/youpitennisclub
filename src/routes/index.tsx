@@ -398,22 +398,15 @@ function Index() {
               <strong>two-way process</strong> — I'm approachable, open to feedback, and committed
               to helping you improve every session.
             </p>
-            <div className="flex flex-wrap gap-2">
-              {[
-                "Tennis lessons Berlin",
-                "Multicultural",
-                "EN · FR · DE",
-                "Personalized coaching",
-                "Technique & tactics",
-                "Beginner to advanced",
-                "Clay courts",
-                "Passionate coach",
-              ].map((k) => (
-                <span key={k} className="px-3 py-1.5 rounded-full bg-ball/60 border border-ink/20 text-xs font-semibold uppercase tracking-wide">
-                  #{k}
-                </span>
-              ))}
-            </div>
+            <p className="text-muted-foreground text-lg mb-6">
+              👫 <strong>Want to train with your partner or with your friends?</strong> I can build a
+              group just for you. And I really take care of putting players together by level, so
+              everyone enjoys the session — something most coaches simply don't do.
+            </p>
+            <p className="font-display text-3xl md:text-4xl uppercase leading-tight text-clay">
+              Client satisfaction is what matters most to me.
+            </p>
+
 
           </div>
           <div className="space-y-4">
