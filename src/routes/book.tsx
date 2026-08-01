@@ -36,10 +36,34 @@ type PublicBooking = {
   last_initials: string;
 };
 
-type Slot = { start: Date; duration: number };
+type Slot = { start: Date; duration: number; level: Level; camp?: boolean };
 
-// Mon-Fri: 17:00 (60 min), 18:00 (90 min), 19:30 (90 min)
+const LEVEL_LABEL: Record<Level, string> = {
+  beginner: "Beginner",
+  intermediate: "Intermediate",
+  advanced: "Advanced",
+};
+
+// Summer camp: 12.08, 14.08 & 17.08 · 18:00–20:00 (2h, 2 coaches, 2 groups of max 6)
+const CAMP_DAYS = ["2026-08-12", "2026-08-14", "2026-08-17"];
+
+function ymd(d: Date) {
+  const m = `${d.getMonth() + 1}`.padStart(2, "0");
+  const day = `${d.getDate()}`.padStart(2, "0");
+  return `${d.getFullYear()}-${m}-${day}`;
+}
+
+// Mon-Fri: 17:00 (60 min), 18:00 (90 min), 19:30 (90 min) — levels rotate per weekday
 // Sat: 10:00 / 11:30 / 13:00 / 14:30 (90 min each)
+const WEEKDAY_LEVELS: Record<number, Level[]> = {
+  1: ["beginner", "intermediate", "advanced"],
+  2: ["intermediate", "advanced", "beginner"],
+  3: ["advanced", "beginner", "intermediate"],
+  4: ["beginner", "advanced", "intermediate"],
+  5: ["intermediate", "beginner", "advanced"],
+};
+const SAT_LEVELS: Level[] = ["beginner", "intermediate", "advanced", "beginner"];
+
 function buildSlotsForDate(date: Date): Slot[] {
   const day = date.getDay();
   const defs: [number, number, number][] =
@@ -57,11 +81,24 @@ function buildSlotsForDate(date: Date): Slot[] {
             [18, 0, 90],
             [19, 30, 90],
           ];
-  return defs.map(([h, m, duration]) => {
+  const levels = day === 6 ? SAT_LEVELS : (WEEKDAY_LEVELS[day] ?? []);
+  const isCampDay = CAMP_DAYS.includes(ymd(date));
+
+  const slots: Slot[] = defs.map(([h, m, duration], i) => {
     const d = new Date(date);
     d.setHours(h, m, 0, 0);
-    return { start: d, duration };
+    return { start: d, duration, level: levels[i] ?? "beginner" };
   });
+
+  if (isCampDay) {
+    // On camp days, 18:00 becomes the 2h Summer Camp session.
+    const filtered = slots.filter((s) => s.start.getHours() !== 18);
+    const camp = new Date(date);
+    camp.setHours(18, 0, 0, 0);
+    filtered.push({ start: camp, duration: 120, level: "intermediate", camp: true });
+    return filtered.sort((a, b) => a.start.getTime() - b.start.getTime());
+  }
+  return slots;
 }
 
 function startOfDay(d: Date) {
