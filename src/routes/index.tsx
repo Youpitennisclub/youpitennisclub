@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import posterAsset from "@/assets/poster-hero.png.asset.json";
+import posterAsset from "@/assets/youpi-court.jpg.asset.json";
 
 
 export const Route = createFileRoute("/")({
@@ -47,8 +47,8 @@ function Index() {
             <a href="#pricing" className="hover:text-clay transition">Pricing</a>
             <a href="#faq" className="hover:text-clay transition">FAQ</a>
           </nav>
-          <Link to="/book" className="px-5 py-2.5 rounded-full bg-ink text-background text-sm font-semibold hover:bg-clay transition">
-            Book a lesson
+          <Link to="/book" className="px-5 py-2.5 rounded-full bg-violet text-violet-foreground text-sm font-semibold hover:opacity-90 transition">
+            Book your lesson
           </Link>
 
         </div>
@@ -61,17 +61,11 @@ function Index() {
             <h1 className="text-[clamp(3rem,8vw,7rem)] font-display uppercase">
               Tennis<br />
               <span className="text-clay">without</span><br />
-              <span className="relative inline-block">
-                borders
-                <svg className="absolute -bottom-3 left-0 w-full" viewBox="0 0 300 12" fill="none">
-                  <path d="M2 8 C 80 2, 180 2, 298 8" stroke="oklch(0.92 0.21 115)" strokeWidth="6" strokeLinecap="round" />
-                </svg>
-              </span>
-              .
+              borders.
             </h1>
             <div className="mt-8 flex flex-wrap gap-3">
-              <Link to="/book" className="px-7 py-4 rounded-full bg-court text-primary-foreground font-semibold hover:bg-ink transition">
-                Book your tennis session 🎾
+              <Link to="/book" className="px-7 py-4 rounded-full bg-violet text-violet-foreground font-semibold hover:opacity-90 transition">
+                Book your lesson 🎾
               </Link>
               <a href="#lessons" className="px-7 py-4 rounded-full border-2 border-ink/15 font-semibold hover:border-clay hover:text-clay transition">
                 See lessons →
@@ -92,10 +86,8 @@ function Index() {
           </div>
 
           <div className="lg:col-span-5 relative">
-            <div className="absolute -top-6 -left-6 w-24 h-24 rounded-full bg-ball float-y" />
-            <div className="absolute -bottom-8 -right-4 w-16 h-16 rounded-full bg-pink float-y" style={{ animationDelay: "1.5s" }} />
-            <div className="relative rounded-3xl overflow-hidden border-4 border-ink shadow-[12px_12px_0_oklch(0.92_0.21_115)]">
-              <img src={posterAsset.url} alt="Youpi Multi Culti Tennis coach with international players" className="w-full h-auto block" />
+            <div className="relative rounded-3xl overflow-hidden">
+              <img src={posterAsset.url} alt="Youpi, tennis coach in Berlin, smiling on a clay court" className="w-full h-auto block" />
             </div>
           </div>
         </div>
@@ -240,18 +232,6 @@ function Index() {
               </div>
             </div>
           </div>
-
-          {/* CTA */}
-          <div className="mt-10 p-6 md:p-8 rounded-2xl bg-ink text-background text-center">
-            <p className="font-display text-2xl md:text-3xl uppercase leading-tight mb-3">
-              You want to play unlimited outdoor tennis on clay this summer,<br className="hidden md:block"/>
-              not far from the center of Berlin, with easy public transport?
-            </p>
-            <p className="text-ball font-display text-3xl md:text-4xl uppercase mb-4">Join us at BFC Alemannia.</p>
-            <a href="mailto:chaouchyoucef@yahoo.com" className="inline-block px-8 py-4 rounded-full bg-ball text-ink font-semibold hover:bg-background transition">
-              Contact me for more information →
-            </a>
-          </div>
         </div>
       </section>
 
@@ -306,6 +286,41 @@ function Index() {
               <li className="flex gap-2"><span className="text-ball">✓</span> Fri &amp; Saturday afternoon or Sunday afternoon</li>
             </ul>
           </article>
+
+          <article className="group relative p-8 rounded-3xl bg-card border-2 border-ink/10 hover:border-ink transition hover:-translate-y-1 duration-300">
+            <div className="absolute -top-5 -right-5 w-16 h-16 rounded-full bg-violet text-violet-foreground grid place-items-center text-3xl shadow-lg">💞</div>
+            <div className="text-xs uppercase tracking-widest font-semibold text-clay mb-3">Fun format</div>
+            <h3 className="text-3xl mb-3">Single status against couples tournament</h3>
+            <p className="text-muted-foreground mb-6">
+              The concept: singles players team up and take on the couples in a friendly, funny
+              tournament. Expect teasing, cheering and a great atmosphere on court — the perfect
+              excuse to meet new people in Berlin.
+            </p>
+            <ul className="mt-4 space-y-1 text-sm text-muted-foreground">
+              <li className="flex gap-2"><span className="text-violet">✓</span> Singles team vs. couples team</li>
+              <li className="flex gap-2"><span className="text-violet">✓</span> All levels, balanced matches</li>
+              <li className="flex gap-2"><span className="text-violet">✓</span> Weekend afternoons</li>
+            </ul>
+          </article>
+
+          <article className="group relative p-8 rounded-3xl bg-card border-2 border-ink/10 hover:border-ink transition hover:-translate-y-1 duration-300">
+            <div className="absolute -top-5 -right-5 w-16 h-16 rounded-full bg-clay text-background grid place-items-center text-3xl shadow-lg">☀️</div>
+            <div className="text-xs uppercase tracking-widest font-semibold text-clay mb-3">Summer camp</div>
+            <h3 className="text-3xl mb-3">Summer Camp · 12.08 – 17.08</h3>
+            <p className="text-muted-foreground mb-6">
+              Two coaches, two groups of maximum 6 players. 2 hours per day (18:00–20:00) on
+              12.08, 14.08 and 17.08 — intensive drills, tactics and match play.
+            </p>
+            <div className="flex items-baseline gap-1">
+              <span className="font-display text-4xl">€100</span>
+              <span className="text-sm text-muted-foreground">/ pers · 3 sessions of 2h</span>
+            </div>
+            <ul className="mt-4 space-y-1 text-sm text-muted-foreground">
+              <li className="flex gap-2"><span className="text-clay">✓</span> 2 coaches · 2 groups · max 6 players each</li>
+              <li className="flex gap-2"><span className="text-clay">✓</span> 12.08, 14.08 &amp; 17.08 · 18:00–20:00</li>
+              <li className="flex gap-2"><span className="text-clay">✓</span> Book your spot in the calendar</li>
+            </ul>
+          </article>
         </div>
       </section>
 
@@ -329,18 +344,6 @@ function Index() {
             (DTB Herren 45 #171, Herren 55 #14). Sessions run in{" "}
             <strong>English, French & German</strong>.
           </p>
-          <div className="flex flex-wrap gap-3">
-            {[
-              "DTB Tennisassistent",
-              "5+ years coaching",
-              "Meisterklasse team coach",
-              "WTA 500 Berlin kids program",
-              "ALBA × bett1 Schulcup",
-              "EN · FR · DE",
-            ].map((b) => (
-              <span key={b} className="px-4 py-2 rounded-full bg-muted text-sm font-medium">{b}</span>
-            ))}
-          </div>
         </div>
 
         {/* TRACK RECORD */}
@@ -395,22 +398,15 @@ function Index() {
               <strong>two-way process</strong> — I'm approachable, open to feedback, and committed
               to helping you improve every session.
             </p>
-            <div className="flex flex-wrap gap-2">
-              {[
-                "Tennis lessons Berlin",
-                "Multicultural",
-                "EN · FR · DE",
-                "Personalized coaching",
-                "Technique & tactics",
-                "Beginner to advanced",
-                "Clay courts",
-                "Passionate coach",
-              ].map((k) => (
-                <span key={k} className="px-3 py-1.5 rounded-full bg-ball/60 border border-ink/20 text-xs font-semibold uppercase tracking-wide">
-                  #{k}
-                </span>
-              ))}
-            </div>
+            <p className="text-muted-foreground text-lg mb-6">
+              👫 <strong>Want to train with your partner or with your friends?</strong> I can build a
+              group just for you. And I really take care of putting players together by level, so
+              everyone enjoys the session — something most coaches simply don't do.
+            </p>
+            <p className="font-display text-3xl md:text-4xl uppercase leading-tight text-clay">
+              Client satisfaction is what matters most to me.
+            </p>
+
 
           </div>
           <div className="space-y-4">
@@ -434,38 +430,40 @@ function Index() {
 
       {/* GOOD TO KNOW */}
       <section className="max-w-7xl mx-auto px-6 py-16">
-        <div className="rounded-3xl bg-ball/40 border-2 border-ink p-8 md:p-12">
-          <div className="grid md:grid-cols-2 gap-10">
-            <div>
-              <div className="text-xs uppercase tracking-widest font-semibold text-clay mb-4">Good to know</div>
-              <h2 className="text-4xl md:text-5xl font-display uppercase mb-4">
-                How it <span className="text-clay">works</span>.
-              </h2>
-              <p className="text-ink/80">Simple rules so everyone gets a fair, focused session on court.</p>
-            </div>
-            <ul className="space-y-4 text-ink">
-              <li className="flex gap-3"><span>✅</span><span><strong>90-min group sessions</strong> from 3 players — plenty of time for drills, tactics and point play.</span></li>
-              <li className="flex gap-3"><span>✅</span><span><strong>Only 2 registered?</strong> Session runs 60 min instead of 90.</span></li>
-              <li className="flex gap-3"><span>✅</span><span><strong>Cancellation:</strong> less than 24h before the session, the full fee is charged.</span></li>
-              <li className="flex gap-3"><span>🌧️</span><span><strong>Rain policy:</strong> more than 50% played → no refund. Less than 50% → full refund or reschedule, your call.</span></li>
-            </ul>
+        <div className="rounded-3xl bg-clay text-background p-8 md:p-12">
+          <div className="text-xs uppercase tracking-widest font-semibold text-background/80 mb-3">Good to know</div>
+          <h2 className="text-4xl md:text-6xl font-display uppercase mb-8">
+            How it works<span className="text-ink">.</span>
+          </h2>
+          <div className="grid md:grid-cols-2 gap-5">
+            {[
+              { i: "🎾", t: "90-min group sessions", d: "From 3 players — plenty of time for drills, tactics and point play." },
+              { i: "👥", t: "Only 2 registered?", d: "The session runs 60 min instead of 90." },
+              { i: "⏰", t: "Cancellation", d: "Less than 24h before the session, the full fee is charged." },
+              { i: "🌧️", t: "Rain policy", d: "More than 50% played → no refund. Less than 50% → full refund or reschedule, your call." },
+            ].map((r) => (
+              <div key={r.t} className="rounded-2xl bg-background text-ink p-6 md:p-7">
+                <div className="text-3xl mb-2">{r.i}</div>
+                <div className="font-display text-2xl md:text-3xl uppercase mb-2">{r.t}</div>
+                <p className="text-base md:text-lg text-ink/80">{r.d}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
       {/* WINTER SEASON */}
       <section id="pricing" className="max-w-7xl mx-auto px-6 py-24">
-        <div className="rounded-[2rem] bg-ink text-background p-10 md:p-16 relative overflow-hidden">
-          <div className="absolute -top-20 -right-20 w-80 h-80 rounded-full bg-court opacity-30 blur-3xl" />
-          <div className="absolute -bottom-20 -left-20 w-80 h-80 rounded-full bg-pink opacity-20 blur-3xl" />
+        <div className="rounded-[2rem] bg-navy text-background p-10 md:p-16 relative overflow-hidden">
+          <div className="absolute -top-20 -right-20 w-80 h-80 rounded-full bg-sky opacity-30 blur-3xl" />
           <div className="relative grid md:grid-cols-2 gap-10 items-center">
             <div>
-              <div className="text-ball text-xs uppercase tracking-widest font-semibold mb-4">❄️ Coming up</div>
+              <div className="text-sky text-xs uppercase tracking-widest font-semibold mb-4">❄️ Coming up</div>
               <h2 className="text-5xl md:text-7xl font-display uppercase">
-                Winter<br/>season<span className="text-ball">.</span>
+                Winter<br/>season<span className="text-sky">.</span>
               </h2>
               <p className="mt-6 text-background/70 text-lg max-w-md">
-                Starting <strong className="text-ball">October</strong> — indoor courts, new schedule, new groups.
+                Starting <strong className="text-sky">October</strong> — indoor courts, new schedule, new groups.
                 Full details drop very soon.
               </p>
             </div>
@@ -475,18 +473,17 @@ function Index() {
                 { n: "BFC Alemannia", d: "Indoor courts on our home base." },
                 { n: "More flexibility", d: "Two venues = more times, more options for you." },
               ].map((p) => (
-                <div key={p.n} className="flex items-center justify-between p-5 rounded-2xl border border-background/15 hover:border-ball transition">
+                <div key={p.n} className="flex items-center justify-between p-5 rounded-2xl bg-sky/15 border border-sky/30 hover:border-sky transition">
                   <div>
                     <div className="font-display text-2xl uppercase">{p.n}</div>
                     <div className="text-sm text-background/60">{p.d}</div>
                   </div>
-                  <div className="font-display text-3xl text-ball">🎾</div>
+                  <div className="font-display text-3xl text-sky">🎾</div>
                 </div>
               ))}
-              <Link to="/book" className="block text-center mt-4 px-7 py-4 rounded-full bg-ball text-ink font-semibold hover:bg-background transition">
-                Get on the winter list →
+              <Link to="/book" className="block text-center mt-4 px-7 py-4 rounded-full bg-violet text-violet-foreground font-semibold hover:opacity-90 transition">
+                Book your lesson →
               </Link>
-
             </div>
           </div>
         </div>
@@ -494,25 +491,24 @@ function Index() {
 
       {/* BOOK CTA */}
       <section id="book" className="max-w-4xl mx-auto px-6 py-24">
-        <div className="relative rounded-3xl bg-ink text-background overflow-hidden p-10 md:p-16 text-center">
-          <div className="absolute -top-10 -right-10 w-40 h-40 rounded-full bg-ball ball-spin opacity-90" />
-          <div className="absolute -bottom-14 -left-14 w-52 h-52 rounded-full bg-clay/30 blur-2xl" />
+        <div className="relative rounded-3xl bg-sky text-ink overflow-hidden p-10 md:p-16 text-center">
+          <div className="absolute -bottom-14 -left-14 w-52 h-52 rounded-full bg-navy/20 blur-2xl" />
           <div className="relative">
             <h2 className="text-5xl md:text-7xl font-display uppercase mb-6">
-              Ready? <span className="text-ball">Los geht's.</span>
+              Ready? <span className="text-navy">Los geht's.</span>
             </h2>
-            <p className="text-background/70 text-lg mb-10 max-w-xl mx-auto">
+            <p className="text-ink/70 text-lg mb-10 max-w-xl mx-auto">
               Pick your slot, choose your level, and lock it in. Instant confirmation — no
               back-and-forth.
             </p>
             <Link
               to="/book"
-              className="inline-block px-10 py-5 rounded-full bg-ball text-ink font-semibold text-xl hover:bg-background transition shadow-xl"
+              className="inline-block px-10 py-5 rounded-full bg-violet text-violet-foreground font-semibold text-xl hover:opacity-90 transition shadow-xl"
             >
-              Book your tennis session 🎾
+              Book your lesson 🎾
             </Link>
-            <p className="mt-6 text-sm text-background/60">
-              Mon–Fri from 5&nbsp;PM · Sat 10&nbsp;AM–4&nbsp;PM · 90 min sessions
+            <p className="mt-6 text-sm text-ink/70">
+              Mon–Fri from 5&nbsp;PM · Sat 10&nbsp;AM–4&nbsp;PM
             </p>
           </div>
         </div>

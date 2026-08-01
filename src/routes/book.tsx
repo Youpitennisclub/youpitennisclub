@@ -36,10 +36,34 @@ type PublicBooking = {
   last_initials: string;
 };
 
-type Slot = { start: Date; duration: number };
+type Slot = { start: Date; duration: number; level: Level; camp?: boolean };
 
-// Mon-Fri: 17:00 (60 min), 18:00 (90 min), 19:30 (90 min)
+const LEVEL_LABEL: Record<Level, string> = {
+  beginner: "Beginner",
+  intermediate: "Intermediate",
+  advanced: "Advanced",
+};
+
+// Summer camp: 12.08, 14.08 & 17.08 · 18:00–20:00 (2h, 2 coaches, 2 groups of max 6)
+const CAMP_DAYS = ["2026-08-12", "2026-08-14", "2026-08-17"];
+
+function ymd(d: Date) {
+  const m = `${d.getMonth() + 1}`.padStart(2, "0");
+  const day = `${d.getDate()}`.padStart(2, "0");
+  return `${d.getFullYear()}-${m}-${day}`;
+}
+
+// Mon-Fri: 17:00 (60 min), 18:00 (90 min), 19:30 (90 min) — levels rotate per weekday
 // Sat: 10:00 / 11:30 / 13:00 / 14:30 (90 min each)
+const WEEKDAY_LEVELS: Record<number, Level[]> = {
+  1: ["beginner", "intermediate", "advanced"],
+  2: ["intermediate", "advanced", "beginner"],
+  3: ["advanced", "beginner", "intermediate"],
+  4: ["beginner", "advanced", "intermediate"],
+  5: ["intermediate", "beginner", "advanced"],
+};
+const SAT_LEVELS: Level[] = ["beginner", "intermediate", "advanced", "beginner"];
+
 function buildSlotsForDate(date: Date): Slot[] {
   const day = date.getDay();
   const defs: [number, number, number][] =
@@ -57,11 +81,24 @@ function buildSlotsForDate(date: Date): Slot[] {
             [18, 0, 90],
             [19, 30, 90],
           ];
-  return defs.map(([h, m, duration]) => {
+  const levels = day === 6 ? SAT_LEVELS : (WEEKDAY_LEVELS[day] ?? []);
+  const isCampDay = CAMP_DAYS.includes(ymd(date));
+
+  const slots: Slot[] = defs.map(([h, m, duration], i) => {
     const d = new Date(date);
     d.setHours(h, m, 0, 0);
-    return { start: d, duration };
+    return { start: d, duration, level: levels[i] ?? "beginner" };
   });
+
+  if (isCampDay) {
+    // On camp days, 18:00 becomes the 2h Summer Camp session.
+    const filtered = slots.filter((s) => s.start.getHours() !== 18);
+    const camp = new Date(date);
+    camp.setHours(18, 0, 0, 0);
+    filtered.push({ start: camp, duration: 120, level: "intermediate", camp: true });
+    return filtered.sort((a, b) => a.start.getTime() - b.start.getTime());
+  }
+  return slots;
 }
 
 function startOfDay(d: Date) {
@@ -304,7 +341,12 @@ function BookPage() {
           {/* CALENDAR */}
           <section className="max-w-6xl mx-auto px-6 pb-10">
             <div className="flex items-center justify-between mb-4">
-              <h2 className="font-display text-2xl uppercase">Available slots <span className="text-muted-foreground text-base normal-case">(Summer season)</span></h2>
+              <div>
+                <h2 className="font-display text-2xl uppercase">Available slots <span className="text-muted-foreground text-base normal-case">(Summer season)</span></h2>
+                <p className="text-xs text-muted-foreground mt-1">
+                  Each slot shows its level. In <span className="font-semibold text-destructive">red</span>: Summer camp (12.08, 14.08 &amp; 17.08 · 18:00–20:00).
+                </p>
+              </div>
               <div className="flex gap-2">
                 <button
                   onClick={() => {
@@ -364,7 +406,10 @@ function BookPage() {
                             return (
                               <button
                                 key={slot.start.toISOString()}
-                                onClick={() => setSelectedSlot(slot)}
+                                onClick={() => {
+                                  setSelectedSlot(slot);
+                                  setLevel(slot.level);
+                                }}
                                 disabled={full || past}
                                 className={`text-left rounded-xl px-3 py-2 text-sm font-semibold transition border-2 ${
                                   past
@@ -373,7 +418,9 @@ function BookPage() {
                                       ? "bg-ink/5 text-muted-foreground line-through cursor-not-allowed border-transparent"
                                       : selected
                                         ? "bg-court text-primary-foreground border-court"
-                                        : "bg-background hover:bg-ball/40 border-ink/10"
+                                        : slot.camp
+                                          ? "bg-destructive text-destructive-foreground border-destructive hover:opacity-90"
+                                          : "bg-background hover:bg-ball/40 border-ink/10"
                                 }`}
                               >
                                 <div className="flex items-center justify-between">
@@ -385,16 +432,23 @@ function BookPage() {
                                   </span>
                                   <span
                                     className={`text-[10px] px-1.5 py-0.5 rounded-full ${
-                                      selected ? "bg-primary-foreground/20" : "bg-ink/10"
+                                      selected || slot.camp ? "bg-background/25" : "bg-ink/10"
                                     }`}
                                   >
                                     {parts.length}/{MAX_PER_SLOT}
                                   </span>
                                 </div>
+                                <div
+                                  className={`mt-0.5 text-[10px] font-bold uppercase tracking-wide ${
+                                    selected || slot.camp ? "opacity-90" : "text-clay"
+                                  }`}
+                                >
+                                  {slot.camp ? "🔥 Summer camp" : LEVEL_LABEL[slot.level]}
+                                </div>
                                 {parts.length > 0 && !past && (
                                   <div
                                     className={`mt-1 text-[10px] font-normal truncate ${
-                                      selected ? "text-primary-foreground/80" : "text-muted-foreground"
+                                      selected || slot.camp ? "opacity-80" : "text-muted-foreground"
                                     }`}
                                   >
                                     {parts
@@ -425,7 +479,8 @@ function BookPage() {
                     <b className="text-ink">
                       {fmtDay(selectedSlot.start, "en-GB")} · {fmtTime(selectedSlot.start)}
                     </b>{" "}
-                    ({selectedSlot.duration} min)
+                    ({selectedSlot.duration} min ·{" "}
+                    {selectedSlot.camp ? "Summer camp" : LEVEL_LABEL[selectedSlot.level]})
                   </>
                 ) : (
                   "Pick a slot in the calendar above to continue."
@@ -498,9 +553,9 @@ function BookPage() {
                 <button
                   type="submit"
                   disabled={!selectedSlot || submitting}
-                  className="mt-4 px-7 py-5 rounded-2xl bg-court text-primary-foreground font-semibold text-lg hover:bg-ink transition disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="mt-4 px-7 py-5 rounded-2xl bg-violet text-violet-foreground font-semibold text-lg hover:opacity-90 transition disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  {submitting ? "Booking…" : "Book your tennis session 🎾"}
+                  {submitting ? "Booking…" : "Book your lesson 🎾"}
                 </button>
                 <p className="text-xs text-muted-foreground text-center">
                   Free cancellation up to 24h before. Rain policy: 50% refund or reschedule.

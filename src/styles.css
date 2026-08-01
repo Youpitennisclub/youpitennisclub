@@ -39,6 +39,10 @@
   --color-ball: var(--ball);
   --color-pink: var(--pink);
   --color-ink: var(--ink);
+  --color-violet: var(--violet);
+  --color-violet-foreground: var(--violet-foreground);
+  --color-sky: var(--sky);
+  --color-navy: var(--navy);
 }
 
 :root {
@@ -56,6 +60,11 @@
 
   --card: oklch(1 0 0);
   --card-foreground: var(--ink);
+  --violet: oklch(0.52 0.24 300);              /* booking violet */
+  --violet-foreground: oklch(0.99 0.01 300);
+  --sky: oklch(0.82 0.11 230);                 /* sky blue */
+  --navy: oklch(0.28 0.10 255);                /* dark blue */
+
   --popover: oklch(1 0 0);
   --popover-foreground: var(--ink);
 
