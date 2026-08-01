@@ -232,18 +232,6 @@ function Index() {
               </div>
             </div>
           </div>
-
-          {/* CTA */}
-          <div className="mt-10 p-6 md:p-8 rounded-2xl bg-ink text-background text-center">
-            <p className="font-display text-2xl md:text-3xl uppercase leading-tight mb-3">
-              You want to play unlimited outdoor tennis on clay this summer,<br className="hidden md:block"/>
-              not far from the center of Berlin, with easy public transport?
-            </p>
-            <p className="text-ball font-display text-3xl md:text-4xl uppercase mb-4">Join us at BFC Alemannia.</p>
-            <a href="mailto:chaouchyoucef@yahoo.com" className="inline-block px-8 py-4 rounded-full bg-ball text-ink font-semibold hover:bg-background transition">
-              Contact me for more information →
-            </a>
-          </div>
         </div>
       </section>
 
