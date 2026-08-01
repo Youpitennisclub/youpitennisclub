@@ -286,6 +286,41 @@ function Index() {
               <li className="flex gap-2"><span className="text-ball">✓</span> Fri &amp; Saturday afternoon or Sunday afternoon</li>
             </ul>
           </article>
+
+          <article className="group relative p-8 rounded-3xl bg-card border-2 border-ink/10 hover:border-ink transition hover:-translate-y-1 duration-300">
+            <div className="absolute -top-5 -right-5 w-16 h-16 rounded-full bg-violet text-violet-foreground grid place-items-center text-3xl shadow-lg">💞</div>
+            <div className="text-xs uppercase tracking-widest font-semibold text-clay mb-3">Fun format</div>
+            <h3 className="text-3xl mb-3">Single status against couples tournament</h3>
+            <p className="text-muted-foreground mb-6">
+              The concept: singles players team up and take on the couples in a friendly, funny
+              tournament. Expect teasing, cheering and a great atmosphere on court — the perfect
+              excuse to meet new people in Berlin.
+            </p>
+            <ul className="mt-4 space-y-1 text-sm text-muted-foreground">
+              <li className="flex gap-2"><span className="text-violet">✓</span> Singles team vs. couples team</li>
+              <li className="flex gap-2"><span className="text-violet">✓</span> All levels, balanced matches</li>
+              <li className="flex gap-2"><span className="text-violet">✓</span> Weekend afternoons</li>
+            </ul>
+          </article>
+
+          <article className="group relative p-8 rounded-3xl bg-card border-2 border-ink/10 hover:border-ink transition hover:-translate-y-1 duration-300">
+            <div className="absolute -top-5 -right-5 w-16 h-16 rounded-full bg-clay text-background grid place-items-center text-3xl shadow-lg">☀️</div>
+            <div className="text-xs uppercase tracking-widest font-semibold text-clay mb-3">Summer camp</div>
+            <h3 className="text-3xl mb-3">Summer Camp · 12.08 – 17.08</h3>
+            <p className="text-muted-foreground mb-6">
+              Two coaches, two groups of maximum 6 players. 2 hours per day (18:00–20:00) on
+              12.08, 14.08 and 17.08 — intensive drills, tactics and match play.
+            </p>
+            <div className="flex items-baseline gap-1">
+              <span className="font-display text-4xl">€100</span>
+              <span className="text-sm text-muted-foreground">/ pers · 3 sessions of 2h</span>
+            </div>
+            <ul className="mt-4 space-y-1 text-sm text-muted-foreground">
+              <li className="flex gap-2"><span className="text-clay">✓</span> 2 coaches · 2 groups · max 6 players each</li>
+              <li className="flex gap-2"><span className="text-clay">✓</span> 12.08, 14.08 &amp; 17.08 · 18:00–20:00</li>
+              <li className="flex gap-2"><span className="text-clay">✓</span> Book your spot in the calendar</li>
+            </ul>
+          </article>
         </div>
       </section>
 
