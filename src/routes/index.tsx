@@ -61,17 +61,11 @@ function Index() {
             <h1 className="text-[clamp(3rem,8vw,7rem)] font-display uppercase">
               Tennis<br />
               <span className="text-clay">without</span><br />
-              <span className="relative inline-block">
-                borders
-                <svg className="absolute -bottom-3 left-0 w-full" viewBox="0 0 300 12" fill="none">
-                  <path d="M2 8 C 80 2, 180 2, 298 8" stroke="oklch(0.92 0.21 115)" strokeWidth="6" strokeLinecap="round" />
-                </svg>
-              </span>
-              .
+              borders.
             </h1>
             <div className="mt-8 flex flex-wrap gap-3">
-              <Link to="/book" className="px-7 py-4 rounded-full bg-court text-primary-foreground font-semibold hover:bg-ink transition">
-                Book your tennis session 🎾
+              <Link to="/book" className="px-7 py-4 rounded-full bg-violet text-violet-foreground font-semibold hover:opacity-90 transition">
+                Book your lesson 🎾
               </Link>
               <a href="#lessons" className="px-7 py-4 rounded-full border-2 border-ink/15 font-semibold hover:border-clay hover:text-clay transition">
                 See lessons →
