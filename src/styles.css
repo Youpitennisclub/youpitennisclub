@@ -39,6 +39,10 @@
   --color-ball: var(--ball);
   --color-pink: var(--pink);
   --color-ink: var(--ink);
+  --color-violet: var(--violet);
+  --color-violet-foreground: var(--violet-foreground);
+  --color-sky: var(--sky);
+  --color-navy: var(--navy);
 }
 
 :root {
