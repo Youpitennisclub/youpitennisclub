@@ -344,18 +344,6 @@ function Index() {
             (DTB Herren 45 #171, Herren 55 #14). Sessions run in{" "}
             <strong>English, French & German</strong>.
           </p>
-          <div className="flex flex-wrap gap-3">
-            {[
-              "DTB Tennisassistent",
-              "5+ years coaching",
-              "Meisterklasse team coach",
-              "WTA 500 Berlin kids program",
-              "ALBA × bett1 Schulcup",
-              "EN · FR · DE",
-            ].map((b) => (
-              <span key={b} className="px-4 py-2 rounded-full bg-muted text-sm font-medium">{b}</span>
-            ))}
-          </div>
         </div>
 
         {/* TRACK RECORD */}
