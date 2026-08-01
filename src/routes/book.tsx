@@ -474,7 +474,8 @@ function BookPage() {
                     <b className="text-ink">
                       {fmtDay(selectedSlot.start, "en-GB")} · {fmtTime(selectedSlot.start)}
                     </b>{" "}
-                    ({selectedSlot.duration} min)
+                    ({selectedSlot.duration} min ·{" "}
+                    {selectedSlot.camp ? "Summer camp" : LEVEL_LABEL[selectedSlot.level]})
                   </>
                 ) : (
                   "Pick a slot in the calendar above to continue."
