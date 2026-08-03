@@ -33,12 +33,12 @@ function Index() {
       {/* NAV */}
       <header className="sticky top-0 z-50 backdrop-blur-md bg-background/70 border-b border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 lg:flex lg:justify-between">
-          <a href="#" className="flex min-w-0 items-center gap-2 font-display text-xl sm:text-2xl md:text-3xl uppercase">
+          <a href="#" className="flex min-w-0 items-center gap-2 font-display text-base sm:text-2xl md:text-3xl uppercase leading-tight">
             <span
               className="inline-block w-7 h-7 shrink-0 rounded-full bg-ball ball-spin shadow-inner"
               style={{ boxShadow: "inset -4px -4px 0 oklch(0.78 0.18 115)" }}
             />
-            <span className="truncate">Youpi Tennis Club</span>
+            <span className="min-w-0 break-words">Youpi Tennis Club</span>
           </a>
           <nav className="hidden lg:flex items-center gap-7 text-sm font-medium">
             <a href="#lessons" className="hover:text-clay transition">Lessons</a>
