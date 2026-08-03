@@ -38,6 +38,8 @@
   --color-clay: var(--clay);
   --color-ball: var(--ball);
   --color-pink: var(--pink);
+  --color-brick: var(--brick);
+
   --color-ink: var(--ink);
   --color-violet: var(--violet);
   --color-violet-foreground: var(--violet-foreground);
@@ -57,6 +59,8 @@
   --court: oklch(0.52 0.16 155);               /* court green */
   --clay: oklch(0.62 0.18 40);                 /* clay orange */
   --pink: oklch(0.74 0.19 5);                  /* hot pink */
+  --brick: oklch(0.44 0.13 27);                /* muted brick red */
+
 
   --card: oklch(1 0 0);
   --card-foreground: var(--ink);
