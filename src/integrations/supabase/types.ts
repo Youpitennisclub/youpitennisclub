@@ -47,6 +47,33 @@ export type Database = {
         }
         Relationships: []
       }
+      feedback: {
+        Row: {
+          comment: string
+          created_at: string
+          email: string
+          first_name: string
+          id: string
+          rating: number
+        }
+        Insert: {
+          comment: string
+          created_at?: string
+          email: string
+          first_name: string
+          id?: string
+          rating: number
+        }
+        Update: {
+          comment?: string
+          created_at?: string
+          email?: string
+          first_name?: string
+          id?: string
+          rating?: number
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -60,6 +87,24 @@ export type Database = {
           level: Database["public"]["Enums"]["tennis_level"]
           starts_at: string
         }[]
+      }
+      get_public_feedback: {
+        Args: never
+        Returns: {
+          comment: string
+          created_at: string
+          first_name: string
+          rating: number
+        }[]
+      }
+      submit_feedback: {
+        Args: {
+          _comment: string
+          _email: string
+          _first_name: string
+          _rating: number
+        }
+        Returns: undefined
       }
     }
     Enums: {
