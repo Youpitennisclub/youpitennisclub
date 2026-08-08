@@ -23,6 +23,7 @@ export type Database = {
           last_name: string
           level: Database["public"]["Enums"]["tennis_level"]
           phone: string
+          photo_url: string | null
           starts_at: string
         }
         Insert: {
@@ -33,6 +34,7 @@ export type Database = {
           last_name: string
           level: Database["public"]["Enums"]["tennis_level"]
           phone: string
+          photo_url?: string | null
           starts_at: string
         }
         Update: {
@@ -43,6 +45,7 @@ export type Database = {
           last_name?: string
           level?: Database["public"]["Enums"]["tennis_level"]
           phone?: string
+          photo_url?: string | null
           starts_at?: string
         }
         Relationships: []
@@ -54,6 +57,8 @@ export type Database = {
           email: string
           first_name: string
           id: string
+          last_name: string | null
+          photo_url: string | null
           rating: number
         }
         Insert: {
@@ -62,6 +67,8 @@ export type Database = {
           email: string
           first_name: string
           id?: string
+          last_name?: string | null
+          photo_url?: string | null
           rating: number
         }
         Update: {
@@ -70,6 +77,8 @@ export type Database = {
           email?: string
           first_name?: string
           id?: string
+          last_name?: string | null
+          photo_url?: string | null
           rating?: number
         }
         Relationships: []
@@ -85,6 +94,7 @@ export type Database = {
           first_name: string
           last_initials: string
           level: Database["public"]["Enums"]["tennis_level"]
+          photo_url: string
           starts_at: string
         }[]
       }
@@ -94,6 +104,8 @@ export type Database = {
           comment: string
           created_at: string
           first_name: string
+          last_initial: string
+          photo_url: string
           rating: number
         }[]
       }
@@ -102,6 +114,8 @@ export type Database = {
           _comment: string
           _email: string
           _first_name: string
+          _last_name?: string
+          _photo_url?: string
           _rating: number
         }
         Returns: undefined
