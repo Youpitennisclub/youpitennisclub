@@ -1,20 +1,25 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
+import { PhotoPicker } from "@/components/PhotoPicker";
 
 type PublicFeedback = {
   first_name: string;
+  last_initial: string | null;
   rating: number;
   comment: string;
+  photo_url: string | null;
   created_at: string;
 };
 
 export function FeedbackSection() {
   const [items, setItems] = useState<PublicFeedback[]>([]);
   const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [rating, setRating] = useState(5);
   const [comment, setComment] = useState("");
+  const [photo, setPhoto] = useState<string | null>(null);
   const [sending, setSending] = useState(false);
 
   const load = async () => {
@@ -32,8 +37,10 @@ export function FeedbackSection() {
     const { error } = await supabase.rpc("submit_feedback", {
       _email: email.trim(),
       _first_name: firstName.trim(),
+      _last_name: lastName.trim(),
       _rating: rating,
       _comment: comment.trim(),
+      _photo_url: photo ?? undefined,
     });
     setSending(false);
     if (error) {
@@ -47,25 +54,31 @@ export function FeedbackSection() {
     toast.success("Thanks for your feedback! 🎾");
     setComment("");
     setFirstName("");
+    setLastName("");
     setEmail("");
+    setPhoto(null);
     setRating(5);
     await load();
   };
 
+  const inputCls =
+    "w-full min-w-0 px-4 py-3 rounded-2xl bg-background border-2 border-ink/10 focus:border-court outline-none transition";
+
   return (
-    <section id="feedback" className="max-w-7xl mx-auto px-6 py-20">
-      <h2 className="text-4xl sm:text-5xl md:text-6xl font-display uppercase mb-3 break-words">
+    <section id="feedback" className="max-w-7xl mx-auto px-5 sm:px-6 py-10 sm:py-14">
+      <h2 className="text-[clamp(2rem,8vw,4rem)] font-display uppercase mb-3 break-words">
         Feedback
       </h2>
-      <p className="text-muted-foreground mb-10 max-w-2xl">
+      <p className="text-muted-foreground mb-7 max-w-2xl">
         Already trained with me? Leave a comment — reviews are only possible with the email
-        address you used to book a session.
+        address you used to book a session. Only your first name and the first letter of your last
+        name are shown publicly, never your email.
       </p>
 
-      <div className="grid lg:grid-cols-2 gap-8 items-start">
+      <div className="grid lg:grid-cols-2 gap-6 items-start">
         <form
           onSubmit={submit}
-          className="grid gap-3 p-6 md:p-8 rounded-3xl bg-card border-2 border-ink/10"
+          className="grid gap-3 p-5 sm:p-7 rounded-3xl bg-card border-2 border-ink/10"
         >
           <div className="grid sm:grid-cols-2 gap-3">
             <input
@@ -74,18 +87,31 @@ export function FeedbackSection() {
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
               placeholder="First name"
-              className="w-full min-w-0 px-4 py-3 rounded-2xl bg-background border-2 border-ink/10 focus:border-court outline-none transition"
+              className={inputCls}
             />
             <input
               required
-              type="email"
-              maxLength={120}
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Email used for booking"
-              className="w-full min-w-0 px-4 py-3 rounded-2xl bg-background border-2 border-ink/10 focus:border-court outline-none transition"
+              maxLength={60}
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+              placeholder="Last name"
+              className={inputCls}
             />
           </div>
+          <input
+            required
+            type="email"
+            maxLength={120}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Email used for booking"
+            className={inputCls}
+          />
+          <PhotoPicker
+            value={photo}
+            onChange={setPhoto}
+            hint="Optional — your picture appears next to your review."
+          />
           <div className="flex items-center gap-2">
             <span className="text-sm font-semibold">Rating</span>
             {[1, 2, 3, 4, 5].map((n) => (
@@ -109,7 +135,7 @@ export function FeedbackSection() {
             value={comment}
             onChange={(e) => setComment(e.target.value)}
             placeholder="How was your session?"
-            className="w-full min-w-0 px-4 py-3 rounded-2xl bg-background border-2 border-ink/10 focus:border-court outline-none transition resize-y"
+            className={`${inputCls} resize-y`}
           />
           <button
             type="submit"
@@ -130,7 +156,23 @@ export function FeedbackSection() {
                 className="p-5 rounded-2xl bg-card border-2 border-ink/10"
               >
                 <div className="flex items-center justify-between gap-3">
-                  <div className="font-display text-lg uppercase truncate">{f.first_name}</div>
+                  <div className="flex min-w-0 items-center gap-3">
+                    {f.photo_url ? (
+                      <img
+                        src={f.photo_url}
+                        alt={f.first_name}
+                        className="h-10 w-10 shrink-0 rounded-full object-cover border-2 border-ink/10"
+                      />
+                    ) : (
+                      <span className="h-10 w-10 shrink-0 rounded-full bg-ball grid place-items-center font-display">
+                        {f.first_name.slice(0, 1)}
+                      </span>
+                    )}
+                    <div className="font-display text-lg uppercase truncate">
+                      {f.first_name}
+                      {f.last_initial ? ` ${f.last_initial}.` : ""}
+                    </div>
+                  </div>
                   <div className="shrink-0 text-sm">{"⭐".repeat(f.rating)}</div>
                 </div>
                 <p className="mt-2 text-sm text-muted-foreground break-words">{f.comment}</p>

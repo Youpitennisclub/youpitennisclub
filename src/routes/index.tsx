@@ -60,7 +60,7 @@ function Index() {
       </header>
 
       {/* HERO */}
-      <section className="relative max-w-7xl mx-auto px-6 pt-12 pb-20">
+      <section className="relative max-w-7xl mx-auto px-5 sm:px-6 pt-8 pb-10">
         <div className="grid lg:grid-cols-12 gap-10 items-center">
           <div className="lg:col-span-7 relative z-10">
             <h1 className="text-[clamp(2.5rem,10vw,6.5rem)] font-display uppercase break-words">
@@ -99,8 +99,8 @@ function Index() {
       </section>
 
       {/* LESSONS */}
-      <section id="lessons" className="max-w-7xl mx-auto px-6 py-20">
-        <h2 className="text-4xl sm:text-5xl md:text-7xl font-display uppercase max-w-2xl mb-12 break-words">
+      <section id="lessons" className="max-w-7xl mx-auto px-5 sm:px-6 py-10 sm:py-14">
+        <h2 className="text-[clamp(2rem,8vw,4.5rem)] font-display uppercase max-w-2xl mb-7 break-words">
           Pick your <span className="text-court">game</span>
         </h2>
 
@@ -184,9 +184,9 @@ function Index() {
       </section>
 
       {/* CLUB */}
-      <section id="club" className="max-w-7xl mx-auto px-6 py-20">
-        <div className="rounded-[2rem] bg-clay/10 border-2 border-clay/30 p-6 sm:p-8 md:p-14">
-          <div className="grid lg:grid-cols-2 gap-12 items-start">
+      <section id="club" className="max-w-7xl mx-auto px-5 sm:px-6 py-10 sm:py-14">
+        <div className="rounded-[2rem] bg-card border-2 border-ink/10 p-5 sm:p-8 md:p-12">
+          <div className="grid lg:grid-cols-2 gap-8 items-start">
             <div>
               <h2 className="text-4xl sm:text-5xl md:text-6xl font-display uppercase mb-6 break-words">
                 BFC Alemannia<br/>
@@ -235,11 +235,11 @@ function Index() {
       </section>
 
       {/* EVENTS */}
-      <section id="events" className="max-w-7xl mx-auto px-6 py-20">
-        <h2 className="text-4xl sm:text-5xl md:text-7xl font-display uppercase mb-4 break-words">
+      <section id="events" className="max-w-7xl mx-auto px-5 sm:px-6 py-10 sm:py-14">
+        <h2 className="text-[clamp(2rem,8vw,4.5rem)] font-display uppercase mb-3 break-words">
           Social <span className="text-pink">tennis</span>
         </h2>
-        <p className="text-muted-foreground max-w-2xl mb-12">
+        <p className="text-muted-foreground max-w-2xl mb-7">
           Meet people, network, and have fun. Relaxed formats designed for Berliners who want to play and connect.
         </p>
 
@@ -300,49 +300,65 @@ function Index() {
 
           <article className="group relative p-6 sm:p-8 rounded-3xl bg-card border-2 border-ink/10 hover:border-ink transition hover:-translate-y-1 duration-300">
             <div className="absolute -top-4 -right-2 sm:-right-5 w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-clay text-background grid place-items-center text-2xl sm:text-3xl shadow-lg">☀️</div>
-            <div className="text-xs uppercase tracking-widest font-semibold text-clay mb-3">Summer camp</div>
-            <h3 className="text-2xl sm:text-3xl mb-3 break-words pr-12">Summer Camp · 12.08.26 – 17.08.26</h3>
-            <p className="text-muted-foreground mb-6">
-              Two coaches, two groups of maximum 6 players. 2 hours per day (18:00–20:00) on
-              12.08.26, 14.08.26 and 17.08.26 — intensive drills, tactics and match play.
-            </p>
-            <div className="flex items-baseline gap-1">
-              <span className="font-display text-4xl">€100</span>
-              <span className="text-sm text-muted-foreground">/ pers · 3 sessions of 2h</span>
-            </div>
-            <ul className="mt-4 space-y-1 text-sm text-muted-foreground">
-              <li className="flex gap-2"><span className="text-clay shrink-0">✓</span> 2 coaches · 2 groups · max 6 players each</li>
-              <li className="flex gap-2"><span className="text-clay shrink-0">✓</span> 12.08.26, 14.08.26 &amp; 17.08.26 · 18:00–20:00</li>
-              <li className="flex gap-2"><span className="text-clay shrink-0">✓</span> Book your spot in the calendar</li>
+            <div className="text-xs uppercase tracking-widest font-semibold text-clay mb-3">Summer camp .26</div>
+            <h3 className="text-2xl sm:text-3xl mb-4 break-words pr-12">Summer Camp .26</h3>
+            <ul className="space-y-1.5 text-base text-muted-foreground">
+              <li>📅 Aug 17 + 18 + 20</li>
+              <li>🕕 6:30–8:30 PM</li>
+              <li>👥 Groups of 4–6 players</li>
+              <li>🎯 Footwork • Tactics • Technique</li>
+              <li>🗣️ English / French</li>
             </ul>
+            <p className="mt-4 font-display text-2xl sm:text-3xl">
+              💸 €100–150
+            </p>
+            <p className="text-sm text-muted-foreground">depending on group size &amp; membership</p>
           </article>
         </div>
       </section>
 
       {/* COACH */}
-      <section id="coach" className="max-w-7xl mx-auto px-6 py-20">
+      <section id="coach" className="max-w-7xl mx-auto px-5 sm:px-6 py-10 sm:py-14">
         <div className="max-w-3xl">
-          <h2 className="text-4xl sm:text-5xl md:text-6xl font-display uppercase mb-6 break-words">
-            Youpi<br/>
-            <span className="text-pink">One court,</span> three languages
+          <h2 className="text-[clamp(1.9rem,7.5vw,3.75rem)] font-display uppercase mb-5 break-words">
+            Who is your <span className="text-pink">coach Youpi</span> ?
           </h2>
-          <p className="text-muted-foreground text-lg mb-4">
-            I'm <strong>Youpi</strong> — a Franco-German lawyer turned full-time tennis coach in
-            Berlin. Two Master's degrees in Franco-German law, then I put down the robe to chase
-            the only thing I love more: tennis.
-          </p>
-          <p className="text-muted-foreground text-lg">
-            Coaching since a few years — group sessions of up to 8, privates from total beginners
-            to advanced players, and team coaching for Damen- &amp; Herrenmannschaften up to{" "}
-            <strong>Meisterklasse</strong>. I also work with strong ranked players
-            (DTB Herren 45 #171, Herren 55 #14). Sessions run in{" "}
-            <strong>English, French &amp; German</strong>.
-          </p>
+          <div className="space-y-4 text-muted-foreground text-base sm:text-lg">
+            <p className="font-display text-xl uppercase text-ink">🎾 About me</p>
+            <p>
+              I'm Youpi, originally from Paris 🇫🇷, and I studied French-German Law in both France
+              and Germany 🇫🇷🇩🇪.
+            </p>
+            <p>
+              I discovered my passion for tennis 17 years ago — and let's just say it quickly
+              became a little more than a hobby! 😅🎾
+            </p>
+            <p>
+              During the Covid period, I sometimes played 4 to 7 hours a day, 6 days a week. Some
+              weekends, I can literally spend 12 hours a day watching tennis! 🎾📺🙈
+            </p>
+            <p>
+              My tennis friends quickly noticed how passionate and dedicated I was and encouraged
+              me to become a coach. So I decided to turn my passion into my profession: teaching
+              what makes me happiest — tennis! ❤️🎾
+            </p>
+            <p>
+              After gaining experience as a tennis coach, I now train players at several clubs
+              around Berlin, with BFC Alemannia being my main club. 🇩🇪
+            </p>
+            <p>
+              Whether you're a complete beginner or an experienced player, I'd love to help you
+              improve, have fun and enjoy the game. 💪🎾😄
+            </p>
+            <p className="font-semibold text-ink">
+              Come join the adventure in English, French &amp; German! 🚀🎾
+            </p>
+          </div>
         </div>
 
         {/* TRACK RECORD */}
-        <div className="mt-16 rounded-3xl border-2 border-ink/10 p-6 sm:p-8 md:p-12 bg-card">
-          <div className="grid md:grid-cols-2 gap-x-12 gap-y-5">
+        <div className="mt-8 rounded-3xl border-2 border-ink/10 p-5 sm:p-8 md:p-10 bg-card">
+          <div className="grid md:grid-cols-2 gap-x-10 gap-y-5">
             {[
               { t: "WTA 500 · Rot-Weiß Berlin", d: "Kids program — playful intro to tennis on tour week." },
               { t: "ALBA × bett1 Schulcup", d: "Tennis drills for ~150 school kids at the Basketball & Tennis Schulcup." },
@@ -364,10 +380,10 @@ function Index() {
       </section>
 
       {/* MANIFESTO */}
-      <section className="max-w-7xl mx-auto px-6 py-20">
-        <div className="grid md:grid-cols-2 gap-12 items-start">
+      <section className="max-w-7xl mx-auto px-5 sm:px-6 py-10 sm:py-14">
+        <div className="grid md:grid-cols-2 gap-8 items-start">
           <div>
-            <h2 className="text-4xl sm:text-5xl md:text-6xl font-display uppercase mb-6 break-words">
+            <h2 className="text-[clamp(1.9rem,7.5vw,3.75rem)] font-display uppercase mb-5 break-words">
               No place in a club?<br/>
               <span className="text-clay">Tired of ball-feeders?</span>
             </h2>
@@ -379,9 +395,11 @@ function Index() {
             </p>
             <p className="text-muted-foreground text-lg mb-4">
               🌍 Join our <strong>multicultural tennis classes</strong> and meet students from all over the
-              world in a fun, friendly and supportive atmosphere. 🗣️ I speak fluent{" "}
-              <strong>English, French &amp; German</strong>, so players from every background feel at
-              home on court.
+              world in a fun, friendly and supportive atmosphere.
+            </p>
+            <p className="text-muted-foreground text-lg mb-4">
+              🗣️ I speak fluent <strong>English, French &amp; German</strong>, so players from every
+              background feel at home on court.
             </p>
             <p className="text-muted-foreground text-lg mb-4">
               💡 <strong>Technique</strong>, <strong>motivation</strong> and a real{" "}
@@ -417,12 +435,12 @@ function Index() {
       </section>
 
       {/* HOW IT WORKS */}
-      <section className="max-w-7xl mx-auto px-6 py-16">
-        <div className="rounded-3xl bg-brick text-background p-6 sm:p-8 md:p-12">
-          <h2 className="text-3xl sm:text-4xl md:text-6xl font-display uppercase mb-8 break-words">
+      <section className="max-w-7xl mx-auto px-5 sm:px-6 py-10 sm:py-14">
+        <div className="rounded-3xl bg-brick text-background p-5 sm:p-8 md:p-10">
+          <h2 className="text-[clamp(1.9rem,7.5vw,3.75rem)] font-display uppercase mb-6 break-words">
             How it works
           </h2>
-          <div className="grid md:grid-cols-2 gap-5">
+          <div className="grid md:grid-cols-2 gap-4">
             {[
               { i: "🎾", t: "90-min group sessions", d: "From 3 players — plenty of time for drills, tactics and point play." },
               { i: "👥", t: "Only 2 registered?", d: "The session runs 60 min instead of 90." },
@@ -440,17 +458,18 @@ function Index() {
       </section>
 
       {/* WINTER SEASON */}
-      <section id="pricing" className="max-w-7xl mx-auto px-6 py-20">
-        <div className="rounded-[2rem] bg-navy text-background p-6 sm:p-10 md:p-16 relative overflow-hidden">
+      <section id="pricing" className="max-w-7xl mx-auto px-5 sm:px-6 py-10 sm:py-14">
+        <div className="rounded-[2rem] bg-navy text-background p-5 sm:p-10 md:p-14 relative overflow-hidden">
           <div className="absolute -top-20 -right-20 w-80 h-80 rounded-full bg-sky opacity-30 blur-3xl" />
-          <div className="relative grid md:grid-cols-2 gap-10 items-center">
+          <div className="relative grid md:grid-cols-2 gap-8 items-center">
             <div>
-              <h2 className="text-4xl sm:text-5xl md:text-7xl font-display uppercase break-words">
+              <h2 className="text-[clamp(2rem,8vw,4.5rem)] font-display uppercase break-words">
                 Winter<br/>season 🥶
               </h2>
-              <p className="mt-6 text-background/70 text-lg max-w-md">
-                Starting <strong className="text-sky">October</strong> — indoor courts, new schedule, new groups.
-                Full details drop very soon.
+              <p className="mt-5 text-background/70 text-lg max-w-md">
+                Starting <strong className="text-sky">October</strong> — indoor courts, 1h30 every
+                Saturday. Prices and slots are published in September, and you can already
+                pre-book your spot.
               </p>
             </div>
             <div className="space-y-4">
@@ -468,7 +487,7 @@ function Index() {
                 </div>
               ))}
               <Link to="/book" className="block text-center mt-4 px-7 py-4 rounded-full bg-violet text-violet-foreground font-semibold hover:opacity-90 transition">
-                Book your lesson →
+                Pre-Book Your Winter Season →
               </Link>
             </div>
           </div>
@@ -476,14 +495,14 @@ function Index() {
       </section>
 
       {/* BOOK CTA */}
-      <section id="book" className="max-w-4xl mx-auto px-6 py-20">
-        <div className="relative rounded-3xl bg-sky text-ink overflow-hidden p-6 sm:p-10 md:p-16">
-          <div className="absolute -bottom-14 -left-14 w-52 h-52 rounded-full bg-navy/20 blur-2xl" />
+      <section id="book" className="max-w-4xl mx-auto px-5 sm:px-6 py-10 sm:py-14">
+        <div className="relative rounded-3xl bg-navy text-background overflow-hidden p-5 sm:p-10 md:p-14">
+          <div className="absolute -bottom-14 -left-14 w-52 h-52 rounded-full bg-sky/30 blur-2xl" />
           <div className="relative">
-            <h2 className="text-4xl sm:text-5xl md:text-7xl font-display uppercase mb-6 break-words">
-              Ready? <span className="text-navy">Los geht's</span>
+            <h2 className="text-[clamp(1.9rem,7.5vw,4rem)] font-display uppercase mb-5 break-words whitespace-nowrap">
+              Ready? Los geht's
             </h2>
-            <p className="text-ink/70 text-lg mb-10 max-w-xl">
+            <p className="text-background/75 text-lg mb-8 max-w-xl">
               Pick your slot, choose your level, and lock it in. Instant confirmation — no
               back-and-forth.
             </p>
@@ -493,15 +512,12 @@ function Index() {
             >
               Book your lesson 🎾
             </Link>
-            <p className="mt-6 text-sm text-ink/70">
-              Mon–Fri from 4&nbsp;PM · Sat 10&nbsp;AM–4&nbsp;PM
-            </p>
           </div>
         </div>
       </section>
 
       {/* FAQ */}
-      <section id="faq" className="max-w-4xl mx-auto px-6 py-20">
+      <section id="faq" className="max-w-4xl mx-auto px-5 sm:px-6 py-10 sm:py-14">
         <h2 className="text-4xl sm:text-5xl font-display uppercase mb-10">FAQ</h2>
         <div className="divide-y divide-border border-y border-border">
           {[
