@@ -489,11 +489,11 @@ function Index() {
       </section>
 
       {/* BOOK CTA */}
-      <section id="book" className="max-w-4xl mx-auto px-5 sm:px-6 py-10 sm:py-14">
-        <div className="relative rounded-3xl bg-navy text-background overflow-hidden p-5 sm:p-10 md:p-14">
+      <section id="book" className="max-w-4xl mx-auto px-5 sm:px-6 py-8 sm:py-10">
+        <div className="relative rounded-3xl bg-navy text-background overflow-hidden p-5 sm:p-10 md:p-12">
           <div className="absolute -bottom-14 -left-14 w-52 h-52 rounded-full bg-sky/30 blur-2xl" />
           <div className="relative">
-            <h2 className="text-[clamp(1.9rem,7.5vw,4rem)] font-display uppercase mb-5 break-words whitespace-nowrap">
+            <h2 className="text-[clamp(1.7rem,7vw,3.5rem)] font-display uppercase mb-5 break-words whitespace-nowrap">
               Ready? Los geht's
             </h2>
             <p className="text-background/75 text-lg mb-8 max-w-xl">
