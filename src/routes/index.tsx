@@ -184,11 +184,11 @@ function Index() {
       </section>
 
       {/* CLUB */}
-      <section id="club" className="max-w-7xl mx-auto px-5 sm:px-6 py-10 sm:py-14">
-        <div className="rounded-[2rem] bg-card border-2 border-ink/10 p-5 sm:p-8 md:p-12">
+      <section id="club" className="max-w-7xl mx-auto px-5 sm:px-6 py-8 sm:py-10">
+        <div className="rounded-[2rem] bg-card border-2 border-ink/10 p-5 sm:p-8 md:p-10">
           <div className="grid lg:grid-cols-2 gap-8 items-start">
             <div>
-              <h2 className="text-4xl sm:text-5xl md:text-6xl font-display uppercase mb-6 break-words">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-display uppercase mb-5 break-words">
                 BFC Alemannia<br/>
                 <span className="text-clay">Tennis Club</span>
               </h2>
