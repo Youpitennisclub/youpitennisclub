@@ -318,9 +318,9 @@ function Index() {
       </section>
 
       {/* COACH */}
-      <section id="coach" className="max-w-7xl mx-auto px-5 sm:px-6 py-10 sm:py-14">
+      <section id="coach" className="max-w-7xl mx-auto px-5 sm:px-6 py-8 sm:py-10">
         <div className="max-w-3xl">
-          <h2 className="text-[clamp(1.9rem,7.5vw,3.75rem)] font-display uppercase mb-5 break-words">
+          <h2 className="text-[clamp(1.7rem,7vw,3.25rem)] font-display uppercase mb-5 break-words">
             Who is your <span className="text-pink">coach Youpi</span> ?
           </h2>
           <div className="space-y-4 text-muted-foreground text-base sm:text-lg">
@@ -330,25 +330,19 @@ function Index() {
               and Germany 🇫🇷🇩🇪.
             </p>
             <p>
-              I discovered my passion for tennis 17 years ago — and let's just say it quickly
-              became a little more than a hobby! 😅🎾
+              I discovered my passion for tennis 17 years ago. Over the years in France, I
+              trained and played with high-level amateur players who passed on to me both the
+              technical demands and the love of the game. That experience taught me that real
+              progress comes from attention to detail, humility, and a genuine respect for the sport.
             </p>
             <p>
-              During the Covid period, I sometimes played 4 to 7 hours a day, 6 days a week. Some
-              weekends, I can literally spend 12 hours a day watching tennis! 🎾📺🙈
+              For me, the technical progress of every student is a priority. Whether you're a
+              complete beginner or an experienced player, my goal is to help you improve with
+              clear, structured coaching in a positive and supportive atmosphere.
             </p>
             <p>
-              My tennis friends quickly noticed how passionate and dedicated I was and encouraged
-              me to become a coach. So I decided to turn my passion into my profession: teaching
-              what makes me happiest — tennis! ❤️🎾
-            </p>
-            <p>
-              After gaining experience as a tennis coach, I now train players at several clubs
-              around Berlin, with BFC Alemannia being my main club. 🇩🇪
-            </p>
-            <p>
-              Whether you're a complete beginner or an experienced player, I'd love to help you
-              improve, have fun and enjoy the game. 💪🎾😄
+              I now train players at several clubs around Berlin, with BFC Alemannia as my main
+              base. 🇩🇪
             </p>
             <p className="font-semibold text-ink">
               Come join the adventure in English, French &amp; German! 🚀🎾
