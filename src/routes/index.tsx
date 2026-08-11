@@ -452,12 +452,12 @@ function Index() {
       </section>
 
       {/* WINTER SEASON */}
-      <section id="pricing" className="max-w-7xl mx-auto px-5 sm:px-6 py-10 sm:py-14">
-        <div className="rounded-[2rem] bg-navy text-background p-5 sm:p-10 md:p-14 relative overflow-hidden">
+      <section id="pricing" className="max-w-7xl mx-auto px-5 sm:px-6 py-8 sm:py-10">
+        <div className="rounded-[2rem] bg-navy text-background p-5 sm:p-10 md:p-12 relative overflow-hidden">
           <div className="absolute -top-20 -right-20 w-80 h-80 rounded-full bg-sky opacity-30 blur-3xl" />
           <div className="relative grid md:grid-cols-2 gap-8 items-center">
             <div>
-              <h2 className="text-[clamp(2rem,8vw,4.5rem)] font-display uppercase break-words">
+              <h2 className="text-[clamp(1.75rem,7vw,3.75rem)] font-display uppercase break-words">
                 Winter<br/>season 🥶
               </h2>
               <p className="mt-5 text-background/70 text-lg max-w-md">
