@@ -535,8 +535,8 @@ function Index() {
       <FeedbackSection />
 
       {/* FOOTER */}
-      <footer className="bg-ink text-background mt-12">
-        <div className="max-w-7xl mx-auto px-6 py-10 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+      <footer className="bg-ink text-background mt-8">
+        <div className="max-w-7xl mx-auto px-6 py-8 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div className="font-display text-xl sm:text-2xl uppercase">Youpi Tennis Club</div>
           <div className="flex flex-wrap gap-6 text-sm text-background/70">
             <Link to="/contact" className="hover:text-ball transition">Contact</Link>
