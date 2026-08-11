@@ -429,9 +429,9 @@ function Index() {
       </section>
 
       {/* HOW IT WORKS */}
-      <section className="max-w-7xl mx-auto px-5 sm:px-6 py-10 sm:py-14">
+      <section className="max-w-7xl mx-auto px-5 sm:px-6 py-8 sm:py-10">
         <div className="rounded-3xl bg-brick text-background p-5 sm:p-8 md:p-10">
-          <h2 className="text-[clamp(1.9rem,7.5vw,3.75rem)] font-display uppercase mb-6 break-words">
+          <h2 className="text-[clamp(1.7rem,7vw,3.25rem)] font-display uppercase mb-6 break-words">
             How it works
           </h2>
           <div className="grid md:grid-cols-2 gap-4">
