@@ -60,15 +60,15 @@ function Index() {
       </header>
 
       {/* HERO */}
-      <section className="relative max-w-7xl mx-auto px-5 sm:px-6 pt-8 pb-10">
-        <div className="grid lg:grid-cols-12 gap-10 items-center">
+      <section className="relative max-w-7xl mx-auto px-5 sm:px-6 pt-6 pb-8">
+        <div className="grid lg:grid-cols-12 gap-8 items-end">
           <div className="lg:col-span-7 relative z-10">
-            <h1 className="text-[clamp(2.5rem,10vw,6.5rem)] font-display uppercase break-words">
+            <h1 className="text-[clamp(2.25rem,9vw,5.5rem)] font-display uppercase break-words">
               Tennis<br />
               <span className="text-clay">without</span><br />
               borders
             </h1>
-            <div className="mt-8 flex flex-wrap gap-3">
+            <div className="mt-6 flex flex-wrap gap-3">
               <Link to="/book" className="px-6 sm:px-7 py-4 rounded-full bg-violet text-violet-foreground font-semibold hover:opacity-90 transition">
                 Book your lesson 🎾
               </Link>
@@ -77,7 +77,7 @@ function Index() {
               </a>
             </div>
 
-            <div className="mt-10 flex items-center gap-6">
+            <div className="mt-8 flex items-center gap-6">
               <div className="flex -space-x-2 text-xl sm:text-2xl">
                 {FLAGS.slice(0, 6).map((f) => (
                   <span key={f} className="w-9 h-9 sm:w-10 sm:h-10 shrink-0 rounded-full bg-background border-2 border-background shadow-md grid place-items-center">{f}</span>
@@ -90,8 +90,8 @@ function Index() {
             </div>
           </div>
 
-          <div className="lg:col-span-5 relative">
-            <div className="relative rounded-3xl overflow-hidden">
+          <div className="lg:col-span-5 relative self-end">
+            <div className="relative rounded-3xl overflow-hidden max-w-sm lg:max-w-md ml-auto">
               <img src={posterAsset.url} alt="Youpi, tennis coach in Berlin, smiling on a clay court" className="w-full h-auto block" />
             </div>
           </div>
