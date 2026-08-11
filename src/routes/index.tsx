@@ -374,10 +374,10 @@ function Index() {
       </section>
 
       {/* MANIFESTO */}
-      <section className="max-w-7xl mx-auto px-5 sm:px-6 py-10 sm:py-14">
+      <section className="max-w-7xl mx-auto px-5 sm:px-6 py-8 sm:py-10">
         <div className="grid md:grid-cols-2 gap-8 items-start">
           <div>
-            <h2 className="text-[clamp(1.9rem,7.5vw,3.75rem)] font-display uppercase mb-5 break-words">
+            <h2 className="text-[clamp(1.7rem,7vw,3.25rem)] font-display uppercase mb-5 break-words">
               No place in a club?<br/>
               <span className="text-clay">Tired of ball-feeders?</span>
             </h2>
@@ -401,12 +401,12 @@ function Index() {
               actually enjoying the game.
             </p>
             <p className="text-muted-foreground text-lg mb-6">
-              👫 <strong>Want to train with your partner or with your friends?</strong> I can build a
-              group just for you. And I really take care of putting players together by level, so
+              👫 <strong>Want to train with your partner or with your friends?</strong><br/>
+              I can build a group just for you. And I really take care of putting players together by level, so
               everyone enjoys the session — something most coaches simply don't do.
             </p>
             <p className="font-display text-2xl sm:text-3xl md:text-4xl uppercase leading-tight text-clay break-words">
-              Client satisfaction is what matters most to me.
+              Student satisfaction is what matters most to me.
             </p>
           </div>
           <div className="space-y-4">
