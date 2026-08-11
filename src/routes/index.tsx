@@ -99,8 +99,8 @@ function Index() {
       </section>
 
       {/* LESSONS */}
-      <section id="lessons" className="max-w-7xl mx-auto px-5 sm:px-6 py-10 sm:py-14">
-        <h2 className="text-[clamp(2rem,8vw,4.5rem)] font-display uppercase max-w-2xl mb-7 break-words">
+      <section id="lessons" className="max-w-7xl mx-auto px-5 sm:px-6 py-8 sm:py-10">
+        <h2 className="text-[clamp(1.75rem,7vw,3.75rem)] font-display uppercase max-w-2xl mb-6 break-words">
           Pick your <span className="text-court">game</span>
         </h2>
 
