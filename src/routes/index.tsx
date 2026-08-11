@@ -60,15 +60,15 @@ function Index() {
       </header>
 
       {/* HERO */}
-      <section className="relative max-w-7xl mx-auto px-5 sm:px-6 pt-8 pb-10">
-        <div className="grid lg:grid-cols-12 gap-10 items-center">
+      <section className="relative max-w-7xl mx-auto px-5 sm:px-6 pt-6 pb-8">
+        <div className="grid lg:grid-cols-12 gap-8 items-end">
           <div className="lg:col-span-7 relative z-10">
-            <h1 className="text-[clamp(2.5rem,10vw,6.5rem)] font-display uppercase break-words">
+            <h1 className="text-[clamp(2.25rem,9vw,5.5rem)] font-display uppercase break-words">
               Tennis<br />
               <span className="text-clay">without</span><br />
               borders
             </h1>
-            <div className="mt-8 flex flex-wrap gap-3">
+            <div className="mt-6 flex flex-wrap gap-3">
               <Link to="/book" className="px-6 sm:px-7 py-4 rounded-full bg-violet text-violet-foreground font-semibold hover:opacity-90 transition">
                 Book your lesson 🎾
               </Link>
@@ -77,7 +77,7 @@ function Index() {
               </a>
             </div>
 
-            <div className="mt-10 flex items-center gap-6">
+            <div className="mt-8 flex items-center gap-6">
               <div className="flex -space-x-2 text-xl sm:text-2xl">
                 {FLAGS.slice(0, 6).map((f) => (
                   <span key={f} className="w-9 h-9 sm:w-10 sm:h-10 shrink-0 rounded-full bg-background border-2 border-background shadow-md grid place-items-center">{f}</span>
@@ -90,8 +90,8 @@ function Index() {
             </div>
           </div>
 
-          <div className="lg:col-span-5 relative">
-            <div className="relative rounded-3xl overflow-hidden">
+          <div className="lg:col-span-5 relative self-end">
+            <div className="relative rounded-3xl overflow-hidden max-w-sm lg:max-w-md ml-auto">
               <img src={posterAsset.url} alt="Youpi, tennis coach in Berlin, smiling on a clay court" className="w-full h-auto block" />
             </div>
           </div>
@@ -99,8 +99,8 @@ function Index() {
       </section>
 
       {/* LESSONS */}
-      <section id="lessons" className="max-w-7xl mx-auto px-5 sm:px-6 py-10 sm:py-14">
-        <h2 className="text-[clamp(2rem,8vw,4.5rem)] font-display uppercase max-w-2xl mb-7 break-words">
+      <section id="lessons" className="max-w-7xl mx-auto px-5 sm:px-6 py-8 sm:py-10">
+        <h2 className="text-[clamp(1.75rem,7vw,3.75rem)] font-display uppercase max-w-2xl mb-6 break-words">
           Pick your <span className="text-court">game</span>
         </h2>
 
@@ -184,11 +184,11 @@ function Index() {
       </section>
 
       {/* CLUB */}
-      <section id="club" className="max-w-7xl mx-auto px-5 sm:px-6 py-10 sm:py-14">
-        <div className="rounded-[2rem] bg-card border-2 border-ink/10 p-5 sm:p-8 md:p-12">
+      <section id="club" className="max-w-7xl mx-auto px-5 sm:px-6 py-8 sm:py-10">
+        <div className="rounded-[2rem] bg-card border-2 border-ink/10 p-5 sm:p-8 md:p-10">
           <div className="grid lg:grid-cols-2 gap-8 items-start">
             <div>
-              <h2 className="text-4xl sm:text-5xl md:text-6xl font-display uppercase mb-6 break-words">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-display uppercase mb-5 break-words">
                 BFC Alemannia<br/>
                 <span className="text-clay">Tennis Club</span>
               </h2>
@@ -235,11 +235,11 @@ function Index() {
       </section>
 
       {/* EVENTS */}
-      <section id="events" className="max-w-7xl mx-auto px-5 sm:px-6 py-10 sm:py-14">
-        <h2 className="text-[clamp(2rem,8vw,4.5rem)] font-display uppercase mb-3 break-words">
+      <section id="events" className="max-w-7xl mx-auto px-5 sm:px-6 py-8 sm:py-10">
+        <h2 className="text-[clamp(1.75rem,7vw,3.75rem)] font-display uppercase mb-3 break-words">
           Social <span className="text-pink">tennis</span>
         </h2>
-        <p className="text-muted-foreground max-w-2xl mb-7">
+        <p className="text-muted-foreground max-w-2xl mb-6">
           Meet people, network, and have fun. Relaxed formats designed for Berliners who want to play and connect.
         </p>
 
@@ -318,9 +318,9 @@ function Index() {
       </section>
 
       {/* COACH */}
-      <section id="coach" className="max-w-7xl mx-auto px-5 sm:px-6 py-10 sm:py-14">
+      <section id="coach" className="max-w-7xl mx-auto px-5 sm:px-6 py-8 sm:py-10">
         <div className="max-w-3xl">
-          <h2 className="text-[clamp(1.9rem,7.5vw,3.75rem)] font-display uppercase mb-5 break-words">
+          <h2 className="text-[clamp(1.7rem,7vw,3.25rem)] font-display uppercase mb-5 break-words">
             Who is your <span className="text-pink">coach Youpi</span> ?
           </h2>
           <div className="space-y-4 text-muted-foreground text-base sm:text-lg">
@@ -330,25 +330,19 @@ function Index() {
               and Germany 🇫🇷🇩🇪.
             </p>
             <p>
-              I discovered my passion for tennis 17 years ago — and let's just say it quickly
-              became a little more than a hobby! 😅🎾
+              I discovered my passion for tennis 17 years ago. Over the years in France, I
+              trained and played with high-level amateur players who passed on to me both the
+              technical demands and the love of the game. That experience taught me that real
+              progress comes from attention to detail, humility, and a genuine respect for the sport.
             </p>
             <p>
-              During the Covid period, I sometimes played 4 to 7 hours a day, 6 days a week. Some
-              weekends, I can literally spend 12 hours a day watching tennis! 🎾📺🙈
+              For me, the technical progress of every student is a priority. Whether you're a
+              complete beginner or an experienced player, my goal is to help you improve with
+              clear, structured coaching in a positive and supportive atmosphere.
             </p>
             <p>
-              My tennis friends quickly noticed how passionate and dedicated I was and encouraged
-              me to become a coach. So I decided to turn my passion into my profession: teaching
-              what makes me happiest — tennis! ❤️🎾
-            </p>
-            <p>
-              After gaining experience as a tennis coach, I now train players at several clubs
-              around Berlin, with BFC Alemannia being my main club. 🇩🇪
-            </p>
-            <p>
-              Whether you're a complete beginner or an experienced player, I'd love to help you
-              improve, have fun and enjoy the game. 💪🎾😄
+              I now train players at several clubs around Berlin, with BFC Alemannia as my main
+              base. 🇩🇪
             </p>
             <p className="font-semibold text-ink">
               Come join the adventure in English, French &amp; German! 🚀🎾
@@ -380,10 +374,10 @@ function Index() {
       </section>
 
       {/* MANIFESTO */}
-      <section className="max-w-7xl mx-auto px-5 sm:px-6 py-10 sm:py-14">
+      <section className="max-w-7xl mx-auto px-5 sm:px-6 py-8 sm:py-10">
         <div className="grid md:grid-cols-2 gap-8 items-start">
           <div>
-            <h2 className="text-[clamp(1.9rem,7.5vw,3.75rem)] font-display uppercase mb-5 break-words">
+            <h2 className="text-[clamp(1.7rem,7vw,3.25rem)] font-display uppercase mb-5 break-words">
               No place in a club?<br/>
               <span className="text-clay">Tired of ball-feeders?</span>
             </h2>
@@ -407,12 +401,12 @@ function Index() {
               actually enjoying the game.
             </p>
             <p className="text-muted-foreground text-lg mb-6">
-              👫 <strong>Want to train with your partner or with your friends?</strong> I can build a
-              group just for you. And I really take care of putting players together by level, so
+              👫 <strong>Want to train with your partner or with your friends?</strong><br/>
+              I can build a group just for you. And I really take care of putting players together by level, so
               everyone enjoys the session — something most coaches simply don't do.
             </p>
             <p className="font-display text-2xl sm:text-3xl md:text-4xl uppercase leading-tight text-clay break-words">
-              Client satisfaction is what matters most to me.
+              Student satisfaction is what matters most to me.
             </p>
           </div>
           <div className="space-y-4">
@@ -435,9 +429,9 @@ function Index() {
       </section>
 
       {/* HOW IT WORKS */}
-      <section className="max-w-7xl mx-auto px-5 sm:px-6 py-10 sm:py-14">
+      <section className="max-w-7xl mx-auto px-5 sm:px-6 py-8 sm:py-10">
         <div className="rounded-3xl bg-brick text-background p-5 sm:p-8 md:p-10">
-          <h2 className="text-[clamp(1.9rem,7.5vw,3.75rem)] font-display uppercase mb-6 break-words">
+          <h2 className="text-[clamp(1.7rem,7vw,3.25rem)] font-display uppercase mb-6 break-words">
             How it works
           </h2>
           <div className="grid md:grid-cols-2 gap-4">
@@ -458,12 +452,12 @@ function Index() {
       </section>
 
       {/* WINTER SEASON */}
-      <section id="pricing" className="max-w-7xl mx-auto px-5 sm:px-6 py-10 sm:py-14">
-        <div className="rounded-[2rem] bg-navy text-background p-5 sm:p-10 md:p-14 relative overflow-hidden">
+      <section id="pricing" className="max-w-7xl mx-auto px-5 sm:px-6 py-8 sm:py-10">
+        <div className="rounded-[2rem] bg-navy text-background p-5 sm:p-10 md:p-12 relative overflow-hidden">
           <div className="absolute -top-20 -right-20 w-80 h-80 rounded-full bg-sky opacity-30 blur-3xl" />
           <div className="relative grid md:grid-cols-2 gap-8 items-center">
             <div>
-              <h2 className="text-[clamp(2rem,8vw,4.5rem)] font-display uppercase break-words">
+              <h2 className="text-[clamp(1.75rem,7vw,3.75rem)] font-display uppercase break-words">
                 Winter<br/>season 🥶
               </h2>
               <p className="mt-5 text-background/70 text-lg max-w-md">
@@ -495,11 +489,11 @@ function Index() {
       </section>
 
       {/* BOOK CTA */}
-      <section id="book" className="max-w-4xl mx-auto px-5 sm:px-6 py-10 sm:py-14">
-        <div className="relative rounded-3xl bg-navy text-background overflow-hidden p-5 sm:p-10 md:p-14">
+      <section id="book" className="max-w-4xl mx-auto px-5 sm:px-6 py-8 sm:py-10">
+        <div className="relative rounded-3xl bg-navy text-background overflow-hidden p-5 sm:p-10 md:p-12">
           <div className="absolute -bottom-14 -left-14 w-52 h-52 rounded-full bg-sky/30 blur-2xl" />
           <div className="relative">
-            <h2 className="text-[clamp(1.9rem,7.5vw,4rem)] font-display uppercase mb-5 break-words whitespace-nowrap">
+            <h2 className="text-[clamp(1.7rem,7vw,3.5rem)] font-display uppercase mb-5 break-words whitespace-nowrap">
               Ready? Los geht's
             </h2>
             <p className="text-background/75 text-lg mb-8 max-w-xl">
@@ -517,8 +511,8 @@ function Index() {
       </section>
 
       {/* FAQ */}
-      <section id="faq" className="max-w-4xl mx-auto px-5 sm:px-6 py-10 sm:py-14">
-        <h2 className="text-4xl sm:text-5xl font-display uppercase mb-10">FAQ</h2>
+      <section id="faq" className="max-w-4xl mx-auto px-5 sm:px-6 py-8 sm:py-10">
+        <h2 className="text-3xl sm:text-4xl font-display uppercase mb-8">FAQ</h2>
         <div className="divide-y divide-border border-y border-border">
           {[
             { q: "Where do we play?", a: "Summer season: BFC Alemannia Tennis Club — Ollenhauerstr. 64e, 13403 Berlin (clay courts). Winter season: TC Longline, with possible extra slots at TCW and Sportcenter Wittenau." },
@@ -541,8 +535,8 @@ function Index() {
       <FeedbackSection />
 
       {/* FOOTER */}
-      <footer className="bg-ink text-background mt-12">
-        <div className="max-w-7xl mx-auto px-6 py-10 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+      <footer className="bg-ink text-background mt-8">
+        <div className="max-w-7xl mx-auto px-6 py-8 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div className="font-display text-xl sm:text-2xl uppercase">Youpi Tennis Club</div>
           <div className="flex flex-wrap gap-6 text-sm text-background/70">
             <Link to="/contact" className="hover:text-ball transition">Contact</Link>

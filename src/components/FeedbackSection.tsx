@@ -65,11 +65,11 @@ export function FeedbackSection() {
     "w-full min-w-0 px-4 py-3 rounded-2xl bg-background border-2 border-ink/10 focus:border-court outline-none transition";
 
   return (
-    <section id="feedback" className="max-w-7xl mx-auto px-5 sm:px-6 py-10 sm:py-14">
-      <h2 className="text-[clamp(2rem,8vw,4rem)] font-display uppercase mb-3 break-words">
+    <section id="feedback" className="max-w-7xl mx-auto px-5 sm:px-6 py-8 sm:py-10">
+      <h2 className="text-[clamp(1.75rem,7vw,3.5rem)] font-display uppercase mb-3 break-words">
         Feedback
       </h2>
-      <p className="text-muted-foreground mb-7 max-w-2xl">
+      <p className="text-muted-foreground mb-6 max-w-2xl">
         Already trained with me? Leave a comment — reviews are only possible with the email
         address you used to book a session. Only your first name and the first letter of your last
         name are shown publicly, never your email.
