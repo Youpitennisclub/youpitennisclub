@@ -235,11 +235,11 @@ function Index() {
       </section>
 
       {/* EVENTS */}
-      <section id="events" className="max-w-7xl mx-auto px-5 sm:px-6 py-10 sm:py-14">
-        <h2 className="text-[clamp(2rem,8vw,4.5rem)] font-display uppercase mb-3 break-words">
+      <section id="events" className="max-w-7xl mx-auto px-5 sm:px-6 py-8 sm:py-10">
+        <h2 className="text-[clamp(1.75rem,7vw,3.75rem)] font-display uppercase mb-3 break-words">
           Social <span className="text-pink">tennis</span>
         </h2>
-        <p className="text-muted-foreground max-w-2xl mb-7">
+        <p className="text-muted-foreground max-w-2xl mb-6">
           Meet people, network, and have fun. Relaxed formats designed for Berliners who want to play and connect.
         </p>
 
