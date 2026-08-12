@@ -3,6 +3,8 @@ import { useEffect, useMemo, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { PhotoPicker } from "@/components/PhotoPicker";
+import { createBooking, requestCancellation } from "@/lib/bookings.functions";
+
 
 export const Route = createFileRoute("/book")({
   head: () => ({
@@ -217,6 +219,10 @@ function BookPage() {
   const [bookings, setBookings] = useState<PublicBooking[]>([]);
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
+  const [cancelEmail, setCancelEmail] = useState("");
+  const [cancelSending, setCancelSending] = useState(false);
+  const [cancelSent, setCancelSent] = useState(false);
+
 
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -321,28 +327,48 @@ function BookPage() {
     e.preventDefault();
     if (!selectedSlot) return;
     setSubmitting(true);
-    const { error } = await supabase.from("bookings").insert({
-      starts_at: selectedSlot.start.toISOString(),
-      level,
-      first_name: firstName.trim(),
-      last_name: lastName.trim(),
-      email: email.trim(),
-      phone: phone.trim(),
-      photo_url: photo,
-    });
-    setSubmitting(false);
-    if (error) {
+    try {
+      await createBooking({
+        data: {
+          starts_at: selectedSlot.start.toISOString(),
+          level,
+          first_name: firstName.trim(),
+          last_name: lastName.trim(),
+          email: email.trim(),
+          phone: phone.trim(),
+          photo_url: photo,
+          duration: selectedSlot.duration,
+          camp: Boolean(selectedSlot.camp),
+        },
+      });
+      toast.success("🎾 Booked! A confirmation email is on its way.");
+      setSelectedSlot(null);
+      await loadBookings();
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : "";
       toast.error(
-        error.message.includes("fully booked")
+        msg.includes("fully booked")
           ? "Sorry, this slot just got fully booked."
           : "Something went wrong. Please try again.",
       );
-      return;
+    } finally {
+      setSubmitting(false);
     }
-    toast.success("🎾 Your session is booked! We'll be in touch shortly.");
-    setSelectedSlot(null);
-    await loadBookings();
   };
+
+  const askCancel = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setCancelSending(true);
+    try {
+      await requestCancellation({ data: { email: cancelEmail.trim() } });
+      setCancelSent(true);
+    } catch {
+      toast.error("Couldn't send the cancellation email. Please try again.");
+    } finally {
+      setCancelSending(false);
+    }
+  };
+
 
   const inputCls =
     "w-full min-w-0 px-4 py-3 rounded-2xl bg-background border-2 border-ink/10 focus:border-court outline-none transition";
