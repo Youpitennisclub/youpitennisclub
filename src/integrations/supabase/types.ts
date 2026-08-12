@@ -16,6 +16,8 @@ export type Database = {
     Tables: {
       bookings: {
         Row: {
+          cancel_token: string
+          cancelled_at: string | null
           created_at: string
           email: string
           first_name: string
@@ -27,6 +29,8 @@ export type Database = {
           starts_at: string
         }
         Insert: {
+          cancel_token?: string
+          cancelled_at?: string | null
           created_at?: string
           email: string
           first_name: string
@@ -38,6 +42,8 @@ export type Database = {
           starts_at: string
         }
         Update: {
+          cancel_token?: string
+          cancelled_at?: string | null
           created_at?: string
           email?: string
           first_name?: string

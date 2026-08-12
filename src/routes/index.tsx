@@ -1,4 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useState } from "react";
+
 import posterAsset from "@/assets/youpi-court.jpg.asset.json";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { FeedbackSection } from "@/components/FeedbackSection";
@@ -28,7 +30,9 @@ export const Route = createFileRoute("/")({
 const FLAGS = ["🇫🇷", "🇩🇪", "🇺🇸", "🇹🇷", "🇺🇦", "🇪🇸", "🇮🇹", "🇧🇷", "🇯🇵", "🇲🇽", "🇵🇱", "🇪🇬", "🇱🇧", "🇷🇺", "🇬🇷", "🇬🇧", "🇨🇳", "🇸🇪", "🇰🇷", "🇮🇳"];
 
 function Index() {
+  const [contactOpen, setContactOpen] = useState(false);
   return (
+
     <main className="relative overflow-hidden text-left">
       {/* NAV */}
       <header className="sticky top-0 z-50 backdrop-blur-md bg-background/70 border-b border-border">
@@ -332,18 +336,17 @@ function Index() {
             <p>
               I discovered my passion for tennis 17 years ago. Over the years in France, I
               trained and played with high-level amateur players who passed on to me both the
-              technical demands and the love of the game. That experience taught me that real
-              progress comes from attention to detail, humility, and a genuine respect for the sport.
+              technical demands and the love of the game.
             </p>
             <p>
-              For me, the technical progress of every student is a priority. Whether you're a
-              complete beginner or an experienced player, my goal is to help you improve with
-              clear, structured coaching in a positive and supportive atmosphere.
+              For me, the technical progress of every student is a priority — beginner or
+              experienced, my goal is to help you improve with clear, structured coaching.
             </p>
             <p>
               I now train players at several clubs around Berlin, with BFC Alemannia as my main
-              base. 🇩🇪
+              base.
             </p>
+
             <p className="font-semibold text-ink">
               Come join the adventure in English, French &amp; German! 🚀🎾
             </p>
@@ -506,6 +509,16 @@ function Index() {
             >
               Book your lesson 🎾
             </Link>
+            <div className="mt-4">
+              <button
+                type="button"
+                onClick={() => setContactOpen(true)}
+                className="inline-block px-8 sm:px-10 py-4 rounded-full border-2 border-background/40 text-background font-semibold text-base sm:text-lg hover:bg-background/10 transition"
+              >
+                Contact me 📩
+              </button>
+            </div>
+
           </div>
         </div>
       </section>
@@ -548,6 +561,61 @@ function Index() {
           © {new Date().getFullYear()} Youpi Tennis Club · Made with 🎾 in Berlin
         </div>
       </footer>
+
+      {/* CONTACT MODAL */}
+      {contactOpen && (
+        <div className="fixed inset-0 z-[100] flex items-end sm:items-center justify-center">
+          <button
+            aria-label="Close"
+            onClick={() => setContactOpen(false)}
+            className="absolute inset-0 bg-ink/60 backdrop-blur-sm"
+          />
+          <div className="relative w-full sm:max-w-md rounded-t-3xl sm:rounded-3xl bg-card border-2 border-ink/10 shadow-2xl p-6 sm:p-8">
+            <button
+              onClick={() => setContactOpen(false)}
+              className="absolute right-4 top-4 h-9 w-9 rounded-full bg-ink/5 grid place-items-center text-lg font-bold"
+              aria-label="Close"
+            >
+              ×
+            </button>
+            <h3 className="font-display text-2xl uppercase mb-4 pr-10">Contact me</h3>
+            <div className="grid gap-4">
+              <div>
+                <div className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
+                  Email
+                </div>
+                <a
+                  href="mailto:chaouchyoucef@yahoo.com"
+                  className="font-semibold text-lg break-all hover:text-clay transition"
+                >
+                  chaouchyoucef@yahoo.com
+                </a>
+              </div>
+              <div>
+                <div className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
+                  Phone
+                </div>
+                <a
+                  href="tel:+4917645689622"
+                  className="font-semibold text-lg hover:text-clay transition"
+                >
+                  +49 176 45689622
+                </a>
+                <div className="text-sm text-muted-foreground">(WhatsApp preferred)</div>
+              </div>
+            </div>
+            <a
+              href="https://wa.me/4917645689622"
+              target="_blank"
+              rel="noopener"
+              className="mt-6 block text-center px-6 py-4 rounded-2xl bg-violet text-violet-foreground font-semibold hover:opacity-90 transition"
+            >
+              Write on WhatsApp 💬
+            </a>
+          </div>
+        </div>
+      )}
     </main>
+
   );
 }

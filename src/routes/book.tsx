@@ -3,6 +3,8 @@ import { useEffect, useMemo, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { PhotoPicker } from "@/components/PhotoPicker";
+import { createBooking, requestCancellation } from "@/lib/bookings.functions";
+
 
 export const Route = createFileRoute("/book")({
   head: () => ({
@@ -141,8 +143,9 @@ function buildSlotsForDate(date: Date): Slot[] {
         : [
             [17, 0, 60],
             [18, 0, 90],
-            [19, 30, 90],
+            [19, 30, 60],
           ];
+
     const levels = day === 6 ? SAT_LEVELS : (WEEKDAY_LEVELS[day] ?? []);
 
     defs.forEach(([h, m, duration], i) => {
@@ -216,6 +219,10 @@ function BookPage() {
   const [bookings, setBookings] = useState<PublicBooking[]>([]);
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
+  const [cancelEmail, setCancelEmail] = useState("");
+  const [cancelSending, setCancelSending] = useState(false);
+  const [cancelSent, setCancelSent] = useState(false);
+
 
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -320,28 +327,48 @@ function BookPage() {
     e.preventDefault();
     if (!selectedSlot) return;
     setSubmitting(true);
-    const { error } = await supabase.from("bookings").insert({
-      starts_at: selectedSlot.start.toISOString(),
-      level,
-      first_name: firstName.trim(),
-      last_name: lastName.trim(),
-      email: email.trim(),
-      phone: phone.trim(),
-      photo_url: photo,
-    });
-    setSubmitting(false);
-    if (error) {
+    try {
+      await createBooking({
+        data: {
+          starts_at: selectedSlot.start.toISOString(),
+          level,
+          first_name: firstName.trim(),
+          last_name: lastName.trim(),
+          email: email.trim(),
+          phone: phone.trim(),
+          photo_url: photo,
+          duration: selectedSlot.duration,
+          camp: Boolean(selectedSlot.camp),
+        },
+      });
+      toast.success("🎾 Booked! A confirmation email is on its way.");
+      setSelectedSlot(null);
+      await loadBookings();
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : "";
       toast.error(
-        error.message.includes("fully booked")
+        msg.includes("fully booked")
           ? "Sorry, this slot just got fully booked."
           : "Something went wrong. Please try again.",
       );
-      return;
+    } finally {
+      setSubmitting(false);
     }
-    toast.success("🎾 Your session is booked! We'll be in touch shortly.");
-    setSelectedSlot(null);
-    await loadBookings();
   };
+
+  const askCancel = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setCancelSending(true);
+    try {
+      await requestCancellation({ data: { email: cancelEmail.trim() } });
+      setCancelSent(true);
+    } catch {
+      toast.error("Couldn't send the cancellation email. Please try again.");
+    } finally {
+      setCancelSending(false);
+    }
+  };
+
 
   const inputCls =
     "w-full min-w-0 px-4 py-3 rounded-2xl bg-background border-2 border-ink/10 focus:border-court outline-none transition";
@@ -552,31 +579,34 @@ function BookPage() {
                                   </div>
                                 )}
                                 {parts.length > 0 && !past && (
-                                  <div className="mt-1.5 flex items-center gap-1.5 overflow-hidden">
-                                    {parts.slice(0, 4).map((p, i) =>
-                                      p.photo_url ? (
-                                        <img
-                                          key={i}
-                                          src={p.photo_url}
-                                          alt={p.first_name}
-                                          className="h-6 w-6 shrink-0 rounded-full object-cover border border-ink/10"
-                                        />
-                                      ) : (
-                                        <span
-                                          key={i}
-                                          className="h-6 w-6 shrink-0 rounded-full bg-ink/10 grid place-items-center text-[10px] font-bold"
-                                        >
-                                          {p.first_name.slice(0, 1)}
-                                        </span>
-                                      ),
-                                    )}
-                                    <span className="text-[11px] font-normal truncate opacity-80">
+                                  <div className="mt-2 flex flex-col gap-1.5">
+                                    <div className="flex items-center gap-1.5">
+                                      {parts.slice(0, 6).map((p, i) =>
+                                        p.photo_url ? (
+                                          <img
+                                            key={i}
+                                            src={p.photo_url}
+                                            alt={p.first_name}
+                                            className="h-7 w-7 shrink-0 rounded-full object-cover border border-ink/10"
+                                          />
+                                        ) : (
+                                          <span
+                                            key={i}
+                                            className="h-7 w-7 shrink-0 rounded-full bg-ink/10 grid place-items-center text-[11px] font-bold"
+                                          >
+                                            {p.first_name.slice(0, 1)}
+                                          </span>
+                                        ),
+                                      )}
+                                    </div>
+                                    <div className="text-sm font-semibold leading-snug break-words">
                                       {parts
                                         .map((p) => `${p.first_name} ${p.last_initials}.`)
-                                        .join(", ")}
-                                    </span>
+                                        .join(" · ")}
+                                    </div>
                                   </div>
                                 )}
+
                               </button>
                             );
                           })
@@ -588,7 +618,48 @@ function BookPage() {
               </div>
             )}
 
+            {/* CANCELLATION */}
+            <div id="cancel" className="mt-8 rounded-3xl bg-card border-2 border-destructive p-5 sm:p-7">
+              <h3 className="font-display text-xl sm:text-2xl uppercase text-destructive">
+                Cancel a booking
+              </h3>
+              <p className="mt-2 font-display text-lg sm:text-xl uppercase leading-tight">
+                Only possible up to 24 hours before the session starts
+              </p>
+              <p className="mt-2 text-sm text-muted-foreground max-w-xl">
+                Enter the email address you used when booking. You'll get a confirmation link by
+                email — once you click it, your name disappears from the calendar and the spot is
+                free again.
+              </p>
+              {cancelSent ? (
+                <p className="mt-4 font-semibold text-ink">
+                  ✅ If a cancellable booking exists for this address, a confirmation email has
+                  just been sent. Check your inbox.
+                </p>
+              ) : (
+                <form onSubmit={askCancel} className="mt-4 grid sm:grid-cols-[1fr_auto] gap-3">
+                  <input
+                    required
+                    type="email"
+                    maxLength={120}
+                    value={cancelEmail}
+                    onChange={(e) => setCancelEmail(e.target.value)}
+                    placeholder="Email used for the booking"
+                    className={inputCls}
+                  />
+                  <button
+                    type="submit"
+                    disabled={cancelSending}
+                    className="px-6 py-3.5 rounded-2xl bg-destructive text-destructive-foreground font-semibold hover:opacity-90 transition disabled:opacity-50"
+                  >
+                    {cancelSending ? "Sending…" : "Send cancellation link"}
+                  </button>
+                </form>
+              )}
+            </div>
+
             <div className="mt-8 rounded-3xl bg-navy text-background p-5 sm:p-7">
+
               <h3 className="font-display text-xl sm:text-2xl uppercase">Winter season 🥶</h3>
               <p className="mt-2 text-background/75 text-sm sm:text-base max-w-xl">
                 Indoor season from October to end of March — 1h30 every Saturday. Prices and
@@ -825,9 +896,20 @@ function BookPage() {
             >
               {submitting ? "Booking…" : "Confirmation 🎾"}
             </button>
+            <div className="mt-3 rounded-2xl bg-destructive/10 border-2 border-destructive p-4">
+              <div className="font-display text-lg sm:text-xl uppercase text-destructive leading-tight">
+                Cancellation only up to 24h before the session
+              </div>
+              <p className="mt-2 text-sm font-semibold text-ink">
+                To cancel, request it with this email address — you'll receive a confirmation
+                link by email and the cancellation is only final once you click it. Later than
+                24h before the start, cancellation is not possible.
+              </p>
+            </div>
             <p className="text-xs text-muted-foreground">
-              Free cancellation up to 24h before. Rain policy: 50% refund or reschedule.
+              Rain policy: 50% refund or reschedule.
             </p>
+
           </form>
         </Modal>
       )}
