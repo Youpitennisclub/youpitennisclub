@@ -332,18 +332,17 @@ function Index() {
             <p>
               I discovered my passion for tennis 17 years ago. Over the years in France, I
               trained and played with high-level amateur players who passed on to me both the
-              technical demands and the love of the game. That experience taught me that real
-              progress comes from attention to detail, humility, and a genuine respect for the sport.
+              technical demands and the love of the game.
             </p>
             <p>
-              For me, the technical progress of every student is a priority. Whether you're a
-              complete beginner or an experienced player, my goal is to help you improve with
-              clear, structured coaching in a positive and supportive atmosphere.
+              For me, the technical progress of every student is a priority — beginner or
+              experienced, my goal is to help you improve with clear, structured coaching.
             </p>
             <p>
               I now train players at several clubs around Berlin, with BFC Alemannia as my main
-              base. 🇩🇪
+              base.
             </p>
+
             <p className="font-semibold text-ink">
               Come join the adventure in English, French &amp; German! 🚀🎾
             </p>
@@ -506,6 +505,16 @@ function Index() {
             >
               Book your lesson 🎾
             </Link>
+            <div className="mt-4">
+              <button
+                type="button"
+                onClick={() => setContactOpen(true)}
+                className="inline-block px-8 sm:px-10 py-4 rounded-full border-2 border-background/40 text-background font-semibold text-base sm:text-lg hover:bg-background/10 transition"
+              >
+                Contact me 📩
+              </button>
+            </div>
+
           </div>
         </div>
       </section>
