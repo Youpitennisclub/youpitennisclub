@@ -1,4 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useState } from "react";
+
 import posterAsset from "@/assets/youpi-court.jpg.asset.json";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { FeedbackSection } from "@/components/FeedbackSection";
@@ -28,7 +30,9 @@ export const Route = createFileRoute("/")({
 const FLAGS = ["🇫🇷", "🇩🇪", "🇺🇸", "🇹🇷", "🇺🇦", "🇪🇸", "🇮🇹", "🇧🇷", "🇯🇵", "🇲🇽", "🇵🇱", "🇪🇬", "🇱🇧", "🇷🇺", "🇬🇷", "🇬🇧", "🇨🇳", "🇸🇪", "🇰🇷", "🇮🇳"];
 
 function Index() {
+  const [contactOpen, setContactOpen] = useState(false);
   return (
+
     <main className="relative overflow-hidden text-left">
       {/* NAV */}
       <header className="sticky top-0 z-50 backdrop-blur-md bg-background/70 border-b border-border">
