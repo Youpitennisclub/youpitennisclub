@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as CookiesRouteImport } from './routes/cookies'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as CancelRouteImport } from './routes/cancel'
 import { Route as BookRouteImport } from './routes/book'
 import { Route as IndexRouteImport } from './routes/index'
 
@@ -30,6 +31,11 @@ const ContactRoute = ContactRouteImport.update({
   path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CancelRoute = CancelRouteImport.update({
+  id: '/cancel',
+  path: '/cancel',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const BookRoute = BookRouteImport.update({
   id: '/book',
   path: '/book',
@@ -44,6 +50,7 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/book': typeof BookRoute
+  '/cancel': typeof CancelRoute
   '/contact': typeof ContactRoute
   '/cookies': typeof CookiesRoute
   '/privacy': typeof PrivacyRoute
@@ -51,6 +58,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/book': typeof BookRoute
+  '/cancel': typeof CancelRoute
   '/contact': typeof ContactRoute
   '/cookies': typeof CookiesRoute
   '/privacy': typeof PrivacyRoute
@@ -59,21 +67,30 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/book': typeof BookRoute
+  '/cancel': typeof CancelRoute
   '/contact': typeof ContactRoute
   '/cookies': typeof CookiesRoute
   '/privacy': typeof PrivacyRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/book' | '/contact' | '/cookies' | '/privacy'
+  fullPaths: '/' | '/book' | '/cancel' | '/contact' | '/cookies' | '/privacy'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/book' | '/contact' | '/cookies' | '/privacy'
-  id: '__root__' | '/' | '/book' | '/contact' | '/cookies' | '/privacy'
+  to: '/' | '/book' | '/cancel' | '/contact' | '/cookies' | '/privacy'
+  id:
+    | '__root__'
+    | '/'
+    | '/book'
+    | '/cancel'
+    | '/contact'
+    | '/cookies'
+    | '/privacy'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   BookRoute: typeof BookRoute
+  CancelRoute: typeof CancelRoute
   ContactRoute: typeof ContactRoute
   CookiesRoute: typeof CookiesRoute
   PrivacyRoute: typeof PrivacyRoute
@@ -102,6 +119,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/cancel': {
+      id: '/cancel'
+      path: '/cancel'
+      fullPath: '/cancel'
+      preLoaderRoute: typeof CancelRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/book': {
       id: '/book'
       path: '/book'
@@ -122,6 +146,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   BookRoute: BookRoute,
+  CancelRoute: CancelRoute,
   ContactRoute: ContactRoute,
   CookiesRoute: CookiesRoute,
   PrivacyRoute: PrivacyRoute,

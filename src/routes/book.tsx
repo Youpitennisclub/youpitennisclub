@@ -141,8 +141,9 @@ function buildSlotsForDate(date: Date): Slot[] {
         : [
             [17, 0, 60],
             [18, 0, 90],
-            [19, 30, 90],
+            [19, 30, 60],
           ];
+
     const levels = day === 6 ? SAT_LEVELS : (WEEKDAY_LEVELS[day] ?? []);
 
     defs.forEach(([h, m, duration], i) => {
@@ -552,31 +553,34 @@ function BookPage() {
                                   </div>
                                 )}
                                 {parts.length > 0 && !past && (
-                                  <div className="mt-1.5 flex items-center gap-1.5 overflow-hidden">
-                                    {parts.slice(0, 4).map((p, i) =>
-                                      p.photo_url ? (
-                                        <img
-                                          key={i}
-                                          src={p.photo_url}
-                                          alt={p.first_name}
-                                          className="h-6 w-6 shrink-0 rounded-full object-cover border border-ink/10"
-                                        />
-                                      ) : (
-                                        <span
-                                          key={i}
-                                          className="h-6 w-6 shrink-0 rounded-full bg-ink/10 grid place-items-center text-[10px] font-bold"
-                                        >
-                                          {p.first_name.slice(0, 1)}
-                                        </span>
-                                      ),
-                                    )}
-                                    <span className="text-[11px] font-normal truncate opacity-80">
+                                  <div className="mt-2 flex flex-col gap-1.5">
+                                    <div className="flex items-center gap-1.5">
+                                      {parts.slice(0, 6).map((p, i) =>
+                                        p.photo_url ? (
+                                          <img
+                                            key={i}
+                                            src={p.photo_url}
+                                            alt={p.first_name}
+                                            className="h-7 w-7 shrink-0 rounded-full object-cover border border-ink/10"
+                                          />
+                                        ) : (
+                                          <span
+                                            key={i}
+                                            className="h-7 w-7 shrink-0 rounded-full bg-ink/10 grid place-items-center text-[11px] font-bold"
+                                          >
+                                            {p.first_name.slice(0, 1)}
+                                          </span>
+                                        ),
+                                      )}
+                                    </div>
+                                    <div className="text-sm font-semibold leading-snug break-words">
                                       {parts
                                         .map((p) => `${p.first_name} ${p.last_initials}.`)
-                                        .join(", ")}
-                                    </span>
+                                        .join(" · ")}
+                                    </div>
                                   </div>
                                 )}
+
                               </button>
                             );
                           })
