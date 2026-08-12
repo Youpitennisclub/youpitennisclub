@@ -561,6 +561,61 @@ function Index() {
           © {new Date().getFullYear()} Youpi Tennis Club · Made with 🎾 in Berlin
         </div>
       </footer>
+
+      {/* CONTACT MODAL */}
+      {contactOpen && (
+        <div className="fixed inset-0 z-[100] flex items-end sm:items-center justify-center">
+          <button
+            aria-label="Close"
+            onClick={() => setContactOpen(false)}
+            className="absolute inset-0 bg-ink/60 backdrop-blur-sm"
+          />
+          <div className="relative w-full sm:max-w-md rounded-t-3xl sm:rounded-3xl bg-card border-2 border-ink/10 shadow-2xl p-6 sm:p-8">
+            <button
+              onClick={() => setContactOpen(false)}
+              className="absolute right-4 top-4 h-9 w-9 rounded-full bg-ink/5 grid place-items-center text-lg font-bold"
+              aria-label="Close"
+            >
+              ×
+            </button>
+            <h3 className="font-display text-2xl uppercase mb-4 pr-10">Contact me</h3>
+            <div className="grid gap-4">
+              <div>
+                <div className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
+                  Email
+                </div>
+                <a
+                  href="mailto:chaouchyoucef@yahoo.com"
+                  className="font-semibold text-lg break-all hover:text-clay transition"
+                >
+                  chaouchyoucef@yahoo.com
+                </a>
+              </div>
+              <div>
+                <div className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
+                  Phone
+                </div>
+                <a
+                  href="tel:+4917645689622"
+                  className="font-semibold text-lg hover:text-clay transition"
+                >
+                  +49 176 45689622
+                </a>
+                <div className="text-sm text-muted-foreground">(WhatsApp preferred)</div>
+              </div>
+            </div>
+            <a
+              href="https://wa.me/4917645689622"
+              target="_blank"
+              rel="noopener"
+              className="mt-6 block text-center px-6 py-4 rounded-2xl bg-violet text-violet-foreground font-semibold hover:opacity-90 transition"
+            >
+              Write on WhatsApp 💬
+            </a>
+          </div>
+        </div>
+      )}
     </main>
+
   );
 }
