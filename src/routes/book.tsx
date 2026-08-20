@@ -320,6 +320,8 @@ function BookPage() {
       return;
     }
     if (slot.level !== "open") setLevel(slot.level);
+    setCancelSent(false);
+    setCancelSending(false);
     setSelectedSlot(slot);
   };
 
