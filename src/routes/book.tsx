@@ -320,6 +320,8 @@ function BookPage() {
       return;
     }
     if (slot.level !== "open") setLevel(slot.level);
+    setCancelSent(false);
+    setCancelSending(false);
     setSelectedSlot(slot);
   };
 
@@ -366,7 +368,7 @@ function BookPage() {
     try {
       const r = await cancelBooking({ data: { email: mail } });
       if (r.status === "cancelled") {
-        setCancelSent(true);
+        setCancelSent(false);
         await loadBookings();
         toast.success(
           r.cancelled > 1
