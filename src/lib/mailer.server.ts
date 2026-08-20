@@ -1,13 +1,13 @@
 /** Server-only email helper. Uses Resend when RESEND_API_KEY is configured. */
 
-const COACH_EMAIL = "chaouchyoucef@yahoo.com";
+const COACH_EMAIL = "youpitennisclub@gmail.com";
 
 export function coachEmail() {
   return COACH_EMAIL;
 }
 
 export function siteUrl() {
-  return process.env["SITE_URL"] ?? "https://youpitennisclub.lovable.app";
+  return process.env["SITE_URL"] ?? "https://youpitennisclub.com";
 }
 
 export async function sendMail(opts: {
@@ -17,7 +17,7 @@ export async function sendMail(opts: {
   replyTo?: string;
 }) {
   const key = process.env["RESEND_API_KEY"];
-  const from = process.env["EMAIL_FROM"] ?? "Youpi Tennis Club <onboarding@resend.dev>";
+  const from = process.env["EMAIL_FROM"] ?? "Youpi Tennis Club <booking@youpitennisclub.com>";
 
   if (!key) {
     console.warn("[mail] RESEND_API_KEY missing — email not sent:", opts.subject, "→", opts.to);
