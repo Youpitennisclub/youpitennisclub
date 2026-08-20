@@ -57,10 +57,13 @@ export async function createBookingRecord(input: {
     html: wrap(
       "RESERVATION",
       `<p style="font-size:20px"><b>${when}</b><br/>${input.duration} minutes${input.camp ? " · Summer camp" : ""}</p>
-       <p><b>Student:</b> ${name}<br/>
+       <p style="font-size:17px;line-height:1.7">
+       <b>First name:</b> ${input.first_name}<br/>
+       <b>Last name:</b> ${input.last_name}<br/>
+       <b>Phone:</b> ${input.phone}<br/>
        <b>Level:</b> ${input.level}<br/>
-       <b>Email:</b> ${input.email}<br/>
-       <b>Phone:</b> ${input.phone}</p>`,
+       <b>Email:</b> ${input.email}
+       </p>`,
     ),
   });
 
