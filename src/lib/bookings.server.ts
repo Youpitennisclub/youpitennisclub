@@ -160,6 +160,8 @@ export async function cancelByEmailRecord(email: string) {
 }
 
 /** Legacy step 1: student asks for a cancellation → confirmation link sent to their email. */
+export async function requestCancellationRecord(email: string) {
+
 
   const now = Date.now();
   const { data, error } = await supabaseAdmin
