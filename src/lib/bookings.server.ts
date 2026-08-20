@@ -201,10 +201,10 @@ export async function requestCancellationRecord(email: string) {
     const s = cancellable[0]!;
     await sendMail({
       to: coachEmail(),
-      subject: `DEMANDE D'ANNULATION ⏳ — ${s.first_name} ${s.last_name}`,
+      subject: `CANCELLATION REQUEST ⏳ — ${s.first_name} ${s.last_name}`,
       replyTo: s.email,
       html: wrap(
-        "DEMANDE D'ANNULATION",
+        "CANCELLATION REQUEST",
         `<p style="font-size:17px;line-height:1.7">
          <b>First name:</b> ${s.first_name}<br/>
          <b>Last name:</b> ${s.last_name}<br/>
