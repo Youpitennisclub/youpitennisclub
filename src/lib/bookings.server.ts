@@ -127,10 +127,10 @@ export async function cancelByEmailRecord(email: string) {
 
   await sendMail({
     to: coachEmail(),
-    subject: `ANNULATION ❌ — ${s.first_name} ${s.last_name} — ${fmt(s.starts_at)}`,
+    subject: `CANCELLATION ❌ — ${s.first_name} ${s.last_name} — ${fmt(s.starts_at)}`,
     replyTo: s.email,
     html: wrap(
-      "ANNULATION",
+      "CANCELLATION",
       `<p style="font-size:17px;line-height:1.7">
        <b>First name:</b> ${s.first_name}<br/>
        <b>Last name:</b> ${s.last_name}<br/>
@@ -146,7 +146,7 @@ export async function cancelByEmailRecord(email: string) {
 
   await sendMail({
     to: s.email,
-    subject: `ANNULATION ❌ — ${fmt(s.starts_at)}`,
+    subject: `CANCELLATION ❌ — ${fmt(s.starts_at)}`,
     replyTo: coachEmail(),
     html: wrap(
       "Cancellation confirmed",
@@ -250,10 +250,10 @@ export async function confirmCancellationRecord(token: string) {
 
   await sendMail({
     to: coachEmail(),
-    subject: `ANNULATION ❌ — ${name} — ${when}`,
+    subject: `CANCELLATION ❌ — ${name} — ${when}`,
     replyTo: data.email,
     html: wrap(
-      "ANNULATION",
+      "CANCELLATION",
       `<p style="font-size:20px"><b>${when}</b></p>
        <p style="font-size:17px;line-height:1.7">
        <b>First name:</b> ${data.first_name}<br/>
@@ -268,7 +268,7 @@ export async function confirmCancellationRecord(token: string) {
 
   await sendMail({
     to: data.email,
-    subject: `ANNULATION ❌ — ${when}`,
+    subject: `CANCELLATION ❌ — ${when}`,
     replyTo: coachEmail(),
     html: wrap("Cancellation confirmed", `<p style="font-size:20px"><b>${when}</b> is cancelled. Hope to see you soon on court!</p>`),
   });
