@@ -618,45 +618,8 @@ function BookPage() {
               </div>
             )}
 
-            {/* CANCELLATION */}
-            <div id="cancel" className="mt-8 rounded-3xl bg-card border-2 border-destructive p-5 sm:p-7">
-              <h3 className="font-display text-xl sm:text-2xl uppercase text-destructive">
-                Cancel a booking
-              </h3>
-              <p className="mt-2 font-display text-lg sm:text-xl uppercase leading-tight">
-                Only possible up to 24 hours before the session starts
-              </p>
-              <p className="mt-2 text-sm text-muted-foreground max-w-xl">
-                Enter the email address you used when booking. You'll get a confirmation link by
-                email — once you click it, your name disappears from the calendar and the spot is
-                free again.
-              </p>
-              {cancelSent ? (
-                <p className="mt-4 font-semibold text-ink">
-                  ✅ If a cancellable booking exists for this address, a confirmation email has
-                  just been sent. Check your inbox.
-                </p>
-              ) : (
-                <form onSubmit={askCancel} className="mt-4 grid sm:grid-cols-[1fr_auto] gap-3">
-                  <input
-                    required
-                    type="email"
-                    maxLength={120}
-                    value={cancelEmail}
-                    onChange={(e) => setCancelEmail(e.target.value)}
-                    placeholder="Email used for the booking"
-                    className={inputCls}
-                  />
-                  <button
-                    type="submit"
-                    disabled={cancelSending}
-                    className="px-6 py-3.5 rounded-2xl bg-destructive text-destructive-foreground font-semibold hover:opacity-90 transition disabled:opacity-50"
-                  >
-                    {cancelSending ? "Sending…" : "Send cancellation link"}
-                  </button>
-                </form>
-              )}
-            </div>
+
+
 
             <div className="mt-8 rounded-3xl bg-navy text-background p-5 sm:p-7">
 
