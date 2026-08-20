@@ -883,11 +883,11 @@ function BookPage() {
                 Cancellation only up to 24h before the session
               </div>
               <p className="mt-2 text-sm font-semibold text-ink">
-                One click on the button below and I receive your cancellation request with all
-                your booking details. You'll then get a confirmation link by email — the
-                cancellation is final once you click it. Later than 24h before the start,
-                cancellation is not possible.
+                Fill in your email above and click once: your booking is cancelled immediately,
+                your name disappears from the calendar and we both get a confirmation email.
+                Later than 24h before the start, cancellation is not possible.
               </p>
+
               <button
                 type="button"
                 disabled={cancelSending || cancelSent}
