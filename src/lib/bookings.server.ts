@@ -57,10 +57,13 @@ export async function createBookingRecord(input: {
     html: wrap(
       "RESERVATION",
       `<p style="font-size:20px"><b>${when}</b><br/>${input.duration} minutes${input.camp ? " · Summer camp" : ""}</p>
-       <p><b>Student:</b> ${name}<br/>
+       <p style="font-size:17px;line-height:1.7">
+       <b>First name:</b> ${input.first_name}<br/>
+       <b>Last name:</b> ${input.last_name}<br/>
+       <b>Phone:</b> ${input.phone}<br/>
        <b>Level:</b> ${input.level}<br/>
-       <b>Email:</b> ${input.email}<br/>
-       <b>Phone:</b> ${input.phone}</p>`,
+       <b>Email:</b> ${input.email}
+       </p>`,
     ),
   });
 
@@ -86,7 +89,7 @@ export async function requestCancellationRecord(email: string) {
   const now = Date.now();
   const { data, error } = await supabaseAdmin
     .from("bookings")
-    .select("id, starts_at, cancel_token, first_name, last_name, email")
+    .select("id, starts_at, cancel_token, first_name, last_name, email, level")
     .ilike("email", email)
     .is("cancelled_at", null)
     .gte("starts_at", new Date(now).toISOString())
@@ -127,7 +130,7 @@ export async function requestCancellationRecord(email: string) {
 export async function confirmCancellationRecord(token: string) {
   const { data, error } = await supabaseAdmin
     .from("bookings")
-    .select("id, starts_at, first_name, last_name, email, phone, cancelled_at")
+    .select("id, starts_at, first_name, last_name, email, phone, level, cancelled_at")
     .eq("cancel_token", token)
     .maybeSingle();
 
@@ -154,7 +157,13 @@ export async function confirmCancellationRecord(token: string) {
     html: wrap(
       "ANNULATION",
       `<p style="font-size:20px"><b>${when}</b></p>
-       <p><b>Student:</b> ${name}<br/><b>Email:</b> ${data.email}<br/><b>Phone:</b> ${data.phone}</p>
+       <p style="font-size:17px;line-height:1.7">
+       <b>First name:</b> ${data.first_name}<br/>
+       <b>Last name:</b> ${data.last_name}<br/>
+       <b>Phone:</b> ${data.phone}<br/>
+       <b>Level:</b> ${data.level}<br/>
+       <b>Email:</b> ${data.email}
+       </p>
        <p>The spot is free again and the name was removed from the calendar.</p>`,
     ),
   });
