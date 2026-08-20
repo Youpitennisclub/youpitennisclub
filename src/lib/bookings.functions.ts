@@ -20,12 +20,20 @@ export const createBooking = createServerFn({ method: "POST" })
     return createBookingRecord(data);
   });
 
+export const cancelBooking = createServerFn({ method: "POST" })
+  .inputValidator(z.object({ email: z.string().trim().email().max(120) }))
+  .handler(async ({ data }) => {
+    const { cancelByEmailRecord } = await import("./bookings.server");
+    return cancelByEmailRecord(data.email);
+  });
+
 export const requestCancellation = createServerFn({ method: "POST" })
   .inputValidator(z.object({ email: z.string().trim().email().max(120) }))
   .handler(async ({ data }) => {
     const { requestCancellationRecord } = await import("./bookings.server");
     return requestCancellationRecord(data.email);
   });
+
 
 export const confirmCancellation = createServerFn({ method: "POST" })
   .inputValidator(z.object({ token: z.string().uuid() }))
