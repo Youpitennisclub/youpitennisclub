@@ -895,9 +895,9 @@ function BookPage() {
                 className="mt-3 w-full px-6 py-3.5 rounded-2xl bg-destructive text-destructive-foreground font-semibold hover:opacity-90 transition disabled:opacity-50"
               >
                 {cancelSent
-                  ? "Cancellation request sent ✅"
+                  ? "Booking cancelled ✅"
                   : cancelSending
-                    ? "Sending…"
+                    ? "Cancelling…"
                     : "Cancel a booking"}
               </button>
             </div>
