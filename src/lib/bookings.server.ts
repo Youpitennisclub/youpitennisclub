@@ -89,7 +89,7 @@ export async function requestCancellationRecord(email: string) {
   const now = Date.now();
   const { data, error } = await supabaseAdmin
     .from("bookings")
-    .select("id, starts_at, cancel_token, first_name, last_name, email, level")
+    .select("id, starts_at, cancel_token, first_name, last_name, email, phone, level")
     .ilike("email", email)
     .is("cancelled_at", null)
     .gte("starts_at", new Date(now).toISOString())
@@ -120,7 +120,28 @@ export async function requestCancellationRecord(email: string) {
          <p style="font-size:18px"><b>Cancellation is only possible up to 24 hours before the session starts.</b></p>`,
       ),
     });
+
+    const s = cancellable[0]!;
+    await sendMail({
+      to: coachEmail(),
+      subject: `DEMANDE D'ANNULATION ⏳ — ${s.first_name} ${s.last_name}`,
+      replyTo: s.email,
+      html: wrap(
+        "DEMANDE D'ANNULATION",
+        `<p style="font-size:17px;line-height:1.7">
+         <b>First name:</b> ${s.first_name}<br/>
+         <b>Last name:</b> ${s.last_name}<br/>
+         <b>Phone:</b> ${s.phone}<br/>
+         <b>Level:</b> ${s.level}<br/>
+         <b>Email:</b> ${s.email}
+         </p>
+         <p style="font-size:17px"><b>Sessions concerned:</b></p>
+         <ul style="font-size:17px">${cancellable.map((b) => `<li>${fmt(b.starts_at)}</li>`).join("")}</ul>
+         <p>The student received the confirmation link. You'll get a second email once the cancellation is confirmed.</p>`,
+      ),
+    });
   }
+
 
   // Always the same answer, so the form cannot be used to probe emails.
   return { ok: true as const };
