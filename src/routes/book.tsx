@@ -3,7 +3,7 @@ import { useEffect, useMemo, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { PhotoPicker } from "@/components/PhotoPicker";
-import { createBooking, requestCancellation } from "@/lib/bookings.functions";
+import { createBooking, cancelBooking } from "@/lib/bookings.functions";
 
 
 export const Route = createFileRoute("/book")({
@@ -364,15 +364,28 @@ function BookPage() {
     }
     setCancelSending(true);
     try {
-      await requestCancellation({ data: { email: mail } });
-      setCancelSent(true);
-      toast.success("Cancellation request sent — check your inbox for the confirmation link.");
+      const r = await cancelBooking({ data: { email: mail } });
+      if (r.status === "cancelled") {
+        setCancelSent(true);
+        await loadBookings();
+        toast.success(
+          r.cancelled > 1
+            ? `${r.cancelled} sessions cancelled — confirmation sent by email.`
+            : "Session cancelled — confirmation sent by email.",
+        );
+        setSelectedSlot(null);
+      } else if (r.status === "too_late") {
+        toast.error("Too late: cancellation is only possible up to 24h before the session.");
+      } else {
+        toast.error("No upcoming booking found with this email address.");
+      }
     } catch {
-      toast.error("Couldn't send the cancellation email. Please try again.");
+      toast.error("Couldn't cancel the booking. Please try again.");
     } finally {
       setCancelSending(false);
     }
   };
+
 
 
 
@@ -870,11 +883,11 @@ function BookPage() {
                 Cancellation only up to 24h before the session
               </div>
               <p className="mt-2 text-sm font-semibold text-ink">
-                One click on the button below and I receive your cancellation request with all
-                your booking details. You'll then get a confirmation link by email — the
-                cancellation is final once you click it. Later than 24h before the start,
-                cancellation is not possible.
+                Fill in your email above and click once: your booking is cancelled immediately,
+                your name disappears from the calendar and we both get a confirmation email.
+                Later than 24h before the start, cancellation is not possible.
               </p>
+
               <button
                 type="button"
                 disabled={cancelSending || cancelSent}
@@ -882,9 +895,9 @@ function BookPage() {
                 className="mt-3 w-full px-6 py-3.5 rounded-2xl bg-destructive text-destructive-foreground font-semibold hover:opacity-90 transition disabled:opacity-50"
               >
                 {cancelSent
-                  ? "Cancellation request sent ✅"
+                  ? "Booking cancelled ✅"
                   : cancelSending
-                    ? "Sending…"
+                    ? "Cancelling…"
                     : "Cancel a booking"}
               </button>
             </div>
