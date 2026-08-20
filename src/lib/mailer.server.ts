@@ -7,7 +7,7 @@ export function coachEmail() {
 }
 
 export function siteUrl() {
-  return process.env["SITE_URL"] ?? "https://youpitennisclub.com";
+  return process.env["SITE_URL"] ?? "https://youpitennisclub.lovable.app";
 }
 
 export async function sendMail(opts: {
