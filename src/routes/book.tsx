@@ -905,7 +905,20 @@ function BookPage() {
                 link by email and the cancellation is only final once you click it. Later than
                 24h before the start, cancellation is not possible.
               </p>
+              <button
+                type="button"
+                onClick={() => {
+                  setSelectedSlot(null);
+                  setTimeout(() => {
+                    document.getElementById("cancel")?.scrollIntoView({ behavior: "smooth", block: "center" });
+                  }, 80);
+                }}
+                className="mt-3 w-full px-6 py-3.5 rounded-2xl bg-destructive text-destructive-foreground font-semibold hover:opacity-90 transition"
+              >
+                Cancel a booking ❌
+              </button>
             </div>
+
             <p className="text-xs text-muted-foreground">
               Rain policy: 50% refund or reschedule.
             </p>
