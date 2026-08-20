@@ -901,23 +901,25 @@ function BookPage() {
                 Cancellation only up to 24h before the session
               </div>
               <p className="mt-2 text-sm font-semibold text-ink">
-                To cancel, request it with this email address — you'll receive a confirmation
-                link by email and the cancellation is only final once you click it. Later than
-                24h before the start, cancellation is not possible.
+                One click on the button below and I receive your cancellation request with all
+                your booking details. You'll then get a confirmation link by email — the
+                cancellation is final once you click it. Later than 24h before the start,
+                cancellation is not possible.
               </p>
               <button
                 type="button"
-                onClick={() => {
-                  setSelectedSlot(null);
-                  setTimeout(() => {
-                    document.getElementById("cancel")?.scrollIntoView({ behavior: "smooth", block: "center" });
-                  }, 80);
-                }}
-                className="mt-3 w-full px-6 py-3.5 rounded-2xl bg-destructive text-destructive-foreground font-semibold hover:opacity-90 transition"
+                disabled={cancelSending || cancelSent}
+                onClick={askCancel}
+                className="mt-3 w-full px-6 py-3.5 rounded-2xl bg-destructive text-destructive-foreground font-semibold hover:opacity-90 transition disabled:opacity-50"
               >
-                Cancel a booking ❌
+                {cancelSent
+                  ? "Cancellation request sent ✅"
+                  : cancelSending
+                    ? "Sending…"
+                    : "Cancel a booking"}
               </button>
             </div>
+
 
             <p className="text-xs text-muted-foreground">
               Rain policy: 50% refund or reschedule.
