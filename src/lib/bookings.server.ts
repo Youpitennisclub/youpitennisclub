@@ -157,7 +157,13 @@ export async function confirmCancellationRecord(token: string) {
     html: wrap(
       "ANNULATION",
       `<p style="font-size:20px"><b>${when}</b></p>
-       <p><b>Student:</b> ${name}<br/><b>Email:</b> ${data.email}<br/><b>Phone:</b> ${data.phone}</p>
+       <p style="font-size:17px;line-height:1.7">
+       <b>First name:</b> ${data.first_name}<br/>
+       <b>Last name:</b> ${data.last_name}<br/>
+       <b>Phone:</b> ${data.phone}<br/>
+       <b>Level:</b> ${data.level}<br/>
+       <b>Email:</b> ${data.email}
+       </p>
        <p>The spot is free again and the name was removed from the calendar.</p>`,
     ),
   });
