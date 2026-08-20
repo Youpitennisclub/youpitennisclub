@@ -3,7 +3,7 @@ import { useEffect, useMemo, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { PhotoPicker } from "@/components/PhotoPicker";
-import { createBooking, requestCancellation } from "@/lib/bookings.functions";
+import { createBooking, cancelBooking } from "@/lib/bookings.functions";
 
 
 export const Route = createFileRoute("/book")({
@@ -373,7 +373,7 @@ function BookPage() {
             ? `${r.cancelled} sessions cancelled — confirmation sent by email.`
             : "Session cancelled — confirmation sent by email.",
         );
-        setOpen(false);
+        setSelectedSlot(null);
       } else if (r.status === "too_late") {
         toast.error("Too late: cancellation is only possible up to 24h before the session.");
       } else {
