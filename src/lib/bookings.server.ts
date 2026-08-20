@@ -84,8 +84,83 @@ export async function createBookingRecord(input: {
   return { ok: true as const, id: data.id };
 }
 
-/** Step 1: student asks for a cancellation → confirmation link sent to their email. */
-export async function requestCancellationRecord(email: string) {
+/** Immediate cancellation: cancels every upcoming session booked with this email
+ *  that starts in more than 24h. No coach action needed. */
+export async function cancelByEmailRecord(email: string) {
+  const now = Date.now();
+  const { data, error } = await supabaseAdmin
+    .from("bookings")
+    .select("id, starts_at, first_name, last_name, email, phone, level")
+    .ilike("email", email)
+    .is("cancelled_at", null)
+    .gte("starts_at", new Date(now).toISOString())
+    .order("starts_at");
+
+  if (error) throw new Error(error.message);
+
+  const upcoming = data ?? [];
+  const eligible = upcoming.filter(
+    (b) => new Date(b.starts_at).getTime() - now > CANCEL_WINDOW_MS,
+  );
+  const tooLate = upcoming.filter(
+    (b) => new Date(b.starts_at).getTime() - now <= CANCEL_WINDOW_MS,
+  );
+
+  if (eligible.length === 0) {
+    return {
+      status: (tooLate.length > 0 ? "too_late" : "none") as "too_late" | "none",
+      cancelled: 0,
+    };
+  }
+
+  const { error: upErr } = await supabaseAdmin
+    .from("bookings")
+    .update({ cancelled_at: new Date().toISOString() })
+    .in(
+      "id",
+      eligible.map((b) => b.id),
+    );
+  if (upErr) throw new Error(upErr.message);
+
+  const s = eligible[0]!;
+  const list = eligible.map((b) => `<li>${fmt(b.starts_at)}</li>`).join("");
+
+  await sendMail({
+    to: coachEmail(),
+    subject: `ANNULATION ❌ — ${s.first_name} ${s.last_name} — ${fmt(s.starts_at)}`,
+    replyTo: s.email,
+    html: wrap(
+      "ANNULATION",
+      `<p style="font-size:17px;line-height:1.7">
+       <b>First name:</b> ${s.first_name}<br/>
+       <b>Last name:</b> ${s.last_name}<br/>
+       <b>Phone:</b> ${s.phone}<br/>
+       <b>Level:</b> ${s.level}<br/>
+       <b>Email:</b> ${s.email}
+       </p>
+       <p style="font-size:17px"><b>Sessions cancelled:</b></p>
+       <ul style="font-size:17px">${list}</ul>
+       <p>The spots are free again and the names were removed from the calendar. No action needed from you.</p>`,
+    ),
+  });
+
+  await sendMail({
+    to: s.email,
+    subject: `ANNULATION ❌ — ${fmt(s.starts_at)}`,
+    replyTo: coachEmail(),
+    html: wrap(
+      "Cancellation confirmed",
+      `<p style="font-size:18px">These sessions are cancelled:</p>
+       <ul style="font-size:18px">${list}</ul>
+       <p>Hope to see you soon on court!</p>`,
+    ),
+  });
+
+  return { status: "cancelled" as const, cancelled: eligible.length };
+}
+
+/** Legacy step 1: student asks for a cancellation → confirmation link sent to their email. */
+
   const now = Date.now();
   const { data, error } = await supabaseAdmin
     .from("bookings")
