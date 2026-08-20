@@ -364,15 +364,28 @@ function BookPage() {
     }
     setCancelSending(true);
     try {
-      await requestCancellation({ data: { email: mail } });
-      setCancelSent(true);
-      toast.success("Cancellation request sent — check your inbox for the confirmation link.");
+      const r = await cancelBooking({ data: { email: mail } });
+      if (r.status === "cancelled") {
+        setCancelSent(true);
+        await loadBookings();
+        toast.success(
+          r.cancelled > 1
+            ? `${r.cancelled} sessions cancelled — confirmation sent by email.`
+            : "Session cancelled — confirmation sent by email.",
+        );
+        setOpen(false);
+      } else if (r.status === "too_late") {
+        toast.error("Too late: cancellation is only possible up to 24h before the session.");
+      } else {
+        toast.error("No upcoming booking found with this email address.");
+      }
     } catch {
-      toast.error("Couldn't send the cancellation email. Please try again.");
+      toast.error("Couldn't cancel the booking. Please try again.");
     } finally {
       setCancelSending(false);
     }
   };
+
 
 
 
