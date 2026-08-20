@@ -130,7 +130,7 @@ export async function requestCancellationRecord(email: string) {
 export async function confirmCancellationRecord(token: string) {
   const { data, error } = await supabaseAdmin
     .from("bookings")
-    .select("id, starts_at, first_name, last_name, email, phone, cancelled_at")
+    .select("id, starts_at, first_name, last_name, email, phone, level, cancelled_at")
     .eq("cancel_token", token)
     .maybeSingle();
 
