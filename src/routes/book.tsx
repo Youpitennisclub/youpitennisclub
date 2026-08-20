@@ -356,18 +356,24 @@ function BookPage() {
     }
   };
 
-  const askCancel = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const askCancel = async () => {
+    const mail = email.trim();
+    if (!mail) {
+      toast.error("Please fill in the email address you used for the booking.");
+      return;
+    }
     setCancelSending(true);
     try {
-      await requestCancellation({ data: { email: cancelEmail.trim() } });
+      await requestCancellation({ data: { email: mail } });
       setCancelSent(true);
+      toast.success("Cancellation request sent — check your inbox for the confirmation link.");
     } catch {
       toast.error("Couldn't send the cancellation email. Please try again.");
     } finally {
       setCancelSending(false);
     }
   };
+
 
 
   const inputCls =
