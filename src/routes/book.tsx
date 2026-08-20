@@ -219,9 +219,9 @@ function BookPage() {
   const [bookings, setBookings] = useState<PublicBooking[]>([]);
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
-  const [cancelEmail, setCancelEmail] = useState("");
   const [cancelSending, setCancelSending] = useState(false);
   const [cancelSent, setCancelSent] = useState(false);
+
 
 
   const [firstName, setFirstName] = useState("");
