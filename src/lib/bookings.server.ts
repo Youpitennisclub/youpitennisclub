@@ -89,7 +89,7 @@ export async function requestCancellationRecord(email: string) {
   const now = Date.now();
   const { data, error } = await supabaseAdmin
     .from("bookings")
-    .select("id, starts_at, cancel_token, first_name, last_name, email")
+    .select("id, starts_at, cancel_token, first_name, last_name, email, level")
     .ilike("email", email)
     .is("cancelled_at", null)
     .gte("starts_at", new Date(now).toISOString())
