@@ -275,3 +275,96 @@ export async function confirmCancellationRecord(token: string) {
 
   return { status: "cancelled" as const, starts_at: data.starts_at };
 }
+
+/* =========================================================================
+   ACCOUNT-BASED FLOW: a student signs in, sees only their own bookings and
+   can cancel only those (up to 24h before the session starts).
+   ========================================================================= */
+
+/** Link past bookings made with the same email to the freshly created account. */
+export async function attachBookingsToAccount(userId: string, email: string) {
+  const { error } = await supabaseAdmin
+    .from("bookings")
+    .update({ user_id: userId })
+    .is("user_id", null)
+    .ilike("email", email);
+  if (error) throw new Error(error.message);
+  return { ok: true as const };
+}
+
+export async function listMyBookingsRecord(userId: string) {
+  const { data, error } = await supabaseAdmin
+    .from("bookings")
+    .select("id, starts_at, level, first_name, last_name, cancelled_at")
+    .eq("user_id", userId)
+    .is("cancelled_at", null)
+    .gte("starts_at", new Date().toISOString())
+    .order("starts_at");
+
+  if (error) throw new Error(error.message);
+
+  const now = Date.now();
+  return (data ?? []).map((b) => ({
+    id: b.id,
+    starts_at: b.starts_at,
+    level: b.level as Level,
+    cancellable: new Date(b.starts_at).getTime() - now > CANCEL_WINDOW_MS,
+  }));
+}
+
+/** Cancels ONE booking, and only if it belongs to the signed-in account. */
+export async function cancelOwnBookingRecord(userId: string, bookingId: string) {
+  const { data, error } = await supabaseAdmin
+    .from("bookings")
+    .select("id, starts_at, first_name, last_name, email, phone, level, cancelled_at, user_id")
+    .eq("id", bookingId)
+    .maybeSingle();
+
+  if (error) throw new Error(error.message);
+  if (!data || data.user_id !== userId) return { status: "invalid" as const };
+  if (data.cancelled_at) return { status: "already" as const };
+
+  if (new Date(data.starts_at).getTime() - Date.now() <= CANCEL_WINDOW_MS) {
+    return { status: "too_late" as const };
+  }
+
+  const { error: upErr } = await supabaseAdmin
+    .from("bookings")
+    .update({ cancelled_at: new Date().toISOString() })
+    .eq("id", data.id)
+    .eq("user_id", userId);
+  if (upErr) throw new Error(upErr.message);
+
+  const when = fmt(data.starts_at);
+  const name = `${data.first_name} ${data.last_name}`;
+
+  await sendMail({
+    to: coachEmail(),
+    subject: `CANCELLATION ❌ — ${name} — ${when}`,
+    replyTo: data.email,
+    html: wrap(
+      "CANCELLATION",
+      `<p style="font-size:20px"><b>${when}</b></p>
+       <p style="font-size:17px;line-height:1.7">
+       <b>First name:</b> ${data.first_name}<br/>
+       <b>Last name:</b> ${data.last_name}<br/>
+       <b>Phone:</b> ${data.phone}<br/>
+       <b>Level:</b> ${data.level}<br/>
+       <b>Email:</b> ${data.email}
+       </p>
+       <p>Cancelled by the student from their account. The spot is free again and the name was removed from the calendar.</p>`,
+    ),
+  });
+
+  await sendMail({
+    to: data.email,
+    subject: `CANCELLATION ❌ — ${when}`,
+    replyTo: coachEmail(),
+    html: wrap(
+      "Cancellation confirmed",
+      `<p style="font-size:20px"><b>${when}</b> is cancelled. Hope to see you soon on court!</p>`,
+    ),
+  });
+
+  return { status: "cancelled" as const, starts_at: data.starts_at };
+}
