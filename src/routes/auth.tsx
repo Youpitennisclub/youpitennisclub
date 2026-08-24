@@ -191,24 +191,39 @@ function AuthPage() {
               />
             </>
           )}
+          <div className="grid gap-1">
+            <input
+              required
+              type="email"
+              maxLength={120}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Email address (your login)"
+              className={inputCls}
+            />
+            <p className="text-xs text-muted-foreground">
+              You sign in with your <b>email address</b> — not with a nickname. Your first name is
+              only your display name on the calendar.
+            </p>
+          </div>
           <input
             required
-            type="email"
-            maxLength={120}
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="Email address"
-            className={inputCls}
-          />
-          <input
-            required
-            type="password"
+            type={showPassword ? "text" : "password"}
             minLength={6}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Password (min. 6 characters)"
             className={inputCls}
           />
+          <label className="flex items-center gap-2 text-sm font-semibold">
+            <input
+              type="checkbox"
+              checked={showPassword}
+              onChange={(e) => setShowPassword(e.target.checked)}
+              className="h-4 w-4 accent-court"
+            />
+            Show password
+          </label>
           <button
             type="submit"
             disabled={busy}
@@ -216,6 +231,17 @@ function AuthPage() {
           >
             {busy ? "Please wait…" : mode === "signin" ? "Sign in 🎾" : "Create my account 🎾"}
           </button>
+          {mode === "signin" && (
+            <button
+              type="button"
+              onClick={forgotPassword}
+              disabled={resetting}
+              className="text-sm font-semibold underline text-left disabled:opacity-50"
+            >
+              {resetting ? "Sending reset link…" : "Forgot your password?"}
+            </button>
+          )}
+
         </form>
 
         <button
