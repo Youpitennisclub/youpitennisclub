@@ -425,6 +425,14 @@ function BookPage() {
                 </span>
               </span>
             )}
+            {unlocked && (
+              <button
+                onClick={signOut}
+                className="shrink-0 px-3 py-2.5 rounded-full border-2 border-ink/15 text-sm font-semibold hover:bg-ink/5 transition"
+              >
+                Sign out
+              </button>
+            )}
             <Link
               to="/"
               className="shrink-0 px-4 py-2.5 rounded-full border-2 border-ink/15 text-sm font-semibold hover:bg-ball/40 transition"
