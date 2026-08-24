@@ -25,15 +25,35 @@ export const Route = createFileRoute("/auth")({
   component: AuthPage,
 });
 
+function englishAuthError(raw: string): string {
+  const m = raw.toLowerCase();
+  if (m.includes("invalid login credentials"))
+    return "Wrong email address or password. Please note: you sign in with your email address, not with a nickname.";
+  if (m.includes("email not confirmed")) return "Your email address is not confirmed yet.";
+  if (m.includes("user already registered") || m.includes("already been registered"))
+    return "An account with this email address already exists. Please sign in instead.";
+  if (m.includes("password should be at least"))
+    return "Your password must be at least 6 characters long.";
+  if (m.includes("unable to validate email") || m.includes("invalid email"))
+    return "Please enter a valid email address.";
+  if (m.includes("rate limit") || m.includes("too many"))
+    return "Too many attempts. Please wait a moment and try again.";
+  if (m.includes("network") || m.includes("failed to fetch"))
+    return "Network error. Please check your connection and try again.";
+  return raw;
+}
+
 function AuthPage() {
   const navigate = useNavigate();
   const [mode, setMode] = useState<"signin" | "signup">("signin");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [phone, setPhone] = useState("");
   const [busy, setBusy] = useState(false);
+  const [resetting, setResetting] = useState(false);
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data }) => {
@@ -43,6 +63,25 @@ function AuthPage() {
 
   const inputCls =
     "w-full min-w-0 px-4 py-3 rounded-2xl bg-background border-2 border-ink/10 focus:border-court outline-none transition";
+
+  const forgotPassword = async () => {
+    if (!email.trim()) {
+      toast.error("Please enter your email address first, then click “Forgot your password?”.");
+      return;
+    }
+    setResetting(true);
+    try {
+      const { error } = await supabase.auth.resetPasswordForEmail(email.trim(), {
+        redirectTo: `${window.location.origin}/reset-password`,
+      });
+      if (error) throw error;
+      toast.success("Password reset link sent — please check your inbox.");
+    } catch (err) {
+      toast.error(englishAuthError(err instanceof Error ? err.message : "Something went wrong."));
+    } finally {
+      setResetting(false);
+    }
+  };
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -84,11 +123,12 @@ function AuthPage() {
       }
     } catch (err) {
       const msg = err instanceof Error ? err.message : "Something went wrong.";
-      toast.error(msg);
+      toast.error(englishAuthError(msg));
     } finally {
       setBusy(false);
     }
   };
+
 
   return (
     <main className="min-h-screen">
