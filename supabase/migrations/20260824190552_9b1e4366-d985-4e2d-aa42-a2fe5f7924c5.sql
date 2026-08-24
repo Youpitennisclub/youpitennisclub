@@ -1,0 +1,1 @@
+DROP FUNCTION IF EXISTS public.attach_bookings_to_user();
