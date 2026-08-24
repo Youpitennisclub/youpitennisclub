@@ -304,6 +304,7 @@ function BookPage() {
     setUnlocked(false);
     setMyBookings([]);
     toast.success("Signed out.");
+    navigate({ to: "/" });
   };
 
 
