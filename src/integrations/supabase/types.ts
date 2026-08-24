@@ -27,6 +27,7 @@ export type Database = {
           phone: string
           photo_url: string | null
           starts_at: string
+          user_id: string | null
         }
         Insert: {
           cancel_token?: string
@@ -40,6 +41,7 @@ export type Database = {
           phone: string
           photo_url?: string | null
           starts_at: string
+          user_id?: string | null
         }
         Update: {
           cancel_token?: string
@@ -53,6 +55,7 @@ export type Database = {
           phone?: string
           photo_url?: string | null
           starts_at?: string
+          user_id?: string | null
         }
         Relationships: []
       }
