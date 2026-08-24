@@ -1001,6 +1001,46 @@ function BookPage() {
           </form>
         </Modal>
       )}
+
+      {cancelId && (
+        <Modal onClose={() => setCancelId(null)}>
+          <h3 className="font-display text-2xl uppercase leading-tight">Confirm cancellation</h3>
+          <p className="mt-2 text-sm text-muted-foreground">
+            For your security, enter your account password. Nobody else can cancel your session.
+          </p>
+          <label className="mt-4 block text-sm font-semibold">Your password</label>
+          <input
+            type={cancelShowPassword ? "text" : "password"}
+            value={cancelPassword}
+            autoComplete="current-password"
+            onChange={(e) => setCancelPassword(e.target.value)}
+            className="mt-1 w-full px-4 py-3.5 rounded-2xl border-2 border-ink/10 bg-background"
+          />
+          <label className="mt-2 flex items-center gap-2 text-sm">
+            <input
+              type="checkbox"
+              checked={cancelShowPassword}
+              onChange={(e) => setCancelShowPassword(e.target.checked)}
+            />
+            Show password
+          </label>
+          <button
+            type="button"
+            disabled={cancellingId === cancelId}
+            onClick={confirmCancel}
+            className="mt-5 w-full px-7 py-4 rounded-2xl bg-destructive text-destructive-foreground font-semibold text-lg hover:opacity-90 transition disabled:opacity-50"
+          >
+            {cancellingId === cancelId ? "Cancelling…" : "Cancel my booking ❌"}
+          </button>
+          <button
+            type="button"
+            onClick={() => setCancelId(null)}
+            className="mt-3 w-full px-7 py-3.5 rounded-2xl border-2 border-ink/15 font-semibold hover:bg-ball/40 transition"
+          >
+            Keep my booking
+          </button>
+        </Modal>
+      )}
     </main>
   );
 }
