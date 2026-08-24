@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
@@ -216,6 +216,7 @@ function Modal({ onClose, children }: { onClose: () => void; children: React.Rea
 }
 
 function BookPage() {
+  const navigate = useNavigate();
   const today = startOfDay(new Date());
   const [weekStart, setWeekStart] = useState<Date>(today);
   const [selectedSlot, setSelectedSlot] = useState<Slot | null>(null);
@@ -303,6 +304,7 @@ function BookPage() {
     setUnlocked(false);
     setMyBookings([]);
     toast.success("Signed out.");
+    navigate({ to: "/" });
   };
 
 
@@ -917,6 +919,27 @@ function BookPage() {
               </div>
             </fieldset>
 
+            {(() => {
+              const existing = myBookings.find(
+                (b) => new Date(b.starts_at).getTime() === selectedSlot.start.getTime(),
+              );
+              if (!existing) return null;
+              return (
+                <button
+                  type="button"
+                  disabled={cancellingId === existing.id || !existing.cancellable}
+                  onClick={() => cancelOne(existing.id)}
+                  className="mt-3 px-7 py-5 rounded-2xl bg-destructive text-destructive-foreground font-semibold text-lg hover:opacity-90 transition disabled:opacity-50"
+                >
+                  {cancellingId === existing.id
+                    ? "Cancelling…"
+                    : existing.cancellable
+                      ? "Cancel my booking ❌"
+                      : "Cannot cancel — less than 24h"}
+                </button>
+              );
+            })()}
+
             <button
               type="submit"
               disabled={submitting}
@@ -929,9 +952,9 @@ function BookPage() {
                 Cancellation only up to 24h before the session
               </div>
               <p className="mt-2 text-sm font-semibold text-ink">
-                Your bookings are listed under the calendar, in “My bookings”. You can cancel
-                your own sessions there — nobody else can cancel them. Later than 24h before
-                the start, cancellation is not possible.
+                You can cancel your booking directly here or under “My bookings”. Only you can
+                cancel your own sessions. Later than 24h before the start, cancellation is not
+                possible.
               </p>
             </div>
 
