@@ -226,6 +226,9 @@ function BookPage() {
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const [cancellingId, setCancellingId] = useState<string | null>(null);
+  const [cancelId, setCancelId] = useState<string | null>(null);
+  const [cancelPassword, setCancelPassword] = useState("");
+  const [cancelShowPassword, setCancelShowPassword] = useState(false);
 
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -277,18 +280,41 @@ function BookPage() {
     }
   };
 
-  const cancelOne = async (id: string) => {
+  /** Step 1: ask for the account password. */
+  const cancelOne = (id: string) => {
+    setCancelId(id);
+    setCancelPassword("");
+    setCancelShowPassword(false);
+  };
+
+  /** Step 2: cancel, password checked on the server. */
+  const confirmCancel = async () => {
+    if (!cancelId) return;
+    if (!cancelPassword.trim()) {
+      toast.error("Please enter your account password.");
+      return;
+    }
+    const id = cancelId;
     setCancellingId(id);
     try {
-      const res = (await cancelMyBooking({ data: { id } })) as { status: string };
+      const res = (await cancelMyBooking({
+        data: { id, password: cancelPassword },
+      })) as { status: string };
       if (res.status === "cancelled") {
         toast.success("Booking cancelled — a confirmation email is on its way.");
+        setCancelId(null);
+        setCancelPassword("");
+      } else if (res.status === "bad_password") {
+        toast.error("Wrong password. Only the account owner can cancel this booking.");
       } else if (res.status === "too_late") {
         toast.error("Too late: cancellation is only possible up to 24h before the session.");
+        setCancelId(null);
       } else if (res.status === "already") {
         toast.info("This booking was already cancelled.");
+        setCancelId(null);
       } else {
         toast.error("This booking doesn't belong to your account.");
+        setCancelId(null);
       }
       await loadMyBookings();
       await loadBookings();
@@ -973,6 +999,46 @@ function BookPage() {
             </p>
 
           </form>
+        </Modal>
+      )}
+
+      {cancelId && (
+        <Modal onClose={() => setCancelId(null)}>
+          <h3 className="font-display text-2xl uppercase leading-tight">Confirm cancellation</h3>
+          <p className="mt-2 text-sm text-muted-foreground">
+            For your security, enter your account password. Nobody else can cancel your session.
+          </p>
+          <label className="mt-4 block text-sm font-semibold">Your password</label>
+          <input
+            type={cancelShowPassword ? "text" : "password"}
+            value={cancelPassword}
+            autoComplete="current-password"
+            onChange={(e) => setCancelPassword(e.target.value)}
+            className="mt-1 w-full px-4 py-3.5 rounded-2xl border-2 border-ink/10 bg-background"
+          />
+          <label className="mt-2 flex items-center gap-2 text-sm">
+            <input
+              type="checkbox"
+              checked={cancelShowPassword}
+              onChange={(e) => setCancelShowPassword(e.target.checked)}
+            />
+            Show password
+          </label>
+          <button
+            type="button"
+            disabled={cancellingId === cancelId}
+            onClick={confirmCancel}
+            className="mt-5 w-full px-7 py-4 rounded-2xl bg-destructive text-destructive-foreground font-semibold text-lg hover:opacity-90 transition disabled:opacity-50"
+          >
+            {cancellingId === cancelId ? "Cancelling…" : "Cancel my booking ❌"}
+          </button>
+          <button
+            type="button"
+            onClick={() => setCancelId(null)}
+            className="mt-3 w-full px-7 py-3.5 rounded-2xl border-2 border-ink/15 font-semibold hover:bg-ball/40 transition"
+          >
+            Keep my booking
+          </button>
         </Modal>
       )}
     </main>

@@ -1,5 +1,30 @@
+import { createClient } from "@supabase/supabase-js";
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
 import { coachEmail, sendMail, siteUrl, wrap } from "./mailer.server";
+
+/** Re-checks the account password before a sensitive action (cancellation). */
+export async function verifyAccountPassword(email: string, password: string) {
+  const url = process.env['SUPABASE_URL'];
+  const key = process.env['SUPABASE_PUBLISHABLE_KEY'];
+  if (!url || !key) throw new Error("Missing Supabase server environment variables.");
+
+  const client = createClient(url, key, {
+    auth: { storage: undefined, persistSession: false, autoRefreshToken: false },
+    global: {
+      fetch: (input, init) => {
+        const headers = new Headers(init?.headers);
+        if (key.startsWith("sb_") && headers.get("Authorization") === `Bearer ${key}`) {
+          headers.delete("Authorization");
+        }
+        headers.set("apikey", key);
+        return fetch(input, { ...init, headers });
+      },
+    },
+  });
+
+  const { data, error } = await client.auth.signInWithPassword({ email, password });
+  return !error && !!data.user;
+}
 
 export type Level = "beginner" | "intermediate" | "advanced";
 
