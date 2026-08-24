@@ -32,8 +32,6 @@ type Level = "beginner" | "intermediate" | "advanced";
 type SlotLevel = Level | "open";
 
 const MAX_PER_SLOT = 6;
-const GATE_UNTIL = new Date("2026-10-15T00:00:00");
-const GATE_STORAGE_KEY = "youpi_visitor_v1";
 
 /* =========================================================================
    ADMIN CONFIG — edit the group names, the daily level rotation and the
