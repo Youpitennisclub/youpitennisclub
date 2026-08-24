@@ -62,14 +62,16 @@ function AuthPage() {
           },
         });
         if (error) throw error;
-        if (data.session) {
-          await claimMyBookings({});
-          toast.success("Account created 🎾");
-          navigate({ to: "/book" });
-        } else {
-          toast.success("Check your inbox to confirm your email, then sign in.");
-          setMode("signin");
+        if (!data.session) {
+          const { error: signInErr } = await supabase.auth.signInWithPassword({
+            email: email.trim(),
+            password,
+          });
+          if (signInErr) throw signInErr;
         }
+        await claimMyBookings({});
+        toast.success("Account created 🎾");
+        navigate({ to: "/book" });
       } else {
         const { error } = await supabase.auth.signInWithPassword({
           email: email.trim(),
