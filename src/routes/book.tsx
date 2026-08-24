@@ -3,7 +3,7 @@ import { useEffect, useMemo, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { PhotoPicker } from "@/components/PhotoPicker";
-import { createBooking, requestCancellation } from "@/lib/bookings.functions";
+import { createBooking, listMyBookings, cancelMyBooking } from "@/lib/bookings.functions";
 
 
 export const Route = createFileRoute("/book")({
@@ -32,8 +32,6 @@ type Level = "beginner" | "intermediate" | "advanced";
 type SlotLevel = Level | "open";
 
 const MAX_PER_SLOT = 6;
-const GATE_UNTIL = new Date("2026-10-15T00:00:00");
-const GATE_STORAGE_KEY = "youpi_visitor_v1";
 
 /* =========================================================================
    ADMIN CONFIG — edit the group names, the daily level rotation and the
@@ -104,6 +102,13 @@ type PublicBooking = {
 };
 
 type Slot = { start: Date; duration: number; level: SlotLevel; camp?: boolean };
+
+type MyBooking = {
+  id: string;
+  starts_at: string;
+  level: Level;
+  cancellable: boolean;
+};
 
 function ymd(d: Date) {
   const m = `${d.getMonth() + 1}`.padStart(2, "0");
@@ -219,10 +224,7 @@ function BookPage() {
   const [bookings, setBookings] = useState<PublicBooking[]>([]);
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
-  const [cancelSending, setCancelSending] = useState(false);
-  const [cancelSent, setCancelSent] = useState(false);
-
-
+  const [cancellingId, setCancellingId] = useState<string | null>(null);
 
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -231,50 +233,78 @@ function BookPage() {
   const [level, setLevel] = useState<Level>("beginner");
   const [photo, setPhoto] = useState<string | null>(null);
 
-  // Gate: until mid-October 2026, visitors must submit their contact info to unlock the calendar.
-  const gateActive = Date.now() < GATE_UNTIL.getTime();
-  const [unlocked, setUnlocked] = useState(!gateActive);
-  const [gateFirst, setGateFirst] = useState("");
-  const [gateLast, setGateLast] = useState("");
-  const [gateEmail, setGateEmail] = useState("");
-  const [gatePhone, setGatePhone] = useState("");
+  // The calendar is reserved for students with an account.
+  const [checkingAuth, setCheckingAuth] = useState(true);
+  const [unlocked, setUnlocked] = useState(false);
+  const [myBookings, setMyBookings] = useState<MyBooking[]>([]);
+
+  const applyUser = (user: {
+    email?: string | null;
+    user_metadata?: Record<string, unknown>;
+  } | null) => {
+    if (!user) {
+      setUnlocked(false);
+      setMyBookings([]);
+      return;
+    }
+    const meta = user.user_metadata ?? {};
+    setFirstName((prev) => prev || String(meta['first_name'] ?? ""));
+    setLastName((prev) => prev || String(meta['last_name'] ?? ""));
+    setPhone((prev) => prev || String(meta['phone'] ?? ""));
+    setEmail(user.email ?? "");
+    setUnlocked(true);
+  };
 
   useEffect(() => {
-    if (!gateActive) return;
-    try {
-      const raw = localStorage.getItem(GATE_STORAGE_KEY);
-      if (raw) {
-        const v = JSON.parse(raw);
-        if (v?.email) {
-          setUnlocked(true);
-          setFirstName(v.first_name ?? "");
-          setLastName(v.last_name ?? "");
-          setEmail(v.email ?? "");
-          setPhone(v.phone ?? "");
-        }
-      }
-    } catch {
-      /* ignore */
-    }
-  }, [gateActive]);
+    supabase.auth.getSession().then(({ data }) => {
+      applyUser(data.session?.user ?? null);
+      setCheckingAuth(false);
+    });
+    const { data: sub } = supabase.auth.onAuthStateChange((_e, session) => {
+      applyUser(session?.user ?? null);
+    });
+    return () => sub.subscription.unsubscribe();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-  const unlock = (e: React.FormEvent) => {
-    e.preventDefault();
-    const v = {
-      first_name: gateFirst.trim(),
-      last_name: gateLast.trim(),
-      email: gateEmail.trim(),
-      phone: gatePhone.trim(),
-    };
-    if (!v.first_name || !v.last_name || !v.email || !v.phone) return;
-    localStorage.setItem(GATE_STORAGE_KEY, JSON.stringify(v));
-    setFirstName(v.first_name);
-    setLastName(v.last_name);
-    setEmail(v.email);
-    setPhone(v.phone);
-    setUnlocked(true);
-    toast.success("Welcome! Calendar unlocked 🎾");
+  const loadMyBookings = async () => {
+    try {
+      const rows = await listMyBookings({});
+      setMyBookings(rows as MyBooking[]);
+    } catch {
+      /* not signed in */
+    }
   };
+
+  const cancelOne = async (id: string) => {
+    setCancellingId(id);
+    try {
+      const res = (await cancelMyBooking({ data: { id } })) as { status: string };
+      if (res.status === "cancelled") {
+        toast.success("Booking cancelled — a confirmation email is on its way.");
+      } else if (res.status === "too_late") {
+        toast.error("Too late: cancellation is only possible up to 24h before the session.");
+      } else if (res.status === "already") {
+        toast.info("This booking was already cancelled.");
+      } else {
+        toast.error("This booking doesn't belong to your account.");
+      }
+      await loadMyBookings();
+      await loadBookings();
+    } catch {
+      toast.error("Couldn't cancel. Please try again.");
+    } finally {
+      setCancellingId(null);
+    }
+  };
+
+  const signOut = async () => {
+    await supabase.auth.signOut();
+    setUnlocked(false);
+    setMyBookings([]);
+    toast.success("Signed out.");
+  };
+
 
   const SUMMER_END = new Date("2026-10-15T00:00:00");
   const days = useMemo(() => {
@@ -305,6 +335,7 @@ function BookPage() {
   useEffect(() => {
     if (!unlocked) return;
     loadBookings();
+    loadMyBookings();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [unlocked]);
 
@@ -320,8 +351,6 @@ function BookPage() {
       return;
     }
     if (slot.level !== "open") setLevel(slot.level);
-    setCancelSent(false);
-    setCancelSending(false);
     setSelectedSlot(slot);
   };
 
@@ -346,6 +375,7 @@ function BookPage() {
       toast.success("🎾 Booked! A confirmation email is on its way.");
       setSelectedSlot(null);
       await loadBookings();
+      await loadMyBookings();
     } catch (err) {
       const msg = err instanceof Error ? err.message : "";
       toast.error(
@@ -358,25 +388,6 @@ function BookPage() {
     }
   };
 
-  const askCancel = async () => {
-    const mail = email.trim();
-    if (!mail) {
-      toast.error("Please fill in the email address you used for the booking.");
-      return;
-    }
-    setCancelSending(true);
-    try {
-      await requestCancellation({ data: { email: mail } });
-      setCancelSent(true);
-      toast.success(
-        "Check your inbox: we sent a secure cancellation link to that email address.",
-      );
-    } catch {
-      toast.error("Couldn't send the cancellation link. Please try again.");
-    } finally {
-      setCancelSending(false);
-    }
-  };
 
 
 
@@ -429,69 +440,38 @@ function BookPage() {
         </div>
       </section>
 
-      {/* GATE */}
+      {/* ACCOUNT GATE */}
       {!unlocked ? (
         <section className="max-w-xl mx-auto px-5 sm:px-6 pb-24">
           <div className="rounded-3xl bg-card border-2 border-ink p-5 sm:p-8 shadow-lg">
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-ball text-ink text-xs font-semibold uppercase tracking-widest mb-4">
-              🔒 Early access
+              🔒 Students only
             </div>
             <h2 className="font-display text-2xl sm:text-3xl uppercase mb-2 break-words">
-              Unlock the calendar
+              Sign in to see the calendar
             </h2>
             <p className="text-muted-foreground mb-6 text-sm">
-              Until mid-October, the calendar is reserved for players who introduce themselves
-              first. Leave your contact and get instant access to all available slots.
+              With your own student account you book in two clicks and you can cancel your own
+              sessions — and only yours — up to 24h before they start.
             </p>
-            <form onSubmit={unlock} className="grid gap-3">
-              <div className="grid sm:grid-cols-2 gap-3">
-                <input
-                  required
-                  maxLength={60}
-                  value={gateFirst}
-                  onChange={(e) => setGateFirst(e.target.value)}
-                  placeholder="First name"
-                  className={inputCls}
-                />
-                <input
-                  required
-                  maxLength={60}
-                  value={gateLast}
-                  onChange={(e) => setGateLast(e.target.value)}
-                  placeholder="Last name"
-                  className={inputCls}
-                />
+            {checkingAuth ? (
+              <div className="text-muted-foreground text-sm">Checking your session…</div>
+            ) : (
+              <div className="grid gap-3">
+                <Link
+                  to="/auth"
+                  className="px-7 py-4 rounded-2xl bg-violet text-violet-foreground font-semibold text-lg text-center hover:opacity-90 transition"
+                >
+                  Sign in / Create my account 🎾
+                </Link>
+                <p className="text-xs text-muted-foreground">
+                  Your info is used only to contact you about your bookings.
+                </p>
               </div>
-              <input
-                required
-                type="email"
-                maxLength={120}
-                value={gateEmail}
-                onChange={(e) => setGateEmail(e.target.value)}
-                placeholder="Email address"
-                className={inputCls}
-              />
-              <input
-                required
-                type="tel"
-                maxLength={30}
-                value={gatePhone}
-                onChange={(e) => setGatePhone(e.target.value)}
-                placeholder="Phone number"
-                className={inputCls}
-              />
-              <button
-                type="submit"
-                className="mt-2 px-7 py-4 rounded-2xl bg-violet text-violet-foreground font-semibold text-lg hover:opacity-90 transition"
-              >
-                Unlock calendar 🔓
-              </button>
-              <p className="text-xs text-muted-foreground">
-                Your info is used only to contact you about your booking.
-              </p>
-            </form>
+            )}
           </div>
         </section>
+
       ) : (
         <>
           {/* CALENDAR */}
@@ -629,6 +609,62 @@ function BookPage() {
                 })}
               </div>
             )}
+
+            {/* MY BOOKINGS */}
+            <div className="mt-8 rounded-3xl bg-card border-2 border-ink p-5 sm:p-7">
+              <div className="flex flex-wrap items-center justify-between gap-3">
+                <h3 className="font-display text-xl sm:text-2xl uppercase">My bookings</h3>
+                <button
+                  type="button"
+                  onClick={signOut}
+                  className="px-4 py-2.5 rounded-full border-2 border-ink/15 text-sm font-semibold hover:bg-ball/40 transition"
+                >
+                  Sign out
+                </button>
+              </div>
+              <p className="mt-2 text-sm text-muted-foreground">
+                Only your own sessions appear here — cancellation is possible up to 24h before
+                the start.
+              </p>
+              {myBookings.length === 0 ? (
+                <p className="mt-4 text-sm text-muted-foreground">No upcoming booking yet.</p>
+              ) : (
+                <ul className="mt-4 grid gap-2">
+                  {myBookings.map((b) => (
+                    <li
+                      key={b.id}
+                      className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border-2 border-ink/10 px-4 py-3"
+                    >
+                      <span className="font-semibold">
+                        {new Date(b.starts_at).toLocaleString("en-GB", {
+                          weekday: "short",
+                          day: "2-digit",
+                          month: "short",
+                          hour: "2-digit",
+                          minute: "2-digit",
+                        })}
+                        <span className="ml-2 text-xs uppercase tracking-wide text-muted-foreground">
+                          {LEVEL_LABEL[b.level]}
+                        </span>
+                      </span>
+                      <button
+                        type="button"
+                        disabled={!b.cancellable || cancellingId === b.id}
+                        onClick={() => cancelOne(b.id)}
+                        className="px-4 py-2.5 rounded-full bg-destructive text-destructive-foreground text-sm font-semibold hover:opacity-90 transition disabled:opacity-40"
+                      >
+                        {cancellingId === b.id
+                          ? "Cancelling…"
+                          : b.cancellable
+                            ? "Cancel"
+                            : "Less than 24h"}
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+
 
 
 
@@ -876,26 +912,12 @@ function BookPage() {
                 Cancellation only up to 24h before the session
               </div>
               <p className="mt-2 text-sm font-semibold text-ink">
-                Fill in your email above and click once: we send a secure cancellation
-                link to that address. The booking is only cancelled once you click that
-                link, so nobody else can cancel your session. Later than 24h before the
-                start, cancellation is not possible.
+                Your bookings are listed under the calendar, in “My bookings”. You can cancel
+                your own sessions there — nobody else can cancel them. Later than 24h before
+                the start, cancellation is not possible.
               </p>
-
-              <button
-                type="button"
-                disabled={cancelSending || cancelSent}
-                onClick={askCancel}
-                className="mt-3 w-full px-6 py-3.5 rounded-2xl bg-destructive text-destructive-foreground font-semibold hover:opacity-90 transition disabled:opacity-50"
-              >
-                {cancelSent
-                  ? "Link sent — check your email ✅"
-                  : cancelSending
-                    ? "Sending link…"
-                    : "Cancel a booking"}
-              </button>
-
             </div>
+
 
 
             <p className="text-xs text-muted-foreground">

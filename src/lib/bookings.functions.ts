@@ -1,4 +1,5 @@
 import { createServerFn } from "@tanstack/react-start";
+import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { z } from "zod";
 
 const bookingSchema = z.object({
@@ -14,26 +15,39 @@ const bookingSchema = z.object({
 });
 
 export const createBooking = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
   .inputValidator(bookingSchema)
-  .handler(async ({ data }) => {
+  .handler(async ({ data, context }) => {
     const { createBookingRecord } = await import("./bookings.server");
-    return createBookingRecord(data);
+    return createBookingRecord({ ...data, user_id: context.userId });
   });
 
-export const cancelBooking = createServerFn({ method: "POST" })
-  .inputValidator(z.object({ email: z.string().trim().email().max(120) }))
-  .handler(async ({ data }) => {
-    const { cancelByEmailRecord } = await import("./bookings.server");
-    return cancelByEmailRecord(data.email);
+/** Bookings of the signed-in student only. */
+export const listMyBookings = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+    const { listMyBookingsRecord } = await import("./bookings.server");
+    return listMyBookingsRecord(context.userId);
   });
 
-export const requestCancellation = createServerFn({ method: "POST" })
-  .inputValidator(z.object({ email: z.string().trim().email().max(120) }))
-  .handler(async ({ data }) => {
-    const { requestCancellationRecord } = await import("./bookings.server");
-    return requestCancellationRecord(data.email);
+/** Cancels one booking, only if it belongs to the signed-in student. */
+export const cancelMyBooking = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator(z.object({ id: z.string().uuid() }))
+  .handler(async ({ data, context }) => {
+    const { cancelOwnBookingRecord } = await import("./bookings.server");
+    return cancelOwnBookingRecord(context.userId, data.id);
   });
 
+/** Attaches bookings made before signup (same email) to the account. */
+export const claimMyBookings = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+    const email = (context.claims as { email?: string }).email;
+    if (!email) return { ok: false as const };
+    const { attachBookingsToAccount } = await import("./bookings.server");
+    return attachBookingsToAccount(context.userId, email);
+  });
 
 export const confirmCancellation = createServerFn({ method: "POST" })
   .inputValidator(z.object({ token: z.string().uuid() }))
