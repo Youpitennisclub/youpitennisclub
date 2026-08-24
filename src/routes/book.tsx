@@ -375,6 +375,7 @@ function BookPage() {
       toast.success("🎾 Booked! A confirmation email is on its way.");
       setSelectedSlot(null);
       await loadBookings();
+      await loadMyBookings();
     } catch (err) {
       const msg = err instanceof Error ? err.message : "";
       toast.error(
