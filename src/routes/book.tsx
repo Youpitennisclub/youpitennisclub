@@ -609,6 +609,62 @@ function BookPage() {
               </div>
             )}
 
+            {/* MY BOOKINGS */}
+            <div className="mt-8 rounded-3xl bg-card border-2 border-ink p-5 sm:p-7">
+              <div className="flex flex-wrap items-center justify-between gap-3">
+                <h3 className="font-display text-xl sm:text-2xl uppercase">My bookings</h3>
+                <button
+                  type="button"
+                  onClick={signOut}
+                  className="px-4 py-2.5 rounded-full border-2 border-ink/15 text-sm font-semibold hover:bg-ball/40 transition"
+                >
+                  Sign out
+                </button>
+              </div>
+              <p className="mt-2 text-sm text-muted-foreground">
+                Only your own sessions appear here — cancellation is possible up to 24h before
+                the start.
+              </p>
+              {myBookings.length === 0 ? (
+                <p className="mt-4 text-sm text-muted-foreground">No upcoming booking yet.</p>
+              ) : (
+                <ul className="mt-4 grid gap-2">
+                  {myBookings.map((b) => (
+                    <li
+                      key={b.id}
+                      className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border-2 border-ink/10 px-4 py-3"
+                    >
+                      <span className="font-semibold">
+                        {new Date(b.starts_at).toLocaleString("en-GB", {
+                          weekday: "short",
+                          day: "2-digit",
+                          month: "short",
+                          hour: "2-digit",
+                          minute: "2-digit",
+                        })}
+                        <span className="ml-2 text-xs uppercase tracking-wide text-muted-foreground">
+                          {LEVEL_LABEL[b.level]}
+                        </span>
+                      </span>
+                      <button
+                        type="button"
+                        disabled={!b.cancellable || cancellingId === b.id}
+                        onClick={() => cancelOne(b.id)}
+                        className="px-4 py-2.5 rounded-full bg-destructive text-destructive-foreground text-sm font-semibold hover:opacity-90 transition disabled:opacity-40"
+                      >
+                        {cancellingId === b.id
+                          ? "Cancelling…"
+                          : b.cancellable
+                            ? "Cancel"
+                            : "Less than 24h"}
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+
+
 
 
 
