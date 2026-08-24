@@ -458,69 +458,38 @@ function BookPage() {
         </div>
       </section>
 
-      {/* GATE */}
+      {/* ACCOUNT GATE */}
       {!unlocked ? (
         <section className="max-w-xl mx-auto px-5 sm:px-6 pb-24">
           <div className="rounded-3xl bg-card border-2 border-ink p-5 sm:p-8 shadow-lg">
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-ball text-ink text-xs font-semibold uppercase tracking-widest mb-4">
-              🔒 Early access
+              🔒 Students only
             </div>
             <h2 className="font-display text-2xl sm:text-3xl uppercase mb-2 break-words">
-              Unlock the calendar
+              Sign in to see the calendar
             </h2>
             <p className="text-muted-foreground mb-6 text-sm">
-              Until mid-October, the calendar is reserved for players who introduce themselves
-              first. Leave your contact and get instant access to all available slots.
+              With your own student account you book in two clicks and you can cancel your own
+              sessions — and only yours — up to 24h before they start.
             </p>
-            <form onSubmit={unlock} className="grid gap-3">
-              <div className="grid sm:grid-cols-2 gap-3">
-                <input
-                  required
-                  maxLength={60}
-                  value={gateFirst}
-                  onChange={(e) => setGateFirst(e.target.value)}
-                  placeholder="First name"
-                  className={inputCls}
-                />
-                <input
-                  required
-                  maxLength={60}
-                  value={gateLast}
-                  onChange={(e) => setGateLast(e.target.value)}
-                  placeholder="Last name"
-                  className={inputCls}
-                />
+            {checkingAuth ? (
+              <div className="text-muted-foreground text-sm">Checking your session…</div>
+            ) : (
+              <div className="grid gap-3">
+                <Link
+                  to="/auth"
+                  className="px-7 py-4 rounded-2xl bg-violet text-violet-foreground font-semibold text-lg text-center hover:opacity-90 transition"
+                >
+                  Sign in / Create my account 🎾
+                </Link>
+                <p className="text-xs text-muted-foreground">
+                  Your info is used only to contact you about your bookings.
+                </p>
               </div>
-              <input
-                required
-                type="email"
-                maxLength={120}
-                value={gateEmail}
-                onChange={(e) => setGateEmail(e.target.value)}
-                placeholder="Email address"
-                className={inputCls}
-              />
-              <input
-                required
-                type="tel"
-                maxLength={30}
-                value={gatePhone}
-                onChange={(e) => setGatePhone(e.target.value)}
-                placeholder="Phone number"
-                className={inputCls}
-              />
-              <button
-                type="submit"
-                className="mt-2 px-7 py-4 rounded-2xl bg-violet text-violet-foreground font-semibold text-lg hover:opacity-90 transition"
-              >
-                Unlock calendar 🔓
-              </button>
-              <p className="text-xs text-muted-foreground">
-                Your info is used only to contact you about your booking.
-              </p>
-            </form>
+            )}
           </div>
         </section>
+
       ) : (
         <>
           {/* CALENDAR */}
