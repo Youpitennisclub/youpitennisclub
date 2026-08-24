@@ -277,18 +277,41 @@ function BookPage() {
     }
   };
 
-  const cancelOne = async (id: string) => {
+  /** Step 1: ask for the account password. */
+  const cancelOne = (id: string) => {
+    setCancelId(id);
+    setCancelPassword("");
+    setCancelShowPassword(false);
+  };
+
+  /** Step 2: cancel, password checked on the server. */
+  const confirmCancel = async () => {
+    if (!cancelId) return;
+    if (!cancelPassword.trim()) {
+      toast.error("Please enter your account password.");
+      return;
+    }
+    const id = cancelId;
     setCancellingId(id);
     try {
-      const res = (await cancelMyBooking({ data: { id } })) as { status: string };
+      const res = (await cancelMyBooking({
+        data: { id, password: cancelPassword },
+      })) as { status: string };
       if (res.status === "cancelled") {
         toast.success("Booking cancelled — a confirmation email is on its way.");
+        setCancelId(null);
+        setCancelPassword("");
+      } else if (res.status === "bad_password") {
+        toast.error("Wrong password. Only the account owner can cancel this booking.");
       } else if (res.status === "too_late") {
         toast.error("Too late: cancellation is only possible up to 24h before the session.");
+        setCancelId(null);
       } else if (res.status === "already") {
         toast.info("This booking was already cancelled.");
+        setCancelId(null);
       } else {
         toast.error("This booking doesn't belong to your account.");
+        setCancelId(null);
       }
       await loadMyBookings();
       await loadBookings();
