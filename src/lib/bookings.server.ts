@@ -26,6 +26,7 @@ export async function createBookingRecord(input: {
   photo_url?: string | null;
   duration: number;
   camp?: boolean;
+  user_id: string;
 }) {
   if (new Date(input.starts_at).getTime() <= Date.now()) {
     throw new Error("This slot is in the past.");
@@ -41,11 +42,13 @@ export async function createBookingRecord(input: {
       email: input.email,
       phone: input.phone,
       photo_url: input.photo_url ?? null,
+      user_id: input.user_id,
     })
     .select("id, cancel_token")
     .single();
 
   if (error) throw new Error(error.message);
+
 
   const when = fmt(input.starts_at);
   const name = `${input.first_name} ${input.last_name}`;
