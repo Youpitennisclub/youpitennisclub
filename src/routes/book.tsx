@@ -103,6 +103,13 @@ type PublicBooking = {
 
 type Slot = { start: Date; duration: number; level: SlotLevel; camp?: boolean };
 
+type MyBooking = {
+  id: string;
+  starts_at: string;
+  level: Level;
+  cancellable: boolean;
+};
+
 function ymd(d: Date) {
   const m = `${d.getMonth() + 1}`.padStart(2, "0");
   const day = `${d.getDate()}`.padStart(2, "0");
