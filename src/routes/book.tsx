@@ -219,10 +219,7 @@ function BookPage() {
   const [bookings, setBookings] = useState<PublicBooking[]>([]);
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
-  const [cancelSending, setCancelSending] = useState(false);
-  const [cancelSent, setCancelSent] = useState(false);
-
-
+  const [cancellingId, setCancellingId] = useState<string | null>(null);
 
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -231,50 +228,78 @@ function BookPage() {
   const [level, setLevel] = useState<Level>("beginner");
   const [photo, setPhoto] = useState<string | null>(null);
 
-  // Gate: until mid-October 2026, visitors must submit their contact info to unlock the calendar.
-  const gateActive = Date.now() < GATE_UNTIL.getTime();
-  const [unlocked, setUnlocked] = useState(!gateActive);
-  const [gateFirst, setGateFirst] = useState("");
-  const [gateLast, setGateLast] = useState("");
-  const [gateEmail, setGateEmail] = useState("");
-  const [gatePhone, setGatePhone] = useState("");
+  // The calendar is reserved for students with an account.
+  const [checkingAuth, setCheckingAuth] = useState(true);
+  const [unlocked, setUnlocked] = useState(false);
+  const [myBookings, setMyBookings] = useState<MyBooking[]>([]);
+
+  const applyUser = (user: {
+    email?: string | null;
+    user_metadata?: Record<string, unknown>;
+  } | null) => {
+    if (!user) {
+      setUnlocked(false);
+      setMyBookings([]);
+      return;
+    }
+    const meta = user.user_metadata ?? {};
+    setFirstName((prev) => prev || String(meta['first_name'] ?? ""));
+    setLastName((prev) => prev || String(meta['last_name'] ?? ""));
+    setPhone((prev) => prev || String(meta['phone'] ?? ""));
+    setEmail(user.email ?? "");
+    setUnlocked(true);
+  };
 
   useEffect(() => {
-    if (!gateActive) return;
-    try {
-      const raw = localStorage.getItem(GATE_STORAGE_KEY);
-      if (raw) {
-        const v = JSON.parse(raw);
-        if (v?.email) {
-          setUnlocked(true);
-          setFirstName(v.first_name ?? "");
-          setLastName(v.last_name ?? "");
-          setEmail(v.email ?? "");
-          setPhone(v.phone ?? "");
-        }
-      }
-    } catch {
-      /* ignore */
-    }
-  }, [gateActive]);
+    supabase.auth.getSession().then(({ data }) => {
+      applyUser(data.session?.user ?? null);
+      setCheckingAuth(false);
+    });
+    const { data: sub } = supabase.auth.onAuthStateChange((_e, session) => {
+      applyUser(session?.user ?? null);
+    });
+    return () => sub.subscription.unsubscribe();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-  const unlock = (e: React.FormEvent) => {
-    e.preventDefault();
-    const v = {
-      first_name: gateFirst.trim(),
-      last_name: gateLast.trim(),
-      email: gateEmail.trim(),
-      phone: gatePhone.trim(),
-    };
-    if (!v.first_name || !v.last_name || !v.email || !v.phone) return;
-    localStorage.setItem(GATE_STORAGE_KEY, JSON.stringify(v));
-    setFirstName(v.first_name);
-    setLastName(v.last_name);
-    setEmail(v.email);
-    setPhone(v.phone);
-    setUnlocked(true);
-    toast.success("Welcome! Calendar unlocked 🎾");
+  const loadMyBookings = async () => {
+    try {
+      const rows = await listMyBookings({});
+      setMyBookings(rows as MyBooking[]);
+    } catch {
+      /* not signed in */
+    }
   };
+
+  const cancelOne = async (id: string) => {
+    setCancellingId(id);
+    try {
+      const res = (await cancelMyBooking({ data: { id } })) as { status: string };
+      if (res.status === "cancelled") {
+        toast.success("Booking cancelled — a confirmation email is on its way.");
+      } else if (res.status === "too_late") {
+        toast.error("Too late: cancellation is only possible up to 24h before the session.");
+      } else if (res.status === "already") {
+        toast.info("This booking was already cancelled.");
+      } else {
+        toast.error("This booking doesn't belong to your account.");
+      }
+      await loadMyBookings();
+      await loadBookings();
+    } catch {
+      toast.error("Couldn't cancel. Please try again.");
+    } finally {
+      setCancellingId(null);
+    }
+  };
+
+  const signOut = async () => {
+    await supabase.auth.signOut();
+    setUnlocked(false);
+    setMyBookings([]);
+    toast.success("Signed out.");
+  };
+
 
   const SUMMER_END = new Date("2026-10-15T00:00:00");
   const days = useMemo(() => {
