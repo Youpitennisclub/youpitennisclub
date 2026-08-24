@@ -30,12 +30,17 @@ export const listMyBookings = createServerFn({ method: "POST" })
     return listMyBookingsRecord(context.userId);
   });
 
-/** Cancels one booking, only if it belongs to the signed-in student. */
+/** Cancels one booking, only if it belongs to the signed-in student.
+ *  The account password is required as a second check. */
 export const cancelMyBooking = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator(z.object({ id: z.string().uuid() }))
+  .inputValidator(z.object({ id: z.string().uuid(), password: z.string().min(1).max(200) }))
   .handler(async ({ data, context }) => {
-    const { cancelOwnBookingRecord } = await import("./bookings.server");
+    const email = (context.claims as { email?: string }).email;
+    if (!email) return { status: "bad_password" as const };
+    const { verifyAccountPassword, cancelOwnBookingRecord } = await import("./bookings.server");
+    const ok = await verifyAccountPassword(email, data.password);
+    if (!ok) return { status: "bad_password" as const };
     return cancelOwnBookingRecord(context.userId, data.id);
   });
 
