@@ -874,26 +874,12 @@ function BookPage() {
                 Cancellation only up to 24h before the session
               </div>
               <p className="mt-2 text-sm font-semibold text-ink">
-                Fill in your email above and click once: we send a secure cancellation
-                link to that address. The booking is only cancelled once you click that
-                link, so nobody else can cancel your session. Later than 24h before the
-                start, cancellation is not possible.
+                Your bookings are listed under the calendar, in “My bookings”. You can cancel
+                your own sessions there — nobody else can cancel them. Later than 24h before
+                the start, cancellation is not possible.
               </p>
-
-              <button
-                type="button"
-                disabled={cancelSending || cancelSent}
-                onClick={askCancel}
-                className="mt-3 w-full px-6 py-3.5 rounded-2xl bg-destructive text-destructive-foreground font-semibold hover:opacity-90 transition disabled:opacity-50"
-              >
-                {cancelSent
-                  ? "Link sent — check your email ✅"
-                  : cancelSending
-                    ? "Sending link…"
-                    : "Cancel a booking"}
-              </button>
-
             </div>
+
 
 
             <p className="text-xs text-muted-foreground">
