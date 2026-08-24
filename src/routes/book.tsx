@@ -330,6 +330,7 @@ function BookPage() {
   useEffect(() => {
     if (!unlocked) return;
     loadBookings();
+    loadMyBookings();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [unlocked]);
 
@@ -345,7 +346,6 @@ function BookPage() {
       return;
     }
     if (slot.level !== "open") setLevel(slot.level);
-    setSelectedSlot(slot);
     setSelectedSlot(slot);
   };
 
