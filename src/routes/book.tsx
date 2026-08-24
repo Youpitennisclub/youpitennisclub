@@ -3,7 +3,7 @@ import { useEffect, useMemo, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { PhotoPicker } from "@/components/PhotoPicker";
-import { createBooking, requestCancellation } from "@/lib/bookings.functions";
+import { createBooking, listMyBookings, cancelMyBooking } from "@/lib/bookings.functions";
 
 
 export const Route = createFileRoute("/book")({
