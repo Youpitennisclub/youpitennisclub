@@ -387,25 +387,6 @@ function BookPage() {
     }
   };
 
-  const askCancel = async () => {
-    const mail = email.trim();
-    if (!mail) {
-      toast.error("Please fill in the email address you used for the booking.");
-      return;
-    }
-    setCancelSending(true);
-    try {
-      await requestCancellation({ data: { email: mail } });
-      setCancelSent(true);
-      toast.success(
-        "Check your inbox: we sent a secure cancellation link to that email address.",
-      );
-    } catch {
-      toast.error("Couldn't send the cancellation link. Please try again.");
-    } finally {
-      setCancelSending(false);
-    }
-  };
 
 
 
