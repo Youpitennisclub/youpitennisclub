@@ -216,6 +216,7 @@ function Modal({ onClose, children }: { onClose: () => void; children: React.Rea
 }
 
 function BookPage() {
+  const navigate = useNavigate();
   const today = startOfDay(new Date());
   const [weekStart, setWeekStart] = useState<Date>(today);
   const [selectedSlot, setSelectedSlot] = useState<Slot | null>(null);
