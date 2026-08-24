@@ -408,12 +408,29 @@ function BookPage() {
             />
             <span className="truncate">Youpi Tennis Club</span>
           </Link>
-          <Link
-            to="/"
-            className="shrink-0 px-4 py-2.5 rounded-full border-2 border-ink/15 text-sm font-semibold hover:bg-ball/40 transition"
-          >
-            ← Back
-          </Link>
+          <div className="flex shrink-0 items-center gap-2">
+            {unlocked && (
+              <span
+                title={email}
+                className="inline-flex max-w-[9rem] sm:max-w-[14rem] items-center gap-2 px-3 py-2 rounded-full border-2 border-court/40 bg-court/10 text-xs sm:text-sm font-semibold"
+              >
+                <span className="relative flex h-2.5 w-2.5 shrink-0">
+                  <span className="absolute inline-flex h-full w-full rounded-full bg-court opacity-60 animate-ping" />
+                  <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-court" />
+                </span>
+                <span className="truncate">
+                  {firstName?.trim() || email.split("@")[0] || "Connected"}
+                </span>
+              </span>
+            )}
+            <Link
+              to="/"
+              className="shrink-0 px-4 py-2.5 rounded-full border-2 border-ink/15 text-sm font-semibold hover:bg-ball/40 transition"
+            >
+              ← Back
+            </Link>
+          </div>
+
         </div>
       </header>
 
