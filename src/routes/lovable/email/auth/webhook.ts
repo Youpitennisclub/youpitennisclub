@@ -9,7 +9,7 @@ import { EmailChangeEmail } from '@/lib/email-templates/email-change'
 import { ReauthenticationEmail } from '@/lib/email-templates/reauthentication'
 
 // Configuration
-const SITE_NAME = "Berlin Tennis Hub"
+const SITE_NAME = "Youpi Tennis Club"
 const SENDER_DOMAIN = "notify.youpitennisclub.com"
 const ROOT_DOMAIN = "youpitennisclub.com"
 const FROM_DOMAIN = "youpitennisclub.com"
