@@ -37,26 +37,54 @@ function ResetPasswordPage() {
   const [busy, setBusy] = useState(false);
 
   useEffect(() => {
-    const finishCheck = () => setCheckingLink(false);
+    let mounted = true;
 
-    supabase.auth.getSession().then(({ data }) => {
-      setReady(Boolean(data.session));
-      finishCheck();
+    const { data: sub } = supabase.auth.onAuthStateChange((event, session) => {
+      if (event === "PASSWORD_RECOVERY" && session) {
+        setReady(true);
+        setCheckingLink(false);
+      }
     });
 
-    const url = new URL(window.location.href);
-    const code = url.searchParams.get("code");
-    if (code) {
-      supabase.auth.exchangeCodeForSession(code).then(({ error }) => {
-        if (error) toast.error("This reset link is invalid or has expired. Please request a new one.");
-        window.history.replaceState({}, document.title, "/reset-password");
-        finishCheck();
-      });
-    }
+    const checkResetLink = async () => {
+      const url = new URL(window.location.href);
+      const code = url.searchParams.get("code");
+      const hashParams = new URLSearchParams(url.hash.replace(/^#/, ""));
+      const accessToken = hashParams.get("access_token");
+      const refreshToken = hashParams.get("refresh_token");
+      const linkType = hashParams.get("type");
 
-    const { data: sub } = supabase.auth.onAuthStateChange((_e, session) => {
-      if (session) setReady(true);
-    });
+      try {
+        if (code) {
+          const { error } = await supabase.auth.exchangeCodeForSession(code);
+          if (error) throw error;
+          if (mounted) setReady(true);
+          window.history.replaceState({}, document.title, "/reset-password");
+          return;
+        }
+
+        if (linkType === "recovery" && accessToken && refreshToken) {
+          const { error } = await supabase.auth.setSession({
+            access_token: accessToken,
+            refresh_token: refreshToken,
+          });
+          if (error) throw error;
+          if (mounted) setReady(true);
+          window.history.replaceState({}, document.title, "/reset-password");
+          return;
+        }
+      } catch {
+        if (mounted) {
+          setReady(false);
+          toast.error("This reset link is invalid or has expired. Please request a new one.");
+        }
+      } finally {
+        if (mounted) setCheckingLink(false);
+      }
+    };
+
+    checkResetLink();
+
     return () => sub.subscription.unsubscribe();
   }, []);
 
