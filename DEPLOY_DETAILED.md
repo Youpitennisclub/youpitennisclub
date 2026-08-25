@@ -219,6 +219,258 @@ Ce fichier ne doit **pas** être commité avec la clé Resend.
 
 ---
 
+## 3 bis. Reprendre à ta charge les emails d'authentification
+
+**Le point à ne pas manquer.** Deux familles d'emails cohabitent dans ce projet :
+
+1. **Les emails applicatifs** (confirmation de réservation, annulation) : envoyés
+   par `src/lib/mailer.server.ts` directement via l'API Resend. Ils continuent de
+   fonctionner hors Lovable dès que `RESEND_API_KEY` et `EMAIL_FROM` sont définies.
+2. **Les emails d'authentification** (signup, magic link, password reset, email
+   change, invite, reauthentication) : aujourd'hui rendus par
+   `src/routes/lovable/email/auth/webhook.ts` avec les gabarits de
+   `src/lib/email-templates/*.tsx`, mais **expédiés par l'infrastructure Lovable**
+   (`@lovable.dev/email-js` + `LOVABLE_API_KEY` + domaine `notify.youpitennisclub.com`
+   géré par Lovable). Hors Lovable, `LOVABLE_API_KEY` n'existe plus : ces emails
+   **cessent de partir** si tu ne fais rien. Cette section décrit exactement quoi
+   faire.
+
+Deux options. Fais l'option A si tu veux garder ton design d'emails et ton
+expéditeur ; l'option B est le repli minimal.
+
+### Option A (recommandée) — garder tes gabarits, envoyer par Resend
+
+Principe : Supabase Auth propose un *Auth Hook* « Send Email ». Au lieu d'envoyer
+lui-même, Supabase appelle **ton** endpoint HTTPS avec l'utilisateur et le jeton ;
+ton endpoint rend le gabarit React Email et l'envoie par Resend. C'est exactement
+l'architecture actuelle, mais avec Resend à la place de Lovable.
+
+**A.1 — Vérifier le domaine d'envoi dans Resend**
+
+Tant que le site est publié par Lovable, `notify.youpitennisclub.com` est délégué
+à Lovable (enregistrements NS chez Cloudflare). Après migration :
+
+1. Cloudflare → ta zone `youpitennisclub.com` → **DNS** → supprime les
+   enregistrements `NS` du sous-domaine `notify` (ceux qui pointent vers
+   `nsX.lovable.cloud`). Sans cette suppression, Resend ne pourra jamais vérifier
+   ce sous-domaine.
+2. Resend → **Domains** → *Add domain*. Tu peux :
+   - réutiliser `notify.youpitennisclub.com` (les liens des anciens mails restent
+     cohérents), ou
+   - rester sur `youpitennisclub.com` que tu as déjà vérifié, et envoyer depuis
+     `noreply@youpitennisclub.com` — plus simple, et suffisant.
+3. Ajoute chez Cloudflare les enregistrements que Resend affiche (DKIM `CNAME` ou
+   `TXT`, SPF `TXT`, et le `MX` de retour). **Proxy Cloudflare désactivé** (nuage
+   gris) pour tous ces enregistrements. Attends le statut *Verified*.
+
+**A.2 — Créer un secret de hook**
+
+Génère une chaîne aléatoire longue, par exemple :
+
+```bash
+openssl rand -hex 32
+```
+
+Elle servira à prouver que l'appel vient bien de Supabase. Tu la mettras des deux
+côtés : dans Supabase (config du hook) et dans Cloudflare (variable
+`AUTH_HOOK_SECRET`, en **Secret**).
+
+**A.3 — Remplacer l'expédition Lovable par Resend dans le webhook**
+
+Fichier `src/routes/lovable/email/auth/webhook.ts`. Aujourd'hui il appelle
+`createAuthEmailHandler` de `@lovable.dev/email-js`. Remplace tout le contenu par
+la version autonome ci-dessous : mêmes gabarits, même rendu, envoi Resend, et
+vérification de la signature du hook.
+
+```ts
+import * as React from 'react'
+import { createFileRoute } from '@tanstack/react-router'
+import { render } from '@react-email/render'
+import { createHmac, timingSafeEqual } from 'crypto'
+import { SignupEmail } from '@/lib/email-templates/signup'
+import { InviteEmail } from '@/lib/email-templates/invite'
+import { MagicLinkEmail } from '@/lib/email-templates/magic-link'
+import { RecoveryEmail } from '@/lib/email-templates/recovery'
+import { EmailChangeEmail } from '@/lib/email-templates/email-change'
+import { ReauthenticationEmail } from '@/lib/email-templates/reauthentication'
+
+const SITE_NAME = 'Youpi Tennis Club'
+
+// Supabase envoie: { user: {...}, email_data: { token, token_hash, redirect_to,
+//                    email_action_type, site_url, token_new, token_hash_new } }
+function pick(actionType: string) {
+  switch (actionType) {
+    case 'signup':            return { Cmp: SignupEmail,           subject: `Confirm your ${SITE_NAME} account` }
+    case 'invite':            return { Cmp: InviteEmail,           subject: `You are invited to ${SITE_NAME}` }
+    case 'magiclink':         return { Cmp: MagicLinkEmail,        subject: `Your ${SITE_NAME} sign-in link` }
+    case 'recovery':          return { Cmp: RecoveryEmail,         subject: `Reset your ${SITE_NAME} password` }
+    case 'email_change':
+    case 'email_change_new':  return { Cmp: EmailChangeEmail,      subject: `Confirm your new email address` }
+    case 'reauthentication':  return { Cmp: ReauthenticationEmail, subject: `Your ${SITE_NAME} verification code` }
+    default:                  return null
+  }
+}
+
+export const Route = createFileRoute('/lovable/email/auth/webhook')({
+  server: {
+    handlers: {
+      POST: async ({ request }) => {
+        const raw = await request.text()
+
+        // 1) Authentifier l'appel (secret partagé avec Supabase)
+        const secret = process.env['AUTH_HOOK_SECRET'] ?? ''
+        const header = request.headers.get('webhook-signature') ?? ''
+        const id = request.headers.get('webhook-id') ?? ''
+        const ts = request.headers.get('webhook-timestamp') ?? ''
+        const key = Buffer.from(secret.replace(/^v1,whsec_/, ''), 'base64')
+        const expected =
+          'v1,' + createHmac('sha256', key).update(`${id}.${ts}.${raw}`).digest('base64')
+        const provided = header.split(' ').find((s) => s.startsWith('v1,')) ?? ''
+        if (
+          !secret ||
+          provided.length !== expected.length ||
+          !timingSafeEqual(Buffer.from(provided), Buffer.from(expected))
+        ) {
+          return new Response('Invalid signature', { status: 401 })
+        }
+
+        // 2) Construire le mail
+        const payload = JSON.parse(raw)
+        const d = payload.email_data ?? {}
+        const chosen = pick(d.email_action_type)
+        if (!chosen) return new Response('ok') // type non géré: on ignore
+
+        const siteUrl = (process.env['SITE_URL'] ?? d.site_url ?? '').replace(/\/$/, '')
+        const confirmationUrl =
+          `${siteUrl}/auth/confirm?token_hash=${d.token_hash}` +
+          `&type=${d.email_action_type}` +
+          `&next=${encodeURIComponent(d.redirect_to ?? '/book')}`
+
+        const html = await render(
+          React.createElement(chosen.Cmp as any, {
+            siteName: SITE_NAME,
+            confirmationUrl,
+            token: d.token,
+            email: payload.user?.email,
+            newEmail: payload.user?.new_email,
+          }),
+        )
+
+        // 3) Envoyer par Resend
+        const res = await fetch('https://api.resend.com/emails', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${process.env['RESEND_API_KEY']}`,
+          },
+          body: JSON.stringify({
+            from: process.env['AUTH_EMAIL_FROM'] ?? process.env['EMAIL_FROM'],
+            to: [payload.user.email],
+            subject: chosen.subject,
+            html,
+          }),
+        })
+        if (!res.ok) {
+          const body = await res.text()
+          console.error(`[auth-mail] resend failed [${res.status}]: ${body}`)
+          return new Response(body, { status: 500 })
+        }
+        return new Response('ok')
+      },
+    },
+  },
+})
+```
+
+Points d'attention :
+
+- Les props passées aux gabarits doivent correspondre à ceux qu'ils attendent :
+  ouvre `src/lib/email-templates/recovery.tsx` et vérifie les noms
+  (`confirmationUrl`, `token`, `siteName`…). Si un nom diffère, aligne-le ici.
+- Le lien `/auth/confirm?token_hash=...` correspond à ce que sait déjà traiter
+  `src/routes/reset-password.tsx` (il gère `token_hash`, `code` et `access_token`).
+  Pour la réinitialisation, remplace `/auth/confirm` par `/reset-password` afin
+  d'arriver directement sur l'écran de nouveau mot de passe :
+  `if (d.email_action_type === 'recovery') { … /reset-password?token_hash=… }`.
+- Après ce remplacement, `@lovable.dev/email-js` n'est plus utilisé par ce
+  fichier ; tu peux le désinstaller (`npm remove @lovable.dev/email-js`) si aucun
+  autre fichier ne l'importe (`grep -r "email-js" src/`).
+
+**A.4 — Déclarer le hook dans Supabase**
+
+Dans ton projet Supabase (celui que tu as créé à l'étape 2) :
+
+1. **Authentication → Emails → Email Hook** (ou *Auth Hooks* selon la version) →
+   *Send Email hook* → **Enable**.
+2. Type : **HTTPS**. URI :
+   `https://youpitennisclub.club/lovable/email/auth/webhook`
+   (garde ce chemin exact : c'est celui du fichier ci-dessus).
+3. **Secret** : colle la valeur générée en A.2, au format `v1,whsec_<base64>` si
+   Supabase le demande — c'est lui qui génère le préfixe dans la plupart des cas ;
+   copie alors la valeur telle qu'affichée dans `AUTH_HOOK_SECRET`.
+4. **Authentication → URL Configuration** : `Site URL` =
+   `https://youpitennisclub.club`, et ajoute dans *Redirect URLs* :
+   `https://youpitennisclub.club/**`. Sans ça, les liens des mails renvoient une
+   erreur `redirect_to not allowed`.
+5. **Authentication → Providers → Email** : garde *Confirm email* **désactivé** si
+   tu veux conserver le comportement actuel (compte créé et connecté sans mail de
+   confirmation). Les mails de reset restent envoyés dans tous les cas.
+
+**A.5 — Variables à ajouter à l'étape 3**
+
+À ajouter dans Cloudflare → *Variables and Secrets*, en plus de la liste de la
+section 3 :
+
+```
+AUTH_HOOK_SECRET=v1,whsec_...                                # ← en Secret
+AUTH_EMAIL_FROM=Youpi Tennis Club <noreply@youpitennisclub.com>
+```
+
+`RESEND_API_KEY` et `SITE_URL` sont déjà dans la liste et servent aussi ici.
+
+**A.6 — Recette des 6 types d'emails**
+
+À faire une fois le site en ligne sur le domaine final. Utilise une adresse réelle
+que tu peux lire (ta boîte Gmail) :
+
+| Cas | Comment le déclencher | Attendu |
+| --- | --- | --- |
+| signup | créer un compte sur `/auth` avec *Confirm email* activé côté Supabase | mail « Confirm your … », le lien connecte |
+| magic link | Supabase → Authentication → Users → *Send magic link* | mail reçu, lien connecte |
+| password reset | `/auth` → *Forgot your password?* | arrive sur `/reset-password` avec les 2 champs |
+| email change | connecté, changer son email | mail sur l'ancienne **et** la nouvelle adresse |
+| invite | Supabase → Users → *Invite user* | mail d'invitation |
+| reauthentication | déclenché par une opération sensible | mail avec code à 6 chiffres |
+
+Si un mail ne part pas : Supabase → **Logs → Auth** montre l'appel du hook et le
+code retourné par ton endpoint (401 = secret mal recopié, 500 = refus Resend, le
+corps de l'erreur Resend est journalisé). Resend → **Emails** montre l'envoi et
+son statut de délivrance.
+
+### Option B (repli) — laisser Supabase envoyer via son propre SMTP
+
+Plus rapide, mais tu perds tes gabarits et la personnalisation de la marque.
+
+1. Supabase → **Project Settings → Authentication → SMTP Settings** → *Enable
+   custom SMTP*.
+2. Renseigne les identifiants SMTP de Resend :
+   hôte `smtp.resend.com`, port `587`, utilisateur `resend`, mot de passe = ta
+   `RESEND_API_KEY`, expéditeur `noreply@youpitennisclub.com`.
+3. Désactive le *Send Email hook* s'il était activé, sinon il prend le dessus.
+4. **Authentication → Emails → Templates** : réécris à la main les 6 gabarits
+   (HTML simple). Les variables disponibles sont `{{ .ConfirmationURL }}`,
+   `{{ .Token }}`, `{{ .Email }}`, `{{ .SiteURL }}`.
+5. Sans SMTP personnalisé du tout, Supabase envoie depuis sa propre adresse avec
+   une limite d'environ 3 mails/heure : suffisant pour tester, pas pour la
+   production.
+
+Dans les deux options, supprime le fichier `src/routes/lovable/email/preview.ts`
+si tu ne t'en sers pas : il n'a d'intérêt que dans l'aperçu Lovable.
+
+---
+
+
+
 ## 4. Déployer sur Cloudflare (le mécanisme, puis les clics)
 
 **Ce qui se passe réellement** : Cloudflare clone ton repo, exécute la commande de
