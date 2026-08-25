@@ -89,8 +89,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "twitter:site", content: "@Lovable" },
       { name: "twitter:title", content: "Youpi Multi Culti Tennis — Tennis lessons in Berlin" },
       { name: "twitter:description", content: "Fun, international tennis lessons in Berlin for all players. All levels, all languages — book your first session today." },
-      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/b0e94463-7995-4710-9e4d-a291721f56ed" },
-      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/b0e94463-7995-4710-9e4d-a291721f56ed" },
+      { property: "og:site_name", content: "Youpi Tennis Club" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },

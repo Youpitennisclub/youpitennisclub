@@ -21,8 +21,10 @@ export const Route = createFileRoute("/book")({
         content: "Book your tennis session in a few clicks. Beginner to advanced, EN/FR/DE.",
       },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://youpitennisclub.com/book" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
+    links: [{ rel: "canonical", href: "https://youpitennisclub.com/book" }],
   }),
   component: BookPage,
 });

@@ -19,6 +19,7 @@ export const Route = createFileRoute("/auth")({
         content: "Sign in to manage your own tennis bookings in Berlin.",
       },
       { property: "og:type", content: "website" },
+      { name: "robots", content: "noindex, follow" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),

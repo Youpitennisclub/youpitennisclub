@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /auth
+Disallow: /reset-password
+Disallow: /cancel
+
+Sitemap: https://youpitennisclub.com/sitemap.xml

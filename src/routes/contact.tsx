@@ -16,8 +16,10 @@ export const Route = createFileRoute("/contact")({
         content: "Send a message about tennis lessons in Berlin, or write on WhatsApp.",
       },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://youpitennisclub.com/contact" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
+    links: [{ rel: "canonical", href: "https://youpitennisclub.com/contact" }],
   }),
   component: ContactPage,
 });
