@@ -8,8 +8,10 @@ export const Route = createFileRoute("/privacy")({
       { property: "og:title", content: "Privacy Notice — Youpi Multi Culti Tennis" },
       { property: "og:description", content: "GDPR privacy notice for Youpi Multi Culti Tennis Berlin." },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://youpitennisclub.com/privacy" },
       { name: "twitter:card", content: "summary" },
     ],
+    links: [{ rel: "canonical", href: "https://youpitennisclub.com/privacy" }],
   }),
   component: PrivacyPage,
 });
