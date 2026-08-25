@@ -53,6 +53,7 @@ function ResetPasswordPage() {
       const accessToken = hashParams.get("access_token");
       const refreshToken = hashParams.get("refresh_token");
       const linkType = hashParams.get("type");
+      const isRecoveryLink = Boolean(code) || linkType === "recovery";
 
       try {
         if (code) {
@@ -70,6 +71,14 @@ function ResetPasswordPage() {
           });
           if (error) throw error;
           if (mounted) setReady(true);
+          window.history.replaceState({}, document.title, "/reset-password");
+          return;
+        }
+
+        if (isRecoveryLink) {
+          const { data, error } = await supabase.auth.getSession();
+          if (error) throw error;
+          if (mounted) setReady(Boolean(data.session));
           window.history.replaceState({}, document.title, "/reset-password");
           return;
         }
