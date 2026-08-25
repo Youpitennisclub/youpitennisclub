@@ -3,6 +3,12 @@ import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { PhotoPicker } from "@/components/PhotoPicker";
 
+// TODO: once your Google Business Profile is verified, replace this with your
+// short review link (Google Business Profile → "Ask for reviews" → https://g.page/r/.../review)
+const GOOGLE_REVIEW_URL =
+  "https://www.google.com/maps/search/?api=1&query=Youpi+Tennis+Club+Berlin";
+
+
 type PublicFeedback = {
   first_name: string;
   last_initial: string | null;
@@ -69,11 +75,26 @@ export function FeedbackSection() {
       <h2 className="text-[clamp(1.75rem,7vw,3.5rem)] font-display uppercase mb-3 break-words">
         Feedback
       </h2>
-      <p className="text-muted-foreground mb-6 max-w-2xl">
+      <p className="text-muted-foreground mb-4 max-w-2xl">
         Already trained with me? Leave a comment — reviews are only possible with the email
         address you used to book a session. Only your first name and the first letter of your last
         name are shown publicly, never your email.
       </p>
+
+      <div className="mb-6 p-5 rounded-3xl bg-card border-2 border-ink/10 flex flex-col sm:flex-row sm:items-center gap-4">
+        <p className="text-sm text-muted-foreground flex-1">
+          Loved your session? A public Google review helps other players in Berlin find us.
+        </p>
+        <a
+          href={GOOGLE_REVIEW_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="shrink-0 px-6 py-3 rounded-2xl bg-navy text-background font-semibold hover:opacity-90 transition text-center"
+        >
+          Leave a Google review ⭐
+        </a>
+      </div>
+
 
       <div className="grid lg:grid-cols-2 gap-6 items-start">
         <form
