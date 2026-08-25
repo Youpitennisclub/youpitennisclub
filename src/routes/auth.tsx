@@ -3,6 +3,13 @@ import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { claimMyBookings } from "@/lib/bookings.functions";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 export const Route = createFileRoute("/auth")({
   head: () => ({
@@ -55,6 +62,8 @@ function AuthPage() {
   const [phone, setPhone] = useState("");
   const [busy, setBusy] = useState(false);
   const [resetting, setResetting] = useState(false);
+  const [resetOpen, setResetOpen] = useState(false);
+  const [resetEmail, setResetEmail] = useState("");
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data }) => {
@@ -65,18 +74,26 @@ function AuthPage() {
   const inputCls =
     "w-full min-w-0 px-4 py-3 rounded-2xl bg-background border-2 border-ink/10 focus:border-court outline-none transition";
 
-  const forgotPassword = async () => {
-    if (!email.trim()) {
-      toast.error("Please enter your email address first, then click “Forgot your password?”.");
+  const openForgotPassword = () => {
+    setResetEmail(email.trim());
+    setResetOpen(true);
+  };
+
+  const forgotPassword = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const cleanEmail = resetEmail.trim().toLowerCase();
+    if (!cleanEmail) {
+      toast.error("Please enter the email address linked to your account.");
       return;
     }
     setResetting(true);
     try {
-      const { error } = await supabase.auth.resetPasswordForEmail(email.trim(), {
+      const { error } = await supabase.auth.resetPasswordForEmail(cleanEmail, {
         redirectTo: `${window.location.origin}/reset-password`,
       });
       if (error) throw error;
       toast.success("Password reset link sent — please check your inbox.");
+      setResetOpen(false);
     } catch (err) {
       toast.error(englishAuthError(err instanceof Error ? err.message : "Something went wrong."));
     } finally {
@@ -235,11 +252,11 @@ function AuthPage() {
           {mode === "signin" && (
             <button
               type="button"
-              onClick={forgotPassword}
+              onClick={openForgotPassword}
               disabled={resetting}
               className="text-sm font-semibold underline text-left disabled:opacity-50"
             >
-              {resetting ? "Sending reset link…" : "Forgot your password?"}
+              Forgot your password?
             </button>
           )}
 
@@ -255,6 +272,38 @@ function AuthPage() {
             : "Already have an account? Sign in"}
         </button>
       </section>
+
+      <Dialog open={resetOpen} onOpenChange={setResetOpen}>
+        <DialogContent className="sm:max-w-md rounded-3xl border-2 border-ink/10 bg-background p-6">
+          <DialogHeader>
+            <DialogTitle className="font-display text-2xl uppercase leading-none">
+              Reset password
+            </DialogTitle>
+            <DialogDescription>
+              Enter your account email. You will receive a link to choose a new password.
+            </DialogDescription>
+          </DialogHeader>
+          <form onSubmit={forgotPassword} className="mt-2 grid gap-3">
+            <input
+              required
+              type="email"
+              maxLength={120}
+              value={resetEmail}
+              onChange={(event) => setResetEmail(event.target.value)}
+              placeholder="Email address"
+              className={inputCls}
+              autoFocus
+            />
+            <button
+              type="submit"
+              disabled={resetting}
+              className="px-6 py-3 rounded-2xl bg-violet text-violet-foreground font-semibold hover:opacity-90 transition disabled:opacity-50"
+            >
+              {resetting ? "Sending link…" : "Send reset link"}
+            </button>
+          </form>
+        </DialogContent>
+      </Dialog>
     </main>
   );
 }
