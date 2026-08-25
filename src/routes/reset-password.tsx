@@ -39,28 +39,53 @@ function ResetPasswordPage() {
   useEffect(() => {
     let mounted = true;
 
+    const cleanResetUrl = () => {
+      window.history.replaceState({}, document.title, "/reset-password");
+    };
+
+    const finishCheck = (canReset: boolean) => {
+      if (!mounted) return;
+      setReady(canReset);
+      setCheckingLink(false);
+    };
+
     const { data: sub } = supabase.auth.onAuthStateChange((event, session) => {
-      if (event === "PASSWORD_RECOVERY" && session) {
-        setReady(true);
-        setCheckingLink(false);
+      if ((event === "PASSWORD_RECOVERY" || event === "SIGNED_IN") && session) {
+        finishCheck(true);
       }
     });
 
     const checkResetLink = async () => {
       const url = new URL(window.location.href);
-      const code = url.searchParams.get("code");
       const hashParams = new URLSearchParams(url.hash.replace(/^#/, ""));
-      const accessToken = hashParams.get("access_token");
-      const refreshToken = hashParams.get("refresh_token");
-      const linkType = hashParams.get("type");
-      const isRecoveryLink = Boolean(code) || linkType === "recovery";
+      const getParam = (name: string) => url.searchParams.get(name) ?? hashParams.get(name);
+      const code = getParam("code");
+      const accessToken = getParam("access_token");
+      const refreshToken = getParam("refresh_token");
+      const tokenHash = getParam("token_hash");
+      const linkType = getParam("type");
+      const linkError = getParam("error_description") ?? getParam("error");
+      const hasRecoveryData = Boolean(code || tokenHash || accessToken || refreshToken || linkType);
 
       try {
+        if (linkError) throw new Error(linkError.replace(/\+/g, " "));
+
         if (code) {
           const { error } = await supabase.auth.exchangeCodeForSession(code);
           if (error) throw error;
-          if (mounted) setReady(true);
-          window.history.replaceState({}, document.title, "/reset-password");
+          cleanResetUrl();
+          finishCheck(true);
+          return;
+        }
+
+        if (linkType === "recovery" && tokenHash) {
+          const { error } = await supabase.auth.verifyOtp({
+            token_hash: tokenHash,
+            type: "recovery",
+          });
+          if (error) throw error;
+          cleanResetUrl();
+          finishCheck(true);
           return;
         }
 
@@ -70,31 +95,30 @@ function ResetPasswordPage() {
             refresh_token: refreshToken,
           });
           if (error) throw error;
-          if (mounted) setReady(true);
-          window.history.replaceState({}, document.title, "/reset-password");
+          cleanResetUrl();
+          finishCheck(true);
           return;
         }
 
-        if (isRecoveryLink) {
-          const { data, error } = await supabase.auth.getSession();
-          if (error) throw error;
-          if (mounted) setReady(Boolean(data.session));
-          window.history.replaceState({}, document.title, "/reset-password");
-          return;
-        }
+        const { data, error } = await supabase.auth.getSession();
+        if (error) throw error;
+        if (hasRecoveryData) cleanResetUrl();
+        finishCheck(Boolean(data.session));
       } catch {
         if (mounted) {
           setReady(false);
+          setCheckingLink(false);
           toast.error("This reset link is invalid or has expired. Please request a new one.");
         }
-      } finally {
-        if (mounted) setCheckingLink(false);
       }
     };
 
     checkResetLink();
 
-    return () => sub.subscription.unsubscribe();
+    return () => {
+      mounted = false;
+      sub.subscription.unsubscribe();
+    };
   }, []);
 
   const inputCls =
