@@ -5,27 +5,64 @@ import posterAsset from "@/assets/youpi-court.jpg.asset.json";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { FeedbackSection } from "@/components/FeedbackSection";
 
+const SITE = "https://youpitennisclub.com";
+const OG_IMAGE =
+  "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/b0e94463-7995-4710-9e4d-a291721f56ed";
+const TITLE = "Tennis Lessons in Berlin (English) — Youpi Tennis Club";
+const DESCRIPTION =
+  "Tennis lessons in Berlin in English, French and German: private, duo and small-group coaching on clay courts in Reinickendorf, plus social tennis events. Book online.";
+
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Youpi Tennis Club — Tennis lessons in Berlin" },
-      {
-        name: "description",
-        content:
-          "Fun, international tennis lessons in Berlin for all levels. Group sessions, privates and social events — book your first session today.",
-      },
-      { property: "og:title", content: "Youpi Tennis Club — Tennis lessons in Berlin" },
-      {
-        property: "og:description",
-        content:
-          "Fun, international tennis lessons in Berlin for all levels. Group sessions, privates and social events — book your first session today.",
-      },
+      { title: TITLE },
+      { name: "description", content: DESCRIPTION },
+      { property: "og:title", content: TITLE },
+      { property: "og:description", content: DESCRIPTION },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: `${SITE}/` },
+      { property: "og:image", content: OG_IMAGE },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:image", content: OG_IMAGE },
+    ],
+    links: [{ rel: "canonical", href: `${SITE}/` }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "SportsActivityLocation",
+          name: "Youpi Tennis Club",
+          description: DESCRIPTION,
+          url: `${SITE}/`,
+          image: OG_IMAGE,
+          telephone: "+4917645689622",
+          email: "chaouchyoucef@yahoo.com",
+          priceRange: "€€",
+          currenciesAccepted: "EUR",
+          paymentAccepted: "PayPal, SEPA, Cash",
+          address: {
+            "@type": "PostalAddress",
+            streetAddress: "Ollenhauerstr. 64e",
+            postalCode: "13403",
+            addressLocality: "Berlin",
+            addressCountry: "DE",
+          },
+          areaServed: { "@type": "City", name: "Berlin" },
+          sport: "Tennis",
+          availableLanguage: ["English", "French", "German"],
+          makesOffer: [
+            { "@type": "Offer", name: "Private tennis lesson (90 min)", priceCurrency: "EUR", price: "50" },
+            { "@type": "Offer", name: "Duo tennis lesson (90 min)", priceCurrency: "EUR", price: "25" },
+            { "@type": "Offer", name: "Group tennis lesson (90 min)", priceCurrency: "EUR", price: "19" },
+          ],
+        }),
+      },
     ],
   }),
   component: Index,
 });
+
 
 const FLAGS = ["🇫🇷", "🇩🇪", "🇺🇸", "🇹🇷", "🇺🇦", "🇪🇸", "🇮🇹", "🇧🇷", "🇯🇵", "🇲🇽", "🇵🇱", "🇪🇬", "🇱🇧", "🇷🇺", "🇬🇷", "🇬🇧", "🇨🇳", "🇸🇪", "🇰🇷", "🇮🇳"];
 

@@ -8,8 +8,10 @@ export const Route = createFileRoute("/cookies")({
       { property: "og:title", content: "Cookies Notice — Youpi Multi Culti Tennis" },
       { property: "og:description", content: "Cookies notice for Youpi Multi Culti Tennis Berlin." },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://youpitennisclub.com/cookies" },
       { name: "twitter:card", content: "summary" },
     ],
+    links: [{ rel: "canonical", href: "https://youpitennisclub.com/cookies" }],
   }),
   component: CookiesPage,
 });
