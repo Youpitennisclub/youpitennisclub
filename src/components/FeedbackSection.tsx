@@ -3,6 +3,12 @@ import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { PhotoPicker } from "@/components/PhotoPicker";
 
+// TODO: once your Google Business Profile is verified, replace this with your
+// short review link (Google Business Profile → "Ask for reviews" → https://g.page/r/.../review)
+const GOOGLE_REVIEW_URL =
+  "https://www.google.com/maps/search/?api=1&query=Youpi+Tennis+Club+Berlin";
+
+
 type PublicFeedback = {
   first_name: string;
   last_initial: string | null;
