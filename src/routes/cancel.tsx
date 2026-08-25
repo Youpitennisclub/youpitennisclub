@@ -19,6 +19,7 @@ export const Route = createFileRoute("/cancel")({
         content: "Confirm your cancellation. Possible up to 24 hours before the session.",
       },
       { property: "og:type", content: "website" },
+      { name: "robots", content: "noindex, follow" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),

@@ -19,6 +19,7 @@ export const Route = createFileRoute("/reset-password")({
         content: "Set a new password for your student account.",
       },
       { property: "og:type", content: "website" },
+      { name: "robots", content: "noindex, follow" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
