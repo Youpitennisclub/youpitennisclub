@@ -32,10 +32,28 @@ function ResetPasswordPage() {
   const [confirm, setConfirm] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [ready, setReady] = useState(false);
+  const [checkingLink, setCheckingLink] = useState(true);
+  const [completed, setCompleted] = useState(false);
   const [busy, setBusy] = useState(false);
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data }) => setReady(Boolean(data.session)));
+    const finishCheck = () => setCheckingLink(false);
+
+    supabase.auth.getSession().then(({ data }) => {
+      setReady(Boolean(data.session));
+      finishCheck();
+    });
+
+    const url = new URL(window.location.href);
+    const code = url.searchParams.get("code");
+    if (code) {
+      supabase.auth.exchangeCodeForSession(code).then(({ error }) => {
+        if (error) toast.error("This reset link is invalid or has expired. Please request a new one.");
+        window.history.replaceState({}, document.title, "/reset-password");
+        finishCheck();
+      });
+    }
+
     const { data: sub } = supabase.auth.onAuthStateChange((_e, session) => {
       if (session) setReady(true);
     });
@@ -59,8 +77,8 @@ function ResetPasswordPage() {
     try {
       const { error } = await supabase.auth.updateUser({ password });
       if (error) throw error;
-      toast.success("Password updated — you're signed in 🎾");
-      navigate({ to: "/book" });
+      setCompleted(true);
+      toast.success("Password updated successfully.");
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Something went wrong. Please try again.");
     } finally {
@@ -93,7 +111,22 @@ function ResetPasswordPage() {
           Set a new password
         </h1>
 
-        {!ready ? (
+        {checkingLink ? (
+          <p className="mt-4 text-sm text-muted-foreground">Checking your reset link…</p>
+        ) : completed ? (
+          <div className="mt-6 grid gap-4">
+            <p className="rounded-2xl border-2 border-court/25 bg-court/10 px-4 py-3 text-sm font-semibold text-foreground">
+              Your password has been changed successfully.
+            </p>
+            <button
+              type="button"
+              onClick={() => navigate({ to: "/book" })}
+              className="px-7 py-4 rounded-2xl bg-violet text-violet-foreground font-semibold text-lg hover:opacity-90 transition"
+            >
+              Continue to booking 🎾
+            </button>
+          </div>
+        ) : !ready ? (
           <p className="mt-4 text-sm text-muted-foreground">
             Open this page from the reset link we emailed you. If the link has expired, request a new
             one from the{" "}
