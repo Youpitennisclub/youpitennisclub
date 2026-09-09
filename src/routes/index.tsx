@@ -372,17 +372,21 @@ function Index() {
             </p>
             <p>
               I discovered my passion for tennis 17 years ago. Over the years in France, I
-              trained and played with high-level amateur players who passed on to me both the
+              trained and played with experienced amateur players who passed on to me both the
               technical demands and the love of the game.
             </p>
             <p>
-              For me, the technical progress of every student is a priority — beginner or
-              experienced, my goal is to help you improve with clear, structured coaching.
+              For me, the technical progress of every single student is a priority — beginner or
+              advanced. At the same time, it matters to me that my students enjoy tennis and have
+              fun while training. My goal is to help you improve with clear, structured coaching,
+              so you also understand what you are doing, why you are doing it, and how to apply it
+              on your own.
             </p>
             <p>
-              I now train players at several clubs around Berlin, with BFC Alemannia as my main
-              base.
+              I currently train players at several clubs around Berlin, with BFC Alemannia as my
+              main base.
             </p>
+
 
             <p className="font-semibold text-ink">
               Come join the adventure in English, French &amp; German! 🚀🎾
