@@ -79,7 +79,7 @@ function Index() {
               className="inline-block w-7 h-7 shrink-0 rounded-full bg-ball ball-spin shadow-inner"
               style={{ boxShadow: "inset -4px -4px 0 oklch(0.78 0.18 115)" }}
             />
-            <span className="min-w-0 break-words">Youpi Tennis Club</span>
+            <span translate="no" className="notranslate min-w-0 break-words">Youpi Tennis Club</span>
           </a>
           <nav className="hidden lg:flex items-center gap-7 text-sm font-medium">
             <a href="#lessons" className="hover:text-clay transition">Lessons</a>
