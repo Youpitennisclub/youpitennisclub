@@ -11,16 +11,16 @@ const LANGS: { code: string; label: string; flag: string }[] = [
 
 export function LanguageSwitcher({ className = "" }: { className?: string }) {
   const onChange = (code: string) => {
-    if (code === "en") return;
-    const url = typeof window !== "undefined" ? window.location.href : "";
-    const host = typeof window !== "undefined" ? window.location.host : "";
-    // Opens the page translated into the chosen language.
-    window.open(
-      `https://translate.google.com/translate?sl=en&tl=${code}&u=${encodeURIComponent(url || host)}`,
-      "_blank",
-      "noopener",
-    );
+    if (code === "en" || typeof window === "undefined") return;
+    const { hostname, pathname, search, hash } = window.location;
+    // Google's translation proxy: works on any public page, keeps the current path.
+    const host = hostname.replace(/-/g, "--").replace(/\./g, "-");
+    const url =
+      `https://${host}.translate.goog${pathname}${search}${search ? "&" : "?"}` +
+      `_x_tr_sl=en&_x_tr_tl=${code}&_x_tr_hl=${code}${hash}`;
+    window.open(url, "_blank", "noopener");
   };
+
 
   return (
     <label className={`inline-flex items-center gap-1.5 ${className}`}>
