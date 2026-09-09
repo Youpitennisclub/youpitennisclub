@@ -79,7 +79,7 @@ function Index() {
               className="inline-block w-7 h-7 shrink-0 rounded-full bg-ball ball-spin shadow-inner"
               style={{ boxShadow: "inset -4px -4px 0 oklch(0.78 0.18 115)" }}
             />
-            <span className="min-w-0 break-words">Youpi Tennis Club</span>
+            <span translate="no" className="notranslate min-w-0 break-words">Youpi Tennis Club</span>
           </a>
           <nav className="hidden lg:flex items-center gap-7 text-sm font-medium">
             <a href="#lessons" className="hover:text-clay transition">Lessons</a>
@@ -277,9 +277,10 @@ function Index() {
 
       {/* EVENTS */}
       <section id="events" className="max-w-7xl mx-auto px-5 sm:px-6 py-8 sm:py-10">
-        <h2 className="text-[clamp(1.75rem,7vw,3.75rem)] font-display uppercase mb-3 break-words">
-          Social <span className="text-pink">tennis</span>
+        <h2 translate="no" className="notranslate text-[clamp(1.75rem,7vw,3.75rem)] font-display uppercase mb-3 break-words">
+          Tennis <span className="text-pink">&amp; Social</span>
         </h2>
+
         <p className="text-muted-foreground max-w-2xl mb-6">
           Meet people, network, and have fun. Relaxed formats designed for Berliners who want to play and connect.
         </p>
@@ -341,8 +342,9 @@ function Index() {
 
           <article className="group relative p-6 sm:p-8 rounded-3xl bg-card border-2 border-ink/10 hover:border-ink transition hover:-translate-y-1 duration-300">
             <div className="absolute -top-4 -right-2 sm:-right-5 w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-clay text-background grid place-items-center text-2xl sm:text-3xl shadow-lg">☀️</div>
-            <div className="text-xs uppercase tracking-widest font-semibold text-clay mb-3">Summer camp .26</div>
-            <h3 className="text-2xl sm:text-3xl mb-4 break-words pr-12">Summer Camp .26</h3>
+            <div className="text-xs uppercase tracking-widest font-semibold text-clay mb-3">Summer Camp 2026</div>
+            <h3 className="text-2xl sm:text-3xl mb-4 break-words pr-12">Summer Camp 2026</h3>
+
             <ul className="space-y-1.5 text-base text-muted-foreground">
               <li>📅 Aug 17 + 18 + 20</li>
               <li>🕕 6:30–8:30 PM</li>
@@ -372,17 +374,21 @@ function Index() {
             </p>
             <p>
               I discovered my passion for tennis 17 years ago. Over the years in France, I
-              trained and played with high-level amateur players who passed on to me both the
+              trained and played with experienced amateur players who passed on to me both the
               technical demands and the love of the game.
             </p>
             <p>
-              For me, the technical progress of every student is a priority — beginner or
-              experienced, my goal is to help you improve with clear, structured coaching.
+              For me, the technical progress of every single student is a priority — beginner or
+              advanced. At the same time, it matters to me that my students enjoy tennis and have
+              fun while training. My goal is to help you improve with clear, structured coaching,
+              so you also understand what you are doing, why you are doing it, and how to apply it
+              on your own.
             </p>
             <p>
-              I now train players at several clubs around Berlin, with BFC Alemannia as my main
-              base.
+              I currently train players at several clubs around Berlin, with BFC Alemannia as my
+              main base.
             </p>
+
 
             <p className="font-semibold text-ink">
               Come join the adventure in English, French &amp; German! 🚀🎾
@@ -587,7 +593,7 @@ function Index() {
       {/* FOOTER */}
       <footer className="bg-ink text-background mt-8">
         <div className="max-w-7xl mx-auto px-6 py-8 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-          <div className="font-display text-xl sm:text-2xl uppercase">Youpi Tennis Club</div>
+          <div translate="no" className="notranslate font-display text-xl sm:text-2xl uppercase">Youpi Tennis Club</div>
           <div className="flex flex-wrap gap-6 text-sm text-background/70">
             <Link to="/contact" className="hover:text-ball transition">Contact</Link>
             <Link to="/privacy" className="hover:text-ball transition">Privacy</Link>
