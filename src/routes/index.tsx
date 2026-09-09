@@ -341,8 +341,9 @@ function Index() {
 
           <article className="group relative p-6 sm:p-8 rounded-3xl bg-card border-2 border-ink/10 hover:border-ink transition hover:-translate-y-1 duration-300">
             <div className="absolute -top-4 -right-2 sm:-right-5 w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-clay text-background grid place-items-center text-2xl sm:text-3xl shadow-lg">☀️</div>
-            <div className="text-xs uppercase tracking-widest font-semibold text-clay mb-3">Summer camp .26</div>
-            <h3 className="text-2xl sm:text-3xl mb-4 break-words pr-12">Summer Camp .26</h3>
+            <div className="text-xs uppercase tracking-widest font-semibold text-clay mb-3">Summer Camp 2026</div>
+            <h3 className="text-2xl sm:text-3xl mb-4 break-words pr-12">Summer Camp 2026</h3>
+
             <ul className="space-y-1.5 text-base text-muted-foreground">
               <li>📅 Aug 17 + 18 + 20</li>
               <li>🕕 6:30–8:30 PM</li>
