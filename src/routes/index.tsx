@@ -593,7 +593,7 @@ function Index() {
       {/* FOOTER */}
       <footer className="bg-ink text-background mt-8">
         <div className="max-w-7xl mx-auto px-6 py-8 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-          <div className="font-display text-xl sm:text-2xl uppercase">Youpi Tennis Club</div>
+          <div translate="no" className="notranslate font-display text-xl sm:text-2xl uppercase">Youpi Tennis Club</div>
           <div className="flex flex-wrap gap-6 text-sm text-background/70">
             <Link to="/contact" className="hover:text-ball transition">Contact</Link>
             <Link to="/privacy" className="hover:text-ball transition">Privacy</Link>
