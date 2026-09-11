@@ -522,8 +522,11 @@ function Index() {
                   <span className="w-10 h-10 rounded-full bg-sky text-background grid place-items-center text-xl shrink-0">❄️</span>
                   <h3 translate="no" className="notranslate font-display text-xl uppercase">TC Longline</h3>
                 </div>
-                <div translate="no" className="notranslate text-2xl font-display text-sky mb-2">Samstags · 14–17 Uhr</div>
-                <p className="text-sm text-ink/70">Saturday indoor block at TC Longline.</p>
+                <div className="space-y-2">
+                  <div translate="no" className="notranslate text-2xl font-display text-sky">Fr · 11–17 Uhr</div>
+                  <div translate="no" className="notranslate text-2xl font-display text-sky">Sa · 14–17 Uhr</div>
+                </div>
+                <p className="text-sm text-ink/70 mt-3">Friday &amp; Saturday indoor at TC Longline.</p>
               </article>
 
               <article className="rounded-2xl bg-background text-ink p-6 border-2 border-violet/30">
