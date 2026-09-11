@@ -2,6 +2,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 
 import posterAsset from "@/assets/youpi-court.jpg.asset.json";
+import wellhubLogoAsset from "@/assets/wellhub-logo.png.asset.json";
+import urbanSportsClubLogoAsset from "@/assets/urban-sports-club-logo.png.asset.json";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { FeedbackSection } from "@/components/FeedbackSection";
 
@@ -527,6 +529,10 @@ function Index() {
                   <div translate="no" className="notranslate text-2xl font-display text-sky">Sa · 14–17 Uhr</div>
                 </div>
                 <p className="text-sm text-ink/70 mt-3">Friday &amp; Saturday indoor at TC Longline.</p>
+                <p className="mt-4 rounded-xl bg-sky/15 p-3 text-sm text-ink/80">
+                  Flexible with work? You can book a weekday court at TC Longline on Friday between
+                  <strong> 11:00 and 17:00</strong> in a group of two students.
+                </p>
               </article>
 
               <article className="rounded-2xl bg-background text-ink p-6 border-2 border-violet/30">
@@ -561,9 +567,19 @@ function Index() {
             <article className="rounded-2xl bg-background text-ink p-6 border-2 border-pink/40 mt-6">
               <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6">
                 <div className="flex items-center gap-3 shrink-0">
-                  <span className="inline-flex items-center justify-center px-3 py-1.5 rounded-full bg-gradient-to-r from-violet to-pink text-white font-bold text-sm tracking-tight">wellhub</span>
+                  <img
+                    src={wellhubLogoAsset.url}
+                    alt="Wellhub"
+                    className="h-7 sm:h-8 w-auto max-w-[8rem] object-contain"
+                    loading="lazy"
+                  />
                   <span className="text-lg font-display uppercase text-ink">+</span>
-                  <span className="inline-flex items-center justify-center px-3 py-1.5 rounded-full bg-ink text-background font-bold text-sm tracking-tight">Urban Sports Club</span>
+                  <img
+                    src={urbanSportsClubLogoAsset.url}
+                    alt="Urban Sports Club"
+                    className="h-9 sm:h-10 w-auto max-w-[9rem] object-contain"
+                    loading="lazy"
+                  />
                 </div>
                 <div className="min-w-0">
                   <div className="font-display text-2xl sm:text-3xl uppercase text-destructive mb-1">Coming soon</div>

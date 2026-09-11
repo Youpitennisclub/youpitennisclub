@@ -56,20 +56,20 @@ const LEVEL_STYLE: Record<SlotLevel, string> = {
   open: "bg-background text-ink border-ink/15 hover:bg-ink/5",
 };
 
-/** Level rotation per weekday (Mon–Fri) for the evening slots. */
-const WEEKDAY_LEVELS: Record<number, Level[]> = {
-  1: ["beginner", "intermediate", "advanced"],
-  2: ["intermediate", "advanced", "beginner"],
-  3: ["advanced", "beginner", "intermediate"],
-  4: ["beginner", "advanced", "intermediate"],
+/** Level rotation for the 18:00 weekday group. */
+const WEEKDAY_LEVELS: Record<number, Level> = {
+  1: "beginner",
+  2: "intermediate",
+  3: "advanced",
+  4: "beginner",
+  5: "intermediate",
 };
 const SAT_LEVELS: Level[] = ["beginner", "intermediate", "advanced", "beginner"];
 
 /** Friday has its own fixed schedule. */
 const FRIDAY: { h: number; m: number; duration: number; level: Level }[] = [
-  { h: 16, m: 0, duration: 90, level: "advanced" },
-  { h: 17, m: 30, duration: 60, level: "beginner" },
-  { h: 18, m: 30, duration: 90, level: "intermediate" },
+  { h: 16, m: 30, duration: 90, level: "advanced" },
+  { h: 18, m: 0, duration: 90, level: "intermediate" },
 ];
 
 /** Summer camp: 18:30–20:30 (2h), 2 coaches, groups of 4–6. */
@@ -132,13 +132,6 @@ function buildSlotsForDate(date: Date): Slot[] {
       slots.push({ start: d, duration: f.duration, level: f.level });
     });
   } else {
-    // Extra 1h slot at 16:00 on Mon / Tue / Wed — no level defined.
-    if (day === 1 || day === 2 || day === 3) {
-      const early = new Date(date);
-      early.setHours(16, 0, 0, 0);
-      slots.push({ start: early, duration: 60, level: "open" });
-    }
-
     const defs: [number, number, number][] =
       day === 6
         ? [
@@ -148,12 +141,10 @@ function buildSlotsForDate(date: Date): Slot[] {
             [14, 30, 90],
           ]
         : [
-            [17, 0, 60],
             [18, 0, 90],
-            [19, 30, 60],
           ];
 
-    const levels = day === 6 ? SAT_LEVELS : (WEEKDAY_LEVELS[day] ?? []);
+    const levels = day === 6 ? SAT_LEVELS : [WEEKDAY_LEVELS[day] ?? "beginner"];
 
     defs.forEach(([h, m, duration], i) => {
       // On camp days the court is used by the camp from 18:30 to 20:30.
@@ -477,11 +468,9 @@ function BookPage() {
           Book your <span className="text-clay">tennis session</span>
         </h1>
         <p className="mt-4 max-w-xl text-base sm:text-lg text-muted-foreground">
-          Pick a slot, tell me your level, and you're in. Mon–Thu:{" "}
-          <b className="text-ink">16:00</b>, <b className="text-ink">17:00</b>,{" "}
-          <b className="text-ink">18:00</b> &amp; <b className="text-ink">19:30</b>. Friday:{" "}
-          <b className="text-ink">16:00</b>, <b className="text-ink">17:30</b> &amp;{" "}
-          <b className="text-ink">18:30</b>. Saturday <b className="text-ink">10 AM–4 PM</b>.
+          Pick a slot, tell me your level, and you're in. Monday–Friday:{" "}
+          <b className="text-ink">18:00–19:30</b>. Friday also has an Advanced group from{" "}
+          <b className="text-ink">16:30–18:00</b>. Saturday <b className="text-ink">10:00–16:00</b>.
         </p>
         <div className="mt-5 flex flex-wrap gap-2 text-xs font-bold uppercase tracking-wide">
           {(["beginner", "intermediate", "advanced"] as Level[]).map((lv) => (
@@ -728,9 +717,8 @@ function BookPage() {
 
               <h3 className="font-display text-xl sm:text-2xl uppercase">Winter season 🥶</h3>
               <p className="mt-2 text-background/75 text-sm sm:text-base max-w-xl">
-                Indoor season from October to end of March — 1h30 every Saturday. Prices and
-                Saturday slots are published in September; you can already tell me you're
-                interested.
+                Indoor season from October to end of March — group sessions of 1h or 1h30 on
+                weekday evenings and Saturdays. Prices and exact slots are published in September.
               </p>
               <button
                 type="button"
@@ -753,10 +741,11 @@ function BookPage() {
           <div className="space-y-3 text-sm sm:text-base text-muted-foreground">
             <p>
               <b className="text-ink">Subscription from beginning of October to end of March</b> —
-              one <b className="text-ink">1h30 session every Saturday</b>, indoor.
+              indoor <b className="text-ink">group sessions of 1h or 1h30</b> on weekday evenings
+              and Saturdays.
             </p>
             <p>
-              Prices and the exact Saturday slots will be published in{" "}
+              Prices and the exact slots will be published in{" "}
               <b className="text-ink">September</b>. This is a non-binding notice of interest: get
               in touch and I'll keep a spot for you and send you all the details first.
             </p>
@@ -768,7 +757,7 @@ function BookPage() {
               rel="noopener"
               className="px-6 py-4 text-center rounded-2xl bg-violet text-violet-foreground font-semibold hover:opacity-90 transition"
             >
-              I'm interested — WhatsApp
+              +49 176 45689622 · WhatsApp preferred
             </a>
             <a
               href="mailto:chaouchyoucef@yahoo.com?subject=Winter%20season%20pre-booking"
