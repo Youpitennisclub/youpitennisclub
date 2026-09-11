@@ -400,10 +400,10 @@ function Index() {
         <div className="mt-8 rounded-3xl border-2 border-ink/10 p-5 sm:p-8 md:p-10 bg-card">
           <div className="grid md:grid-cols-2 gap-x-10 gap-y-5">
             {[
-              { t: "WTA 500 · Rot-Weiß Berlin", d: "Kids program — playful intro to tennis on tour week." },
+              { t: "WTA 500 · Rot-Weiß Berlin", d: "Kids program — playful intro to tennis on tournament week." },
               { t: "ALBA × bett1 Schulcup", d: "Tennis drills for ~150 school kids at the Basketball & Tennis Schulcup." },
               { t: "Jahn-Sportpark", d: "Multisport events for kids across the season." },
-              { t: "Meisterklasse Damen", d: "Match-day coaching during Verbandsspiele." },
+              { t: "Meisterklasse Damen", d: "Match-day coaching during team's competition." },
               { t: "DTB top-ranked players", d: "Tactical & technical work with Herren 45 #171 and Herren 55 #14." },
               { t: "Berlin tennis network", d: "Markus Zoecke (ex ATP #48 · WTA 500 director) and many trainers." },
             ].map((x) => (
@@ -451,7 +451,7 @@ function Index() {
               I can build a group just for you. And I really take care of putting players together by level, so
               everyone enjoys the session — something most coaches simply don't do.
             </p>
-            <p className="font-display text-2xl sm:text-3xl md:text-4xl uppercase leading-tight text-clay break-words">
+            <p className="font-display text-2xl sm:text-3xl md:text-4xl uppercase leading-tight text-clay whitespace-nowrap">
               Student satisfaction is what matters most to me.
             </p>
           </div>
@@ -501,35 +501,60 @@ function Index() {
       <section id="pricing" className="max-w-7xl mx-auto px-5 sm:px-6 py-8 sm:py-10">
         <div className="rounded-[2rem] bg-navy text-background p-5 sm:p-10 md:p-12 relative overflow-hidden">
           <div className="absolute -top-20 -right-20 w-80 h-80 rounded-full bg-sky opacity-30 blur-3xl" />
-          <div className="relative grid md:grid-cols-2 gap-8 items-center">
-            <div>
-              <h2 className="text-[clamp(1.75rem,7vw,3.75rem)] font-display uppercase break-words">
-                Winter<br/>season 🥶
-              </h2>
-              <p className="mt-5 text-background/70 text-lg max-w-md">
-                Starting <strong className="text-sky">October</strong> — indoor courts, 1h30 every
-                Saturday. Prices and slots are published in September, and you can already
-                pre-book your spot.
-              </p>
+          <div className="absolute -bottom-20 -left-20 w-64 h-64 rounded-full bg-violet opacity-20 blur-3xl" />
+          <div className="relative">
+            <div className="flex flex-wrap items-center gap-3 mb-5">
+              <span translate="no" className="notranslate inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-sky/20 text-sky border border-sky/30 text-sm font-semibold">
+                Wintersaison
+              </span>
+              <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-violet/20 text-violet-foreground border border-violet/30 text-sm font-semibold">
+                Indoor
+              </span>
             </div>
-            <div className="space-y-4">
-              {[
-                { n: "TC Longline", d: "Winter coaching agreement — extra indoor slots." },
-                { n: "BFC Alemannia", d: "Indoor courts on our home base." },
-                { n: "More flexibility", d: "Two venues = more times, more options for you." },
-              ].map((p) => (
-                <div key={p.n} className="flex items-center justify-between gap-4 p-5 rounded-2xl bg-background text-ink border-2 border-background">
-                  <div className="min-w-0">
-                    <div className="font-display text-xl sm:text-2xl uppercase break-words">{p.n}</div>
-                    <div className="text-sm text-ink/70">{p.d}</div>
-                  </div>
-                  <div className="font-display text-3xl shrink-0">🎾</div>
+
+            <h2 className="text-[clamp(1.75rem,7vw,3.75rem)] font-display uppercase break-words mb-6">
+              Winter schedule 🥶
+            </h2>
+
+            <div className="grid lg:grid-cols-2 gap-5 mb-8">
+              <article className="rounded-2xl bg-background text-ink p-6 border-2 border-sky/30">
+                <div className="flex items-center gap-3 mb-4">
+                  <span className="w-10 h-10 rounded-full bg-sky text-background grid place-items-center text-xl shrink-0">❄️</span>
+                  <h3 translate="no" className="notranslate font-display text-xl uppercase">TC Longline</h3>
                 </div>
-              ))}
-              <Link to="/book" className="block text-center mt-4 px-7 py-4 rounded-full bg-violet text-violet-foreground font-semibold hover:opacity-90 transition">
-                Pre-Book Your Winter Season →
-              </Link>
+                <div translate="no" className="notranslate text-2xl font-display text-sky mb-2">Samstags · 14–17 Uhr</div>
+                <p className="text-sm text-ink/70">Saturday indoor block at TC Longline.</p>
+              </article>
+
+              <article className="rounded-2xl bg-background text-ink p-6 border-2 border-violet/30">
+                <div className="flex items-center gap-3 mb-4">
+                  <span className="w-10 h-10 rounded-full bg-violet text-violet-foreground grid place-items-center text-xl shrink-0">🏠</span>
+                  <h3 translate="no" className="notranslate font-display text-xl uppercase">BFC Alemannia</h3>
+                </div>
+                <div className="space-y-2">
+                  <div translate="no" className="notranslate text-2xl font-display text-violet">Mo · Di · Do · Fr · 20–22 Uhr</div>
+                  <div translate="no" className="notranslate text-2xl font-display text-violet">Sa · 08–11 Uhr &amp; 13–15 Uhr</div>
+                </div>
+                <p className="text-sm text-ink/70 mt-3">Weekday evenings + Saturday morning &amp; afternoon at our home base.</p>
+              </article>
             </div>
+
+            <div className="rounded-2xl bg-background/10 border-2 border-background/20 p-6">
+              <h3 className="font-display text-xl uppercase mb-3">How winter groups work</h3>
+              <p className="text-background/80 mb-4">
+                Pick several spots that interest you. I build the groups based on level, availability and preferences, then confirm the final details.
+              </p>
+              <ul className="grid sm:grid-cols-2 gap-3 text-background/90">
+                <li className="flex gap-2"><span className="text-sky">✓</span> Groups of 4–6 students</li>
+                <li className="flex gap-2"><span className="text-sky">✓</span> Final day &amp; time</li>
+                <li className="flex gap-2"><span className="text-sky">✓</span> 60 min or 90 min training</li>
+                <li className="flex gap-2"><span className="text-sky">✓</span> Based on your wishes &amp; availability</li>
+              </ul>
+            </div>
+
+            <Link to="/book" className="block text-center mt-6 px-7 py-4 rounded-full bg-violet text-violet-foreground font-semibold hover:opacity-90 transition">
+              Pre-Book Your Winter Season →
+            </Link>
           </div>
         </div>
       </section>
