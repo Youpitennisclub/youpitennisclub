@@ -553,7 +553,26 @@ function Index() {
                 <li className="flex gap-2"><span className="text-sky">✓</span> 60 min or 90 min training</li>
                 <li className="flex gap-2"><span className="text-sky">✓</span> Based on your wishes &amp; availability</li>
               </ul>
+              <p className="mt-4 text-sm text-background/70">
+                Prices will be visible as soon as I have organized the groups.
+              </p>
             </div>
+
+            <article className="rounded-2xl bg-background text-ink p-6 border-2 border-pink/40 mt-6">
+              <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6">
+                <div className="flex items-center gap-3 shrink-0">
+                  <span className="inline-flex items-center justify-center px-3 py-1.5 rounded-full bg-gradient-to-r from-violet to-pink text-white font-bold text-sm tracking-tight">wellhub</span>
+                  <span className="text-lg font-display uppercase text-ink">+</span>
+                  <span className="inline-flex items-center justify-center px-3 py-1.5 rounded-full bg-ink text-background font-bold text-sm tracking-tight">Urban Sports Club</span>
+                </div>
+                <div className="min-w-0">
+                  <div className="font-display text-2xl sm:text-3xl uppercase text-destructive mb-1">Coming soon</div>
+                  <p className="text-sm text-ink/80">
+                    Partnership with Urban Sport for a nice discount on your tennis lessons 😉
+                  </p>
+                </div>
+              </div>
+            </article>
 
             <Link to="/book" className="block text-center mt-6 px-7 py-4 rounded-full bg-violet text-violet-foreground font-semibold hover:opacity-90 transition">
               Pre-Book Your Winter Season →
