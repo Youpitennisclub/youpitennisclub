@@ -571,14 +571,12 @@ function Index() {
                     src={wellhubLogoAsset.url}
                     alt="Wellhub"
                     className="h-7 sm:h-8 w-auto max-w-[8rem] object-contain"
-                    loading="lazy"
                   />
                   <span className="text-lg font-display uppercase text-ink">+</span>
                   <img
                     src={urbanSportsClubLogoAsset.url}
                     alt="Urban Sports Club"
                     className="h-9 sm:h-10 w-auto max-w-[9rem] object-contain"
-                    loading="lazy"
                   />
                 </div>
                 <div className="min-w-0">
