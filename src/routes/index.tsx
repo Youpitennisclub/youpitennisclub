@@ -148,27 +148,6 @@ function Index() {
         </h2>
 
         <div className="grid lg:grid-cols-3 gap-6">
-          {/* Left column: Solo + Duo stacked */}
-          <div className="flex flex-col gap-6">
-            {[
-              { tag: "Solo", title: "Private 1-on-1", price: "€50", desc: "60 min of focused coaching — beginner to advanced. Technique, tactics, match prep.", color: "bg-ball", icon: "🎾", unit: "/ session" },
-              { tag: "Duo", title: "2-player · 60 min", price: "€25", desc: "Just two of you? Same energy, focused hour on court. Perfect with a friend or partner.", color: "bg-court", icon: "⚡", unit: "/ pers" },
-            ].map((l) => (
-              <article key={l.title} className="group relative p-6 sm:p-7 rounded-3xl bg-card border-2 border-ink/10 hover:border-ink transition hover:-translate-y-1 duration-300 flex-1">
-                <div className={`absolute -top-4 -right-2 sm:-right-5 w-14 h-14 sm:w-16 sm:h-16 rounded-full ${l.color} grid place-items-center text-2xl sm:text-3xl shadow-lg`}>
-                  {l.icon}
-                </div>
-                <div className="text-xs uppercase tracking-widest font-semibold text-clay mb-3">{l.tag}</div>
-                <h3 className="text-2xl sm:text-3xl mb-3 break-words pr-12">{l.title}</h3>
-                <p className="text-muted-foreground mb-6">{l.desc}</p>
-                <div className="flex items-baseline gap-1">
-                  <span className="font-display text-4xl">{l.price}</span>
-                  <span className="text-sm text-muted-foreground">{l.unit}</span>
-                </div>
-              </article>
-            ))}
-          </div>
-
           {/* Squad 90 min & Squad 60 min side by side (span 2 cols on lg) */}
           <div className="lg:col-span-2 grid md:grid-cols-2 gap-6">
             {[
@@ -220,6 +199,27 @@ function Index() {
                     </li>
                   ))}
                 </ul>
+              </article>
+            ))}
+          </div>
+
+          {/* Right column: Duo + Solo stacked */}
+          <div className="flex flex-col gap-6">
+            {[
+              { tag: "Duo", title: "2-player · 60 min", price: "€25", desc: "Just two of you? Same energy, focused hour on court. Perfect with a friend or partner.", color: "bg-court", icon: "⚡", unit: "/ pers" },
+              { tag: "Solo", title: "Private 1-on-1", price: "€50", desc: "60 min of focused coaching — beginner to advanced. Technique, tactics, match prep.", color: "bg-ball", icon: "🎾", unit: "/ session" },
+            ].map((l) => (
+              <article key={l.title} className="group relative p-6 sm:p-7 rounded-3xl bg-card border-2 border-ink/10 hover:border-ink transition hover:-translate-y-1 duration-300 flex-1">
+                <div className={`absolute -top-4 -right-2 sm:-right-5 w-14 h-14 sm:w-16 sm:h-16 rounded-full ${l.color} grid place-items-center text-2xl sm:text-3xl shadow-lg`}>
+                  {l.icon}
+                </div>
+                <div className="text-xs uppercase tracking-widest font-semibold text-clay mb-3">{l.tag}</div>
+                <h3 className="text-2xl sm:text-3xl mb-3 break-words pr-12">{l.title}</h3>
+                <p className="text-muted-foreground mb-6">{l.desc}</p>
+                <div className="flex items-baseline gap-1">
+                  <span className="font-display text-4xl">{l.price}</span>
+                  <span className="text-sm text-muted-foreground">{l.unit}</span>
+                </div>
               </article>
             ))}
           </div>
