@@ -2,7 +2,6 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 
 import posterAsset from "@/assets/youpi-court.jpg.asset.json";
-import sunsetCourtAsset from "@/assets/youpi-sunset-court.jpg.asset.json";
 import wellhubLogoAsset from "@/assets/wellhub-logo.png.asset.json";
 import urbanSportsClubLogoAsset from "@/assets/urban-sports-club-logo.png.asset.json";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
@@ -135,18 +134,8 @@ function Index() {
           </div>
 
           <div className="lg:col-span-5 relative self-end">
-            <div className="flex gap-3 sm:gap-4 items-end justify-end max-w-sm lg:max-w-md ml-auto">
-              <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden bg-card border-2 border-ink/10 shrink-0 w-[38%] sm:w-[40%]">
-                <img
-                  src={sunsetCourtAsset.url}
-                  alt="Sunset over the clay tennis courts at BFC Alemannia in Berlin"
-                  className="w-full h-auto block"
-                  loading="eager"
-                />
-              </div>
-              <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden flex-1">
-                <img src={posterAsset.url} alt="Youpi, tennis coach in Berlin, smiling on a clay court" className="w-full h-auto block" />
-              </div>
+            <div className="relative rounded-3xl overflow-hidden max-w-sm lg:max-w-md ml-auto">
+              <img src={posterAsset.url} alt="Youpi, tennis coach in Berlin, smiling on a clay court" className="w-full h-auto block" />
             </div>
           </div>
         </div>
