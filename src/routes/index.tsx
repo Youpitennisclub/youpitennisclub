@@ -103,21 +103,6 @@ function Index() {
         </div>
       </header>
 
-      {/* SUNSET COURT BANNER */}
-      <section className="relative w-full">
-        <div className="max-w-7xl mx-auto px-5 sm:px-6 pt-6">
-          <div className="relative w-full h-[180px] sm:h-[260px] md:h-[320px] rounded-3xl overflow-hidden">
-            <img
-              src={sunsetCourtAsset.url}
-              alt="Sunset over the clay tennis courts at BFC Alemannia in Berlin"
-              className="w-full h-full object-cover"
-              loading="eager"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-ink/40 to-transparent" />
-          </div>
-        </div>
-      </section>
-
       {/* HERO */}
       <section className="relative max-w-7xl mx-auto px-5 sm:px-6 pt-6 pb-8">
         <div className="grid lg:grid-cols-12 gap-8 items-end">
@@ -150,8 +135,18 @@ function Index() {
           </div>
 
           <div className="lg:col-span-5 relative self-end">
-            <div className="relative rounded-3xl overflow-hidden max-w-sm lg:max-w-md ml-auto">
-              <img src={posterAsset.url} alt="Youpi, tennis coach in Berlin, smiling on a clay court" className="w-full h-auto block" />
+            <div className="flex gap-3 sm:gap-4 items-end justify-end max-w-sm lg:max-w-md ml-auto">
+              <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden bg-card border-2 border-ink/10 shrink-0 w-[38%] sm:w-[40%]">
+                <img
+                  src={sunsetCourtAsset.url}
+                  alt="Sunset over the clay tennis courts at BFC Alemannia in Berlin"
+                  className="w-full h-auto block"
+                  loading="eager"
+                />
+              </div>
+              <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden flex-1">
+                <img src={posterAsset.url} alt="Youpi, tennis coach in Berlin, smiling on a clay court" className="w-full h-auto block" />
+              </div>
             </div>
           </div>
         </div>
