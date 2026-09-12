@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 
 import posterAsset from "@/assets/youpi-court.jpg.asset.json";
+import sunsetCourtAsset from "@/assets/youpi-sunset-court.jpg.asset.json";
 import wellhubLogoAsset from "@/assets/wellhub-logo.png.asset.json";
 import urbanSportsClubLogoAsset from "@/assets/urban-sports-club-logo.png.asset.json";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
@@ -101,6 +102,21 @@ function Index() {
           </div>
         </div>
       </header>
+
+      {/* SUNSET COURT BANNER */}
+      <section className="relative w-full">
+        <div className="max-w-7xl mx-auto px-5 sm:px-6 pt-6">
+          <div className="relative w-full h-[180px] sm:h-[260px] md:h-[320px] rounded-3xl overflow-hidden">
+            <img
+              src={sunsetCourtAsset.url}
+              alt="Sunset over the clay tennis courts at BFC Alemannia in Berlin"
+              className="w-full h-full object-cover"
+              loading="eager"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-ink/40 to-transparent" />
+          </div>
+        </div>
+      </section>
 
       {/* HERO */}
       <section className="relative max-w-7xl mx-auto px-5 sm:px-6 pt-6 pb-8">
