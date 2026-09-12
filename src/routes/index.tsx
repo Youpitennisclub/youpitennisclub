@@ -457,18 +457,18 @@ function Index() {
               Student satisfaction is what matters most to me.
             </p>
           </div>
-          <div className="min-w-0 max-w-full space-y-4">
+          <div className="min-w-0 max-w-full space-y-4 overflow-visible">
             {[
               { i: "🎾", t: "Personalized coaching", d: "Every session is built around your level, your goals, and the parts of your game you actually want to fix." },
               { i: "🌍", t: "Truly multicultural", d: "Berlin's international crowd on one court — new friends, new rally partners, zero cliques." },
               { i: "💬", t: "Two-way process", d: "Great coaching is a conversation. Tell me what works, what doesn't, and we adjust." },
               { i: "🔥", t: "Passion first", d: "I left law for this. Expect energy, focus and a coach who actually cares if you improve." },
             ].map((x) => (
-              <div key={x.t} className="grid min-w-0 grid-cols-[auto_minmax(0,1fr)] gap-4 p-5 rounded-2xl bg-card border-2 border-ink/10 hover:border-ink transition">
-                <div className="text-3xl shrink-0">{x.i}</div>
-                <div className="min-w-0">
-                  <div className="font-display text-lg sm:text-xl uppercase mb-1 break-words">{x.t}</div>
-                  <div className="text-sm leading-relaxed text-muted-foreground break-words">{x.d}</div>
+              <div key={x.t} className="grid min-w-0 max-w-full grid-cols-[auto_minmax(0,1fr)] items-start gap-3 overflow-visible rounded-2xl border-2 border-ink/10 bg-card p-4 transition hover:border-ink sm:gap-4 sm:p-5">
+                <div className="shrink-0 text-2xl sm:text-3xl">{x.i}</div>
+                <div className="min-w-0 max-w-full overflow-visible whitespace-normal [&_span]:whitespace-normal">
+                  <div className="max-w-full whitespace-normal break-words font-display text-base uppercase leading-tight sm:text-xl mb-2">{x.t}</div>
+                  <div className="max-w-full whitespace-normal break-words text-sm leading-relaxed text-muted-foreground">{x.d}</div>
                 </div>
               </div>
             ))}
