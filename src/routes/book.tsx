@@ -422,24 +422,24 @@ function BookPage() {
       {/* NAV */}
       <header className="sticky top-0 z-50 backdrop-blur-md bg-background/70 border-b border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3">
-          <Link to="/" className="flex min-w-0 items-center gap-2 font-display text-lg sm:text-2xl uppercase">
+          <Link to="/" className="flex min-w-0 items-center gap-2 font-display text-base sm:text-2xl uppercase leading-tight">
             <span
               className="inline-block w-7 h-7 shrink-0 rounded-full bg-ball ball-spin shadow-inner"
               style={{ boxShadow: "inset -4px -4px 0 oklch(0.78 0.18 115)" }}
             />
-            <span className="truncate">Youpi Tennis Club</span>
+            <span className="min-w-0 break-words">Youpi Tennis Club</span>
           </Link>
-          <div className="flex shrink-0 items-center gap-2">
+          <div className="col-span-2 flex min-w-0 flex-wrap items-center justify-end gap-2 sm:col-span-1 sm:shrink-0 sm:flex-nowrap">
             {unlocked && (
               <span
                 title={email}
-                className="inline-flex max-w-[9rem] sm:max-w-[14rem] items-center gap-2 px-3 py-2 rounded-full border-2 border-court/40 bg-court/10 text-xs sm:text-sm font-semibold"
+                className="inline-flex min-w-0 max-w-full items-center gap-2 px-3 py-2 rounded-full border-2 border-court/40 bg-court/10 text-xs sm:max-w-[14rem] sm:text-sm font-semibold"
               >
                 <span className="relative flex h-2.5 w-2.5 shrink-0">
                   <span className="absolute inline-flex h-full w-full rounded-full bg-court opacity-60 animate-ping" />
                   <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-court" />
                 </span>
-                <span className="truncate">
+                <span className="min-w-0 break-all">
                   {firstName?.trim() || email.split("@")[0] || "Connected"}
                 </span>
               </span>
@@ -571,7 +571,7 @@ function BookPage() {
                       className="rounded-2xl border-2 border-ink/10 bg-card overflow-hidden"
                     >
                       <div
-                        className={`px-4 py-3 text-sm sm:text-base font-bold uppercase tracking-wide truncate ${
+                        className={`px-4 py-3 text-sm sm:text-base font-bold uppercase tracking-wide break-words ${
                           isToday ? "bg-ball text-ink" : "bg-ink/5 text-ink"
                         }`}
                       >
@@ -602,7 +602,7 @@ function BookPage() {
                                 }`}
                               >
                                 <div className="flex items-center justify-between gap-2">
-                                  <span className="min-w-0 truncate text-base sm:text-lg">
+                                  <span className="min-w-0 break-words text-base sm:text-lg">
                                     {fmtTime(slot.start)}–{endTime(slot)}
                                   </span>
                                   <span className="shrink-0 text-xs px-2 py-0.5 rounded-full bg-ink/10">
@@ -610,7 +610,7 @@ function BookPage() {
                                   </span>
                                 </div>
                                 {(slot.camp || slot.level !== "open") && (
-                                  <div className="mt-1 text-xs font-bold uppercase tracking-wide truncate opacity-90">
+                                  <div className="mt-1 text-xs font-bold uppercase tracking-wide break-words opacity-90">
                                     {slot.camp ? "🔥 Summer camp" : LEVEL_LABEL[slot.level]}
                                   </div>
                                 )}

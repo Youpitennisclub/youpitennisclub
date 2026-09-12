@@ -453,7 +453,7 @@ function Index() {
               I can build a group just for you. And I really take care of putting players together by level, so
               everyone enjoys the session — something most coaches simply don't do.
             </p>
-            <p className="font-display text-2xl sm:text-3xl md:text-4xl uppercase leading-tight text-clay whitespace-nowrap">
+            <p className="max-w-full font-display text-xl sm:text-3xl md:text-4xl uppercase leading-tight text-clay break-words">
               Student satisfaction is what matters most to me.
             </p>
           </div>
@@ -566,17 +566,17 @@ function Index() {
 
             <article className="rounded-2xl bg-background text-ink p-6 border-2 border-pink/40 mt-6">
               <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6">
-                <div className="flex items-center gap-3 shrink-0">
+                <div className="grid w-full grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-2 sm:w-auto sm:gap-3">
                   <img
                     src={wellhubLogoAsset.url}
                     alt="Wellhub"
-                    className="h-7 sm:h-8 w-auto max-w-[8rem] object-contain"
+                    className="h-7 w-full min-w-0 object-contain sm:h-8 sm:max-w-[8rem]"
                   />
                   <span className="text-lg font-display uppercase text-ink">+</span>
                   <img
                     src={urbanSportsClubLogoAsset.url}
                     alt="Urban Sports Club"
-                    className="h-9 sm:h-10 w-auto max-w-[9rem] object-contain"
+                    className="h-9 w-full min-w-0 object-contain sm:h-10 sm:max-w-[9rem]"
                   />
                 </div>
                 <div className="min-w-0">
@@ -600,7 +600,7 @@ function Index() {
         <div className="relative rounded-3xl bg-navy text-background overflow-hidden p-5 sm:p-10 md:p-12">
           <div className="absolute -bottom-14 -left-14 w-52 h-52 rounded-full bg-sky/30 blur-2xl" />
           <div className="relative">
-            <h2 className="text-[clamp(1.7rem,7vw,3.5rem)] font-display uppercase mb-5 break-words whitespace-nowrap">
+            <h2 className="text-[clamp(1.7rem,7vw,3.5rem)] font-display uppercase mb-5 break-words">
               Ready? Los geht's
             </h2>
             <p className="text-background/75 text-lg mb-8 max-w-xl">

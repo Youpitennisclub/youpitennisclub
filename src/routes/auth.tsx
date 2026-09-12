@@ -151,13 +151,13 @@ function AuthPage() {
   return (
     <main className="min-h-screen">
       <header className="sticky top-0 z-50 backdrop-blur-md bg-background/70 border-b border-border">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between gap-3">
-          <Link to="/" className="flex min-w-0 items-center gap-2 font-display text-lg sm:text-2xl uppercase">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3">
+          <Link to="/" className="flex min-w-0 items-center gap-2 font-display text-base sm:text-2xl uppercase leading-tight">
             <span
               className="inline-block w-7 h-7 shrink-0 rounded-full bg-ball ball-spin shadow-inner"
               style={{ boxShadow: "inset -4px -4px 0 oklch(0.78 0.18 115)" }}
             />
-            <span className="truncate">Youpi Tennis Club</span>
+            <span className="min-w-0 break-words">Youpi Tennis Club</span>
           </Link>
           <Link
             to="/"
