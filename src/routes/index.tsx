@@ -423,32 +423,32 @@ function Index() {
 
       {/* MANIFESTO */}
       <section className="max-w-7xl mx-auto px-5 sm:px-6 py-8 sm:py-10">
-        <div className="grid md:grid-cols-2 gap-8 items-start">
-          <div>
-            <h2 className="text-[clamp(1.7rem,7vw,3.25rem)] font-display uppercase mb-5 break-words">
+        <div className="grid min-w-0 md:grid-cols-2 gap-8 items-start">
+          <div className="min-w-0 max-w-full overflow-visible">
+            <h2 className="max-w-full text-[clamp(1.7rem,7vw,3.25rem)] font-display uppercase leading-[1.05] mb-5 break-words">
               No place in a club?<br/>
               <span className="text-clay">Tired of ball-feeders?</span>
             </h2>
-            <p className="text-muted-foreground text-lg mb-4">
+            <p className="max-w-full text-muted-foreground text-base leading-relaxed sm:text-lg mb-4 break-words">
               <strong>No place in a Berlin tennis club?</strong> Tired of coaches who just{" "}
               <strong>feed balls</strong> and rarely correct your technique? Whether you want to{" "}
               <strong>learn tennis from scratch</strong> or <strong>take your game to the next level</strong>{" "}
               with a passionate and dedicated coach — I'm here for it. 💪🎾
             </p>
-            <p className="text-muted-foreground text-lg mb-4">
+            <p className="max-w-full text-muted-foreground text-base leading-relaxed sm:text-lg mb-4 break-words">
               🌍 Join our <strong>multicultural tennis classes</strong> and meet students from all over the
               world in a fun, friendly and supportive atmosphere.
             </p>
-            <p className="text-muted-foreground text-lg mb-4">
+            <p className="max-w-full text-muted-foreground text-base leading-relaxed sm:text-lg mb-4 break-words">
               🗣️ I speak fluent <strong>English, French &amp; German</strong>, so players from every
               background feel at home on court.
             </p>
-            <p className="text-muted-foreground text-lg mb-4">
+            <p className="max-w-full text-muted-foreground text-base leading-relaxed sm:text-lg mb-4 break-words">
               💡 <strong>Technique</strong>, <strong>motivation</strong> and a real{" "}
               <strong>coach–student connection</strong> are the keys to real progress and to
               actually enjoying the game.
             </p>
-            <p className="text-muted-foreground text-lg mb-6">
+            <p className="max-w-full text-muted-foreground text-base leading-relaxed sm:text-lg mb-6 break-words">
               👫 <strong>Want to train with your partner or with your friends?</strong><br/>
               I can build a group just for you. And I really take care of putting players together by level, so
               everyone enjoys the session — something most coaches simply don't do.
@@ -457,18 +457,18 @@ function Index() {
               Student satisfaction is what matters most to me.
             </p>
           </div>
-          <div className="space-y-4">
+          <div className="min-w-0 max-w-full space-y-4">
             {[
               { i: "🎾", t: "Personalized coaching", d: "Every session is built around your level, your goals, and the parts of your game you actually want to fix." },
               { i: "🌍", t: "Truly multicultural", d: "Berlin's international crowd on one court — new friends, new rally partners, zero cliques." },
               { i: "💬", t: "Two-way process", d: "Great coaching is a conversation. Tell me what works, what doesn't, and we adjust." },
               { i: "🔥", t: "Passion first", d: "I left law for this. Expect energy, focus and a coach who actually cares if you improve." },
             ].map((x) => (
-              <div key={x.t} className="flex gap-4 p-5 rounded-2xl bg-card border-2 border-ink/10 hover:border-ink transition">
+              <div key={x.t} className="grid min-w-0 grid-cols-[auto_minmax(0,1fr)] gap-4 p-5 rounded-2xl bg-card border-2 border-ink/10 hover:border-ink transition">
                 <div className="text-3xl shrink-0">{x.i}</div>
                 <div className="min-w-0">
                   <div className="font-display text-lg sm:text-xl uppercase mb-1 break-words">{x.t}</div>
-                  <div className="text-sm text-muted-foreground">{x.d}</div>
+                  <div className="text-sm leading-relaxed text-muted-foreground break-words">{x.d}</div>
                 </div>
               </div>
             ))}
