@@ -189,7 +189,7 @@ export function FeedbackSection() {
                         {f.first_name.slice(0, 1)}
                       </span>
                     )}
-                    <div className="font-display text-lg uppercase truncate">
+                    <div className="font-display text-lg uppercase break-words">
                       {f.first_name}
                       {f.last_initial ? ` ${f.last_initial}.` : ""}
                     </div>

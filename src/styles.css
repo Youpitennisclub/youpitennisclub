@@ -98,11 +98,13 @@
       radial-gradient(circle at 12% 8%, oklch(0.92 0.21 115 / 0.18), transparent 40%),
       radial-gradient(circle at 88% 92%, oklch(0.74 0.19 5 / 0.12), transparent 45%);
     background-attachment: fixed;
+    overflow-wrap: anywhere;
   }
   h1, h2, h3 {
     font-family: var(--font-display);
-    letter-spacing: -0.02em;
+    letter-spacing: 0;
     line-height: 0.95;
+    overflow-wrap: anywhere;
   }
 }
 
