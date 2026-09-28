@@ -135,6 +135,26 @@ function buildSlotsForDate(date: Date): Slot[] {
       slots.push({ start: d, duration: f.duration, level: f.level });
     });
   } else {
+    // Winter season: BFC Alemannia daytime slots (90 min each) + weekday evening group.
+    // Mon 13–16h, Tue 12–15h (no Tuesday evening), Wed 14–17h, Thu 12–15h.
+    const WINTER_DAYTIME: Record<number, [number, number, number][]> = {
+      1: [
+        [13, 0, 90],
+        [14, 30, 90],
+      ],
+      2: [
+        [12, 0, 90],
+        [13, 30, 90],
+      ],
+      3: [
+        [14, 0, 90],
+        [15, 30, 90],
+      ],
+      4: [
+        [12, 0, 90],
+        [13, 30, 90],
+      ],
+    };
     const defs: [number, number, number][] =
       day === 6
         ? [
@@ -144,7 +164,8 @@ function buildSlotsForDate(date: Date): Slot[] {
             [14, 30, 90],
           ]
         : [
-            [18, 0, 90],
+            ...(WINTER_DAYTIME[day] ?? []),
+            ...(day === 2 ? [] : [[18, 0, 90] as [number, number, number]]),
           ];
 
     const levels = day === 6 ? SAT_LEVELS : [WEEKDAY_LEVELS[day] ?? "beginner"];
