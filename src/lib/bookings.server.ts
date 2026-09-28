@@ -114,7 +114,7 @@ export async function createBookingRecord(input: {
         replyTo: coachEmail(),
         html: wrap(
           "Your group is confirmed!",
-          `<p style="font-size:20px"><b>${when}</b><br/>${input.duration} minutes · ${input.level} group (${count} players)</p>
+          `<p style="font-size:20px"><b>${when}</b><br/>${input.duration} minutes · ${lv(input.level)} group (${count} players)</p>
            <p>See you on court, ${m.first_name}!</p>
            <p style="font-size:18px"><b>Cancellation: only possible up to 24 hours before the session starts.</b></p>
            <p><a href="${siteUrl()}/book">${siteUrl()}/book</a></p>`,
@@ -123,11 +123,11 @@ export async function createBookingRecord(input: {
     }
     await sendMail({
       to: coachEmail(),
-      subject: `GROUP CONFIRMED ✅ — ${input.level} — ${when}`,
+      subject: `GROUP CONFIRMED ✅ — ${lv(input.level)} — ${when}`,
       replyTo: input.email,
       html: wrap(
         "GROUP CONFIRMED",
-        `<p style="font-size:20px"><b>${when}</b> · ${input.level} · ${count} players</p>
+        `<p style="font-size:20px"><b>${when}</b> · ${lv(input.level)} · ${count} players</p>
          <ul style="font-size:17px">${members.map((m) => `<li>${m.first_name} ${m.last_name} — ${m.email}</li>`).join("")}</ul>
          <p>Latest: ${name}, ${input.phone}</p>`,
       ),
@@ -141,7 +141,7 @@ export async function createBookingRecord(input: {
     replyTo: input.email,
     html: wrap(
       "PRE-BOOKING",
-      `<p style="font-size:20px"><b>${when}</b><br/>${input.duration} minutes · ${input.level} · ${count}/${GROUP_MIN}</p>
+      `<p style="font-size:20px"><b>${when}</b><br/>${input.duration} minutes · ${lv(input.level)} · ${count}/${GROUP_MIN}</p>
        <p style="font-size:17px;line-height:1.7">
        <b>Name:</b> ${name}<br/><b>Phone:</b> ${input.phone}<br/><b>Email:</b> ${input.email}</p>`,
     ),
@@ -152,7 +152,7 @@ export async function createBookingRecord(input: {
     replyTo: coachEmail(),
     html: wrap(
       "Pre-booking received",
-      `<p style="font-size:20px"><b>${when}</b><br/>${input.level} group · ${count}/${GROUP_MIN} players</p>
+      `<p style="font-size:20px"><b>${when}</b><br/>${lv(input.level)} group · ${count}/${GROUP_MIN} players</p>
        <p>As soon as ${GROUP_MIN} students of your level pre-book this slot, the session is confirmed automatically and you'll get an email.</p>
        <p><a href="${siteUrl()}/book">${siteUrl()}/book</a></p>`,
     ),
@@ -212,7 +212,7 @@ export async function cancelByEmailRecord(email: string) {
        <b>First name:</b> ${s.first_name}<br/>
        <b>Last name:</b> ${s.last_name}<br/>
        <b>Phone:</b> ${s.phone}<br/>
-       <b>Level:</b> ${s.level}<br/>
+       <b>Level:</b> ${lv(s.level as Level)}<br/>
        <b>Email:</b> ${s.email}
        </p>
        <p style="font-size:17px"><b>Sessions cancelled:</b></p>
@@ -286,7 +286,7 @@ export async function requestCancellationRecord(email: string) {
          <b>First name:</b> ${s.first_name}<br/>
          <b>Last name:</b> ${s.last_name}<br/>
          <b>Phone:</b> ${s.phone}<br/>
-         <b>Level:</b> ${s.level}<br/>
+         <b>Level:</b> ${lv(s.level as Level)}<br/>
          <b>Email:</b> ${s.email}
          </p>
          <p style="font-size:17px"><b>Sessions concerned:</b></p>
@@ -336,7 +336,7 @@ export async function confirmCancellationRecord(token: string) {
        <b>First name:</b> ${data.first_name}<br/>
        <b>Last name:</b> ${data.last_name}<br/>
        <b>Phone:</b> ${data.phone}<br/>
-       <b>Level:</b> ${data.level}<br/>
+       <b>Level:</b> ${lv(data.level as Level)}<br/>
        <b>Email:</b> ${data.email}
        </p>
        <p>The spot is free again and the name was removed from the calendar.</p>`,
@@ -426,7 +426,7 @@ export async function cancelOwnBookingRecord(userId: string, bookingId: string) 
        <b>First name:</b> ${data.first_name}<br/>
        <b>Last name:</b> ${data.last_name}<br/>
        <b>Phone:</b> ${data.phone}<br/>
-       <b>Level:</b> ${data.level}<br/>
+       <b>Level:</b> ${lv(data.level as Level)}<br/>
        <b>Email:</b> ${data.email}
        </p>
        <p>Cancelled by the student from their account. The spot is free again and the name was removed from the calendar.</p>`,
