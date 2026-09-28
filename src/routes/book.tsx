@@ -101,6 +101,7 @@ type PublicBooking = {
   first_name: string;
   last_initials: string;
   photo_url: string | null;
+  confirmed?: boolean;
 };
 
 type Slot = { start: Date; duration: number; level: SlotLevel; camp?: boolean };
@@ -380,7 +381,7 @@ function BookPage() {
     if (!selectedSlot) return;
     setSubmitting(true);
     try {
-      await createBooking({
+      const res = (await createBooking({
         data: {
           starts_at: selectedSlot.start.toISOString(),
           level,
@@ -392,8 +393,12 @@ function BookPage() {
           duration: selectedSlot.duration,
           camp: Boolean(selectedSlot.camp),
         },
-      });
-      toast.success("🎾 Booked! A confirmation email is on its way.");
+      })) as { confirmed?: boolean; count?: number };
+      toast.success(
+        res.confirmed
+          ? "🎾 Group confirmed! A confirmation email is on its way."
+          : `⏳ Pre-booked (${res.count ?? 1}/4). The session is confirmed automatically once 4 students of your level join.`,
+      );
       setSelectedSlot(null);
       await loadBookings();
       await loadMyBookings();
@@ -468,7 +473,7 @@ function BookPage() {
           Book your <span className="text-clay">tennis session</span>
         </h1>
         <p className="mt-4 max-w-xl text-base sm:text-lg text-muted-foreground">
-          Pick a slot, tell me your level, and you're in. Monday–Friday:{" "}
+          Pre-book a slot for your level — as soon as 4 students of the same level join, the session is confirmed automatically. Monday–Friday:{" "}
           <b className="text-ink">18:00–19:30</b>. Friday also has an Advanced group from{" "}
           <b className="text-ink">16:30–18:00</b>. Saturday <b className="text-ink">10:00–16:00</b>.
         </p>
@@ -612,6 +617,13 @@ function BookPage() {
                                 {(slot.camp || slot.level !== "open") && (
                                   <div className="mt-1 text-xs font-bold uppercase tracking-wide break-words opacity-90">
                                     {slot.camp ? "🔥 Summer camp" : LEVEL_LABEL[slot.level]}
+                                  </div>
+                                )}
+                                {!slot.camp && parts.length > 0 && !past && (
+                                  <div className="mt-1 text-xs font-bold break-words">
+                                    {parts.some((p) => p.confirmed)
+                                      ? "✅ Confirmed"
+                                      : `⏳ Pre-booking ${parts.length}/4`}
                                   </div>
                                 )}
                                 {parts.length > 0 && !past && (
