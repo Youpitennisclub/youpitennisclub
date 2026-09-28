@@ -1,0 +1,2 @@
+- [x] Admin access (preview auto + secret link)
+- [x] 1h slots daily, none until Oct 6, auto-confirm 2 (weekday <18h) / 4 otherwise, Inter+Adv merged

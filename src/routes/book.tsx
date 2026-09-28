@@ -122,64 +122,33 @@ function ymd(d: Date) {
   return `${d.getFullYear()}-${m}-${day}`;
 }
 
+/** No slots up to and including this date. */
+const FIRST_OPEN_DAY = "2026-10-07";
+
+/** Minimum students of the same level to confirm a slot. */
+function groupMin(start: Date) {
+  const day = start.getDay();
+  const weekend = day === 0 || day === 6;
+  if (weekend) return 4;
+  return start.getHours() < 18 ? 2 : 4;
+}
+
 function buildSlotsForDate(date: Date): Slot[] {
   const day = date.getDay();
-  if (day === 0) return [];
+  if (ymd(date) < FIRST_OPEN_DAY) return [];
 
   const slots: Slot[] = [];
   const isCampDay = CAMP_DAYS.includes(ymd(date));
+  const weekend = day === 0 || day === 6;
 
-  if (day === 5) {
-    FRIDAY.forEach((f) => {
-      const d = new Date(date);
-      d.setHours(f.h, f.m, 0, 0);
-      slots.push({ start: d, duration: f.duration, level: f.level });
-    });
-  } else {
-    // Winter season: BFC Alemannia daytime slots (90 min each) + weekday evening group.
-    // Mon 13–16h, Tue 12–15h (no Tuesday evening), Wed 14–17h, Thu 12–15h.
-    const WINTER_DAYTIME: Record<number, [number, number, number][]> = {
-      1: [
-        [13, 0, 90],
-        [14, 30, 90],
-      ],
-      2: [
-        [12, 0, 90],
-        [13, 30, 90],
-      ],
-      3: [
-        [14, 0, 90],
-        [15, 30, 90],
-      ],
-      4: [
-        [12, 0, 90],
-        [13, 30, 90],
-      ],
-    };
-    const defs: [number, number, number][] =
-      day === 6
-        ? [
-            [10, 0, 90],
-            [11, 30, 90],
-            [13, 0, 90],
-            [14, 30, 90],
-          ]
-        : [
-            ...(WINTER_DAYTIME[day] ?? []),
-            ...(day === 2 ? [] : [[18, 0, 90] as [number, number, number]]),
-          ];
-
-    const levels = day === 6 ? SAT_LEVELS : [WEEKDAY_LEVELS[day] ?? "beginner"];
-
-    defs.forEach(([h, m, duration], i) => {
-      // On camp days the court is used by the camp from 18:30 to 20:30.
-      if (isCampDay && h >= 18) return;
-      const d = new Date(date);
-      d.setHours(h, m, 0, 0);
-      slots.push({ start: d, duration, level: levels[i] ?? "beginner" });
-    });
+  // 1-hour slots every day. Weekdays 09:00–20:00, weekends 10:00–17:00.
+  const [from, to] = weekend ? [10, 16] : [9, 19];
+  for (let h = from; h <= to; h++) {
+    if (isCampDay && h >= 18) continue;
+    const d = new Date(date);
+    d.setHours(h, 0, 0, 0);
+    slots.push({ start: d, duration: 60, level: "open" });
   }
-
   if (isCampDay) {
     const camp = new Date(date);
     camp.setHours(18, 30, 0, 0);
@@ -435,7 +404,7 @@ function BookPage() {
       toast.success(
         res.confirmed
           ? "🎾 Group confirmed! A confirmation email is on its way."
-          : `⏳ Pre-booked (${res.count ?? 1}/4). The session is confirmed automatically once 4 students of your level join.`,
+          : `⏳ Pre-booked (${res.count ?? 1}/${groupMin(selectedSlot.start)}). The session is confirmed automatically once ${groupMin(selectedSlot.start)} students of your level join.`,
       );
       setSelectedSlot(null);
       await loadBookings();
@@ -511,9 +480,9 @@ function BookPage() {
           Book your <span className="text-clay">tennis session</span>
         </h1>
         <p className="mt-4 max-w-xl text-base sm:text-lg text-muted-foreground">
-          Pre-book a slot for your level — as soon as 4 students of the same level join, the session is confirmed automatically. Monday–Friday:{" "}
-          <b className="text-ink">18:00–19:30</b>. Friday also has an Advanced group from{" "}
-          <b className="text-ink">16:30–18:00</b>. Saturday <b className="text-ink">10:00–16:00</b>.
+          1-hour slots every day. Pick your level and pre-book — the slot is confirmed automatically when enough students of the same level join:{" "}
+          <b className="text-ink">2 students</b> on weekdays before 18:00,{" "}
+          <b className="text-ink">4 students</b> on weekdays from 18:00 and on weekends. Intermediate and Advanced can play together.
         </p>
         <div className="mt-5 flex flex-wrap gap-2 text-xs font-bold uppercase tracking-wide">
           {(["total_beginner", "beginner", "intermediate", "advanced"] as Level[]).map((lv) => (
@@ -651,7 +620,7 @@ function BookPage() {
                                   <div className="mt-1 text-xs font-bold break-words">
                                     {parts.some((p) => p.confirmed)
                                       ? "✅ Confirmed"
-                                      : `⏳ Pre-booking ${parts.length}/4`}
+                                      : `⏳ Pre-booking ${parts.length}/${groupMin(slot.start)}`}
                                   </div>
                                 )}
                                 {parts.length > 0 && !past && (
