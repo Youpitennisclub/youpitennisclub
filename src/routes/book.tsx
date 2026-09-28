@@ -541,7 +541,7 @@ function BookPage() {
               <div className="min-w-0">
                 <h2 className="font-display text-xl sm:text-2xl uppercase break-words">
                   Available slots{" "}
-                  <span className="text-muted-foreground text-base normal-case">(Summer season)</span>
+                  <span className="text-muted-foreground text-base normal-case">(Winter season)</span>
                 </h2>
                 <p className="text-xs text-muted-foreground mt-1">
                   Every slot shows its club:{" "}
