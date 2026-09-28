@@ -33,6 +33,8 @@ export const Route = createFileRoute("/book")({
 type Level = "total_beginner" | "beginner" | "intermediate" | "advanced";
 /** "open" = mixed slot, no level defined */
 type SlotLevel = Level | "open";
+/** Clubs the sessions take place at. */
+type Venue = "alemannia" | "longline";
 
 const MAX_PER_SLOT = 6;
 
@@ -59,14 +61,29 @@ const LEVEL_STYLE: Record<SlotLevel, string> = {
   open: "bg-background text-ink border-ink/15 hover:bg-ink/5",
 };
 
-/** Available court hours (1h slots), per weekday — BFC Alemannia & TC Longline only. */
-const VENUE_HOURS: Record<number, number[]> = {
-  1: [13, 14, 15], // Mon — BFC Alemannia 13–16h
-  2: [12, 13, 14], // Tue — BFC Alemannia 12–15h
-  3: [14, 15, 16], // Wed — BFC Alemannia 14–17h
-  4: [12, 13, 14], // Thu — BFC Alemannia 12–15h
-  5: [11, 12, 13, 14, 15, 16], // Fri — TC Longline 11–17h
-  6: [8, 9, 10, 13, 14, 15, 16], // Sat — BFC Alemannia 08–11h & 13–15h, TC Longline 14–17h
+/** Club names — shown in the legend, on every slot, in the modals and in the emails. */
+const VENUE_LABEL: Record<Venue, string> = {
+  alemannia: "BFC Alemannia",
+  longline: "TC Longline",
+};
+
+/** Club color codes: BFC Alemannia = navy blue, TC Longline = court green. */
+const VENUE_STYLE: Record<Venue, string> = {
+  alemannia: "bg-navy text-background border-navy",
+  longline: "bg-court text-background border-court",
+};
+
+/** Available court hours (1h slots), per weekday and per club. */
+const CLUB_HOURS: Record<number, { club: Venue; hours: number[] }[]> = {
+  1: [{ club: "alemannia", hours: [13, 14, 15] }], // Mon — BFC Alemannia 13–16h
+  2: [{ club: "alemannia", hours: [12, 13, 14] }], // Tue — BFC Alemannia 12–15h
+  3: [{ club: "alemannia", hours: [14, 15, 16] }], // Wed — BFC Alemannia 14–17h
+  4: [{ club: "alemannia", hours: [12, 13, 14] }], // Thu — BFC Alemannia 12–15h
+  5: [{ club: "longline", hours: [11, 12, 13, 14, 15, 16] }], // Fri — TC Longline 11–17h
+  6: [
+    { club: "alemannia", hours: [8, 9, 10, 13, 14] }, // Sat — BFC Alemannia 08–11h & 13–15h
+    { club: "longline", hours: [14, 15, 16] }, // Sat — TC Longline 14–17h
+  ],
 };
 
 /** Summer camp: 18:30–20:30 (2h), 2 coaches, groups of 4–6. */
@@ -95,18 +112,26 @@ const RATES: Record<number, { n: string; p: string }[]> = {
 type PublicBooking = {
   starts_at: string;
   level: Level;
+  venue: Venue;
   first_name: string;
   last_initials: string;
   photo_url: string | null;
   confirmed?: boolean;
 };
 
-type Slot = { start: Date; duration: number; level: SlotLevel; camp?: boolean };
+type Slot = {
+  start: Date;
+  duration: number;
+  level: SlotLevel;
+  venue: Venue;
+  camp?: boolean;
+};
 
 type MyBooking = {
   id: string;
   starts_at: string;
   level: Level;
+  venue?: Venue;
   cancellable: boolean;
 };
 
@@ -134,17 +159,19 @@ function buildSlotsForDate(date: Date): Slot[] {
   const slots: Slot[] = [];
   const isCampDay = CAMP_DAYS.includes(ymd(date));
 
-  // 1-hour slots, only at BFC Alemannia & TC Longline available hours.
-  for (const h of VENUE_HOURS[day] ?? []) {
-    if (isCampDay && h >= 18) continue;
-    const d = new Date(date);
-    d.setHours(h, 0, 0, 0);
-    slots.push({ start: d, duration: 60, level: "open" });
+  // 1-hour slots, only at the hours each club actually has free.
+  for (const { club, hours } of CLUB_HOURS[day] ?? []) {
+    for (const h of hours) {
+      if (isCampDay && h >= 18) continue;
+      const d = new Date(date);
+      d.setHours(h, 0, 0, 0);
+      slots.push({ start: d, duration: 60, level: "open", venue: club });
+    }
   }
   if (isCampDay) {
     const camp = new Date(date);
     camp.setHours(18, 30, 0, 0);
-    slots.push({ start: camp, duration: 120, level: "open", camp: true });
+    slots.push({ start: camp, duration: 120, level: "open", venue: "alemannia", camp: true });
   }
 
   return slots.sort((a, b) => a.start.getTime() - b.start.getTime());
@@ -357,7 +384,11 @@ function BookPage() {
   }, [unlocked]);
 
   const participantsFor = (slot: Slot) =>
-    bookings.filter((b) => new Date(b.starts_at).getTime() === slot.start.getTime());
+    bookings.filter(
+      (b) =>
+        new Date(b.starts_at).getTime() === slot.start.getTime() &&
+        (b.venue ?? "alemannia") === slot.venue,
+    );
 
   const isFull = (slot: Slot) => participantsFor(slot).length >= MAX_PER_SLOT;
   const isPast = (slot: Slot) => slot.start.getTime() <= Date.now();
@@ -384,6 +415,7 @@ function BookPage() {
         data: {
           starts_at: selectedSlot.start.toISOString(),
           level,
+          venue: selectedSlot.venue,
           first_name: firstName.trim(),
           last_name: lastName.trim(),
           email: email.trim(),
@@ -482,9 +514,18 @@ function BookPage() {
               {LEVEL_LABEL[lv]}
             </span>
           ))}
-          <span className="px-3 py-1.5 rounded-full border-2 bg-destructive text-destructive-foreground border-destructive">
-            Summer camp
-          </span>
+        </div>
+        <div className="mt-3 flex flex-wrap items-center gap-2 text-xs font-bold uppercase tracking-wide">
+          <span className="text-muted-foreground font-semibold normal-case">Where:</span>
+          {(["alemannia", "longline"] as Venue[]).map((v) => (
+            <span
+              key={v}
+              className={`inline-flex items-center gap-2 rounded-full border-2 px-3 py-1.5 ${VENUE_STYLE[v]}`}
+            >
+              <span className="h-2 w-2 shrink-0 rounded-full bg-background" />
+              {VENUE_LABEL[v]}
+            </span>
+          ))}
         </div>
       </section>
 
@@ -521,9 +562,9 @@ function BookPage() {
                   <span className="text-muted-foreground text-base normal-case">(Summer season)</span>
                 </h2>
                 <p className="text-xs text-muted-foreground mt-1">
-                  Each slot shows its group. In{" "}
-                  <span className="font-semibold text-destructive">red</span>: Summer camp (17.08,
-                  18.08 &amp; 20.08 · 18:30–20:30).
+                  Every slot shows its club:{" "}
+                  <span className="font-semibold text-navy">navy = BFC Alemannia</span>,{" "}
+                  <span className="font-semibold text-court">green = TC Longline</span>.
                 </p>
               </div>
               <div className="flex gap-2 shrink-0">
@@ -581,7 +622,7 @@ function BookPage() {
                             const past = isPast(slot);
                             return (
                               <button
-                                key={slot.start.toISOString()}
+                                key={`${slot.start.toISOString()}-${slot.venue}-${slot.camp ? "camp" : "lesson"}`}
                                 type="button"
                                 onClick={() => openSlot(slot)}
                                 disabled={full || past}
@@ -590,9 +631,7 @@ function BookPage() {
                                     ? "opacity-40 line-through cursor-not-allowed border-transparent"
                                     : full
                                       ? "bg-ink/5 text-muted-foreground line-through cursor-not-allowed border-transparent"
-                                      : slot.camp
-                                        ? "bg-destructive text-destructive-foreground border-destructive hover:opacity-90"
-                                        : LEVEL_STYLE[slot.level]
+                                      : LEVEL_STYLE[slot.level]
                                 }`}
                               >
                                 <div className="flex items-center justify-between gap-2">
@@ -600,15 +639,23 @@ function BookPage() {
                                     {fmtTime(slot.start)}–{endTime(slot)}
                                   </span>
                                   <span className="shrink-0 text-xs px-2 py-0.5 rounded-full bg-ink/10">
-                                    {parts.length}/{MAX_PER_SLOT}
+                                    {parts.length}/{groupMin(slot.start)}
                                   </span>
                                 </div>
-                                {(slot.camp || slot.level !== "open") && (
-                                  <div className="mt-1 text-xs font-bold uppercase tracking-wide break-words opacity-90">
-                                    {slot.camp ? "🔥 Summer camp" : LEVEL_LABEL[slot.level]}
-                                  </div>
-                                )}
-                                {!slot.camp && parts.length > 0 && !past && (
+                                <div className="mt-1.5 flex flex-wrap items-center gap-x-2 gap-y-1">
+                                  <span
+                                    className={`inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full border-2 px-2.5 py-1 text-[10px] font-bold ${VENUE_STYLE[slot.venue]}`}
+                                  >
+                                    <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-background" />
+                                    {VENUE_LABEL[slot.venue]}
+                                  </span>
+                                  {slot.level !== "open" && (
+                                    <span className="min-w-0 break-words text-xs font-bold uppercase tracking-wide opacity-90">
+                                      {LEVEL_LABEL[slot.level]}
+                                    </span>
+                                  )}
+                                </div>
+                                {parts.length > 0 && !past && (
                                   <div className="mt-1 text-xs font-bold break-words">
                                     {parts.some((p) => p.confirmed)
                                       ? "✅ Confirmed"
@@ -689,6 +736,10 @@ function BookPage() {
                           hour: "2-digit",
                           minute: "2-digit",
                         })}
+                        <span className={`ml-2 inline-flex items-center gap-1.5 rounded-full border-2 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide ${VENUE_STYLE[b.venue ?? "alemannia"]}`}>
+                          <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-background" />
+                          {VENUE_LABEL[b.venue ?? "alemannia"]}
+                        </span>
                         <span className="ml-2 text-xs uppercase tracking-wide text-muted-foreground">
                           {LEVEL_LABEL[b.level]}
                         </span>
@@ -835,11 +886,9 @@ function BookPage() {
       {selectedSlot && (
         <Modal onClose={() => setSelectedSlot(null)}>
           <div className="text-xs font-bold uppercase tracking-widest text-clay mb-2">
-            {selectedSlot.camp
-              ? "Summer camp"
-              : selectedSlot.level === "open"
-                ? "Open session"
-                : `${LEVEL_LABEL[selectedSlot.level]} group`}
+            {selectedSlot.level === "open"
+              ? "Open session — choose your level"
+              : `${LEVEL_LABEL[selectedSlot.level]} group`}
           </div>
           <div className="font-display text-2xl sm:text-3xl uppercase leading-tight pr-10 break-words">
             {fmtLongDay(selectedSlot.start)}
@@ -847,9 +896,15 @@ function BookPage() {
           <div className="font-display text-3xl sm:text-4xl mt-1">
             {fmtTime(selectedSlot.start)}–{endTime(selectedSlot)}
           </div>
-          <div className="mt-1 text-sm text-muted-foreground">
+          <div
+            className={`mt-3 inline-flex max-w-full items-center gap-2 rounded-full border-2 px-3 py-1 text-xs font-bold uppercase tracking-wide ${VENUE_STYLE[selectedSlot.venue]}`}
+          >
+            <span className="h-2 w-2 shrink-0 rounded-full bg-background" />
+            {VENUE_LABEL[selectedSlot.venue]}
+          </div>
+          <div className="mt-2 text-sm text-muted-foreground">
             {selectedSlot.duration} minutes ·{" "}
-            {participantsFor(selectedSlot).length}/{MAX_PER_SLOT} players
+            {participantsFor(selectedSlot).length}/{groupMin(selectedSlot.start)} students
           </div>
 
           <div className="mt-4 rounded-2xl bg-ball/30 border-2 border-ink/10 p-4">

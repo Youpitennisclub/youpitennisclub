@@ -1,2 +1,5 @@
-- [x] Admin access (preview auto + secret link)
-- [x] 1h slots daily, none until Oct 6, auto-confirm 2 (weekday <18h) / 4 otherwise, Inter+Adv merged
+# Roadmap
+
+- [x] Clarifier les lieux dans le calendrier avec des codes couleurs (BFC Alemannia = bleu marine / TC Longline = vert)
+- [x] Compteurs de groupe : 0/2 avant 18h en semaine, 0/4 après 18h et le week-end (au lieu de 0/6)
+- [x] Enlever l'étiquette « Summer camp » du calendrier

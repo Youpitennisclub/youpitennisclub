@@ -26,6 +26,15 @@ export async function verifyAccountPassword(email: string, password: string) {
   return !error && !!data.user;
 }
 
+export type Venue = "alemannia" | "longline";
+
+const VENUE_NAME: Record<Venue, string> = {
+  alemannia: "BFC Alemannia",
+  longline: "TC Longline",
+};
+/** Pretty club name for emails. */
+const vn = (v: Venue) => VENUE_NAME[v] ?? v;
+
 export type Level = "total_beginner" | "beginner" | "intermediate" | "advanced";
 
 const LEVEL_NAME: Record<Level, string> = {
@@ -65,6 +74,7 @@ function fmt(dt: string) {
 export async function createBookingRecord(input: {
   starts_at: string;
   level: Level;
+  venue: Venue;
   first_name: string;
   last_name: string;
   email: string;
@@ -83,6 +93,7 @@ export async function createBookingRecord(input: {
     .insert({
       starts_at: input.starts_at,
       level: input.level,
+      venue: input.venue,
       first_name: input.first_name,
       last_name: input.last_name,
       email: input.email,
@@ -96,6 +107,7 @@ export async function createBookingRecord(input: {
   if (error) throw new Error(error.message);
 
   const when = fmt(input.starts_at);
+  const where = vn(input.venue);
   const name = `${input.first_name} ${input.last_name}`;
 
   // Pre-booking: count active students of the same level on this slot.
@@ -103,6 +115,7 @@ export async function createBookingRecord(input: {
     .from("bookings")
     .select("id, first_name, last_name, email, confirmed_at")
     .eq("starts_at", input.starts_at)
+    .eq("venue", input.venue)
     .in("level", levelGroup(input.level))
     .is("cancelled_at", null);
   if (gErr) throw new Error(gErr.message);
@@ -121,11 +134,11 @@ export async function createBookingRecord(input: {
     for (const m of toConfirm) {
       await sendMail({
         to: m.email,
-        subject: `RESERVATION CONFIRMED 🎾 — ${when}`,
+        subject: `RESERVATION CONFIRMED 🎾 — ${where} — ${when}`,
         replyTo: coachEmail(),
         html: wrap(
           "Your group is confirmed!",
-          `<p style="font-size:20px"><b>${when}</b><br/>${input.duration} minutes · ${lv(input.level)} group (${count} players)</p>
+          `<p style="font-size:20px"><b>${when}</b><br/>📍 ${where}<br/>${input.duration} minutes · ${lv(input.level)} group (${count} players)</p>
            <p>See you on court, ${m.first_name}!</p>
            <p style="font-size:18px"><b>Cancellation: only possible up to 24 hours before the session starts.</b></p>
            <p><a href="${siteUrl()}/book">${siteUrl()}/book</a></p>`,
@@ -134,11 +147,11 @@ export async function createBookingRecord(input: {
     }
     await sendMail({
       to: coachEmail(),
-      subject: `GROUP CONFIRMED ✅ — ${lv(input.level)} — ${when}`,
+      subject: `GROUP CONFIRMED ✅ — ${where} — ${lv(input.level)} — ${when}`,
       replyTo: input.email,
       html: wrap(
         "GROUP CONFIRMED",
-        `<p style="font-size:20px"><b>${when}</b> · ${lv(input.level)} · ${count} players</p>
+        `<p style="font-size:20px"><b>${when}</b><br/>📍 ${where} · ${lv(input.level)} · ${count} players</p>
          <ul style="font-size:17px">${members.map((m) => `<li>${m.first_name} ${m.last_name} — ${m.email}</li>`).join("")}</ul>
          <p>Latest: ${name}, ${input.phone}</p>`,
       ),
@@ -148,22 +161,22 @@ export async function createBookingRecord(input: {
 
   await sendMail({
     to: coachEmail(),
-    subject: `PRE-BOOKING ⏳ ${count}/${GROUP_MIN} — ${name} — ${when}`,
+    subject: `PRE-BOOKING ⏳ ${count}/${GROUP_MIN} — ${where} — ${name} — ${when}`,
     replyTo: input.email,
     html: wrap(
       "PRE-BOOKING",
-      `<p style="font-size:20px"><b>${when}</b><br/>${input.duration} minutes · ${lv(input.level)} · ${count}/${GROUP_MIN}</p>
+      `<p style="font-size:20px"><b>${when}</b><br/>📍 ${where}<br/>${input.duration} minutes · ${lv(input.level)} · ${count}/${GROUP_MIN}</p>
        <p style="font-size:17px;line-height:1.7">
        <b>Name:</b> ${name}<br/><b>Phone:</b> ${input.phone}<br/><b>Email:</b> ${input.email}</p>`,
     ),
   });
   await sendMail({
     to: input.email,
-    subject: `PRE-BOOKING ⏳ — ${when}`,
+    subject: `PRE-BOOKING ⏳ — ${where} — ${when}`,
     replyTo: coachEmail(),
     html: wrap(
       "Pre-booking received",
-      `<p style="font-size:20px"><b>${when}</b><br/>${lv(input.level)} group · ${count}/${GROUP_MIN} players</p>
+      `<p style="font-size:20px"><b>${when}</b><br/>📍 ${where}<br/>${lv(input.level)} group · ${count}/${GROUP_MIN} players</p>
        <p>As soon as ${GROUP_MIN} students of your level pre-book this slot, the session is confirmed automatically and you'll get an email.</p>
        <p><a href="${siteUrl()}/book">${siteUrl()}/book</a></p>`,
     ),
@@ -383,7 +396,7 @@ export async function attachBookingsToAccount(userId: string, email: string) {
 export async function listMyBookingsRecord(userId: string) {
   const { data, error } = await supabaseAdmin
     .from("bookings")
-    .select("id, starts_at, level, first_name, last_name, cancelled_at")
+    .select("id, starts_at, level, venue, first_name, last_name, cancelled_at")
     .eq("user_id", userId)
     .is("cancelled_at", null)
     .gte("starts_at", new Date().toISOString())

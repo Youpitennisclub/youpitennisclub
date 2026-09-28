@@ -15,6 +15,13 @@
       "when": 1790628967411,
       "tag": "0001_add_total_beginner_level",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1790633308570,
+      "tag": "0002_add_booking_venue",
+      "breakpoints": true
     }
   ]
 }

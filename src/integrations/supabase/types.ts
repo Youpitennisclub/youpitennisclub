@@ -29,6 +29,7 @@ export type Database = {
           photo_url: string | null
           starts_at: string
           user_id: string | null
+          venue: string
         }
         Insert: {
           cancel_token?: string
@@ -44,6 +45,7 @@ export type Database = {
           photo_url?: string | null
           starts_at: string
           user_id?: string | null
+          venue?: string
         }
         Update: {
           cancel_token?: string
@@ -59,6 +61,7 @@ export type Database = {
           photo_url?: string | null
           starts_at?: string
           user_id?: string | null
+          venue?: string
         }
         Relationships: []
       }
@@ -109,6 +112,7 @@ export type Database = {
           level: Database["public"]["Enums"]["tennis_level"]
           photo_url: string
           starts_at: string
+          venue: string
         }[]
       }
       get_public_feedback: {
