@@ -74,6 +74,7 @@ function fmt(dt: string) {
 export async function createBookingRecord(input: {
   starts_at: string;
   level: Level;
+  venue: Venue;
   first_name: string;
   last_name: string;
   email: string;
@@ -92,6 +93,7 @@ export async function createBookingRecord(input: {
     .insert({
       starts_at: input.starts_at,
       level: input.level,
+      venue: input.venue,
       first_name: input.first_name,
       last_name: input.last_name,
       email: input.email,
@@ -105,6 +107,7 @@ export async function createBookingRecord(input: {
   if (error) throw new Error(error.message);
 
   const when = fmt(input.starts_at);
+  const where = vn(input.venue);
   const name = `${input.first_name} ${input.last_name}`;
 
   // Pre-booking: count active students of the same level on this slot.
@@ -112,6 +115,7 @@ export async function createBookingRecord(input: {
     .from("bookings")
     .select("id, first_name, last_name, email, confirmed_at")
     .eq("starts_at", input.starts_at)
+    .eq("venue", input.venue)
     .in("level", levelGroup(input.level))
     .is("cancelled_at", null);
   if (gErr) throw new Error(gErr.message);
