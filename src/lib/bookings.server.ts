@@ -396,7 +396,7 @@ export async function attachBookingsToAccount(userId: string, email: string) {
 export async function listMyBookingsRecord(userId: string) {
   const { data, error } = await supabaseAdmin
     .from("bookings")
-    .select("id, starts_at, level, first_name, last_name, cancelled_at")
+    .select("id, starts_at, level, venue, first_name, last_name, cancelled_at")
     .eq("user_id", userId)
     .is("cancelled_at", null)
     .gte("starts_at", new Date().toISOString())
