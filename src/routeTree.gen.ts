@@ -17,6 +17,7 @@ import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CancelRouteImport } from './routes/cancel'
 import { Route as BookRouteImport } from './routes/book'
 import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AdminAccessRouteImport } from './routes/admin-access'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as LovableEmailAuthWebhookRouteImport } from './routes/lovable/email/auth/webhook'
 import { Route as LovableEmailAuthPreviewRouteImport } from './routes/lovable/email/auth/preview'
@@ -61,6 +62,11 @@ const AuthRoute = AuthRouteImport.update({
   path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminAccessRoute = AdminAccessRouteImport.update({
+  id: '/admin-access',
+  path: '/admin-access',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -79,6 +85,7 @@ const LovableEmailAuthPreviewRoute = LovableEmailAuthPreviewRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/admin-access': typeof AdminAccessRoute
   '/auth': typeof AuthRoute
   '/book': typeof BookRoute
   '/cancel': typeof CancelRoute
@@ -92,6 +99,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/admin-access': typeof AdminAccessRoute
   '/auth': typeof AuthRoute
   '/book': typeof BookRoute
   '/cancel': typeof CancelRoute
@@ -106,6 +114,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/admin-access': typeof AdminAccessRoute
   '/auth': typeof AuthRoute
   '/book': typeof BookRoute
   '/cancel': typeof CancelRoute
@@ -121,6 +130,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/admin-access'
     | '/auth'
     | '/book'
     | '/cancel'
@@ -134,6 +144,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/admin-access'
     | '/auth'
     | '/book'
     | '/cancel'
@@ -147,6 +158,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/admin-access'
     | '/auth'
     | '/book'
     | '/cancel'
@@ -161,6 +173,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdminAccessRoute: typeof AdminAccessRoute
   AuthRoute: typeof AuthRoute
   BookRoute: typeof BookRoute
   CancelRoute: typeof CancelRoute
@@ -231,6 +244,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin-access': {
+      id: '/admin-access'
+      path: '/admin-access'
+      fullPath: '/admin-access'
+      preLoaderRoute: typeof AdminAccessRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -257,6 +277,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AdminAccessRoute: AdminAccessRoute,
   AuthRoute: AuthRoute,
   BookRoute: BookRoute,
   CancelRoute: CancelRoute,
