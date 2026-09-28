@@ -357,9 +357,8 @@ function BookPage() {
   };
 
   useEffect(() => {
-    if (!unlocked) return;
     loadBookings();
-    loadMyBookings();
+    if (unlocked) loadMyBookings();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [unlocked]);
 
