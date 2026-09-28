@@ -1,3 +1,4 @@
+import { ratesFor } from "@/lib/prices";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 
