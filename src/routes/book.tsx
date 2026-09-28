@@ -5,6 +5,7 @@ import { toast } from "sonner";
 import { PhotoPicker } from "@/components/PhotoPicker";
 import { createBooking, listMyBookings, cancelMyBooking } from "@/lib/bookings.functions";
 import { isAdmin } from "@/lib/admin.functions";
+import { ratesFor } from "@/lib/prices";
 
 
 export const Route = createFileRoute("/book")({
@@ -89,23 +90,7 @@ const CLUB_HOURS: Record<number, { club: Venue; hours: number[] }[]> = {
 /** Summer camp: 18:30–20:30 (2h), 2 coaches, groups of 4–6. */
 const CAMP_DAYS = ["2026-08-17", "2026-08-18", "2026-08-20"];
 
-/** Price grid shown in the booking modal. */
-const RATES: Record<number, { n: string; p: string }[]> = {
-  60: [
-    { n: "2 players", p: "€25" },
-    { n: "3 players", p: "€19" },
-    { n: "4 players", p: "€17" },
-    { n: "5 players", p: "€15" },
-    { n: "6 players", p: "€13" },
-  ],
-  90: [
-    { n: "2 players", p: "€37" },
-    { n: "3 players", p: "€28" },
-    { n: "4 players", p: "€25" },
-    { n: "5 players", p: "€22" },
-    { n: "6 players", p: "€19" },
-  ],
-};
+/** Price grid shown in the booking modal: see ratesFor (club + hour). */
 
 /* ========================================================================= */
 
@@ -428,7 +413,7 @@ function BookPage() {
       toast.success(
         res.confirmed
           ? "🎾 Group confirmed! A confirmation email is on its way."
-          : `⏳ Pre-booked (${res.count ?? 1}/${groupMin(selectedSlot.start)}). The session is confirmed automatically once ${groupMin(selectedSlot.start)} students of your level join.`,
+          : `⏳ Booked (${res.count ?? 1}/${groupMin(selectedSlot.start)}). The session is confirmed automatically once ${groupMin(selectedSlot.start)} students of your level join.`,
       );
       setSelectedSlot(null);
       await loadBookings();
@@ -504,7 +489,7 @@ function BookPage() {
           Book your <span className="text-clay">tennis session</span>
         </h1>
         <p className="mt-4 max-w-xl text-base sm:text-lg text-muted-foreground">
-          1-hour slots every day. Pick your level and pre-book — the slot is confirmed automatically when enough students of the same level join:{" "}
+          <b className="text-ink">Winter season bookings are open!</b> 1-hour sessions at BFC Alemannia and TC Longline. Pick your level and book — the session is confirmed automatically when enough students of the same level join:{" "}
           <b className="text-ink">2 students</b> on weekdays before 18:00,{" "}
           <b className="text-ink">4 students</b> on weekdays from 18:00 and on weekends. Intermediate and Advanced can play together.
         </p>
@@ -659,7 +644,7 @@ function BookPage() {
                                   <div className="mt-1 text-xs font-bold break-words">
                                     {parts.some((p) => p.confirmed)
                                       ? "✅ Confirmed"
-                                      : `⏳ Pre-booking ${parts.length}/${groupMin(slot.start)}`}
+                                      : `⏳ Booked ${parts.length}/${groupMin(slot.start)}`}
                                   </div>
                                 )}
                                 {parts.length > 0 && !past && (
@@ -769,17 +754,17 @@ function BookPage() {
 
             <div className="mt-8 rounded-3xl bg-navy text-background p-5 sm:p-7">
 
-              <h3 className="font-display text-xl sm:text-2xl uppercase">Winter season 🥶</h3>
+              <h3 className="font-display text-xl sm:text-2xl uppercase">Winter season bookings are open 🥶</h3>
               <p className="mt-2 text-background/75 text-sm sm:text-base max-w-xl">
-                Indoor season from October to end of March — group sessions of 1h or 1h30 on
-                weekday evenings and Saturdays. Prices and exact slots are published in September.
+                Indoor season from October to end of March — book your 1-hour sessions directly in the
+                calendar above. Prices depend on the club, the time and the group size.
               </p>
               <button
                 type="button"
                 onClick={() => setWinterOpen(true)}
                 className="mt-4 inline-block px-6 py-3.5 rounded-full bg-violet text-violet-foreground font-semibold hover:opacity-90 transition"
               >
-                Pre-Book Your Winter Season
+                Questions? Contact me
               </button>
             </div>
           </section>
@@ -790,18 +775,15 @@ function BookPage() {
       {winterOpen && (
         <Modal onClose={() => setWinterOpen(false)}>
           <h3 className="font-display text-2xl uppercase mb-3 pr-10">
-            Winter season pre-booking
+            Winter season — bookings open
           </h3>
           <div className="space-y-3 text-sm sm:text-base text-muted-foreground">
             <p>
-              <b className="text-ink">Subscription from beginning of October to end of March</b> —
-              indoor <b className="text-ink">group sessions of 1h or 1h30</b> on weekday evenings
-              and Saturdays.
+              <b className="text-ink">From October to end of March</b> — indoor 1-hour group
+              sessions at <b className="text-ink">BFC Alemannia</b> and <b className="text-ink">TC Longline</b>.
             </p>
             <p>
-              Prices and the exact slots will be published in{" "}
-              <b className="text-ink">September</b>. This is a non-binding notice of interest: get
-              in touch and I'll keep a spot for you and send you all the details first.
+              Book directly in the calendar. Any question? Get in touch.
             </p>
           </div>
           <div className="mt-5 grid gap-2">
@@ -814,7 +796,7 @@ function BookPage() {
               +49 176 45689622 · WhatsApp preferred
             </a>
             <a
-              href="mailto:chaouchyoucef@yahoo.com?subject=Winter%20season%20pre-booking"
+              href="mailto:chaouchyoucef@yahoo.com?subject=Winter%20season"
               className="px-6 py-4 text-center rounded-2xl border-2 border-ink/15 font-semibold hover:bg-ball/40 transition"
             >
               Send an email
@@ -923,14 +905,28 @@ function BookPage() {
                 </li>
               </ul>
             ) : (
-              <ul className="space-y-1 text-sm">
-                {(RATES[selectedSlot.duration] ?? RATES[90]).map((r) => (
-                  <li key={r.n} className="flex justify-between gap-3">
-                    <span className="text-ink/70">{r.n}</span>
-                    <span className="font-display shrink-0">{r.p} / pers</span>
-                  </li>
-                ))}
-              </ul>
+              (() => {
+                const r = ratesFor(
+                  selectedSlot.venue,
+                  Number(new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/Berlin", hour: "2-digit", hour12: false }).format(selectedSlot.start)),
+                );
+                return (
+                  <>
+                    <div className="text-xs text-ink/60 mb-1">{VENUE_LABEL[selectedSlot.venue]} · {r.period}</div>
+                    <ul className="space-y-1 text-sm">
+                      {r.rates.map((x) => (
+                        <li key={x.n} className="flex justify-between gap-3">
+                          <span className="text-ink/70">{x.n}</span>
+                          <span className="font-display shrink-0">{x.p} / pers</span>
+                        </li>
+                      ))}
+                    </ul>
+                    {r.nonMemberExtra > 0 && (
+                      <div className="mt-2 text-xs text-ink/60">Non-members: +€{r.nonMemberExtra} per person</div>
+                    )}
+                  </>
+                );
+              })()
             )}
           </div>
 
