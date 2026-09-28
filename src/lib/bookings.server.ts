@@ -29,6 +29,8 @@ export async function verifyAccountPassword(email: string, password: string) {
 export type Level = "beginner" | "intermediate" | "advanced";
 
 const CANCEL_WINDOW_MS = 24 * 60 * 60 * 1000;
+/** Students of the same level needed on a slot before it is confirmed. */
+const GROUP_MIN = 4;
 
 function fmt(dt: string) {
   return new Date(dt).toLocaleString("en-GB", {
@@ -74,42 +76,80 @@ export async function createBookingRecord(input: {
 
   if (error) throw new Error(error.message);
 
-
   const when = fmt(input.starts_at);
   const name = `${input.first_name} ${input.last_name}`;
 
+  // Pre-booking: count active students of the same level on this slot.
+  const { data: group, error: gErr } = await supabaseAdmin
+    .from("bookings")
+    .select("id, first_name, last_name, email, confirmed_at")
+    .eq("starts_at", input.starts_at)
+    .eq("level", input.level)
+    .is("cancelled_at", null);
+  if (gErr) throw new Error(gErr.message);
+  const members = group ?? [];
+  const count = members.length;
+  const alreadyConfirmed = members.some((m) => m.confirmed_at && m.id !== data.id);
+
+  if (count >= GROUP_MIN || alreadyConfirmed) {
+    const toConfirm = members.filter((m) => !m.confirmed_at);
+    await supabaseAdmin
+      .from("bookings")
+      .update({ confirmed_at: new Date().toISOString() })
+      .in("id", toConfirm.map((m) => m.id));
+
+    for (const m of toConfirm) {
+      await sendMail({
+        to: m.email,
+        subject: `RESERVATION CONFIRMED 🎾 — ${when}`,
+        replyTo: coachEmail(),
+        html: wrap(
+          "Your group is confirmed!",
+          `<p style="font-size:20px"><b>${when}</b><br/>${input.duration} minutes · ${input.level} group (${count} players)</p>
+           <p>See you on court, ${m.first_name}!</p>
+           <p style="font-size:18px"><b>Cancellation: only possible up to 24 hours before the session starts.</b></p>
+           <p><a href="${siteUrl()}/book">${siteUrl()}/book</a></p>`,
+        ),
+      });
+    }
+    await sendMail({
+      to: coachEmail(),
+      subject: `GROUP CONFIRMED ✅ — ${input.level} — ${when}`,
+      replyTo: input.email,
+      html: wrap(
+        "GROUP CONFIRMED",
+        `<p style="font-size:20px"><b>${when}</b> · ${input.level} · ${count} players</p>
+         <ul style="font-size:17px">${members.map((m) => `<li>${m.first_name} ${m.last_name} — ${m.email}</li>`).join("")}</ul>
+         <p>Latest: ${name}, ${input.phone}</p>`,
+      ),
+    });
+    return { ok: true as const, id: data.id, confirmed: true, count };
+  }
+
   await sendMail({
     to: coachEmail(),
-    subject: `RESERVATION 🎾 — ${name} — ${when}`,
+    subject: `PRE-BOOKING ⏳ ${count}/${GROUP_MIN} — ${name} — ${when}`,
     replyTo: input.email,
     html: wrap(
-      "RESERVATION",
-      `<p style="font-size:20px"><b>${when}</b><br/>${input.duration} minutes${input.camp ? " · Summer camp" : ""}</p>
+      "PRE-BOOKING",
+      `<p style="font-size:20px"><b>${when}</b><br/>${input.duration} minutes · ${input.level} · ${count}/${GROUP_MIN}</p>
        <p style="font-size:17px;line-height:1.7">
-       <b>First name:</b> ${input.first_name}<br/>
-       <b>Last name:</b> ${input.last_name}<br/>
-       <b>Phone:</b> ${input.phone}<br/>
-       <b>Level:</b> ${input.level}<br/>
-       <b>Email:</b> ${input.email}
-       </p>`,
+       <b>Name:</b> ${name}<br/><b>Phone:</b> ${input.phone}<br/><b>Email:</b> ${input.email}</p>`,
     ),
   });
-
   await sendMail({
     to: input.email,
-    subject: `RESERVATION 🎾 — ${when}`,
+    subject: `PRE-BOOKING ⏳ — ${when}`,
     replyTo: coachEmail(),
     html: wrap(
-      "RESERVATION confirmed",
-      `<p style="font-size:20px"><b>${when}</b><br/>${input.duration} minutes</p>
-       <p>See you on court, ${input.first_name}!</p>
-       <p style="font-size:18px"><b>Cancellation: only possible up to 24 hours before the session starts.</b></p>
-       <p>Need to cancel? Request it here and confirm with the link we email you:<br/>
-       <a href="${siteUrl()}/book#cancel">${siteUrl()}/book#cancel</a></p>`,
+      "Pre-booking received",
+      `<p style="font-size:20px"><b>${when}</b><br/>${input.level} group · ${count}/${GROUP_MIN} players</p>
+       <p>As soon as ${GROUP_MIN} students of your level pre-book this slot, the session is confirmed automatically and you'll get an email.</p>
+       <p><a href="${siteUrl()}/book">${siteUrl()}/book</a></p>`,
     ),
   });
 
-  return { ok: true as const, id: data.id };
+  return { ok: true as const, id: data.id, confirmed: false, count };
 }
 
 /** Immediate cancellation: cancels every upcoming session booked with this email
