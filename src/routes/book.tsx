@@ -497,7 +497,22 @@ function BookPage() {
         <p className="mt-4 max-w-xl text-base sm:text-lg text-muted-foreground">
           <b className="text-ink">Winter season bookings are open!</b> 1-hour sessions at BFC Alemannia and TC Longline. Pick your level and book — the session is confirmed automatically when enough students of the same level join:{" "}
           <b className="text-ink">2 students</b> on weekdays before 15:00,{" "}
-          <b className="text-ink">4 students</b> on weekdays from 15:00 and on weekends. Intermediate and Advanced can play together.
+          <b className="text-ink">4 students</b> on weekdays from 15:00 and on weekends. Intermediate and Advanced can play together. I can also train you in a group of{" "}
+          <b className="text-ink">3 students</b> — for a private lesson, contact me directly on{" "}
+          <a
+            href="https://wa.me/4917645689622"
+            className="text-court font-semibold hover:underline break-all"
+          >
+            WhatsApp
+          </a>{" "}
+          or by{" "}
+          <a
+            href="mailto:chaouchyoucef@yahoo.com"
+            className="text-clay font-semibold hover:underline break-all"
+          >
+            email
+          </a>
+          .
         </p>
         <div className="mt-5 flex flex-wrap gap-2 text-xs font-bold uppercase tracking-wide">
           {(["total_beginner", "beginner", "intermediate", "advanced"] as Level[]).map((lv) => (
