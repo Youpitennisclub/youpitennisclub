@@ -135,7 +135,7 @@ export type Database = {
       }
     }
     Enums: {
-      tennis_level: "beginner" | "intermediate" | "advanced"
+      tennis_level: "beginner" | "intermediate" | "advanced" | "total_beginner"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -263,7 +263,7 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
-      tennis_level: ["beginner", "intermediate", "advanced"],
+      tennis_level: ["beginner", "intermediate", "advanced", "total_beginner"],
     },
   },
 } as const

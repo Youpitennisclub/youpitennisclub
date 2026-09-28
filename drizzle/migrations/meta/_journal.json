@@ -8,6 +8,13 @@
       "when": 1790628850983,
       "tag": "0000_prebooking_confirmation",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1790628967411,
+      "tag": "0001_add_total_beginner_level",
+      "breakpoints": true
     }
   ]
 }
