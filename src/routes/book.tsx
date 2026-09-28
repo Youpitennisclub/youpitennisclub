@@ -738,7 +738,6 @@ function BookPage() {
             </div>
           </section>
         </>
-      )}
 
       {/* WINTER MODAL */}
       {winterOpen && (
