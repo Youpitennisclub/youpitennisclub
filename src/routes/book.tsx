@@ -125,6 +125,8 @@ function ymd(d: Date) {
 
 /** No slots up to and including this date. */
 const FIRST_OPEN_DAY = "2026-10-07";
+/** Last day of the winter season — slots are listed up to and including this date. */
+const SEASON_END = new Date("2027-04-04T23:59:59");
 
 /** Minimum students of the same level to confirm a slot. */
 function groupMin(start: Date) {
@@ -335,16 +337,21 @@ function BookPage() {
   };
 
 
-  const SUMMER_END = new Date("2026-10-15T00:00:00");
   const days = useMemo(() => {
     const arr: Date[] = [];
     for (let i = 0; i < 14; i++) {
       const d = new Date(weekStart);
       d.setDate(d.getDate() + i);
-      if (d.getTime() >= SUMMER_END.getTime()) break;
+      if (d.getTime() > SEASON_END.getTime()) break;
       arr.push(d);
     }
     return arr;
+  }, [weekStart]);
+
+  const nextWeekStart = useMemo(() => {
+    const d = new Date(weekStart);
+    d.setDate(d.getDate() + 7);
+    return d;
   }, [weekStart]);
 
   const loadBookings = async () => {
@@ -566,11 +573,11 @@ function BookPage() {
                 </button>
                 <button
                   onClick={() => {
-                    const d = new Date(weekStart);
-                    d.setDate(d.getDate() + 7);
-                    setWeekStart(d);
+                    if (nextWeekStart.getTime() > SEASON_END.getTime()) return;
+                    setWeekStart(nextWeekStart);
                   }}
-                  className="flex-1 md:flex-none px-4 py-2.5 rounded-full border-2 border-ink/15 text-sm font-semibold hover:bg-ball/40 transition"
+                  className="flex-1 md:flex-none px-4 py-2.5 rounded-full border-2 border-ink/15 text-sm font-semibold hover:bg-ball/40 transition disabled:opacity-40"
+                  disabled={nextWeekStart.getTime() > SEASON_END.getTime()}
                 >
                   Next →
                 </button>
