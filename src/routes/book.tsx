@@ -494,16 +494,16 @@ function BookPage() {
         </div>
       </section>
 
-      {/* SIGN-IN INVITE (the calendar itself stays open to everyone) */}
+      {/* SIGN-IN GATE — students must sign in to see the calendar */}
       {!unlocked && !checkingAuth && (
-        <section className="max-w-6xl mx-auto px-5 sm:px-6 pb-2">
+        <section className="max-w-6xl mx-auto px-5 sm:px-6 pb-16">
           <div className="rounded-3xl bg-card border-2 border-ink p-5 sm:p-6 shadow-lg grid gap-3 sm:flex sm:items-center sm:justify-between">
             <div className="min-w-0">
               <h2 className="font-display text-xl sm:text-2xl uppercase break-words">
-                Browse the calendar freely
+                Sign in to see the calendar
               </h2>
               <p className="text-muted-foreground text-sm mt-1 break-words">
-                Sign in only when you want to book or cancel a session.
+                The booking calendar is reserved for students with an account. You stay signed in on this device.
               </p>
             </div>
             <Link
@@ -516,6 +516,7 @@ function BookPage() {
         </section>
       )}
 
+      {unlocked && (
       <>
           {/* CALENDAR */}
           <section className="max-w-6xl mx-auto px-5 sm:px-6 pb-16">
@@ -738,6 +739,7 @@ function BookPage() {
             </div>
           </section>
         </>
+      )}
 
       {/* WINTER MODAL */}
       {winterOpen && (
