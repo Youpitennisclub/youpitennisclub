@@ -644,7 +644,7 @@ function BookPage() {
                                 </div>
                                 <div className="mt-1.5 flex flex-wrap items-center gap-x-2 gap-y-1">
                                   <span
-                                    className={`inline-flex shrink-0 items-center gap-1.5 rounded-full border-2 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide ${VENUE_STYLE[slot.venue]}`}
+                                    className={`inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full border-2 px-2.5 py-1 text-[10px] font-bold ${VENUE_STYLE[slot.venue]}`}
                                   >
                                     <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-background" />
                                     {VENUE_LABEL[slot.venue]}
