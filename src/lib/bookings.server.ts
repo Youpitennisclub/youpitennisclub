@@ -53,7 +53,8 @@ function groupMinFor(iso: string) {
   const wd = parts.find((p) => p.type === "weekday")?.value;
   const h = Number(parts.find((p) => p.type === "hour")?.value);
   if (wd === "Sat" || wd === "Sun") return 4;
-  return h < 18 ? 2 : 4;
+  // Late afternoon (15:00–17:00) needs a full group of 4.
+  return h >= 15 ? 4 : 2;
 }
 /** Intermediate and Advanced can form a group together. */
 function levelGroup(l: Level): Level[] {

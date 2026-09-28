@@ -131,7 +131,9 @@ function groupMin(start: Date) {
   const day = start.getDay();
   const weekend = day === 0 || day === 6;
   if (weekend) return 4;
-  return start.getHours() < 18 ? 2 : 4;
+  const h = start.getHours();
+  // Late afternoon (15:00–17:00) needs a full group of 4.
+  return h >= 15 ? 4 : 2;
 }
 
 function buildSlotsForDate(date: Date): Slot[] {
