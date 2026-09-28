@@ -484,9 +484,8 @@ function Index() {
                 </div>
                 <div className="space-y-2">
                   <div translate="no" className="notranslate text-2xl font-display text-sky">Fr · 11–17 Uhr</div>
-                  <div translate="no" className="notranslate text-2xl font-display text-sky">Sa · 14–17 Uhr</div>
                 </div>
-                <p className="text-sm text-ink/70 mt-3">Friday &amp; Saturday indoor at TC Longline.</p>
+                <p className="text-sm text-ink/70 mt-3">Friday indoor at TC Longline.</p>
                 <p className="mt-4 rounded-xl bg-sky/15 p-3 text-sm text-ink/80">
                   Flexible with work? You can book a weekday court at TC Longline on Friday between
                   <strong> 11:00 and 17:00</strong> in a group of two students.
