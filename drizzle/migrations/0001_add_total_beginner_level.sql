@@ -1,0 +1,1 @@
+ALTER TYPE public.tennis_level ADD VALUE IF NOT EXISTS 'total_beginner';

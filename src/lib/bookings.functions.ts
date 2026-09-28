@@ -4,7 +4,7 @@ import { z } from "zod";
 
 const bookingSchema = z.object({
   starts_at: z.string().min(1),
-  level: z.enum(["beginner", "intermediate", "advanced"]),
+  level: z.enum(["total_beginner", "beginner", "intermediate", "advanced"]),
   first_name: z.string().trim().min(1).max(60),
   last_name: z.string().trim().min(1).max(60),
   email: z.string().trim().email().max(120),

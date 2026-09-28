@@ -29,7 +29,7 @@ export const Route = createFileRoute("/book")({
   component: BookPage,
 });
 
-type Level = "beginner" | "intermediate" | "advanced";
+type Level = "total_beginner" | "beginner" | "intermediate" | "advanced";
 /** "open" = mixed slot, no level defined */
 type SlotLevel = Level | "open";
 
