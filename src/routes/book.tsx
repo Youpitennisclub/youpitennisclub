@@ -802,7 +802,7 @@ function BookPage() {
             <p>
               📅 <b className="text-ink">3 days between August 17 and 20</b>. Each session lasts 2
               hours, from 6:30 to 8:30 PM. We'll have groups of{" "}
-              <b className="text-ink">4 to 6 students</b> with a similar level — beginner,
+              <b className="text-ink">4 to 6 students</b> with a similar level — total beginner,
               intermediate or advanced, depending on the participants. Capacity is limited, so
               it's first come, first served!
             </p>
