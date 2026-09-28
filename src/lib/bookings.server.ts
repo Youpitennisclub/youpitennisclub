@@ -26,7 +26,16 @@ export async function verifyAccountPassword(email: string, password: string) {
   return !error && !!data.user;
 }
 
-export type Level = "beginner" | "intermediate" | "advanced";
+export type Level = "total_beginner" | "beginner" | "intermediate" | "advanced";
+
+const LEVEL_NAME: Record<Level, string> = {
+  total_beginner: "Total beginner",
+  beginner: "Beginner",
+  intermediate: "Intermediate",
+  advanced: "Advanced",
+};
+/** Pretty level name for emails. */
+const lv = (l: Level) => LEVEL_NAME[l] ?? l;
 
 const CANCEL_WINDOW_MS = 24 * 60 * 60 * 1000;
 /** Students of the same level needed on a slot before it is confirmed. */

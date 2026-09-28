@@ -42,14 +42,16 @@ const MAX_PER_SLOT = 6;
 
 /** Group names shown in the calendar (edit freely). "open" shows no label. */
 const LEVEL_LABEL: Record<SlotLevel, string> = {
+  total_beginner: "Total beginner",
   beginner: "Beginner",
   intermediate: "Intermediate",
   advanced: "Advanced",
   open: "",
 };
 
-/** Colors per group: beginner = yellow, intermediate = orange, advanced = pink. */
+/** Colors per group: total beginner = sky, beginner = yellow, intermediate = orange, advanced = pink. */
 const LEVEL_STYLE: Record<SlotLevel, string> = {
+  total_beginner: "bg-sky text-ink border-sky hover:brightness-105",
   beginner: "bg-ball text-ink border-ball hover:brightness-105",
   intermediate: "bg-clay text-background border-clay hover:brightness-110",
   advanced: "bg-pink text-ink border-pink hover:brightness-105",
@@ -61,10 +63,10 @@ const WEEKDAY_LEVELS: Record<number, Level> = {
   1: "beginner",
   2: "intermediate",
   3: "advanced",
-  4: "beginner",
+  4: "total_beginner",
   5: "intermediate",
 };
-const SAT_LEVELS: Level[] = ["beginner", "intermediate", "advanced", "beginner"];
+const SAT_LEVELS: Level[] = ["total_beginner", "beginner", "intermediate", "advanced"];
 
 /** Friday has its own fixed schedule. */
 const FRIDAY: { h: number; m: number; duration: number; level: Level }[] = [
@@ -478,7 +480,7 @@ function BookPage() {
           <b className="text-ink">16:30–18:00</b>. Saturday <b className="text-ink">10:00–16:00</b>.
         </p>
         <div className="mt-5 flex flex-wrap gap-2 text-xs font-bold uppercase tracking-wide">
-          {(["beginner", "intermediate", "advanced"] as Level[]).map((lv) => (
+          {(["total_beginner", "beginner", "intermediate", "advanced"] as Level[]).map((lv) => (
             <span key={lv} className={`px-3 py-1.5 rounded-full border-2 ${LEVEL_STYLE[lv]}`}>
               {LEVEL_LABEL[lv]}
             </span>
@@ -933,7 +935,8 @@ function BookPage() {
               <legend className="text-sm font-semibold mb-2">Your tennis level</legend>
               <div className="grid gap-2">
                 {([
-                  { key: "beginner", label: "Total beginner", hint: "less than 10 hours of training" },
+                  { key: "total_beginner", label: "Total beginner", hint: "less than 10 hours of tennis in my life" },
+                  { key: "beginner", label: "Beginner", hint: "I know the basics and can rally a bit" },
                   { key: "intermediate", label: "Intermediate", hint: "more than 6 months of tennis with training" },
                   { key: "advanced", label: "Advanced", hint: "years of experience, match play" },
                 ] as { key: Level; label: string; hint: string }[]).map((lv) => (
