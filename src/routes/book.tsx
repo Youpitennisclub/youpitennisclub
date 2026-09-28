@@ -5,6 +5,7 @@ import { toast } from "sonner";
 import { PhotoPicker } from "@/components/PhotoPicker";
 import { createBooking, listMyBookings, cancelMyBooking } from "@/lib/bookings.functions";
 import { isAdmin } from "@/lib/admin.functions";
+import { ratesFor } from "@/lib/prices";
 
 
 export const Route = createFileRoute("/book")({
@@ -412,7 +413,7 @@ function BookPage() {
       toast.success(
         res.confirmed
           ? "🎾 Group confirmed! A confirmation email is on its way."
-          : `⏳ Pre-booked (${res.count ?? 1}/${groupMin(selectedSlot.start)}). The session is confirmed automatically once ${groupMin(selectedSlot.start)} students of your level join.`,
+          : `⏳ Booked (${res.count ?? 1}/${groupMin(selectedSlot.start)}). The session is confirmed automatically once ${groupMin(selectedSlot.start)} students of your level join.`,
       );
       setSelectedSlot(null);
       await loadBookings();
@@ -795,7 +796,7 @@ function BookPage() {
               +49 176 45689622 · WhatsApp preferred
             </a>
             <a
-              href="mailto:chaouchyoucef@yahoo.com?subject=Winter%20season%20pre-booking"
+              href="mailto:chaouchyoucef@yahoo.com?subject=Winter%20season"
               className="px-6 py-4 text-center rounded-2xl border-2 border-ink/15 font-semibold hover:bg-ball/40 transition"
             >
               Send an email

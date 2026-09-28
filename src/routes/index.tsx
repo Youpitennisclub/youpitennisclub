@@ -147,82 +147,39 @@ function Index() {
           Pick your <span className="text-court">game</span>
         </h2>
 
-        <div className="grid lg:grid-cols-3 gap-6">
-          {/* Squad 90 min & Squad 60 min side by side (span 2 cols on lg) */}
-          <div className="lg:col-span-2 grid md:grid-cols-2 gap-6">
-            {[
-              {
-                title: "Group · 90 min",
-                price: "€19–37",
-                desc: "Full session for technique, tactics and match play. The bigger the squad, the cheaper per player.",
-                color: "bg-pink",
-                icon: "👯",
-                rates: [
-                  { n: "2 players", p: "€37" },
-                  { n: "3 players", p: "€28" },
-                  { n: "4 players", p: "€25" },
-                  { n: "5 players", p: "€22" },
-                  { n: "6 players", p: "€19" },
-                ],
-              },
-              {
-                title: "Group · 60 min",
-                price: "€13–25",
-                desc: "Shorter, punchier version — great for lunch breaks or a quick after-work hit.",
-                color: "bg-court",
-                icon: "⚡",
-                rates: [
-                  { n: "2 players", p: "€25" },
-                  { n: "3 players", p: "€19" },
-                  { n: "4 players", p: "€17" },
-                  { n: "5 players", p: "€15" },
-                  { n: "6 players", p: "€13" },
-                ],
-              },
-            ].map((l) => (
-              <article key={l.title} className="group relative p-6 sm:p-7 rounded-3xl bg-card border-2 border-ink/10 hover:border-ink transition hover:-translate-y-1 duration-300">
+        <p className="text-muted-foreground mb-6 max-w-2xl">
+          Winter season bookings are open! Group sessions of 1 hour — price per person, depending on the club, the time and the group size.
+        </p>
+        <div className="grid md:grid-cols-2 gap-6">
+          {([
+            { venue: "alemannia", club: "BFC Alemannia", hour: 10, color: "bg-navy", icon: "☀️" },
+            { venue: "alemannia", club: "BFC Alemannia", hour: 17, color: "bg-navy", icon: "🌙" },
+            { venue: "longline", club: "TC Longline", hour: 10, color: "bg-court", icon: "☀️" },
+            { venue: "longline", club: "TC Longline", hour: 17, color: "bg-court", icon: "🌙" },
+          ] as const).map((l) => {
+            const r = ratesFor(l.venue, l.hour);
+            return (
+              <article key={l.club + l.hour} className="relative min-w-0 p-6 sm:p-7 rounded-3xl bg-card border-2 border-ink/10 hover:border-ink transition">
                 <div className={`absolute -top-4 -right-2 sm:-right-5 w-14 h-14 sm:w-16 sm:h-16 rounded-full ${l.color} grid place-items-center text-2xl sm:text-3xl shadow-lg`}>
                   {l.icon}
                 </div>
-                <div className="text-xs uppercase tracking-widest font-semibold text-clay mb-3">Squad</div>
-                <h3 className="text-2xl sm:text-3xl mb-3 break-words pr-12">{l.title}</h3>
-                <p className="text-muted-foreground mb-6">{l.desc}</p>
-                <div className="flex items-baseline gap-1">
-                  <span className="font-display text-4xl">{l.price}</span>
-                  <span className="text-sm text-muted-foreground">/ pers</span>
-                </div>
-                <ul className="mt-5 rounded-2xl bg-ball/30 border-2 border-ink/10 p-4 space-y-1.5">
-                  {l.rates.map((r) => (
-                    <li key={r.n} className="flex justify-between gap-3 text-sm">
-                      <span className="text-ink/70 font-medium">{r.n}</span>
-                      <span className="font-display text-ink shrink-0">{r.p} / pers</span>
+                <div className="text-xs uppercase tracking-widest font-semibold text-clay mb-3">Group · 60 min</div>
+                <h3 className="text-2xl sm:text-3xl mb-1 break-words pr-12">{l.club}</h3>
+                <p className="text-muted-foreground mb-4">{r.period}</p>
+                <ul className="rounded-2xl bg-ball/30 border-2 border-ink/10 p-4 space-y-1.5">
+                  {r.rates.map((x) => (
+                    <li key={x.n} className="flex justify-between gap-3 text-sm">
+                      <span className="text-ink/70 font-medium">{x.n}</span>
+                      <span className="font-display text-ink shrink-0">{x.p} / pers</span>
                     </li>
                   ))}
                 </ul>
+                {r.nonMemberExtra > 0 && (
+                  <p className="mt-3 text-xs text-muted-foreground">Non-members: +€{r.nonMemberExtra} per person</p>
+                )}
               </article>
-            ))}
-          </div>
-
-          {/* Right column: Duo + Solo stacked */}
-          <div className="flex flex-col gap-6">
-            {[
-              { tag: "Duo", title: "2-player · 60 min", price: "€25", desc: "Just two of you? Same energy, focused hour on court. Perfect with a friend or partner.", color: "bg-court", icon: "⚡", unit: "/ pers" },
-              { tag: "Solo", title: "Private 1-on-1", price: "€50", desc: "60 min of focused coaching — beginner to advanced. Technique, tactics, match prep.", color: "bg-ball", icon: "🎾", unit: "/ session" },
-            ].map((l) => (
-              <article key={l.title} className="group relative p-6 sm:p-7 rounded-3xl bg-card border-2 border-ink/10 hover:border-ink transition hover:-translate-y-1 duration-300 flex-1">
-                <div className={`absolute -top-4 -right-2 sm:-right-5 w-14 h-14 sm:w-16 sm:h-16 rounded-full ${l.color} grid place-items-center text-2xl sm:text-3xl shadow-lg`}>
-                  {l.icon}
-                </div>
-                <div className="text-xs uppercase tracking-widest font-semibold text-clay mb-3">{l.tag}</div>
-                <h3 className="text-2xl sm:text-3xl mb-3 break-words pr-12">{l.title}</h3>
-                <p className="text-muted-foreground mb-6">{l.desc}</p>
-                <div className="flex items-baseline gap-1">
-                  <span className="font-display text-4xl">{l.price}</span>
-                  <span className="text-sm text-muted-foreground">{l.unit}</span>
-                </div>
-              </article>
-            ))}
-          </div>
+            );
+          })}
         </div>
       </section>
 
@@ -560,7 +517,7 @@ function Index() {
                 <li className="flex gap-2"><span className="text-sky">✓</span> Based on your wishes &amp; availability</li>
               </ul>
               <p className="mt-4 text-sm text-background/70">
-                Prices will be visible as soon as I have organized the groups.
+                Winter season bookings are open — see the prices per club and time in “Pick your game”.
               </p>
             </div>
 
@@ -589,7 +546,7 @@ function Index() {
             </article>
 
             <Link to="/book" className="block text-center mt-6 px-7 py-4 rounded-full bg-violet text-violet-foreground font-semibold hover:opacity-90 transition">
-              Pre-Book Your Winter Season →
+              Book Your Winter Season →
             </Link>
           </div>
         </div>
