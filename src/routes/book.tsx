@@ -149,8 +149,6 @@ function buildSlotsForDate(date: Date): Slot[] {
     d.setHours(h, 0, 0, 0);
     slots.push({ start: d, duration: 60, level: "open" });
   }
-  {
-
   if (isCampDay) {
     const camp = new Date(date);
     camp.setHours(18, 30, 0, 0);
