@@ -18,6 +18,7 @@ export type Database = {
         Row: {
           cancel_token: string
           cancelled_at: string | null
+          confirmed_at: string | null
           created_at: string
           email: string
           first_name: string
@@ -32,6 +33,7 @@ export type Database = {
         Insert: {
           cancel_token?: string
           cancelled_at?: string | null
+          confirmed_at?: string | null
           created_at?: string
           email: string
           first_name: string
@@ -46,6 +48,7 @@ export type Database = {
         Update: {
           cancel_token?: string
           cancelled_at?: string | null
+          confirmed_at?: string | null
           created_at?: string
           email?: string
           first_name?: string
@@ -100,6 +103,7 @@ export type Database = {
       get_public_bookings: {
         Args: { from_ts: string }
         Returns: {
+          confirmed: boolean
           first_name: string
           last_initials: string
           level: Database["public"]["Enums"]["tennis_level"]
