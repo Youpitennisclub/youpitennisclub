@@ -26,6 +26,15 @@ export async function verifyAccountPassword(email: string, password: string) {
   return !error && !!data.user;
 }
 
+export type Venue = "alemannia" | "longline";
+
+const VENUE_NAME: Record<Venue, string> = {
+  alemannia: "BFC Alemannia",
+  longline: "TC Longline",
+};
+/** Pretty club name for emails. */
+const vn = (v: Venue) => VENUE_NAME[v] ?? v;
+
 export type Level = "total_beginner" | "beginner" | "intermediate" | "advanced";
 
 const LEVEL_NAME: Record<Level, string> = {

@@ -12,6 +12,7 @@ const bookingSchema = z.object({
   photo_url: z.string().max(400000).nullable().optional(),
   duration: z.number().int().min(30).max(240),
   camp: z.boolean().optional(),
+  venue: z.enum(["alemannia", "longline"]).default("alemannia"),
 });
 
 export const createBooking = createServerFn({ method: "POST" })
