@@ -661,6 +661,7 @@ function BookPage() {
             )}
 
             {/* MY BOOKINGS */}
+            {unlocked && (
             <div className="mt-8 rounded-3xl bg-card border-2 border-ink p-5 sm:p-7">
               <div className="flex flex-wrap items-center justify-between gap-3">
                 <h3 className="font-display text-xl sm:text-2xl uppercase">My bookings</h3>
