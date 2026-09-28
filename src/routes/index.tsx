@@ -488,7 +488,7 @@ function Index() {
                 <p className="text-sm text-ink/70 mt-3">Friday indoor at TC Longline.</p>
                 <p className="mt-4 rounded-xl bg-sky/15 p-3 text-sm text-ink/80">
                   Flexible with work? You can book a weekday court at TC Longline on Friday between
-                  <strong> 11:00 and 17:00</strong> in a group of two students.
+                  <strong> 11:00 and 15:00</strong> in a group of two students — from 15:00, groups of four.
                 </p>
               </article>
 

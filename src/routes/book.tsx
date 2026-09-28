@@ -131,7 +131,9 @@ function groupMin(start: Date) {
   const day = start.getDay();
   const weekend = day === 0 || day === 6;
   if (weekend) return 4;
-  return start.getHours() < 18 ? 2 : 4;
+  const h = start.getHours();
+  // Late afternoon (15:00–17:00) needs a full group of 4.
+  return h >= 15 ? 4 : 2;
 }
 
 function buildSlotsForDate(date: Date): Slot[] {
@@ -487,8 +489,8 @@ function BookPage() {
         </h1>
         <p className="mt-4 max-w-xl text-base sm:text-lg text-muted-foreground">
           <b className="text-ink">Winter season bookings are open!</b> 1-hour sessions at BFC Alemannia and TC Longline. Pick your level and book — the session is confirmed automatically when enough students of the same level join:{" "}
-          <b className="text-ink">2 students</b> on weekdays before 18:00,{" "}
-          <b className="text-ink">4 students</b> on weekdays from 18:00 and on weekends. Intermediate and Advanced can play together.
+          <b className="text-ink">2 students</b> on weekdays before 15:00,{" "}
+          <b className="text-ink">4 students</b> on weekdays from 15:00 and on weekends. Intermediate and Advanced can play together.
         </p>
         <div className="mt-5 flex flex-wrap gap-2 text-xs font-bold uppercase tracking-wide">
           {(["total_beginner", "beginner", "intermediate", "advanced"] as Level[]).map((lv) => (
