@@ -131,6 +131,7 @@ type MyBooking = {
   id: string;
   starts_at: string;
   level: Level;
+  venue?: Venue;
   cancellable: boolean;
 };
 
@@ -158,17 +159,19 @@ function buildSlotsForDate(date: Date): Slot[] {
   const slots: Slot[] = [];
   const isCampDay = CAMP_DAYS.includes(ymd(date));
 
-  // 1-hour slots, only at BFC Alemannia & TC Longline available hours.
-  for (const h of VENUE_HOURS[day] ?? []) {
-    if (isCampDay && h >= 18) continue;
-    const d = new Date(date);
-    d.setHours(h, 0, 0, 0);
-    slots.push({ start: d, duration: 60, level: "open" });
+  // 1-hour slots, only at the hours each club actually has free.
+  for (const { club, hours } of CLUB_HOURS[day] ?? []) {
+    for (const h of hours) {
+      if (isCampDay && h >= 18) continue;
+      const d = new Date(date);
+      d.setHours(h, 0, 0, 0);
+      slots.push({ start: d, duration: 60, level: "open", venue: club });
+    }
   }
   if (isCampDay) {
     const camp = new Date(date);
     camp.setHours(18, 30, 0, 0);
-    slots.push({ start: camp, duration: 120, level: "open", camp: true });
+    slots.push({ start: camp, duration: 120, level: "open", venue: "alemannia", camp: true });
   }
 
   return slots.sort((a, b) => a.start.getTime() - b.start.getTime());
@@ -412,6 +415,7 @@ function BookPage() {
         data: {
           starts_at: selectedSlot.start.toISOString(),
           level,
+          venue: selectedSlot.venue,
           first_name: firstName.trim(),
           last_name: lastName.trim(),
           email: email.trim(),
