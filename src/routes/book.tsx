@@ -373,6 +373,10 @@ function BookPage() {
       setCampInfo(slot);
       return;
     }
+    if (!unlocked) {
+      toast.error("Sign in to book this slot — use the sign-in button above the calendar.");
+      return;
+    }
     if (slot.level !== "open") setLevel(slot.level);
     setSelectedSlot(slot);
   };
