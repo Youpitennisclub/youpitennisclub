@@ -357,9 +357,8 @@ function BookPage() {
   };
 
   useEffect(() => {
-    if (!unlocked) return;
     loadBookings();
-    loadMyBookings();
+    if (unlocked) loadMyBookings();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [unlocked]);
 
@@ -372,6 +371,10 @@ function BookPage() {
   const openSlot = (slot: Slot) => {
     if (slot.camp) {
       setCampInfo(slot);
+      return;
+    }
+    if (!unlocked) {
+      toast.error("Sign in to book this slot — use the sign-in button above the calendar.");
       return;
     }
     if (slot.level !== "open") setLevel(slot.level);
@@ -491,40 +494,29 @@ function BookPage() {
         </div>
       </section>
 
-      {/* ACCOUNT GATE */}
-      {!unlocked ? (
-        <section className="max-w-xl mx-auto px-5 sm:px-6 pb-24">
-          <div className="rounded-3xl bg-card border-2 border-ink p-5 sm:p-8 shadow-lg">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-ball text-ink text-xs font-semibold uppercase tracking-widest mb-4">
-              🔒 Students only
+      {/* SIGN-IN INVITE (the calendar itself stays open to everyone) */}
+      {!unlocked && !checkingAuth && (
+        <section className="max-w-6xl mx-auto px-5 sm:px-6 pb-2">
+          <div className="rounded-3xl bg-card border-2 border-ink p-5 sm:p-6 shadow-lg grid gap-3 sm:flex sm:items-center sm:justify-between">
+            <div className="min-w-0">
+              <h2 className="font-display text-xl sm:text-2xl uppercase break-words">
+                Browse the calendar freely
+              </h2>
+              <p className="text-muted-foreground text-sm mt-1 break-words">
+                Sign in only when you want to book or cancel a session.
+              </p>
             </div>
-            <h2 className="font-display text-2xl sm:text-3xl uppercase mb-2 break-words">
-              Sign in to see the calendar
-            </h2>
-            <p className="text-muted-foreground mb-6 text-sm">
-              With your own student account you book in two clicks and you can cancel your own
-              sessions — and only yours — up to 24h before they start.
-            </p>
-            {checkingAuth ? (
-              <div className="text-muted-foreground text-sm">Checking your session…</div>
-            ) : (
-              <div className="grid gap-3">
-                <Link
-                  to="/auth"
-                  className="px-7 py-4 rounded-2xl bg-violet text-violet-foreground font-semibold text-lg text-center hover:opacity-90 transition"
-                >
-                  Sign in / Create my account 🎾
-                </Link>
-                <p className="text-xs text-muted-foreground">
-                  Your info is used only to contact you about your bookings.
-                </p>
-              </div>
-            )}
+            <Link
+              to="/auth"
+              className="shrink-0 px-6 py-3.5 rounded-2xl bg-violet text-violet-foreground font-semibold text-center hover:opacity-90 transition"
+            >
+              Sign in / Create my account 🎾
+            </Link>
           </div>
         </section>
+      )}
 
-      ) : (
-        <>
+      <>
           {/* CALENDAR */}
           <section className="max-w-6xl mx-auto px-5 sm:px-6 pb-16">
             <div className="grid gap-3 mb-4 md:flex md:items-end md:justify-between">
@@ -669,6 +661,7 @@ function BookPage() {
             )}
 
             {/* MY BOOKINGS */}
+            {unlocked && (
             <div className="mt-8 rounded-3xl bg-card border-2 border-ink p-5 sm:p-7">
               <div className="flex flex-wrap items-center justify-between gap-3">
                 <h3 className="font-display text-xl sm:text-2xl uppercase">My bookings</h3>
@@ -722,6 +715,7 @@ function BookPage() {
                 </ul>
               )}
             </div>
+            )}
 
 
 
@@ -744,7 +738,6 @@ function BookPage() {
             </div>
           </section>
         </>
-      )}
 
       {/* WINTER MODAL */}
       {winterOpen && (
