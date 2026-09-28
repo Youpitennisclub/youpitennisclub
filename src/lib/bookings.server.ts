@@ -110,7 +110,7 @@ export async function createBookingRecord(input: {
   const where = vn(input.venue);
   const name = `${input.first_name} ${input.last_name}`;
 
-  // Pre-booking: count active students of the same level on this slot.
+  // Count active students of the same level already booked on this slot.
   const { data: group, error: gErr } = await supabaseAdmin
     .from("bookings")
     .select("id, first_name, last_name, email, confirmed_at")
@@ -161,10 +161,10 @@ export async function createBookingRecord(input: {
 
   await sendMail({
     to: coachEmail(),
-    subject: `PRE-BOOKING ⏳ ${count}/${GROUP_MIN} — ${where} — ${name} — ${when}`,
+    subject: `BOOKING ⏳ ${count}/${GROUP_MIN} — ${where} — ${name} — ${when}`,
     replyTo: input.email,
     html: wrap(
-      "PRE-BOOKING",
+      "BOOKING RECEIVED — waiting for players",
       `<p style="font-size:20px"><b>${when}</b><br/>📍 ${where}<br/>${input.duration} minutes · ${lv(input.level)} · ${count}/${GROUP_MIN}</p>
        <p style="font-size:17px;line-height:1.7">
        <b>Name:</b> ${name}<br/><b>Phone:</b> ${input.phone}<br/><b>Email:</b> ${input.email}</p>`,
@@ -172,12 +172,12 @@ export async function createBookingRecord(input: {
   });
   await sendMail({
     to: input.email,
-    subject: `PRE-BOOKING ⏳ — ${where} — ${when}`,
+    subject: `BOOKING RECEIVED ⏳ — ${where} — ${when}`,
     replyTo: coachEmail(),
     html: wrap(
-      "Pre-booking received",
+      "Booking received",
       `<p style="font-size:20px"><b>${when}</b><br/>📍 ${where}<br/>${lv(input.level)} group · ${count}/${GROUP_MIN} players</p>
-       <p>As soon as ${GROUP_MIN} students of your level pre-book this slot, the session is confirmed automatically and you'll get an email.</p>
+       <p>As soon as ${GROUP_MIN} students of your level book this slot, the session is confirmed automatically and you'll get an email.</p>
        <p><a href="${siteUrl()}/book">${siteUrl()}/book</a></p>`,
     ),
   });

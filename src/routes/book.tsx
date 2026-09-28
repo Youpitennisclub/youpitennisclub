@@ -81,10 +81,7 @@ const CLUB_HOURS: Record<number, { club: Venue; hours: number[] }[]> = {
   3: [{ club: "alemannia", hours: [14, 15, 16] }], // Wed — BFC Alemannia 14–17h
   4: [{ club: "alemannia", hours: [12, 13, 14] }], // Thu — BFC Alemannia 12–15h
   5: [{ club: "longline", hours: [11, 12, 13, 14, 15, 16] }], // Fri — TC Longline 11–17h
-  6: [
-    { club: "alemannia", hours: [8, 9, 10, 13, 14] }, // Sat — BFC Alemannia 08–11h & 13–15h
-    { club: "longline", hours: [14, 15, 16] }, // Sat — TC Longline 14–17h
-  ],
+  6: [{ club: "alemannia", hours: [8, 9, 10, 13, 14] }], // Sat — BFC Alemannia 08–11h & 13–15h
 };
 
 /** Summer camp: 18:30–20:30 (2h), 2 coaches, groups of 4–6. */
@@ -544,7 +541,7 @@ function BookPage() {
               <div className="min-w-0">
                 <h2 className="font-display text-xl sm:text-2xl uppercase break-words">
                   Available slots{" "}
-                  <span className="text-muted-foreground text-base normal-case">(Summer season)</span>
+                  <span className="text-muted-foreground text-base normal-case">(Winter season)</span>
                 </h2>
                 <p className="text-xs text-muted-foreground mt-1">
                   Every slot shows its club:{" "}
