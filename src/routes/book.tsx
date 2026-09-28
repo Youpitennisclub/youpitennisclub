@@ -622,7 +622,7 @@ function BookPage() {
                             const past = isPast(slot);
                             return (
                               <button
-                                key={slot.start.toISOString()}
+                                key={`${slot.start.toISOString()}-${slot.venue}-${slot.camp ? "camp" : "lesson"}`}
                                 type="button"
                                 onClick={() => openSlot(slot)}
                                 disabled={full || past}
