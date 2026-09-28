@@ -557,6 +557,10 @@ function BookPage() {
                   <span className="font-semibold text-navy">navy = BFC Alemannia</span>,{" "}
                   <span className="font-semibold text-court">green = TC Longline</span>.
                 </p>
+                <p className="text-xs text-muted-foreground mt-1">
+                  Winter season:{" "}
+                  <span className="font-semibold text-ink">7 Oct 2026 → 4 Apr 2027</span>.
+                </p>
               </div>
               <div className="flex gap-2 shrink-0">
                 <button
