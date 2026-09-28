@@ -499,7 +499,7 @@ function Index() {
                 </div>
                 <div className="space-y-2">
                   <div translate="no" className="notranslate text-2xl font-display text-violet">Mo · Di · Do · Fr · 20–22 Uhr</div>
-                  <div translate="no" className="notranslate text-2xl font-display text-violet">Sa · 08–11 Uhr &amp; 13–15 Uhr</div>
+                  <div translate="no" className="notranslate text-2xl font-display text-violet">Sa · 09–11 Uhr &amp; 13–15 Uhr</div>
                 </div>
                 <p className="text-sm text-ink/70 mt-3">Weekday evenings + Saturday morning &amp; afternoon at our home base.</p>
               </article>

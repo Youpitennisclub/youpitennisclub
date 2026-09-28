@@ -81,7 +81,7 @@ const CLUB_HOURS: Record<number, { club: Venue; hours: number[] }[]> = {
   3: [{ club: "alemannia", hours: [14, 15, 16] }], // Wed — BFC Alemannia 14–17h
   4: [{ club: "alemannia", hours: [12, 13, 14] }], // Thu — BFC Alemannia 12–15h
   5: [{ club: "longline", hours: [11, 12, 13, 14, 15, 16] }], // Fri — TC Longline 11–17h
-  6: [{ club: "alemannia", hours: [8, 9, 10, 13, 14] }], // Sat — BFC Alemannia 08–11h & 13–15h
+  6: [{ club: "alemannia", hours: [9, 10, 13, 14] }], // Sat — BFC Alemannia 09–11h & 13–15h
 };
 
 /** Summer camp: 18:30–20:30 (2h), 2 coaches, groups of 4–6. */
