@@ -1,2 +1,4 @@
-- [x] Admin access (preview auto + secret link)
-- [x] 1h slots daily, none until Oct 6, auto-confirm 2 (weekday <18h) / 4 otherwise, Inter+Adv merged
+# Roadmap
+
+- [ ] Clarifier les lieux dans le calendrier avec des codes couleurs (BFC Alemannia / TC Longline)
+- [ ] Afficher les compteurs de groupe « 0/4 » partout (min de groupe, pas la capacité 6)
