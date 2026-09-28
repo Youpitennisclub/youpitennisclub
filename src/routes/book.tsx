@@ -125,6 +125,8 @@ function ymd(d: Date) {
 
 /** No slots up to and including this date. */
 const FIRST_OPEN_DAY = "2026-10-07";
+/** Last day of the winter season — slots are listed up to and including this date. */
+const SEASON_END = new Date("2027-04-04T23:59:59");
 
 /** Minimum students of the same level to confirm a slot. */
 function groupMin(start: Date) {
@@ -335,16 +337,21 @@ function BookPage() {
   };
 
 
-  const SUMMER_END = new Date("2026-10-15T00:00:00");
   const days = useMemo(() => {
     const arr: Date[] = [];
     for (let i = 0; i < 14; i++) {
       const d = new Date(weekStart);
       d.setDate(d.getDate() + i);
-      if (d.getTime() >= SUMMER_END.getTime()) break;
+      if (d.getTime() > SEASON_END.getTime()) break;
       arr.push(d);
     }
     return arr;
+  }, [weekStart]);
+
+  const nextWeekStart = useMemo(() => {
+    const d = new Date(weekStart);
+    d.setDate(d.getDate() + 7);
+    return d;
   }, [weekStart]);
 
   const loadBookings = async () => {
@@ -490,7 +497,22 @@ function BookPage() {
         <p className="mt-4 max-w-xl text-base sm:text-lg text-muted-foreground">
           <b className="text-ink">Winter season bookings are open!</b> 1-hour sessions at BFC Alemannia and TC Longline. Pick your level and book — the session is confirmed automatically when enough students of the same level join:{" "}
           <b className="text-ink">2 students</b> on weekdays before 15:00,{" "}
-          <b className="text-ink">4 students</b> on weekdays from 15:00 and on weekends. Intermediate and Advanced can play together.
+          <b className="text-ink">4 students</b> on weekdays from 15:00 and on weekends. Intermediate and Advanced can play together. I can also train you in a group of{" "}
+          <b className="text-ink">3 students</b> — for a private lesson, contact me directly on{" "}
+          <a
+            href="https://wa.me/4917645689622"
+            className="text-court font-semibold hover:underline break-all"
+          >
+            WhatsApp
+          </a>{" "}
+          or by{" "}
+          <a
+            href="mailto:chaouchyoucef@yahoo.com"
+            className="text-clay font-semibold hover:underline break-all"
+          >
+            email
+          </a>
+          .
         </p>
         <div className="mt-5 flex flex-wrap gap-2 text-xs font-bold uppercase tracking-wide">
           {(["total_beginner", "beginner", "intermediate", "advanced"] as Level[]).map((lv) => (
@@ -550,6 +572,10 @@ function BookPage() {
                   <span className="font-semibold text-navy">navy = BFC Alemannia</span>,{" "}
                   <span className="font-semibold text-court">green = TC Longline</span>.
                 </p>
+                <p className="text-xs text-muted-foreground mt-1">
+                  Winter season:{" "}
+                  <span className="font-semibold text-ink">7 Oct 2026 → 4 Apr 2027</span>.
+                </p>
               </div>
               <div className="flex gap-2 shrink-0">
                 <button
@@ -566,11 +592,11 @@ function BookPage() {
                 </button>
                 <button
                   onClick={() => {
-                    const d = new Date(weekStart);
-                    d.setDate(d.getDate() + 7);
-                    setWeekStart(d);
+                    if (nextWeekStart.getTime() > SEASON_END.getTime()) return;
+                    setWeekStart(nextWeekStart);
                   }}
-                  className="flex-1 md:flex-none px-4 py-2.5 rounded-full border-2 border-ink/15 text-sm font-semibold hover:bg-ball/40 transition"
+                  className="flex-1 md:flex-none px-4 py-2.5 rounded-full border-2 border-ink/15 text-sm font-semibold hover:bg-ball/40 transition disabled:opacity-40"
+                  disabled={nextWeekStart.getTime() > SEASON_END.getTime()}
                 >
                   Next →
                 </button>
