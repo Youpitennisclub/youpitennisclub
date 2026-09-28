@@ -4,6 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { PhotoPicker } from "@/components/PhotoPicker";
 import { createBooking, listMyBookings, cancelMyBooking } from "@/lib/bookings.functions";
+import { isAdmin } from "@/lib/admin.functions";
 
 
 export const Route = createFileRoute("/book")({
@@ -275,6 +276,17 @@ function BookPage() {
     setEmail(user.email ?? "");
     setUnlocked(true);
   };
+
+  // Admin: auto-access in the Lovable editor preview, or via the secret admin link cookie.
+  const [adminView, setAdminView] = useState(false);
+  useEffect(() => {
+    const h = window.location.hostname;
+    if (h.startsWith("id-preview--") || h === "localhost") setAdminView(true);
+    isAdmin().then((r) => r.admin && setAdminView(true)).catch(() => {});
+  }, []);
+  useEffect(() => {
+    if (adminView && !checkingAuth) setUnlocked(true);
+  }, [adminView, checkingAuth]);
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data }) => {
