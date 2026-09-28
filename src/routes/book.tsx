@@ -59,21 +59,15 @@ const LEVEL_STYLE: Record<SlotLevel, string> = {
   open: "bg-background text-ink border-ink/15 hover:bg-ink/5",
 };
 
-/** Level rotation for the 18:00 weekday group. */
-const WEEKDAY_LEVELS: Record<number, Level> = {
-  1: "beginner",
-  2: "intermediate",
-  3: "advanced",
-  4: "total_beginner",
-  5: "intermediate",
+/** Available court hours (1h slots), per weekday — BFC Alemannia & TC Longline only. */
+const VENUE_HOURS: Record<number, number[]> = {
+  1: [13, 14, 15], // Mon — BFC Alemannia 13–16h
+  2: [12, 13, 14], // Tue — BFC Alemannia 12–15h
+  3: [14, 15, 16], // Wed — BFC Alemannia 14–17h
+  4: [12, 13, 14], // Thu — BFC Alemannia 12–15h
+  5: [11, 12, 13, 14, 15, 16], // Fri — TC Longline 11–17h
+  6: [8, 9, 10, 13, 14, 15, 16], // Sat — BFC Alemannia 08–11h & 13–15h, TC Longline 14–17h
 };
-const SAT_LEVELS: Level[] = ["total_beginner", "beginner", "intermediate", "advanced"];
-
-/** Friday has its own fixed schedule. */
-const FRIDAY: { h: number; m: number; duration: number; level: Level }[] = [
-  { h: 16, m: 30, duration: 90, level: "advanced" },
-  { h: 18, m: 0, duration: 90, level: "intermediate" },
-];
 
 /** Summer camp: 18:30–20:30 (2h), 2 coaches, groups of 4–6. */
 const CAMP_DAYS = ["2026-08-17", "2026-08-18", "2026-08-20"];
@@ -139,11 +133,9 @@ function buildSlotsForDate(date: Date): Slot[] {
 
   const slots: Slot[] = [];
   const isCampDay = CAMP_DAYS.includes(ymd(date));
-  const weekend = day === 0 || day === 6;
 
-  // 1-hour slots every day. Weekdays 09:00–20:00, weekends 10:00–17:00.
-  const [from, to] = weekend ? [10, 16] : [9, 19];
-  for (let h = from; h <= to; h++) {
+  // 1-hour slots, only at BFC Alemannia & TC Longline available hours.
+  for (const h of VENUE_HOURS[day] ?? []) {
     if (isCampDay && h >= 18) continue;
     const d = new Date(date);
     d.setHours(h, 0, 0, 0);
