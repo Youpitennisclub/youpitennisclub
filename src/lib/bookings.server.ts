@@ -39,7 +39,17 @@ const lv = (l: Level) => LEVEL_NAME[l] ?? l;
 
 const CANCEL_WINDOW_MS = 24 * 60 * 60 * 1000;
 /** Students of the same level needed on a slot before it is confirmed. */
-const GROUP_MIN = 4;
+function groupMinFor(iso: string) {
+  const parts = new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/Berlin", weekday: "short", hour: "2-digit", hour12: false }).formatToParts(new Date(iso));
+  const wd = parts.find((p) => p.type === "weekday")?.value;
+  const h = Number(parts.find((p) => p.type === "hour")?.value);
+  if (wd === "Sat" || wd === "Sun") return 4;
+  return h < 18 ? 2 : 4;
+}
+/** Intermediate and Advanced can form a group together. */
+function levelGroup(l: Level): Level[] {
+  return l === "intermediate" || l === "advanced" ? ["intermediate", "advanced"] : [l];
+}
 
 function fmt(dt: string) {
   return new Date(dt).toLocaleString("en-GB", {
@@ -93,10 +103,11 @@ export async function createBookingRecord(input: {
     .from("bookings")
     .select("id, first_name, last_name, email, confirmed_at")
     .eq("starts_at", input.starts_at)
-    .eq("level", input.level)
+    .in("level", levelGroup(input.level))
     .is("cancelled_at", null);
   if (gErr) throw new Error(gErr.message);
   const members = group ?? [];
+  const GROUP_MIN = groupMinFor(input.starts_at);
   const count = members.length;
   const alreadyConfirmed = members.some((m) => m.confirmed_at && m.id !== data.id);
 

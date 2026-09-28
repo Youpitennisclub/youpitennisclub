@@ -126,7 +126,7 @@ function ymd(d: Date) {
 const FIRST_OPEN_DAY = "2026-10-07";
 
 /** Minimum students of the same level to confirm a slot. */
-export function groupMin(start: Date) {
+function groupMin(start: Date) {
   const day = start.getDay();
   const weekend = day === 0 || day === 6;
   if (weekend) return 4;
