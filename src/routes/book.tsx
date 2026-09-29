@@ -246,9 +246,6 @@ function BookPage() {
     if (h.startsWith("id-preview--") || h === "localhost") setAdminView(true);
     isAdmin().then((r) => r.admin && setAdminView(true)).catch(() => {});
   }, []);
-  useEffect(() => {
-    if (adminView && !checkingAuth) setUnlocked(true);
-  }, [adminView, checkingAuth]);
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data }) => {
@@ -519,7 +516,7 @@ function BookPage() {
       </section>
 
       {/* SIGN-IN GATE — students must sign in to see the calendar */}
-      {!unlocked && !checkingAuth && (
+      {!unlocked && !adminView && !checkingAuth && (
         <section className="max-w-6xl mx-auto px-5 sm:px-6 pb-16">
           <div className="rounded-3xl bg-card border-2 border-ink p-5 sm:p-6 shadow-lg grid gap-3 sm:flex sm:items-center sm:justify-between">
             <div className="min-w-0">
@@ -540,7 +537,7 @@ function BookPage() {
         </section>
       )}
 
-      {unlocked && (
+      {(unlocked || adminView) && (
       <>
           {/* CALENDAR */}
           <section className="max-w-6xl mx-auto px-5 sm:px-6 pb-16">
