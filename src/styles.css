@@ -45,6 +45,8 @@
   --color-violet-foreground: var(--violet-foreground);
   --color-sky: var(--sky);
   --color-navy: var(--navy);
+  --color-azure: var(--azure);
+  --color-azure-soft: var(--azure-soft);
 }
 
 :root {
@@ -68,6 +70,8 @@
   --violet-foreground: oklch(0.99 0.01 80);
   --sky: oklch(0.82 0.11 230);                 /* sky blue */
   --navy: oklch(0.28 0.10 255);                /* dark blue */
+  --azure: oklch(0.53 0.17 248);               /* azure blue (secondary accent) */
+  --azure-soft: oklch(0.95 0.035 245);         /* pale azure tint */
 
   --popover: oklch(1 0 0);
   --popover-foreground: var(--ink);
@@ -95,7 +99,8 @@
     color: var(--color-foreground);
     font-family: var(--font-sans);
     background-image:
-      radial-gradient(circle at 88% 92%, oklch(0.62 0.18 40 / 0.06), transparent 45%);
+      radial-gradient(circle at 88% 92%, oklch(0.62 0.18 40 / 0.07), transparent 45%),
+      radial-gradient(circle at 6% 4%, oklch(0.53 0.17 248 / 0.08), transparent 42%);
     background-attachment: fixed;
     overflow-wrap: anywhere;
   }

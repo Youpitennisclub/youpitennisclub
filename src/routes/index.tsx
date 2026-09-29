@@ -83,11 +83,11 @@ function Index() {
             <span translate="no" className="notranslate min-w-0 break-words">Youpi Tennis Club</span>
           </a>
           <nav className="hidden lg:flex items-center gap-7 text-sm font-medium">
-            <a href="#offers" className="hover:text-clay transition">Offers</a>
-             <a href="#past-events" className="hover:text-clay transition">Past events</a>
-            <a href="#club" className="hover:text-clay transition">Club</a>
-            <a href="#coach" className="hover:text-clay transition">Coach</a>
-            <a href="#faq" className="hover:text-clay transition">FAQ</a>
+            <a href="#offers" className="hover:text-azure transition">Offers</a>
+             <a href="#past-events" className="hover:text-azure transition">Past events</a>
+            <a href="#club" className="hover:text-azure transition">Club</a>
+            <a href="#coach" className="hover:text-azure transition">Coach</a>
+            <a href="#faq" className="hover:text-azure transition">FAQ</a>
           </nav>
           <div className="flex shrink-0 items-center gap-2 sm:gap-3">
             <LanguageSwitcher />
@@ -109,7 +109,7 @@ function Index() {
             <h1 className="text-[clamp(2.25rem,8vw,5rem)] font-display uppercase break-words">
               Tennis <span className="text-clay">without borders.</span>
             </h1>
-            <p className="mt-4 font-display text-xl sm:text-2xl uppercase leading-tight">Learn, play &amp; connect in Berlin.</p>
+            <p className="mt-4 font-display text-xl sm:text-2xl uppercase leading-tight text-azure">Learn, play &amp; connect in Berlin.</p>
             <p className="mt-5 max-w-xl text-base sm:text-lg text-muted-foreground">
               Multicultural tennis lessons in English, French and German. From total beginner to advanced — without the rigidity of traditional clubs.
             </p>
@@ -117,7 +117,7 @@ function Index() {
               <Link to="/book" className="px-7 py-4 rounded-full bg-violet text-violet-foreground font-semibold shadow-lg hover:opacity-90 transition">
                 Book your lesson 🎾
               </Link>
-              <a href="#offers" className="px-7 py-4 rounded-full border-2 border-ink/15 font-semibold hover:border-clay hover:text-clay transition">
+              <a href="#offers" className="px-7 py-4 rounded-full border-2 border-ink/15 font-semibold hover:border-azure hover:text-azure transition">
                 See offers →
               </a>
             </div>
@@ -131,7 +131,7 @@ function Index() {
       </section>
 
       {/* KEY FIGURES */}
-      <section className="border-y border-border bg-card/60">
+      <section className="border-y border-border bg-azure-soft/70">
         <div className="max-w-7xl mx-auto px-5 sm:px-6 py-6 grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
           {[
             { i: "🌍", t: "40+ nationalities", d: "+200 players on court" },
@@ -140,7 +140,7 @@ function Index() {
           ].map((x) => (
             <div key={x.t} className="min-w-0">
               <div className="text-2xl">{x.i}</div>
-              <div className="font-display uppercase text-lg mt-1">{x.t}</div>
+              <div className="font-display uppercase text-lg mt-1 text-azure">{x.t}</div>
               <div className="text-sm text-muted-foreground">{x.d}</div>
             </div>
           ))}
@@ -170,14 +170,14 @@ function Index() {
             <div className="text-xs uppercase tracking-widest font-semibold text-clay mb-3">Group lessons · 60 min</div>
             <h3 className="text-2xl sm:text-3xl mb-3 break-words">Small groups</h3>
             <p className="text-muted-foreground mb-6">Technique &amp; tactics in groups of 2 to 4 players, matched by level. Winter season bookings are open.</p>
-            <div className="flex items-baseline gap-2"><span className="text-sm text-muted-foreground">from</span><span className="font-display text-4xl">€24</span><span className="text-sm text-muted-foreground">/ hour / person</span></div>
+            <div className="flex items-baseline gap-2"><span className="text-sm text-muted-foreground">from</span><span className="font-display text-4xl text-clay">€24</span><span className="text-sm text-muted-foreground">/ hour / person</span></div>
             <p className="mt-2 text-xs text-muted-foreground">Exact price depends on club, time and group size — shown when you book.</p>
           </article>
           <article className="min-w-0 p-7 rounded-3xl bg-card border-2 border-ink/10">
-            <div translate="no" className="notranslate text-xs uppercase tracking-widest font-semibold text-clay mb-3">Tennis &amp; Social</div>
+            <div translate="no" className="notranslate text-xs uppercase tracking-widest font-semibold text-azure mb-3">Tennis &amp; Social</div>
             <h3 className="text-2xl sm:text-3xl mb-3 break-words">Events</h3>
             <p className="text-muted-foreground mb-6">Single hobby tournament, double mixt tournament and fun formats like singles vs. couples — to break the ice.</p>
-            <div className="flex items-baseline gap-2"><span className="font-display text-4xl">€25</span><span className="text-sm text-muted-foreground">/ person · 4h event</span></div>
+            <div className="flex items-baseline gap-2"><span className="font-display text-4xl text-azure">€25</span><span className="text-sm text-muted-foreground">/ person · 4h event</span></div>
           </article>
         </div>
         <p className="mt-6 text-sm text-muted-foreground">
@@ -203,9 +203,9 @@ function Index() {
             </p>
           </div>
           <div className="grid grid-cols-3 gap-2 text-center md:min-w-[19rem]">
-            <div className="border-l-2 border-ink/10 px-2"><strong className="block font-display text-2xl">3</strong><span className="text-xs text-muted-foreground">sessions</span></div>
-            <div className="border-l-2 border-ink/10 px-2"><strong className="block font-display text-2xl">2h</strong><span className="text-xs text-muted-foreground">each day</span></div>
-            <div className="border-l-2 border-ink/10 px-2"><strong className="block font-display text-2xl">2</strong><span className="text-xs text-muted-foreground">coaches</span></div>
+            <div className="border-l-2 border-ink/10 px-2"><strong className="block font-display text-2xl text-azure">3</strong><span className="text-xs text-muted-foreground">sessions</span></div>
+            <div className="border-l-2 border-ink/10 px-2"><strong className="block font-display text-2xl text-azure">2h</strong><span className="text-xs text-muted-foreground">each day</span></div>
+            <div className="border-l-2 border-ink/10 px-2"><strong className="block font-display text-2xl text-azure">2</strong><span className="text-xs text-muted-foreground">coaches</span></div>
           </div>
         </article>
       </section>
@@ -215,7 +215,7 @@ function Index() {
         <div className="rounded-[2rem] bg-card border-2 border-ink/10 overflow-hidden grid lg:grid-cols-2">
           <div className="p-6 sm:p-10 min-w-0">
             <h2 className="text-[clamp(1.6rem,5vw,2.75rem)] font-display uppercase mb-5 break-words">
-              Our home base: <span className="text-clay">BFC Alemannia</span>
+              Our home base: <span className="text-azure">BFC Alemannia</span>
             </h2>
             <p className="text-muted-foreground text-lg mb-5">
               A warm club, 4 min walk from U8 Lindauer Allee. Clay courts in summer, indoor courts in winter.
@@ -299,7 +299,7 @@ function Index() {
             <details key={f.q} className="group py-6 cursor-pointer">
               <summary className="flex items-start justify-between gap-4 font-display text-lg sm:text-xl uppercase list-none">
                 <span className="min-w-0 break-words">{f.q}</span>
-                <span className="text-clay text-3xl shrink-0 group-open:rotate-45 transition">+</span>
+                <span className="text-azure text-3xl shrink-0 group-open:rotate-45 transition">+</span>
               </summary>
               <p className="mt-3 text-muted-foreground">{f.a}</p>
             </details>
@@ -307,7 +307,7 @@ function Index() {
         </div>
         <div className="mt-8 flex flex-wrap gap-3">
           <Link to="/book" className="px-7 py-4 rounded-full bg-violet text-violet-foreground font-semibold hover:opacity-90 transition">Book your lesson 🎾</Link>
-          <button type="button" onClick={() => setContactOpen(true)} className="px-7 py-4 rounded-full border-2 border-ink/15 font-semibold hover:border-clay hover:text-clay transition">Contact me 📩</button>
+          <button type="button" onClick={() => setContactOpen(true)} className="px-7 py-4 rounded-full border-2 border-ink/15 font-semibold hover:border-azure hover:text-azure transition">Contact me 📩</button>
         </div>
       </section>
 
@@ -319,9 +319,9 @@ function Index() {
         <div className="max-w-7xl mx-auto px-6 py-8 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div translate="no" className="notranslate font-display text-xl sm:text-2xl uppercase">Youpi Tennis Club</div>
           <div className="flex flex-wrap gap-6 text-sm text-background/70">
-            <Link to="/contact" className="hover:text-ball transition">Contact</Link>
-            <Link to="/privacy" className="hover:text-ball transition">Privacy</Link>
-            <Link to="/cookies" className="hover:text-ball transition">Cookies</Link>
+            <Link to="/contact" className="hover:text-sky transition">Contact</Link>
+            <Link to="/privacy" className="hover:text-sky transition">Privacy</Link>
+            <Link to="/cookies" className="hover:text-sky transition">Cookies</Link>
           </div>
         </div>
         <div className="border-t border-background/10 py-5 text-xs text-background/40 px-6 max-w-7xl mx-auto">
@@ -353,7 +353,7 @@ function Index() {
                 </div>
                 <a
                   href="mailto:chaouchyoucef@yahoo.com"
-                  className="font-semibold text-lg break-all hover:text-clay transition"
+                  className="font-semibold text-lg break-all hover:text-azure transition"
                 >
                   chaouchyoucef@yahoo.com
                 </a>
@@ -364,7 +364,7 @@ function Index() {
                 </div>
                 <a
                   href="tel:+4917645689622"
-                  className="font-semibold text-lg hover:text-clay transition"
+                  className="font-semibold text-lg hover:text-azure transition"
                 >
                   +49 176 45689622
                 </a>
