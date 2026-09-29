@@ -472,7 +472,7 @@ function BookPage() {
 
       <section className="max-w-6xl mx-auto px-5 sm:px-6 pt-8 pb-6">
         <h1 className="text-[clamp(2rem,8vw,4.5rem)] font-display uppercase leading-none break-words">
-          Book your <span className="text-clay">tennis session</span>
+          Book your <span className="text-azure">tennis session</span>
         </h1>
         <p className="mt-4 max-w-xl text-base sm:text-lg text-muted-foreground">
           <b className="text-ink">Winter season bookings are open!</b> 1-hour sessions at BFC Alemannia and TC Longline. Pick your level and book — the session is confirmed automatically when enough students of the same level join:{" "}
@@ -488,7 +488,7 @@ function BookPage() {
           or by{" "}
           <a
             href="mailto:chaouchyoucef@yahoo.com"
-            className="text-clay font-semibold hover:underline break-all"
+            className="text-azure font-semibold hover:underline break-all"
           >
             email
           </a>
@@ -502,7 +502,7 @@ function BookPage() {
           ))}
         </div>
         <div className="mt-3 flex flex-wrap items-center gap-2 text-xs font-bold uppercase tracking-wide">
-          <span className="text-muted-foreground font-semibold normal-case">Where:</span>
+          <span className="text-azure font-semibold normal-case">Where:</span>
           {(["alemannia", "longline"] as Venue[]).map((v) => (
             <span
               key={v}
@@ -813,7 +813,7 @@ function BookPage() {
       {/* BOOKING MODAL */}
       {selectedSlot && (
         <Modal onClose={() => setSelectedSlot(null)}>
-          <div className="text-xs font-bold uppercase tracking-widest text-clay mb-2">
+          <div className="text-xs font-bold uppercase tracking-widest text-azure mb-2">
             {selectedSlot.level === "open"
               ? "Open session — choose your level"
               : `${LEVEL_LABEL[selectedSlot.level]} group`}
