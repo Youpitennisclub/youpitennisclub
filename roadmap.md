@@ -7,3 +7,5 @@
 - [x] Summer Camp 2026 déplacé dans « Past events »
 - [x] Ancien Summer Camp retiré du calendrier de réservation
 - [x] Version colorée précédente restaurée, avec code couleur des clubs conservé dans l’agenda
+- [x] Accueil recentré sur la saison hiver 2026–2027, ses lieux et ses tarifs
+- [x] Adhésion, tournois et événements passés déplacés vers des pages du menu
