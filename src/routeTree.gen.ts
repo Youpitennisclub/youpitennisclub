@@ -12,12 +12,14 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as MembershipRouteImport } from './routes/membership'
 import { Route as CookiesRouteImport } from './routes/cookies'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CancelRouteImport } from './routes/cancel'
 import { Route as BookRouteImport } from './routes/book'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AdminAccessRouteImport } from './routes/admin-access'
+import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as LovableEmailAuthWebhookRouteImport } from './routes/lovable/email/auth/webhook'
 import { Route as LovableEmailAuthPreviewRouteImport } from './routes/lovable/email/auth/preview'
@@ -35,6 +37,11 @@ const ResetPasswordRoute = ResetPasswordRouteImport.update({
 const PrivacyRoute = PrivacyRouteImport.update({
   id: '/privacy',
   path: '/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MembershipRoute = MembershipRouteImport.update({
+  id: '/membership',
+  path: '/membership',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CookiesRoute = CookiesRouteImport.update({
@@ -67,6 +74,11 @@ const AdminAccessRoute = AdminAccessRouteImport.update({
   path: '/admin-access',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -85,12 +97,14 @@ const LovableEmailAuthPreviewRoute = LovableEmailAuthPreviewRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/admin-access': typeof AdminAccessRoute
   '/auth': typeof AuthRoute
   '/book': typeof BookRoute
   '/cancel': typeof CancelRoute
   '/contact': typeof ContactRoute
   '/cookies': typeof CookiesRoute
+  '/membership': typeof MembershipRoute
   '/privacy': typeof PrivacyRoute
   '/reset-password': typeof ResetPasswordRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -99,12 +113,14 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/admin-access': typeof AdminAccessRoute
   '/auth': typeof AuthRoute
   '/book': typeof BookRoute
   '/cancel': typeof CancelRoute
   '/contact': typeof ContactRoute
   '/cookies': typeof CookiesRoute
+  '/membership': typeof MembershipRoute
   '/privacy': typeof PrivacyRoute
   '/reset-password': typeof ResetPasswordRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -114,12 +130,14 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/admin-access': typeof AdminAccessRoute
   '/auth': typeof AuthRoute
   '/book': typeof BookRoute
   '/cancel': typeof CancelRoute
   '/contact': typeof ContactRoute
   '/cookies': typeof CookiesRoute
+  '/membership': typeof MembershipRoute
   '/privacy': typeof PrivacyRoute
   '/reset-password': typeof ResetPasswordRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -130,12 +148,14 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/about'
     | '/admin-access'
     | '/auth'
     | '/book'
     | '/cancel'
     | '/contact'
     | '/cookies'
+    | '/membership'
     | '/privacy'
     | '/reset-password'
     | '/sitemap.xml'
@@ -144,12 +164,14 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/about'
     | '/admin-access'
     | '/auth'
     | '/book'
     | '/cancel'
     | '/contact'
     | '/cookies'
+    | '/membership'
     | '/privacy'
     | '/reset-password'
     | '/sitemap.xml'
@@ -158,12 +180,14 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/about'
     | '/admin-access'
     | '/auth'
     | '/book'
     | '/cancel'
     | '/contact'
     | '/cookies'
+    | '/membership'
     | '/privacy'
     | '/reset-password'
     | '/sitemap.xml'
@@ -173,12 +197,14 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
   AdminAccessRoute: typeof AdminAccessRoute
   AuthRoute: typeof AuthRoute
   BookRoute: typeof BookRoute
   CancelRoute: typeof CancelRoute
   ContactRoute: typeof ContactRoute
   CookiesRoute: typeof CookiesRoute
+  MembershipRoute: typeof MembershipRoute
   PrivacyRoute: typeof PrivacyRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
@@ -207,6 +233,13 @@ declare module '@tanstack/react-router' {
       path: '/privacy'
       fullPath: '/privacy'
       preLoaderRoute: typeof PrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/membership': {
+      id: '/membership'
+      path: '/membership'
+      fullPath: '/membership'
+      preLoaderRoute: typeof MembershipRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/cookies': {
@@ -251,6 +284,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminAccessRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -277,12 +317,14 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
   AdminAccessRoute: AdminAccessRoute,
   AuthRoute: AuthRoute,
   BookRoute: BookRoute,
   CancelRoute: CancelRoute,
   ContactRoute: ContactRoute,
   CookiesRoute: CookiesRoute,
+  MembershipRoute: MembershipRoute,
   PrivacyRoute: PrivacyRoute,
   ResetPasswordRoute: ResetPasswordRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
