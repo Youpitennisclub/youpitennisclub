@@ -7,6 +7,7 @@ import wellhubLogoAsset from "@/assets/wellhub-logo.png.asset.json";
 import urbanSportsClubLogoAsset from "@/assets/urban-sports-club-logo.png.asset.json";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { FeedbackSection } from "@/components/FeedbackSection";
+import { SiteHeader } from "@/components/SiteHeader";
 
 const SITE = "https://youpitennisclub.com";
 const OG_IMAGE =
@@ -74,34 +75,7 @@ function Index() {
   return (
 
     <main className="relative overflow-hidden text-left">
-      {/* NAV */}
-      <header className="sticky top-0 z-50 backdrop-blur-md bg-background/70 border-b border-border">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 lg:flex lg:justify-between">
-          <a href="#" className="flex min-w-0 items-center gap-2 font-display text-base sm:text-2xl md:text-3xl uppercase leading-tight">
-            <span
-              className="inline-block w-7 h-7 shrink-0 rounded-full bg-ball ball-spin shadow-inner"
-              style={{ boxShadow: "inset -4px -4px 0 oklch(0.78 0.18 115)" }}
-            />
-            <span translate="no" className="notranslate min-w-0 break-words">Youpi Tennis Club</span>
-          </a>
-          <nav className="hidden lg:flex items-center gap-7 text-sm font-medium">
-            <a href="#lessons" className="hover:text-clay transition">Lessons</a>
-            <a href="#club" className="hover:text-clay transition">Club</a>
-            <a href="#events" className="hover:text-clay transition">Events</a>
-            <a href="#coach" className="hover:text-clay transition">Coach</a>
-            <a href="#faq" className="hover:text-clay transition">FAQ</a>
-          </nav>
-          <div className="flex shrink-0 items-center gap-2 sm:gap-3">
-            <LanguageSwitcher />
-            <Link
-              to="/book"
-              className="hidden sm:inline-block px-4 sm:px-5 py-2.5 rounded-full bg-violet text-violet-foreground text-sm font-semibold hover:opacity-90 transition"
-            >
-              Book your lesson
-            </Link>
-          </div>
-        </div>
-      </header>
+      <SiteHeader />
 
       {/* HERO */}
       <section className="relative max-w-7xl mx-auto px-5 sm:px-6 pt-6 pb-8">
@@ -181,57 +155,6 @@ function Index() {
               </article>
             );
           })}
-        </div>
-      </section>
-
-      {/* CLUB */}
-      <section id="club" className="max-w-7xl mx-auto px-5 sm:px-6 py-8 sm:py-10">
-        <div className="rounded-[2rem] bg-card border-2 border-ink/10 p-5 sm:p-8 md:p-10">
-          <div className="grid lg:grid-cols-2 gap-8 items-start">
-            <div>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-display uppercase mb-5 break-words">
-                BFC Alemannia<br/>
-                <span className="text-clay">Tennis Club</span>
-              </h2>
-              <p className="text-muted-foreground text-lg mb-6">
-                After scouting the whole city, I finally found the right home for us: outdoor
-                <strong> clay courts</strong> all summer until October, then indoor for the winter season.
-              </p>
-              <div className="space-y-3 text-ink">
-                <div className="flex gap-3"><span className="shrink-0">📍</span><span className="min-w-0">Ollenhauerstr. 64e, 13403 Berlin</span></div>
-                <div className="flex gap-3"><span className="shrink-0">🚉</span><span className="min-w-0">4 min walk from U8 Lindauer Allee &amp; S25 Karl-Bonhoeffer-Nervenklinik — <strong>easy from all of Berlin</strong></span></div>
-                <div className="flex gap-3"><span className="shrink-0">🎾</span><span className="min-w-0">Only ~180 members for 6 clay courts (+ 2 in renovation) = <strong>real court availability in the evening after work</strong></span></div>
-                <div className="flex gap-3"><span className="shrink-0">🥶</span><span className="min-w-0">Winter season: coaching agreements with <strong>TC Longline</strong> &amp; <strong>BFC Alemannia</strong> for extra flexibility</span></div>
-              </div>
-              <div className="mt-8 p-5 rounded-2xl bg-ball/40 border-2 border-ink">
-                <div className="font-display text-xl uppercase mb-2">Try before you join 🎁</div>
-                <p className="text-sm text-ink/80">
-                  Special deal with the club: attend <strong>2–3 training sessions</strong> before becoming a member.
-                  Discover the club, meet the crew, then decide.
-                </p>
-              </div>
-            </div>
-
-            <div>
-              <div className="text-xs uppercase tracking-widest font-semibold text-clay mb-4">Club membership</div>
-              <div className="rounded-2xl bg-ball/30 border-2 border-ink/10 p-5 sm:p-6">
-                <div className="font-display text-lg uppercase mb-3">Intro rates · First year <span className="text-sm normal-case text-muted-foreground">(from July 2026)</span></div>
-                <div className="flex justify-between gap-3 py-1.5"><span>Single</span><span className="font-display text-xl shrink-0">€80</span></div>
-                <div className="border-b-2 border-ink/10 mb-3 pb-3"></div>
-                <div className="font-display text-lg uppercase mb-3">From year 2</div>
-                <div className="flex justify-between gap-3 py-1.5"><span>Single</span><span className="font-display text-xl shrink-0">€320</span></div>
-                <div className="flex justify-between gap-3 py-1.5"><span>Couple</span><span className="font-display text-xl shrink-0">€580</span></div>
-                <div className="flex justify-between gap-3 py-1.5"><span className="min-w-0">Already member of another Berlin club</span><span className="font-display text-xl shrink-0">€160</span></div>
-              </div>
-              <div className="mt-5 p-5 rounded-2xl bg-court text-primary-foreground border-2 border-ink">
-                <div className="font-display text-xl sm:text-2xl uppercase mb-2 break-words">🔓 Unlimited outdoor access</div>
-                <p className="text-sm">
-                  Membership isn't just for training — you get <strong>unlimited access to the outdoor clay courts</strong>
-                  {" "}to play with other members whenever you like, all summer long.
-                </p>
-              </div>
-            </div>
-          </div>
         </div>
       </section>
 
@@ -317,65 +240,6 @@ function Index() {
             </p>
             <p className="text-sm text-muted-foreground">depending on group size &amp; membership</p>
           </article>
-        </div>
-      </section>
-
-      {/* COACH */}
-      <section id="coach" className="max-w-7xl mx-auto px-5 sm:px-6 py-8 sm:py-10">
-        <div className="max-w-3xl">
-          <h2 className="text-[clamp(1.7rem,7vw,3.25rem)] font-display uppercase mb-5 break-words">
-            Who is your <span className="text-pink">coach Youpi</span> ?
-          </h2>
-          <div className="space-y-4 text-muted-foreground text-base sm:text-lg">
-            <p className="font-display text-xl uppercase text-ink">🎾 About me</p>
-            <p>
-              I'm Youpi, originally from Paris 🇫🇷, and I studied French-German Law in both France
-              and Germany 🇫🇷🇩🇪.
-            </p>
-            <p>
-              I discovered my passion for tennis 17 years ago. Over the years in France, I
-              trained and played with experienced amateur players who passed on to me both the
-              technical demands and the love of the game.
-            </p>
-            <p>
-              For me, the technical progress of every single student is a priority — beginner or
-              advanced. At the same time, it matters to me that my students enjoy tennis and have
-              fun while training. My goal is to help you improve with clear, structured coaching,
-              so you also understand what you are doing, why you are doing it, and how to apply it
-              on your own.
-            </p>
-            <p>
-              I currently train players at several clubs around Berlin, with BFC Alemannia as my
-              main base.
-            </p>
-
-
-            <p className="font-semibold text-ink">
-              Come join the adventure in English, French &amp; German! 🚀🎾
-            </p>
-          </div>
-        </div>
-
-        {/* TRACK RECORD */}
-        <div className="mt-8 rounded-3xl border-2 border-ink/10 p-5 sm:p-8 md:p-10 bg-card">
-          <div className="grid md:grid-cols-2 gap-x-10 gap-y-5">
-            {[
-              { t: "WTA 500 · Rot-Weiß Berlin", d: "Kids program — playful intro to tennis on tournament week." },
-              { t: "ALBA × bett1 Schulcup", d: "Tennis drills for ~150 school kids at the Basketball & Tennis Schulcup." },
-              { t: "Jahn-Sportpark", d: "Multisport events for kids across the season." },
-              { t: "Meisterklasse Damen", d: "Match-day coaching during team's competition." },
-              { t: "DTB top-ranked players", d: "Tactical & technical work with Herren 45 #171 and Herren 55 #14." },
-              { t: "Berlin tennis network", d: "Markus Zoecke (ex ATP #48 · WTA 500 director) and many trainers." },
-            ].map((x) => (
-              <div key={x.t} className="flex gap-4">
-                <span className="mt-1.5 w-2.5 h-2.5 rounded-full bg-ball shrink-0" />
-                <div className="min-w-0">
-                  <div className="font-display text-base sm:text-lg uppercase break-words">{x.t}</div>
-                  <div className="text-sm text-muted-foreground">{x.d}</div>
-                </div>
-              </div>
-            ))}
-          </div>
         </div>
       </section>
 
