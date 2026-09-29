@@ -5,7 +5,6 @@ import { useState } from "react";
 import posterAsset from "@/assets/youpi-court.jpg.asset.json";
 import wellhubLogoAsset from "@/assets/wellhub-logo.png.asset.json";
 import urbanSportsClubLogoAsset from "@/assets/urban-sports-club-logo.png.asset.json";
-import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { FeedbackSection } from "@/components/FeedbackSection";
 import { SiteHeader } from "@/components/SiteHeader";
 
