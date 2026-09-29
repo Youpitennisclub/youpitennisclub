@@ -27,16 +27,16 @@ function MembershipPage() {
       <SiteHeader />
       <section className="mx-auto max-w-6xl px-5 py-10 text-left sm:px-6 sm:py-16">
         <div className="mb-10 max-w-3xl">
-          <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-clay">Club membership</p>
+          <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-clay">Our base:</p>
           <h1 className="mb-5 text-4xl font-display uppercase break-words sm:text-6xl">
             BFC Alemannia <span className="text-clay">Tennis Club</span>
           </h1>
           <p className="text-lg text-muted-foreground">
-            Our summer home in Berlin: outdoor clay courts until October, then indoor training for the winter season.
+            Enjoy outdoor clay courts all summer long, and cozy indoor training during the winter season.
           </p>
           <p className="mt-6 max-w-2xl text-lg font-semibold leading-relaxed text-ink sm:text-xl">
-            You want to be a new member of a familiar, beautiful tennis club with open-minded people and a good club
-            restaurant, <span className="text-clay">right in the middle of Berlin nature</span>?
+            Looking to join a welcoming, scenic tennis club with open-minded people and a great clubhouse restaurant?
+            Discover a hidden gem, <span className="text-clay">right in the heart of Berlin&rsquo;s nature</span>.
           </p>
         </div>
 
