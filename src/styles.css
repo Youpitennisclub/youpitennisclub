@@ -51,9 +51,9 @@
   --radius: 1rem;
 
   /* Brand palette: tennis ball yellow, clay terracotta, court green, hot pink */
-  --background: oklch(0.985 0.02 95);          /* warm off-white */
-  --foreground: oklch(0.18 0.03 160);          /* deep court ink */
-  --ink: oklch(0.18 0.03 160);
+  --background: oklch(0.975 0.015 80);         /* cream */
+  --foreground: oklch(0.24 0.06 255);          /* night navy */
+  --ink: oklch(0.24 0.06 255);
 
   --ball: oklch(0.92 0.21 115);                /* tennis ball */
   --court: oklch(0.52 0.16 155);               /* court green */
@@ -64,8 +64,8 @@
 
   --card: oklch(1 0 0);
   --card-foreground: var(--ink);
-  --violet: oklch(0.52 0.24 300);              /* booking violet */
-  --violet-foreground: oklch(0.99 0.01 300);
+  --violet: oklch(0.6 0.16 42);                /* clay accent (buttons) */
+  --violet-foreground: oklch(0.99 0.01 80);
   --sky: oklch(0.82 0.11 230);                 /* sky blue */
   --navy: oklch(0.28 0.10 255);                /* dark blue */
 
@@ -77,7 +77,7 @@
   --secondary: var(--ball);
   --secondary-foreground: var(--ink);
   --muted: oklch(0.95 0.02 95);
-  --muted-foreground: oklch(0.45 0.03 160);
+  --muted-foreground: oklch(0.45 0.03 255);
   --accent: var(--pink);
   --accent-foreground: oklch(0.99 0 0);
   --destructive: oklch(0.6 0.24 27);
@@ -95,8 +95,7 @@
     color: var(--color-foreground);
     font-family: var(--font-sans);
     background-image:
-      radial-gradient(circle at 12% 8%, oklch(0.92 0.21 115 / 0.18), transparent 40%),
-      radial-gradient(circle at 88% 92%, oklch(0.74 0.19 5 / 0.12), transparent 45%);
+      radial-gradient(circle at 88% 92%, oklch(0.62 0.18 40 / 0.06), transparent 45%);
     background-attachment: fixed;
     overflow-wrap: anywhere;
   }
