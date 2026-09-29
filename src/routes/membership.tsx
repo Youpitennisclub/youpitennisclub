@@ -34,6 +34,10 @@ function MembershipPage() {
           <p className="text-lg text-muted-foreground">
             Our summer home in Berlin: outdoor clay courts until October, then indoor training for the winter season.
           </p>
+          <p className="mt-6 max-w-2xl text-lg font-semibold leading-relaxed text-ink sm:text-xl">
+            You want to be a new member of a familiar, beautiful tennis club with open-minded people and a good club
+            restaurant, <span className="text-clay">right in the middle of Berlin nature</span>?
+          </p>
         </div>
 
         <div className="grid gap-8 lg:grid-cols-2">
@@ -53,8 +57,8 @@ function MembershipPage() {
 
           <div>
             <div className="rounded-md border-2 border-ink/10 bg-card p-5 sm:p-6">
-              <h2 className="mb-3 text-lg font-display uppercase">Intro rates · First year <span className="text-sm normal-case text-muted-foreground">(from July 2026)</span></h2>
-              <div className="flex justify-between gap-3 py-1.5"><span>Single</span><span className="shrink-0 text-xl font-display">€80</span></div>
+              <h2 className="mb-3 text-lg font-display uppercase">Intro rates · First year <span className="text-sm normal-case text-muted-foreground">(from April 2027)</span></h2>
+              <div className="flex justify-between gap-3 py-1.5"><span>Single</span><span className="shrink-0 text-xl font-display">€160</span></div>
               <div className="mb-3 border-b-2 border-ink/10 pb-3" />
               <h2 className="mb-3 text-lg font-display uppercase">From year 2</h2>
               <div className="flex justify-between gap-3 py-1.5"><span>Single</span><span className="shrink-0 text-xl font-display">€320</span></div>
