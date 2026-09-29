@@ -1,6 +1,5 @@
 import { ratesFor } from "@/lib/prices";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState } from "react";
 
 import posterAsset from "@/assets/youpi-court.jpg.asset.json";
 import wellhubLogoAsset from "@/assets/wellhub-logo.png.asset.json";
@@ -70,7 +69,6 @@ export const Route = createFileRoute("/")({
 const FLAGS = ["🇫🇷", "🇩🇪", "🇺🇸", "🇹🇷", "🇺🇦", "🇪🇸", "🇮🇹", "🇧🇷", "🇯🇵", "🇲🇽", "🇵🇱", "🇪🇬", "🇱🇧", "🇷🇺", "🇬🇷", "🇬🇧", "🇨🇳", "🇸🇪", "🇰🇷", "🇮🇳"];
 
 function Index() {
-  const [contactOpen, setContactOpen] = useState(false);
   return (
 
     <main className="relative overflow-hidden text-left">
@@ -415,38 +413,6 @@ function Index() {
         </div>
       </section>
 
-      {/* BOOK CTA */}
-      <section id="book" className="max-w-4xl mx-auto px-5 sm:px-6 py-8 sm:py-10">
-        <div className="relative rounded-3xl bg-navy text-background overflow-hidden p-5 sm:p-10 md:p-12">
-          <div className="absolute -bottom-14 -left-14 w-52 h-52 rounded-full bg-sky/30 blur-2xl" />
-          <div className="relative">
-            <h2 className="text-[clamp(1.7rem,7vw,3.5rem)] font-display uppercase mb-5 break-words">
-              Ready? Los geht's
-            </h2>
-            <p className="text-background/75 text-lg mb-8 max-w-xl">
-              Pick your slot, choose your level, and lock it in. Instant confirmation — no
-              back-and-forth.
-            </p>
-            <Link
-              to="/book"
-              className="inline-block px-8 sm:px-10 py-5 rounded-full bg-violet text-violet-foreground font-semibold text-lg sm:text-xl hover:opacity-90 transition shadow-xl"
-            >
-              Book your lesson 🎾
-            </Link>
-            <div className="mt-4">
-              <button
-                type="button"
-                onClick={() => setContactOpen(true)}
-                className="inline-block px-8 sm:px-10 py-4 rounded-full border-2 border-background/40 text-background font-semibold text-base sm:text-lg hover:bg-background/10 transition"
-              >
-                Contact me 📩
-              </button>
-            </div>
-
-          </div>
-        </div>
-      </section>
-
       {/* FAQ */}
       <section id="faq" className="max-w-4xl mx-auto px-5 sm:px-6 py-8 sm:py-10">
         <h2 className="text-3xl sm:text-4xl font-display uppercase mb-8">FAQ</h2>
@@ -486,59 +452,6 @@ function Index() {
         </div>
       </footer>
 
-      {/* CONTACT MODAL */}
-      {contactOpen && (
-        <div className="fixed inset-0 z-[100] flex items-end sm:items-center justify-center">
-          <button
-            aria-label="Close"
-            onClick={() => setContactOpen(false)}
-            className="absolute inset-0 bg-ink/60 backdrop-blur-sm"
-          />
-          <div className="relative w-full sm:max-w-md rounded-t-3xl sm:rounded-3xl bg-card border-2 border-ink/10 shadow-2xl p-6 sm:p-8">
-            <button
-              onClick={() => setContactOpen(false)}
-              className="absolute right-4 top-4 h-9 w-9 rounded-full bg-ink/5 grid place-items-center text-lg font-bold"
-              aria-label="Close"
-            >
-              ×
-            </button>
-            <h3 className="font-display text-2xl uppercase mb-4 pr-10">Contact me</h3>
-            <div className="grid gap-4">
-              <div>
-                <div className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
-                  Email
-                </div>
-                <a
-                  href="mailto:chaouchyoucef@yahoo.com"
-                  className="font-semibold text-lg break-all hover:text-clay transition"
-                >
-                  chaouchyoucef@yahoo.com
-                </a>
-              </div>
-              <div>
-                <div className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
-                  Phone
-                </div>
-                <a
-                  href="tel:+4917645689622"
-                  className="font-semibold text-lg hover:text-clay transition"
-                >
-                  +49 176 45689622
-                </a>
-                <div className="text-sm text-muted-foreground">(WhatsApp preferred)</div>
-              </div>
-            </div>
-            <a
-              href="https://wa.me/4917645689622"
-              target="_blank"
-              rel="noopener"
-              className="mt-6 block text-center px-6 py-4 rounded-2xl bg-violet text-violet-foreground font-semibold hover:opacity-90 transition"
-            >
-              Write on WhatsApp 💬
-            </a>
-          </div>
-        </div>
-      )}
     </main>
 
   );

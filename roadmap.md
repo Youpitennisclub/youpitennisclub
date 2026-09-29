@@ -5,3 +5,4 @@
 - [x] Cours particulier : contact direct du coach (WhatsApp ou email)
 - [x] Déplacer Membership et About me dans le menu pour raccourcir l'accueil
 - [x] Nommer l'entrée du menu « Membership Club 2027 »
+- [x] Effacer la section « Ready? Los geht's » de l'accueil
