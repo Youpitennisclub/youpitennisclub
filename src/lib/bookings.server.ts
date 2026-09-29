@@ -82,7 +82,6 @@ export async function createBookingRecord(input: {
   phone: string;
   photo_url?: string | null;
   duration: number;
-  camp?: boolean;
   user_id: string;
 }) {
   if (new Date(input.starts_at).getTime() <= Date.now()) {
