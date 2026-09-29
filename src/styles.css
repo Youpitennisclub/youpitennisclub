@@ -99,7 +99,8 @@
     color: var(--color-foreground);
     font-family: var(--font-sans);
     background-image:
-      radial-gradient(circle at 88% 92%, oklch(0.62 0.18 40 / 0.06), transparent 45%);
+      radial-gradient(circle at 88% 92%, oklch(0.62 0.18 40 / 0.07), transparent 45%),
+      radial-gradient(circle at 6% 4%, oklch(0.53 0.17 248 / 0.08), transparent 42%);
     background-attachment: fixed;
     overflow-wrap: anywhere;
   }
