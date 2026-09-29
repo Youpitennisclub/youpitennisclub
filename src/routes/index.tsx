@@ -84,6 +84,7 @@ function Index() {
           </a>
           <nav className="hidden lg:flex items-center gap-7 text-sm font-medium">
             <a href="#offers" className="hover:text-clay transition">Offers</a>
+             <a href="#past-events" className="hover:text-clay transition">Past events</a>
             <a href="#club" className="hover:text-clay transition">Club</a>
             <a href="#coach" className="hover:text-clay transition">Coach</a>
             <a href="#faq" className="hover:text-clay transition">FAQ</a>
@@ -180,8 +181,33 @@ function Index() {
           </article>
         </div>
         <p className="mt-6 text-sm text-muted-foreground">
-          Private lesson or a group of 3? <button type="button" onClick={() => setContactOpen(true)} className="font-semibold text-clay hover:underline">Contact me</button>.
+          A private lesson is also possible on request, but is a secondary option because indoor courts make it more expensive in winter. For a solo lesson or a group of 3, <button type="button" onClick={() => setContactOpen(true)} className="font-semibold text-clay hover:underline">contact me directly</button>.
         </p>
+      </section>
+
+      {/* PAST EVENTS */}
+      <section id="past-events" className="max-w-7xl mx-auto px-5 sm:px-6 py-8 sm:py-10 scroll-mt-24">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between mb-8">
+          <div>
+            <div className="text-xs uppercase tracking-widest font-semibold text-clay mb-2">Tennis &amp; Social</div>
+            <h2 className="text-[clamp(1.75rem,6vw,3.25rem)] font-display uppercase break-words">Past events</h2>
+          </div>
+          <p className="max-w-lg text-sm text-muted-foreground">A look back at the formats already played with the Youpi community.</p>
+        </div>
+        <article className="min-w-0 border-y-2 border-ink/10 py-6 sm:py-8 grid md:grid-cols-[minmax(0,1fr)_auto] gap-6 md:items-center">
+          <div className="min-w-0">
+            <div className="text-xs uppercase tracking-widest font-semibold text-muted-foreground">August 17, 18 &amp; 20 · 2026</div>
+            <h3 className="mt-2 text-2xl sm:text-3xl font-display uppercase break-words">Summer Camp 2026</h3>
+            <p className="mt-3 max-w-3xl text-muted-foreground leading-relaxed">
+              Three two-hour sessions with two coaches, bringing together small groups of 4 to 6 players matched by level for focused work on footwork, tactics and technique.
+            </p>
+          </div>
+          <div className="grid grid-cols-3 gap-2 text-center md:min-w-[19rem]">
+            <div className="border-l-2 border-ink/10 px-2"><strong className="block font-display text-2xl">3</strong><span className="text-xs text-muted-foreground">sessions</span></div>
+            <div className="border-l-2 border-ink/10 px-2"><strong className="block font-display text-2xl">2h</strong><span className="text-xs text-muted-foreground">each day</span></div>
+            <div className="border-l-2 border-ink/10 px-2"><strong className="block font-display text-2xl">2</strong><span className="text-xs text-muted-foreground">coaches</span></div>
+          </div>
+        </article>
       </section>
 
       {/* LOCATION */}

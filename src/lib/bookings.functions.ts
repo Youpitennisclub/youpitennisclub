@@ -11,7 +11,6 @@ const bookingSchema = z.object({
   phone: z.string().trim().min(4).max(30),
   photo_url: z.string().max(400000).nullable().optional(),
   duration: z.number().int().min(30).max(240),
-  camp: z.boolean().optional(),
   venue: z.enum(["alemannia", "longline"]).default("alemannia"),
 });
 
