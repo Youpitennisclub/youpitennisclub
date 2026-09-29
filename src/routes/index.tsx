@@ -3,189 +3,132 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 
 import posterAsset from "@/assets/youpi-court.jpg.asset.json";
-import wellhubLogoAsset from "@/assets/wellhub-logo.png.asset.json";
-import urbanSportsClubLogoAsset from "@/assets/urban-sports-club-logo.png.asset.json";
-import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { FeedbackSection } from "@/components/FeedbackSection";
+import { SiteFooter, SiteHeader } from "@/components/SiteChrome";
+import { Button } from "@/components/ui/button";
 
 const SITE = "https://youpitennisclub.com";
-const OG_IMAGE =
-  "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/b0e94463-7995-4710-9e4d-a291721f56ed";
-const TITLE = "Tennis Lessons in Berlin (English) — Youpi Tennis Club";
-const DESCRIPTION =
-  "Tennis lessons in Berlin in English, French and German: private, duo and small-group coaching on clay courts in Reinickendorf, plus social tennis events. Book online.";
+const OG_IMAGE = "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/b0e94463-7995-4710-9e4d-a291721f56ed";
+const TITLE = "Winter Tennis Lessons Berlin — Youpi Tennis Club";
+const DESCRIPTION = "Book winter tennis lessons at BFC Alemannia and TC Longline in Berlin. Clear schedules and group prices for the 2026–2027 indoor season.";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: TITLE },
-      { name: "description", content: DESCRIPTION },
-      { property: "og:title", content: TITLE },
-      { property: "og:description", content: DESCRIPTION },
-      { property: "og:type", content: "website" },
-      { property: "og:url", content: `${SITE}/` },
-      { property: "og:image", content: OG_IMAGE },
-      { name: "twitter:card", content: "summary_large_image" },
+      { title: TITLE }, { name: "description", content: DESCRIPTION },
+      { property: "og:title", content: TITLE }, { property: "og:description", content: DESCRIPTION },
+      { property: "og:type", content: "website" }, { property: "og:url", content: `${SITE}/` },
+      { property: "og:image", content: OG_IMAGE }, { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:image", content: OG_IMAGE },
     ],
     links: [{ rel: "canonical", href: `${SITE}/` }],
-    scripts: [
-      {
-        type: "application/ld+json",
-        children: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "SportsActivityLocation",
-          name: "Youpi Tennis Club",
-          description: DESCRIPTION,
-          url: `${SITE}/`,
-          image: OG_IMAGE,
-          telephone: "+4917645689622",
-          email: "chaouchyoucef@yahoo.com",
-          priceRange: "€€",
-          currenciesAccepted: "EUR",
-          paymentAccepted: "PayPal, SEPA, Cash",
-          address: {
-            "@type": "PostalAddress",
-            streetAddress: "Ollenhauerstr. 64e",
-            postalCode: "13403",
-            addressLocality: "Berlin",
-            addressCountry: "DE",
-          },
-          areaServed: { "@type": "City", name: "Berlin" },
-          sport: "Tennis",
-          availableLanguage: ["English", "French", "German"],
-          makesOffer: [
-            { "@type": "Offer", name: "Group tennis lesson (60 min)", priceCurrency: "EUR", price: "24" },
-            { "@type": "Offer", name: "Tennis & Social event (4h)", priceCurrency: "EUR", price: "25" },
-          ],
-        }),
-      },
-    ],
   }),
   component: Index,
 });
 
+const venues = [
+  { venue: "alemannia", name: "BFC Alemannia", dot: "bg-navy", schedule: ["Mon · 13:00–16:00", "Tue · 12:00–15:00", "Wed · 14:00–17:00", "Thu · 12:00–15:00", "Sat · 09:00–11:00 & 13:00–15:00"] },
+  { venue: "longline", name: "TC Longline", dot: "bg-court", schedule: ["Friday · 11:00–17:00"] },
+] as const;
 
-const FLAGS = ["🇫🇷", "🇩🇪", "🇺🇸", "🇹🇷", "🇺🇦", "🇪🇸", "🇮🇹", "🇧🇷", "🇯🇵", "🇲🇽", "🇵🇱", "🇪🇬", "🇱🇧", "🇷🇺", "🇬🇷", "🇬🇧", "🇨🇳", "🇸🇪", "🇰🇷", "🇮🇳"];
+function RateList({ venue, hour }: { venue: "alemannia" | "longline"; hour: number }) {
+  const prices = ratesFor(venue, hour);
+  return <div className="min-w-0 border-t border-border pt-4">
+    <p className="mb-3 text-xs font-bold uppercase tracking-widest text-muted-foreground">{prices.period}</p>
+    <ul className="space-y-2">
+      {prices.rates.map((rate) => <li key={rate.n} className="flex items-baseline justify-between gap-3 text-sm"><span>{rate.n}</span><strong className="font-display text-lg">{rate.p}</strong></li>)}
+    </ul>
+    {prices.nonMemberExtra > 0 && <p className="mt-3 text-xs text-muted-foreground">BFC non-members: +€{prices.nonMemberExtra} per person</p>}
+  </div>;
+}
 
 function Index() {
   const [contactOpen, setContactOpen] = useState(false);
-  return (
+  return <main className="relative min-h-screen overflow-hidden text-left">
+    <SiteHeader />
 
-    <main className="relative overflow-hidden text-left">
-      {/* NAV */}
-      <header className="sticky top-0 z-50 backdrop-blur-md bg-background/70 border-b border-border">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 lg:flex lg:justify-between">
-          <a href="#" className="flex min-w-0 items-center gap-2 font-display text-base sm:text-2xl md:text-3xl uppercase leading-tight">
-            <span
-              className="inline-block w-7 h-7 shrink-0 rounded-full bg-ball ball-spin shadow-inner"
-              style={{ boxShadow: "inset -4px -4px 0 oklch(0.78 0.18 115)" }}
-            />
-            <span translate="no" className="notranslate min-w-0 break-words">Youpi Tennis Club</span>
-          </a>
-          <nav className="hidden lg:flex items-center gap-7 text-sm font-medium">
-            <a href="#lessons" className="hover:text-clay transition">Lessons</a>
-            <a href="#club" className="hover:text-clay transition">Club</a>
-            <a href="#events" className="hover:text-clay transition">Events</a>
-            <a href="#past-events" className="hover:text-clay transition">Past events</a>
-            <a href="#coach" className="hover:text-clay transition">Coach</a>
-            <a href="#faq" className="hover:text-clay transition">FAQ</a>
-          </nav>
-          <div className="flex shrink-0 items-center gap-2 sm:gap-3">
-            <LanguageSwitcher />
-            <Link
-              to="/book"
-              className="hidden sm:inline-block px-4 sm:px-5 py-2.5 rounded-full bg-violet text-violet-foreground text-sm font-semibold hover:opacity-90 transition"
-            >
-              Book your lesson
-            </Link>
+    <section className="mx-auto max-w-7xl px-5 pb-10 pt-8 sm:px-6 sm:pt-12">
+      <div className="grid gap-8 lg:grid-cols-[minmax(0,1.35fr)_minmax(18rem,.65fr)] lg:items-end">
+        <div>
+          <div className="mb-5 flex flex-wrap items-center gap-3">
+            <span className="border-l-4 border-azure pl-3 text-xs font-bold uppercase tracking-widest text-azure">Winter season 2026–2027</span>
+            <span className="text-xs font-semibold text-muted-foreground">7 October → 4 April</span>
           </div>
-        </div>
-      </header>
-
-      {/* HERO */}
-      <section className="relative max-w-7xl mx-auto px-5 sm:px-6 pt-6 pb-8">
-        <div className="grid lg:grid-cols-12 gap-8 items-end">
-          <div className="lg:col-span-7 relative z-10">
-            <h1 className="text-[clamp(2.25rem,9vw,5.5rem)] font-display uppercase break-words">
-              Tennis<br />
-              <span className="text-clay">without</span><br />
-              borders
-            </h1>
-            <div className="mt-6 flex flex-wrap gap-3">
-              <Link to="/book" className="px-6 sm:px-7 py-4 rounded-full bg-violet text-violet-foreground font-semibold hover:opacity-90 transition">
-                Book your lesson 🎾
-              </Link>
-              <a href="#lessons" className="px-6 sm:px-7 py-4 rounded-full border-2 border-ink/15 font-semibold hover:border-clay hover:text-clay transition">
-                See lessons →
-              </a>
-            </div>
-
-            <div className="mt-8 flex items-center gap-6">
-              <div className="flex -space-x-2 text-xl sm:text-2xl">
-                {FLAGS.slice(0, 6).map((f) => (
-                  <span key={f} className="w-9 h-9 sm:w-10 sm:h-10 shrink-0 rounded-full bg-background border-2 border-background shadow-md grid place-items-center">{f}</span>
-                ))}
-              </div>
-              <div className="min-w-0">
-                <div className="font-display text-2xl">+200</div>
-                <div className="text-xs text-muted-foreground uppercase tracking-wider">players · 40 nationalities</div>
-              </div>
-            </div>
+          <h1 className="max-w-4xl font-display text-[clamp(2.7rem,8vw,6.5rem)] uppercase leading-[.9]">
+            Winter tennis<br/><span className="text-clay">in Berlin</span>
+          </h1>
+          <p className="mt-5 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg">One-hour group lessons, organised by level at two indoor clubs. Coaching in English, French and German.</p>
+          <div className="mt-7 flex flex-wrap gap-3">
+            <Link to="/book" className="rounded-md bg-violet px-6 py-4 font-semibold text-violet-foreground transition hover:opacity-90">See available slots</Link>
+            <Button variant="outline" size="lg" onClick={() => setContactOpen(true)}>Private lesson</Button>
           </div>
-
-          <div className="lg:col-span-5 relative self-end">
-            <div className="relative rounded-3xl overflow-hidden max-w-sm lg:max-w-md ml-auto">
-              <img src={posterAsset.url} alt="Youpi, tennis coach in Berlin, smiling on a clay court" className="w-full h-auto block" />
-            </div>
-          </div>
+          <p className="mt-5 text-sm text-muted-foreground"><strong className="text-ink">Group confirmation:</strong> 2 players before 15:00 on weekdays; 4 players from 15:00 and on weekends.</p>
         </div>
-      </section>
-
-      {/* LESSONS */}
-      <section id="lessons" className="max-w-7xl mx-auto px-5 sm:px-6 py-8 sm:py-10">
-        <h2 className="text-[clamp(1.75rem,7vw,3.75rem)] font-display uppercase max-w-2xl mb-6 break-words">
-          Pick your <span className="text-court">game</span>
-        </h2>
-
-        <p className="text-muted-foreground mb-6 max-w-2xl">
-          Winter season bookings are open! Group sessions of 1 hour — price per person, depending on the club, the time and the group size.
-        </p>
-        <div className="grid md:grid-cols-2 gap-6">
-          {([
-            { venue: "alemannia", club: "BFC Alemannia", hour: 10, color: "bg-navy", icon: "☀️" },
-            { venue: "alemannia", club: "BFC Alemannia", hour: 17, color: "bg-navy", icon: "🌙" },
-            { venue: "longline", club: "TC Longline", hour: 10, color: "bg-court", icon: "☀️" },
-            { venue: "longline", club: "TC Longline", hour: 17, color: "bg-court", icon: "🌙" },
-          ] as const).map((l) => {
-            const r = ratesFor(l.venue, l.hour);
-            return (
-              <article key={l.club + l.hour} className="relative min-w-0 p-6 sm:p-7 rounded-3xl bg-card border-2 border-ink/10 hover:border-ink transition">
-                <div className={`absolute -top-4 -right-2 sm:-right-5 w-14 h-14 sm:w-16 sm:h-16 rounded-full ${l.color} grid place-items-center text-2xl sm:text-3xl shadow-lg`}>
-                  {l.icon}
-                </div>
-                <div className="text-xs uppercase tracking-widest font-semibold text-clay mb-3">Group · 60 min</div>
-                <h3 className="text-2xl sm:text-3xl mb-1 break-words pr-12">{l.club}</h3>
-                <p className="text-muted-foreground mb-4">{r.period}</p>
-                <ul className="rounded-2xl bg-ball/30 border-2 border-ink/10 p-4 space-y-1.5">
-                  {r.rates.map((x) => (
-                    <li key={x.n} className="flex justify-between gap-3 text-sm">
-                      <span className="text-ink/70 font-medium">{x.n}</span>
-                      <span className="font-display text-ink shrink-0">{x.p} / pers</span>
-                    </li>
-                  ))}
-                </ul>
-                {r.nonMemberExtra > 0 && (
-                  <p className="mt-3 text-xs text-muted-foreground">Non-members: +€{r.nonMemberExtra} per person</p>
-                )}
-              </article>
-            );
-          })}
+        <div className="relative h-64 overflow-hidden border-b-8 border-clay sm:h-80 lg:h-[25rem]">
+          <img src={posterAsset.url} alt="Youpi, tennis coach in Berlin, on a clay court" className="h-full w-full object-cover object-top" />
         </div>
-        <p className="mt-6 text-sm text-muted-foreground">
-          A private lesson is also possible on request, but is a secondary option because indoor courts make it more expensive in winter. For a solo lesson or a group of 3, <button type="button" onClick={() => setContactOpen(true)} className="font-semibold text-clay hover:underline">contact me directly</button>.
-        </p>
-      </section>
+      </div>
+    </section>
+
+    <section aria-labelledby="winter-places" className="border-y border-border bg-card">
+      <div className="mx-auto max-w-7xl px-5 py-10 sm:px-6">
+        <div className="mb-7 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+          <div><p className="mb-2 text-xs font-bold uppercase tracking-widest text-clay">Where &amp; when</p><h2 id="winter-places" className="font-display text-[clamp(2rem,6vw,4rem)] uppercase leading-none">Two indoor locations</h2></div>
+          <p className="max-w-md text-sm text-muted-foreground">Select the club colour in the calendar: navy for BFC Alemannia, green for TC Longline.</p>
+        </div>
+        <div className="grid gap-px overflow-hidden border border-border bg-border md:grid-cols-2">
+          {venues.map((venue) => <article key={venue.name} className="bg-background p-5 sm:p-7">
+            <div className="flex items-center gap-3"><span className={`h-4 w-4 shrink-0 rounded-full ${venue.dot}`} /><h3 className="font-display text-2xl uppercase">{venue.name}</h3></div>
+            <ul className="mt-5 grid gap-2 text-sm sm:grid-cols-2">{venue.schedule.map((line) => <li key={line} className="border-l-2 border-border pl-3">{line}</li>)}</ul>
+          </article>)}
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="winter-prices" className="mx-auto max-w-7xl px-5 py-10 sm:px-6 sm:py-14">
+      <div className="mb-7"><p className="mb-2 text-xs font-bold uppercase tracking-widest text-azure">60 minutes · price per person</p><h2 id="winter-prices" className="font-display text-[clamp(2rem,6vw,4rem)] uppercase leading-none">Winter prices</h2></div>
+      <div className="grid gap-5 lg:grid-cols-2">
+        {venues.map((venue) => <article key={venue.name} className="border-t-4 border-ink bg-card p-5 sm:p-7">
+          <div className="mb-6 flex items-center gap-3"><span className={`h-4 w-4 rounded-full ${venue.dot}`} /><h3 className="font-display text-2xl uppercase">{venue.name}</h3></div>
+          <div className="grid gap-6 sm:grid-cols-2"><RateList venue={venue.venue} hour={10} /><RateList venue={venue.venue} hour={17} /></div>
+        </article>)}
+      </div>
+      <p className="mt-5 max-w-3xl text-sm text-muted-foreground">Groups of 3 students are possible at the prices shown above. Private lessons are available on request and cost more in winter because of indoor court fees.</p>
+    </section>
+
+    <section className="bg-navy text-background">
+      <div className="mx-auto grid max-w-7xl gap-7 px-5 py-10 sm:px-6 md:grid-cols-[1fr_auto] md:items-center">
+        <div><p className="text-xs font-bold uppercase tracking-widest text-sky">Your coach</p><h2 className="mt-2 font-display text-3xl uppercase sm:text-4xl">Clear coaching. International groups.</h2><p className="mt-3 max-w-3xl text-background/75">I’m Youpi, a French-German lawyer turned full-time tennis coach. Technical progress comes first, with structured sessions in English, French or German and groups matched carefully by level.</p></div>
+        <Link to="/book" className="inline-flex justify-center rounded-md bg-clay px-6 py-4 font-semibold text-background transition hover:opacity-90">Book winter tennis</Link>
+      </div>
+    </section>
+
+    <section className="mx-auto max-w-7xl px-5 py-10 sm:px-6">
+      <h2 className="font-display text-3xl uppercase">Essential information</h2>
+      <div className="mt-5 grid gap-px border border-border bg-border sm:grid-cols-3">
+        <div className="bg-background p-5"><strong className="block font-display text-xl uppercase">Levels</strong><p className="mt-2 text-sm text-muted-foreground">Total beginner, beginner, intermediate and advanced.</p></div>
+        <div className="bg-background p-5"><strong className="block font-display text-xl uppercase">Cancellation</strong><p className="mt-2 text-sm text-muted-foreground">Possible until 24 hours before the lesson.</p></div>
+        <div className="bg-background p-5"><strong className="block font-display text-xl uppercase">Languages</strong><p className="mt-2 text-sm text-muted-foreground">English, French and German.</p></div>
+      </div>
+    </section>
+
+    <FeedbackSection />
+    <SiteFooter />
+
+    {contactOpen && <div className="fixed inset-0 z-[100] flex items-end justify-center sm:items-center">
+      <Button aria-label="Close" variant="ghost" onClick={() => setContactOpen(false)} className="absolute inset-0 h-full w-full rounded-none bg-ink/60 hover:bg-ink/60" />
+      <div className="relative z-10 w-full bg-card p-6 shadow-2xl sm:max-w-md sm:border sm:border-border sm:p-8">
+        <Button variant="ghost" size="icon" onClick={() => setContactOpen(false)} className="absolute right-3 top-3" aria-label="Close">×</Button>
+        <h3 className="pr-10 font-display text-2xl uppercase">Private lesson</h3>
+        <p className="mt-3 text-sm text-muted-foreground">Contact me directly for availability and the winter price.</p>
+        <div className="mt-6 grid gap-3">
+          <a href="https://wa.me/4917645689622" target="_blank" rel="noopener" className="rounded-md bg-violet px-6 py-4 text-center font-semibold text-violet-foreground">WhatsApp · +49 176 45689622</a>
+          <a href="mailto:chaouchyoucef@yahoo.com" className="rounded-md border border-border px-6 py-4 text-center font-semibold">Send an email</a>
+        </div>
+      </div>
+    </div>}
+  </main>;
+}
 
       {/* CLUB */}
       <section id="club" className="max-w-7xl mx-auto px-5 sm:px-6 py-8 sm:py-10">
