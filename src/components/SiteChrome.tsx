@@ -6,9 +6,10 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-background/95 backdrop-blur-md">
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-3 sm:px-6">
-        <Link to="/" className="flex min-w-0 items-center gap-2 font-display text-base uppercase leading-tight sm:text-xl">
+        <Link to="/" aria-label="Youpi Tennis Club home" className="flex min-w-0 items-center gap-2 font-display text-base uppercase leading-tight sm:text-xl">
           <span className="h-6 w-6 shrink-0 rounded-full bg-ball shadow-inner" />
-          <span translate="no" className="notranslate truncate">Youpi Tennis Club</span>
+          <span translate="no" className="notranslate sm:hidden">YTC</span>
+          <span translate="no" className="notranslate hidden sm:inline">Youpi Tennis Club</span>
         </Link>
         <div className="flex shrink-0 items-center gap-2">
           <LanguageSwitcher />
@@ -17,7 +18,7 @@ export function SiteHeader() {
           </Link>
         </div>
       </div>
-      <nav aria-label="Main navigation" className="mx-auto flex max-w-7xl gap-5 overflow-x-auto border-t border-border px-4 py-2.5 text-xs font-semibold sm:px-6 sm:text-sm">
+      <nav aria-label="Main navigation" className="mx-auto flex max-w-7xl gap-5 overflow-x-auto border-t border-border px-4 py-2.5 text-xs font-semibold [scrollbar-width:none] sm:px-6 sm:text-sm [&::-webkit-scrollbar]:hidden">
         <Link to="/" className="shrink-0 transition hover:text-clay">Winter season</Link>
         <Link to="/membership" className="shrink-0 transition hover:text-clay">Membership</Link>
         <Link to="/tournaments" className="shrink-0 transition hover:text-clay">Tournaments</Link>
