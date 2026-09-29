@@ -7,3 +7,4 @@
 - [x] Nommer l'entrée du menu « Membership Club 2027 »
 - [x] Effacer la section « Ready? Los geht's » de l'accueil
 - [x] Membership : intro rates 1re annee (from April 2027) Single 160 EUR + phrase d'accroche club
+- [x] Membership : nouveau texte d'intro (Our base / clay courts & indoor / welcoming club + clubhouse restaurant + hidden gem)
