@@ -83,11 +83,11 @@ function Index() {
             <span translate="no" className="notranslate min-w-0 break-words">Youpi Tennis Club</span>
           </a>
           <nav className="hidden lg:flex items-center gap-7 text-sm font-medium">
-            <a href="#offers" className="hover:text-clay transition">Offers</a>
-             <a href="#past-events" className="hover:text-clay transition">Past events</a>
-            <a href="#club" className="hover:text-clay transition">Club</a>
-            <a href="#coach" className="hover:text-clay transition">Coach</a>
-            <a href="#faq" className="hover:text-clay transition">FAQ</a>
+            <a href="#offers" className="hover:text-azure transition">Offers</a>
+             <a href="#past-events" className="hover:text-azure transition">Past events</a>
+            <a href="#club" className="hover:text-azure transition">Club</a>
+            <a href="#coach" className="hover:text-azure transition">Coach</a>
+            <a href="#faq" className="hover:text-azure transition">FAQ</a>
           </nav>
           <div className="flex shrink-0 items-center gap-2 sm:gap-3">
             <LanguageSwitcher />
@@ -299,7 +299,7 @@ function Index() {
             <details key={f.q} className="group py-6 cursor-pointer">
               <summary className="flex items-start justify-between gap-4 font-display text-lg sm:text-xl uppercase list-none">
                 <span className="min-w-0 break-words">{f.q}</span>
-                <span className="text-clay text-3xl shrink-0 group-open:rotate-45 transition">+</span>
+                <span className="text-azure text-3xl shrink-0 group-open:rotate-45 transition">+</span>
               </summary>
               <p className="mt-3 text-muted-foreground">{f.a}</p>
             </details>
@@ -307,7 +307,7 @@ function Index() {
         </div>
         <div className="mt-8 flex flex-wrap gap-3">
           <Link to="/book" className="px-7 py-4 rounded-full bg-violet text-violet-foreground font-semibold hover:opacity-90 transition">Book your lesson 🎾</Link>
-          <button type="button" onClick={() => setContactOpen(true)} className="px-7 py-4 rounded-full border-2 border-ink/15 font-semibold hover:border-clay hover:text-clay transition">Contact me 📩</button>
+          <button type="button" onClick={() => setContactOpen(true)} className="px-7 py-4 rounded-full border-2 border-ink/15 font-semibold hover:border-azure hover:text-azure transition">Contact me 📩</button>
         </div>
       </section>
 
@@ -319,9 +319,9 @@ function Index() {
         <div className="max-w-7xl mx-auto px-6 py-8 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div translate="no" className="notranslate font-display text-xl sm:text-2xl uppercase">Youpi Tennis Club</div>
           <div className="flex flex-wrap gap-6 text-sm text-background/70">
-            <Link to="/contact" className="hover:text-ball transition">Contact</Link>
-            <Link to="/privacy" className="hover:text-ball transition">Privacy</Link>
-            <Link to="/cookies" className="hover:text-ball transition">Cookies</Link>
+            <Link to="/contact" className="hover:text-sky transition">Contact</Link>
+            <Link to="/privacy" className="hover:text-sky transition">Privacy</Link>
+            <Link to="/cookies" className="hover:text-sky transition">Cookies</Link>
           </div>
         </div>
         <div className="border-t border-background/10 py-5 text-xs text-background/40 px-6 max-w-7xl mx-auto">
@@ -353,7 +353,7 @@ function Index() {
                 </div>
                 <a
                   href="mailto:chaouchyoucef@yahoo.com"
-                  className="font-semibold text-lg break-all hover:text-clay transition"
+                  className="font-semibold text-lg break-all hover:text-azure transition"
                 >
                   chaouchyoucef@yahoo.com
                 </a>
@@ -364,7 +364,7 @@ function Index() {
                 </div>
                 <a
                   href="tel:+4917645689622"
-                  className="font-semibold text-lg hover:text-clay transition"
+                  className="font-semibold text-lg hover:text-azure transition"
                 >
                   +49 176 45689622
                 </a>
