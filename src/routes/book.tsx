@@ -84,6 +84,9 @@ const CLUB_HOURS: Record<number, { club: Venue; hours: number[] }[]> = {
   6: [{ club: "alemannia", hours: [9, 10, 13, 14] }], // Sat — BFC Alemannia 09–11h & 13–15h
 };
 
+/** Summer camp: 18:30–20:30 (2h), 2 coaches, groups of 4–6. */
+const CAMP_DAYS = ["2026-08-17", "2026-08-18", "2026-08-20"];
+
 /** Price grid shown in the booking modal: see ratesFor (club + hour). */
 
 /* ========================================================================= */
@@ -103,6 +106,7 @@ type Slot = {
   duration: number;
   level: SlotLevel;
   venue: Venue;
+  camp?: boolean;
 };
 
 type MyBooking = {
@@ -139,14 +143,21 @@ function buildSlotsForDate(date: Date): Slot[] {
   if (ymd(date) < FIRST_OPEN_DAY) return [];
 
   const slots: Slot[] = [];
+  const isCampDay = CAMP_DAYS.includes(ymd(date));
 
   // 1-hour slots, only at the hours each club actually has free.
   for (const { club, hours } of CLUB_HOURS[day] ?? []) {
     for (const h of hours) {
+      if (isCampDay && h >= 18) continue;
       const d = new Date(date);
       d.setHours(h, 0, 0, 0);
       slots.push({ start: d, duration: 60, level: "open", venue: club });
     }
+  }
+  if (isCampDay) {
+    const camp = new Date(date);
+    camp.setHours(18, 30, 0, 0);
+    slots.push({ start: camp, duration: 120, level: "open", venue: "alemannia", camp: true });
   }
 
   return slots.sort((a, b) => a.start.getTime() - b.start.getTime());
@@ -201,6 +212,7 @@ function BookPage() {
   const today = startOfDay(new Date());
   const [weekStart, setWeekStart] = useState<Date>(today);
   const [selectedSlot, setSelectedSlot] = useState<Slot | null>(null);
+  const [campInfo, setCampInfo] = useState<Slot | null>(null);
   const [winterOpen, setWinterOpen] = useState(false);
   const [bookings, setBookings] = useState<PublicBooking[]>([]);
   const [loading, setLoading] = useState(true);
@@ -246,6 +258,9 @@ function BookPage() {
     if (h.startsWith("id-preview--") || h === "localhost") setAdminView(true);
     isAdmin().then((r) => r.admin && setAdminView(true)).catch(() => {});
   }, []);
+  useEffect(() => {
+    if (adminView && !checkingAuth) setUnlocked(true);
+  }, [adminView, checkingAuth]);
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data }) => {
@@ -370,6 +385,10 @@ function BookPage() {
   const isPast = (slot: Slot) => slot.start.getTime() <= Date.now();
 
   const openSlot = (slot: Slot) => {
+    if (slot.camp) {
+      setCampInfo(slot);
+      return;
+    }
     if (!unlocked) {
       toast.error("Sign in to book this slot — use the sign-in button above the calendar.");
       return;
@@ -394,6 +413,7 @@ function BookPage() {
           phone: phone.trim(),
           photo_url: photo,
           duration: selectedSlot.duration,
+          camp: Boolean(selectedSlot.camp),
         },
       })) as { confirmed?: boolean; count?: number };
       toast.success(
@@ -472,7 +492,7 @@ function BookPage() {
 
       <section className="max-w-6xl mx-auto px-5 sm:px-6 pt-8 pb-6">
         <h1 className="text-[clamp(2rem,8vw,4.5rem)] font-display uppercase leading-none break-words">
-          Book your <span className="text-azure">tennis session</span>
+          Book your <span className="text-clay">tennis session</span>
         </h1>
         <p className="mt-4 max-w-xl text-base sm:text-lg text-muted-foreground">
           <b className="text-ink">Winter season bookings are open!</b> 1-hour sessions at BFC Alemannia and TC Longline. Pick your level and book — the session is confirmed automatically when enough students of the same level join:{" "}
@@ -488,7 +508,7 @@ function BookPage() {
           or by{" "}
           <a
             href="mailto:chaouchyoucef@yahoo.com"
-            className="text-azure font-semibold hover:underline break-all"
+            className="text-clay font-semibold hover:underline break-all"
           >
             email
           </a>
@@ -502,7 +522,7 @@ function BookPage() {
           ))}
         </div>
         <div className="mt-3 flex flex-wrap items-center gap-2 text-xs font-bold uppercase tracking-wide">
-          <span className="text-azure font-semibold normal-case">Where:</span>
+          <span className="text-muted-foreground font-semibold normal-case">Where:</span>
           {(["alemannia", "longline"] as Venue[]).map((v) => (
             <span
               key={v}
@@ -516,7 +536,7 @@ function BookPage() {
       </section>
 
       {/* SIGN-IN GATE — students must sign in to see the calendar */}
-      {!unlocked && !adminView && !checkingAuth && (
+      {!unlocked && !checkingAuth && (
         <section className="max-w-6xl mx-auto px-5 sm:px-6 pb-16">
           <div className="rounded-3xl bg-card border-2 border-ink p-5 sm:p-6 shadow-lg grid gap-3 sm:flex sm:items-center sm:justify-between">
             <div className="min-w-0">
@@ -537,7 +557,7 @@ function BookPage() {
         </section>
       )}
 
-      {(unlocked || adminView) && (
+      {unlocked && (
       <>
           {/* CALENDAR */}
           <section className="max-w-6xl mx-auto px-5 sm:px-6 pb-16">
@@ -612,7 +632,7 @@ function BookPage() {
                             const past = isPast(slot);
                             return (
                               <button
-                                key={`${slot.start.toISOString()}-${slot.venue}`}
+                                key={`${slot.start.toISOString()}-${slot.venue}-${slot.camp ? "camp" : "lesson"}`}
                                 type="button"
                                 onClick={() => openSlot(slot)}
                                 disabled={full || past}
@@ -810,10 +830,69 @@ function BookPage() {
         </Modal>
       )}
 
+      {/* SUMMER CAMP MODAL */}
+      {campInfo && (
+        <Modal onClose={() => setCampInfo(null)}>
+          <div className="text-xs font-bold uppercase tracking-widest text-destructive mb-2">
+            Summer camp
+          </div>
+          <h3 className="font-display text-2xl sm:text-3xl uppercase mb-1 pr-10">
+            Aug 17 + 18 + 20
+          </h3>
+          <div className="font-display text-xl mb-4">6:30–8:30 PM</div>
+          <div className="space-y-3 text-sm sm:text-base text-muted-foreground">
+            <p>
+              I'm organising a <b className="text-ink">tennis camp with my best friend from
+              France</b> 🇫🇷! He's been a <b className="text-ink">tennis coach for more than 10
+              years</b> and is definitely more relaxed than me… 😅
+            </p>
+            <p>
+              📅 <b className="text-ink">3 days between August 17 and 20</b>. Each session lasts 2
+              hours, from 6:30 to 8:30 PM. We'll have groups of{" "}
+              <b className="text-ink">4 to 6 students</b> with a similar level — total beginner,
+              beginner, intermediate or advanced, depending on the participants. Capacity is limited, so
+              it's first come, first served!
+            </p>
+            <div className="rounded-2xl bg-ink/5 p-4 text-ink">
+              <div className="font-display uppercase mb-2">How it works</div>
+              <ul className="space-y-1.5 text-sm">
+                <li>🎾 2 hours per day, over 3 days</li>
+                <li>🔄 Rotation between the 2 coaches — two coaching perspectives</li>
+                <li>🎯 3 days, 3 topics: footwork, tactics &amp; technique every day</li>
+                <li>🗣️ Coaching language: English (or French 😅)</li>
+              </ul>
+            </div>
+            <div className="rounded-2xl bg-ball/40 p-4 text-ink">
+              <div className="font-display uppercase mb-2">Prices 💸</div>
+              <ul className="space-y-1.5 text-sm">
+                <li>👥 Group of 4: BFC Alemannia members €130 / non-members €150</li>
+                <li>👥 Group of 6: BFC Alemannia members €100 / non-members €120</li>
+                <li>💳 Payment in advance via PayPal: chaouchyoucef@yahoo.com</li>
+              </ul>
+            </div>
+            <p>
+              If you can't make all 3 days and I find a <b className="text-ink">substitute</b> of a
+              similar level, you can give your spot to a friend or family member.
+            </p>
+          </div>
+          <button
+            type="button"
+            onClick={() => {
+              const slot = campInfo;
+              setCampInfo(null);
+              setSelectedSlot(slot);
+            }}
+            className="mt-5 w-full px-7 py-4 rounded-2xl bg-violet text-violet-foreground font-semibold text-lg hover:opacity-90 transition"
+          >
+            Book my camp spot 🎾
+          </button>
+        </Modal>
+      )}
+
       {/* BOOKING MODAL */}
       {selectedSlot && (
         <Modal onClose={() => setSelectedSlot(null)}>
-          <div className="text-xs font-bold uppercase tracking-widest text-azure mb-2">
+          <div className="text-xs font-bold uppercase tracking-widest text-clay mb-2">
             {selectedSlot.level === "open"
               ? "Open session — choose your level"
               : `${LEVEL_LABEL[selectedSlot.level]} group`}
@@ -837,9 +916,21 @@ function BookPage() {
 
           <div className="mt-4 rounded-2xl bg-ball/30 border-2 border-ink/10 p-4">
             <div className="font-display text-sm uppercase mb-2">
-              Price · {selectedSlot.duration} min
+              Price · {selectedSlot.camp ? "3 days camp" : `${selectedSlot.duration} min`}
             </div>
-            {(() => {
+            {selectedSlot.camp ? (
+              <ul className="space-y-1 text-sm">
+                <li className="flex justify-between gap-3">
+                  <span>Group of 4</span>
+                  <span className="font-display shrink-0">€130 members / €150</span>
+                </li>
+                <li className="flex justify-between gap-3">
+                  <span>Group of 6</span>
+                  <span className="font-display shrink-0">€100 members / €120</span>
+                </li>
+              </ul>
+            ) : (
+              (() => {
                 const r = ratesFor(
                   selectedSlot.venue,
                   Number(new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/Berlin", hour: "2-digit", hour12: false }).format(selectedSlot.start)),
@@ -860,7 +951,8 @@ function BookPage() {
                     )}
                   </>
                 );
-              })()}
+              })()
+            )}
           </div>
 
           <h3 className="font-display text-xl uppercase mt-6 mb-3">Your details</h3>

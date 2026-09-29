@@ -9,12 +9,9 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as TournamentsRouteImport } from './routes/tournaments'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as PrivacyRouteImport } from './routes/privacy'
-import { Route as PastEventsRouteImport } from './routes/past-events'
-import { Route as MembershipRouteImport } from './routes/membership'
 import { Route as CookiesRouteImport } from './routes/cookies'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CancelRouteImport } from './routes/cancel'
@@ -25,11 +22,6 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as LovableEmailAuthWebhookRouteImport } from './routes/lovable/email/auth/webhook'
 import { Route as LovableEmailAuthPreviewRouteImport } from './routes/lovable/email/auth/preview'
 
-const TournamentsRoute = TournamentsRouteImport.update({
-  id: '/tournaments',
-  path: '/tournaments',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
@@ -43,16 +35,6 @@ const ResetPasswordRoute = ResetPasswordRouteImport.update({
 const PrivacyRoute = PrivacyRouteImport.update({
   id: '/privacy',
   path: '/privacy',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PastEventsRoute = PastEventsRouteImport.update({
-  id: '/past-events',
-  path: '/past-events',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const MembershipRoute = MembershipRouteImport.update({
-  id: '/membership',
-  path: '/membership',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CookiesRoute = CookiesRouteImport.update({
@@ -109,12 +91,9 @@ export interface FileRoutesByFullPath {
   '/cancel': typeof CancelRoute
   '/contact': typeof ContactRoute
   '/cookies': typeof CookiesRoute
-  '/membership': typeof MembershipRoute
-  '/past-events': typeof PastEventsRoute
   '/privacy': typeof PrivacyRoute
   '/reset-password': typeof ResetPasswordRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/tournaments': typeof TournamentsRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
 }
@@ -126,12 +105,9 @@ export interface FileRoutesByTo {
   '/cancel': typeof CancelRoute
   '/contact': typeof ContactRoute
   '/cookies': typeof CookiesRoute
-  '/membership': typeof MembershipRoute
-  '/past-events': typeof PastEventsRoute
   '/privacy': typeof PrivacyRoute
   '/reset-password': typeof ResetPasswordRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/tournaments': typeof TournamentsRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
 }
@@ -144,12 +120,9 @@ export interface FileRoutesById {
   '/cancel': typeof CancelRoute
   '/contact': typeof ContactRoute
   '/cookies': typeof CookiesRoute
-  '/membership': typeof MembershipRoute
-  '/past-events': typeof PastEventsRoute
   '/privacy': typeof PrivacyRoute
   '/reset-password': typeof ResetPasswordRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/tournaments': typeof TournamentsRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
 }
@@ -163,12 +136,9 @@ export interface FileRouteTypes {
     | '/cancel'
     | '/contact'
     | '/cookies'
-    | '/membership'
-    | '/past-events'
     | '/privacy'
     | '/reset-password'
     | '/sitemap.xml'
-    | '/tournaments'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
   fileRoutesByTo: FileRoutesByTo
@@ -180,12 +150,9 @@ export interface FileRouteTypes {
     | '/cancel'
     | '/contact'
     | '/cookies'
-    | '/membership'
-    | '/past-events'
     | '/privacy'
     | '/reset-password'
     | '/sitemap.xml'
-    | '/tournaments'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
   id:
@@ -197,12 +164,9 @@ export interface FileRouteTypes {
     | '/cancel'
     | '/contact'
     | '/cookies'
-    | '/membership'
-    | '/past-events'
     | '/privacy'
     | '/reset-password'
     | '/sitemap.xml'
-    | '/tournaments'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
   fileRoutesById: FileRoutesById
@@ -215,25 +179,15 @@ export interface RootRouteChildren {
   CancelRoute: typeof CancelRoute
   ContactRoute: typeof ContactRoute
   CookiesRoute: typeof CookiesRoute
-  MembershipRoute: typeof MembershipRoute
-  PastEventsRoute: typeof PastEventsRoute
   PrivacyRoute: typeof PrivacyRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
-  TournamentsRoute: typeof TournamentsRoute
   LovableEmailAuthPreviewRoute: typeof LovableEmailAuthPreviewRoute
   LovableEmailAuthWebhookRoute: typeof LovableEmailAuthWebhookRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/tournaments': {
-      id: '/tournaments'
-      path: '/tournaments'
-      fullPath: '/tournaments'
-      preLoaderRoute: typeof TournamentsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/sitemap.xml': {
       id: '/sitemap.xml'
       path: '/sitemap.xml'
@@ -253,20 +207,6 @@ declare module '@tanstack/react-router' {
       path: '/privacy'
       fullPath: '/privacy'
       preLoaderRoute: typeof PrivacyRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/past-events': {
-      id: '/past-events'
-      path: '/past-events'
-      fullPath: '/past-events'
-      preLoaderRoute: typeof PastEventsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/membership': {
-      id: '/membership'
-      path: '/membership'
-      fullPath: '/membership'
-      preLoaderRoute: typeof MembershipRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/cookies': {
@@ -343,12 +283,9 @@ const rootRouteChildren: RootRouteChildren = {
   CancelRoute: CancelRoute,
   ContactRoute: ContactRoute,
   CookiesRoute: CookiesRoute,
-  MembershipRoute: MembershipRoute,
-  PastEventsRoute: PastEventsRoute,
   PrivacyRoute: PrivacyRoute,
   ResetPasswordRoute: ResetPasswordRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
-  TournamentsRoute: TournamentsRoute,
   LovableEmailAuthPreviewRoute: LovableEmailAuthPreviewRoute,
   LovableEmailAuthWebhookRoute: LovableEmailAuthWebhookRoute,
 }

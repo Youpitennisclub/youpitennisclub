@@ -45,8 +45,6 @@
   --color-violet-foreground: var(--violet-foreground);
   --color-sky: var(--sky);
   --color-navy: var(--navy);
-  --color-azure: var(--azure);
-  --color-azure-soft: var(--azure-soft);
 }
 
 :root {
@@ -70,8 +68,6 @@
   --violet-foreground: oklch(0.99 0.01 300);
   --sky: oklch(0.82 0.11 230);                 /* sky blue */
   --navy: oklch(0.28 0.10 255);                /* dark blue */
-  --azure: oklch(0.53 0.17 248);               /* booking accent */
-  --azure-soft: oklch(0.95 0.035 245);
 
   --popover: oklch(1 0 0);
   --popover-foreground: var(--ink);
