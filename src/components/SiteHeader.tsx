@@ -9,6 +9,7 @@ const NAV_ITEMS = [
   { to: "/", label: "Home" },
   { to: "/membership", label: "Membership Club 2027" },
   { to: "/about", label: "About me" },
+  { to: "/tennis-events", label: "Tennis events" },
   { to: "/contact", label: "Contact" },
 ] as const;
 
