@@ -17,3 +17,4 @@
 - [x] Seuil de groupe bascule a 16:00 partout (compteurs + confirmation auto cote serveur)
 - [x] Agenda : creneau 16:00–17:00 ajoute le 09.10 + OUTDOOR mis en avant (badge + colonne + legende)
 - [x] Jeudi 08.10 : creneaux reguliers retires, remplaces par 20:00–21:00 et 21:00–22:00
+- [x] Mercredi 07.10 : creneau indoor 21:00–22:00 ajoute, badge INDOOR mis en avant (calendrier, modale, legende)

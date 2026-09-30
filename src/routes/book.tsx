@@ -603,6 +603,9 @@ function BookPage() {
           <span className="inline-flex items-center gap-1.5 rounded-full border-2 border-sky bg-sky/30 px-3 py-1.5 text-ink">
             <span aria-hidden="true">☀️</span> Outdoor days
           </span>
+          <span className="inline-flex items-center gap-1.5 rounded-full border-2 border-ink bg-ink/10 px-3 py-1.5 text-ink">
+            <span aria-hidden="true">🌙</span> Indoor sessions
+          </span>
         </div>
       </section>
 
@@ -736,6 +739,12 @@ function BookPage() {
                                     {parts.length}/{groupMin(slot.start)}
                                   </span>
                                 </div>
+                                {slot.indoor && (
+                                  <div className="mt-2 flex w-fit items-center gap-2 rounded-full bg-ink px-3 py-1.5 font-display text-xs font-bold uppercase tracking-[0.2em] text-background">
+                                    <span aria-hidden="true">🌙</span>
+                                    INDOOR
+                                  </div>
+                                )}
                                 <div className="mt-1.5 flex flex-wrap items-center gap-x-2 gap-y-1">
                                   <span
                                     className={`inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full border-2 px-2.5 py-1 text-[10px] font-bold ${VENUE_STYLE[slot.venue]}`}
@@ -999,6 +1008,11 @@ function BookPage() {
             <span className="h-2 w-2 shrink-0 rounded-full bg-background" />
             {VENUE_LABEL[selectedSlot.venue]}
           </div>
+          {selectedSlot.indoor && (
+            <div className="mt-2 flex w-fit items-center gap-2 rounded-full bg-ink px-3 py-1.5 font-display text-xs font-bold uppercase tracking-[0.2em] text-background">
+              <span aria-hidden="true">🌙</span> INDOOR
+            </div>
+          )}
           <div className="mt-2 text-sm text-muted-foreground">
             {selectedSlot.duration} minutes ·{" "}
             {participantsFor(selectedSlot).length}/{groupMin(selectedSlot.start)} students
