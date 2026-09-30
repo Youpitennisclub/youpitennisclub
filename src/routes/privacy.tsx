@@ -101,7 +101,12 @@ function PrivacyPage() {
           <li>Withdraw consent at any time, without affecting prior processing</li>
           <li>Lodge a complaint with a supervisory authority, e.g. the Berlin Beauftragte für Datenschutz und Informationsfreiheit</li>
         </ul>
-        <p>To exercise any of these rights, email <strong>youpitennisclub@gmail.com</strong>.</p>
+        <p>To exercise any of these rights, email{" "}
+          <a href="mailto:youpitennisclub@gmail.com" className="text-clay font-semibold underline underline-offset-2 hover:text-clay/80 transition break-all">
+            youpitennisclub@gmail.com
+          </a>.
+        </p>
+
 
         <h2 className="font-display text-2xl uppercase mt-10 mb-3">8. Security</h2>
         <p>
