@@ -452,7 +452,7 @@ function BookPage() {
           <Link to="/" className="flex min-w-0 items-center gap-2 font-display text-base sm:text-2xl uppercase leading-tight">
             <span
               className="inline-block w-7 h-7 shrink-0 rounded-full bg-ball ball-spin shadow-inner"
-              style={{ boxShadow: "inset -4px -4px 0 oklch(0.78 0.18 115)" }}
+              style={{ boxShadow: "inset -4px -4px 0 oklch(0.77 0.17 100)" }}
             />
             <span className="min-w-0 break-words">Youpi Tennis Club</span>
           </Link>
