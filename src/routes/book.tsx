@@ -740,7 +740,7 @@ function BookPage() {
                                   </span>
                                 </div>
                                 {slot.indoor && (
-                                  <div className="mt-2 flex w-fit items-center gap-2 rounded-full bg-ink px-3 py-1.5 font-display text-xs font-bold uppercase tracking-[0.2em] text-background">
+                                  <div className="mt-2 flex w-fit items-center gap-2 rounded-full border-2 border-ink bg-ink/10 px-3 py-1.5 font-display text-xs font-bold uppercase tracking-[0.2em] text-ink">
                                     <span aria-hidden="true">🌙</span>
                                     INDOOR
                                   </div>
@@ -1009,7 +1009,7 @@ function BookPage() {
             {VENUE_LABEL[selectedSlot.venue]}
           </div>
           {selectedSlot.indoor && (
-            <div className="mt-2 flex w-fit items-center gap-2 rounded-full bg-ink px-3 py-1.5 font-display text-xs font-bold uppercase tracking-[0.2em] text-background">
+            <div className="mt-2 flex w-fit items-center gap-2 rounded-full border-2 border-ink bg-ink/10 px-3 py-1.5 font-display text-xs font-bold uppercase tracking-[0.2em] text-ink">
               <span aria-hidden="true">🌙</span> INDOOR
             </div>
           )}
