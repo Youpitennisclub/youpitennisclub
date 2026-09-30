@@ -68,7 +68,7 @@ export function FeedbackSection() {
   };
 
   const inputCls =
-    "w-full min-w-0 px-4 py-3 rounded-2xl bg-background border-2 border-ink/10 focus:border-court outline-none transition";
+    "w-full min-w-0 px-4 py-3 rounded-2xl bg-background border-2 border-ink/10 focus:border-clay outline-none transition";
 
   return (
     <section id="feedback" className="max-w-7xl mx-auto px-5 sm:px-6 py-8 sm:py-10">

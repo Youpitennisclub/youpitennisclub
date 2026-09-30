@@ -116,7 +116,7 @@ function Index() {
       {/* LESSONS */}
       <section id="lessons" className="max-w-7xl mx-auto px-5 sm:px-6 py-8 sm:py-10">
         <h2 className="text-[clamp(1.75rem,7vw,3.75rem)] font-display uppercase max-w-2xl mb-6 break-words">
-          Pick your <span className="text-court">game</span>
+          Pick your <span className="text-clay">game</span>
         </h2>
 
         <p className="text-muted-foreground mb-6 max-w-2xl">
@@ -126,8 +126,8 @@ function Index() {
           {([
             { venue: "alemannia", club: "BFC Alemannia", hour: 10, color: "bg-navy", icon: "☀️" },
             { venue: "alemannia", club: "BFC Alemannia", hour: 17, color: "bg-navy", icon: "🌙" },
-            { venue: "longline", club: "TC Longline", hour: 10, color: "bg-court", icon: "☀️" },
-            { venue: "longline", club: "TC Longline", hour: 17, color: "bg-court", icon: "🌙" },
+            { venue: "longline", club: "TC Longline", hour: 10, color: "bg-clay", icon: "☀️" },
+            { venue: "longline", club: "TC Longline", hour: 17, color: "bg-clay", icon: "🌙" },
           ] as const).map((l) => {
             const r = ratesFor(l.venue, l.hour);
             return (

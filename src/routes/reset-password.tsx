@@ -122,7 +122,7 @@ function ResetPasswordPage() {
   }, []);
 
   const inputCls =
-    "w-full min-w-0 px-4 py-3 rounded-2xl bg-background border-2 border-ink/10 focus:border-court outline-none transition";
+    "w-full min-w-0 px-4 py-3 rounded-2xl bg-background border-2 border-ink/10 focus:border-clay outline-none transition";
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -176,7 +176,7 @@ function ResetPasswordPage() {
           <p className="mt-4 text-sm text-muted-foreground">Checking your reset link…</p>
         ) : completed ? (
           <div className="mt-6 grid gap-4">
-            <p className="rounded-2xl border-2 border-court/25 bg-court/10 px-4 py-3 text-sm font-semibold text-foreground">
+            <p className="rounded-2xl border-2 border-clay/25 bg-clay/10 px-4 py-3 text-sm font-semibold text-foreground">
               Your password has been changed successfully.
             </p>
             <button
@@ -221,7 +221,7 @@ function ResetPasswordPage() {
                 type="checkbox"
                 checked={showPassword}
                 onChange={(e) => setShowPassword(e.target.checked)}
-                className="h-4 w-4 accent-court"
+                className="h-4 w-4 accent-clay"
               />
               Show password
             </label>

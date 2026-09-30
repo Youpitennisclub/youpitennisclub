@@ -71,7 +71,7 @@ const VENUE_LABEL: Record<Venue, string> = {
 /** Club color codes: BFC Alemannia = navy blue, TC Longline = court green. */
 const VENUE_STYLE: Record<Venue, string> = {
   alemannia: "bg-navy text-background border-navy",
-  longline: "bg-court text-background border-court",
+  longline: "bg-clay text-background border-clay",
 };
 
 /** Available court hours (1h slots), per weekday and per club. */
@@ -442,7 +442,7 @@ function BookPage() {
 
 
   const inputCls =
-    "w-full min-w-0 px-4 py-3 rounded-2xl bg-background border-2 border-ink/10 focus:border-court outline-none transition";
+    "w-full min-w-0 px-4 py-3 rounded-2xl bg-background border-2 border-ink/10 focus:border-clay outline-none transition";
 
   return (
     <main className="relative min-h-screen text-left">
@@ -460,11 +460,11 @@ function BookPage() {
             {unlocked && (
               <span
                 title={email}
-                className="inline-flex min-w-0 max-w-full items-center gap-2 px-3 py-2 rounded-full border-2 border-court/40 bg-court/10 text-xs sm:max-w-[14rem] sm:text-sm font-semibold"
+                className="inline-flex min-w-0 max-w-full items-center gap-2 px-3 py-2 rounded-full border-2 border-clay/40 bg-clay/10 text-xs sm:max-w-[14rem] sm:text-sm font-semibold"
               >
                 <span className="relative flex h-2.5 w-2.5 shrink-0">
-                  <span className="absolute inline-flex h-full w-full rounded-full bg-court opacity-60 animate-ping" />
-                  <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-court" />
+                  <span className="absolute inline-flex h-full w-full rounded-full bg-clay opacity-60 animate-ping" />
+                  <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-clay" />
                 </span>
                 <span className="min-w-0 break-all">
                   {firstName?.trim() || email.split("@")[0] || "Connected"}
@@ -501,7 +501,7 @@ function BookPage() {
           <b className="text-ink">3 students</b> — for a private lesson, contact me directly on{" "}
           <a
             href="https://wa.me/4917645689622"
-            className="text-court font-semibold hover:underline break-all"
+            className="text-clay font-semibold hover:underline break-all"
           >
             WhatsApp
           </a>{" "}
@@ -570,7 +570,7 @@ function BookPage() {
                 <p className="text-xs text-muted-foreground mt-1">
                   Every slot shows its club:{" "}
                   <span className="font-semibold text-navy">navy = BFC Alemannia</span>,{" "}
-                  <span className="font-semibold text-court">green = TC Longline</span>.
+                  <span className="font-semibold text-clay">green = TC Longline</span>.
                 </p>
                 <p className="text-xs text-muted-foreground mt-1">
                   Winter season:{" "}
@@ -1011,7 +1011,7 @@ function BookPage() {
                     onClick={() => setLevel(lv.key)}
                     className={`w-full px-4 py-3 rounded-2xl border-2 text-left transition ${
                       level === lv.key
-                        ? "bg-court text-primary-foreground border-court"
+                        ? "bg-clay text-primary-foreground border-clay"
                         : "bg-background border-ink/10 hover:bg-ball/40"
                     }`}
                   >
