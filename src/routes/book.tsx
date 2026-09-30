@@ -87,6 +87,17 @@ const CLUB_HOURS: Record<number, { club: Venue; hours: number[] }[]> = {
 /** Summer camp: 18:30–20:30 (2h), 2 coaches, groups of 4–6. */
 const CAMP_DAYS = ["2026-08-17", "2026-08-18", "2026-08-20"];
 
+/** One-off 90-min slots (17:00–18:30) at BFC Alemannia for the first winter week. */
+const SPECIAL_90MIN_DAYS: Record<string, number> = {
+  "2026-10-07": 17, // Wed 07.10
+  "2026-10-09": 17, // Fri 09.10
+  "2026-10-12": 17, // Mon 12.10
+};
+/** Days played outdoor — shown as a badge in the day header. */
+const OUTDOOR_DAYS = new Set(["2026-10-07", "2026-10-09"]);
+/** TC Longline winter season starts on this date — no Longline slots before. */
+const LONGLINE_FROM = "2026-10-12";
+
 /** Price grid shown in the booking modal: see ratesFor (club + hour). */
 
 /* ========================================================================= */
@@ -147,12 +158,23 @@ function buildSlotsForDate(date: Date): Slot[] {
 
   // 1-hour slots, only at the hours each club actually has free.
   for (const { club, hours } of CLUB_HOURS[day] ?? []) {
+    // TC Longline: winter season starts 12 Oct — no Longline slots before that.
+    if (club === "longline" && ymd(date) < LONGLINE_FROM) continue;
     for (const h of hours) {
+      // Mon 12.10: slots only from 15:00.
+      if (ymd(date) === "2026-10-12" && h < 15) continue;
       if (isCampDay && h >= 18) continue;
       const d = new Date(date);
       d.setHours(h, 0, 0, 0);
       slots.push({ start: d, duration: 60, level: "open", venue: club });
     }
+  }
+  // One-off 90-min slot 17:00–18:30 at BFC Alemannia.
+  const specialHour = SPECIAL_90MIN_DAYS[ymd(date)];
+  if (specialHour !== undefined) {
+    const d = new Date(date);
+    d.setHours(specialHour, 0, 0, 0);
+    slots.push({ start: d, duration: 90, level: "open", venue: "alemannia" });
   }
   if (isCampDay) {
     const camp = new Date(date);
