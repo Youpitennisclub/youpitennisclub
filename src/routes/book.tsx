@@ -655,21 +655,29 @@ function BookPage() {
                 {days.map((day) => {
                   const slots = buildSlotsForDate(day);
                   const isToday = day.toDateString() === new Date().toDateString();
+                  const outdoor = OUTDOOR_DAYS.has(ymd(day));
                   return (
                     <div
                       key={day.toISOString()}
-                      className="rounded-2xl border-2 border-ink/10 bg-card overflow-hidden"
+                      className={`rounded-2xl border-2 bg-card overflow-hidden ${
+                        outdoor ? "border-sky" : "border-ink/10"
+                      }`}
                     >
                       <div
-                        className={`px-4 py-3 text-sm sm:text-base font-bold uppercase tracking-wide break-words ${
-                          isToday ? "bg-ball text-ink" : "bg-ink/5 text-ink"
+                        className={`px-4 py-3 font-bold uppercase tracking-wide break-words ${
+                          outdoor
+                            ? "bg-sky text-ink"
+                            : isToday
+                              ? "bg-ball text-ink"
+                              : "bg-ink/5 text-ink"
                         }`}
                       >
-                        {fmtDay(day)}
-                        {OUTDOOR_DAYS.has(ymd(day)) && (
-                          <span className="mt-1.5 block w-fit rounded-full bg-ink px-2.5 py-0.5 text-[10px] font-bold tracking-widest text-background">
+                        <div className="text-sm sm:text-base">{fmtDay(day)}</div>
+                        {outdoor && (
+                          <div className="mt-2 flex w-fit items-center gap-2 rounded-full bg-background px-3.5 py-1.5 font-display text-base tracking-[0.18em] text-ink shadow-sm">
+                            <span aria-hidden="true">☀️</span>
                             OUTDOOR
-                          </span>
+                          </div>
                         )}
                       </div>
                       <div className="p-2.5 flex flex-col gap-2">
