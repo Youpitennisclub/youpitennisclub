@@ -171,7 +171,7 @@ function Index() {
                   </p>
                 </li>
               </ol>
-              <p className="mt-5 rounded-xl border border-background/15 bg-background/10 p-3 text-sm text-background/85">
+              <p className="mt-5 rounded-xl border border-ink/10 bg-muted p-3 text-sm text-ink/80">
                 💶 Prices per person are listed just below, under “Pick your game”.
               </p>
               <p className="mt-3 rounded-xl border border-background/15 bg-background/10 p-3 text-sm text-background/85">
