@@ -13,3 +13,5 @@
 - [x] Accueil : bulle « Winter schedule » placée juste après le Hero, tarifs « Pick your game » juste en dessous
 - [x] Harmonisation couleurs : vert supprimé du thème (clubs = navy / clay orange)
 - [x] Option "Copy number" partout ou WhatsApp est mentionne (Contact, agenda, modale hiver)
+- [x] Agenda : texte "before 16:00" / "from 16:00" (au lieu de 15:00)
+- [x] Seuil de groupe bascule a 16:00 partout (compteurs + confirmation auto cote serveur)
