@@ -151,8 +151,8 @@ function Index() {
                 </li>
                 <li className="min-w-0">
                   <div className="flex items-baseline gap-2 font-display text-base sm:text-lg uppercase text-clay">
-
                     <span className="shrink-0">2.</span>
+
                     <span className="min-w-0 break-words">We build the group</span>
                   </div>
                   <ul className="mt-2 pl-7 space-y-1.5 text-sm sm:text-base text-ink/80">
