@@ -966,7 +966,9 @@ function BookPage() {
               <ul className="space-y-1.5 text-sm">
                 <li>👥 Group of 4: BFC Alemannia members €130 / non-members €150</li>
                 <li>👥 Group of 6: BFC Alemannia members €100 / non-members €120</li>
-                <li>💳 Payment in advance via PayPal: youpitennisclub@gmail.com</li>
+                <li>💳 Payment in advance via PayPal: chaouchyoucef@yahoo.com</li>
+
+
               </ul>
             </div>
             <p>
