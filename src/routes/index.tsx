@@ -123,7 +123,7 @@ function Index() {
               <span translate="no" className="notranslate inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-ink text-background border border-ink text-sm font-semibold">
                 Wintersaison
               </span>
-              <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-violet/20 text-violet-foreground border border-violet/30 text-sm font-semibold">
+              <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-background/85 text-ink border border-background/70 text-sm font-semibold">
                 Indoor
               </span>
             </div>
