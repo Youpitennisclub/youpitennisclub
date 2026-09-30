@@ -150,7 +150,8 @@ function Index() {
                   <p className="mt-1 pl-7 text-sm sm:text-base text-ink/75">Choose the slot that works for you.</p>
                 </li>
                 <li className="min-w-0">
-                  <div className="flex items-baseline gap-2 font-display text-base sm:text-lg uppercase text-sky">
+                  <div className="flex items-baseline gap-2 font-display text-base sm:text-lg uppercase text-clay">
+
                     <span className="shrink-0">2.</span>
                     <span className="min-w-0 break-words">We build the group</span>
                   </div>
