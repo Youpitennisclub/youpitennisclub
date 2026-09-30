@@ -20,3 +20,5 @@
 - [x] Mercredi 07.10 : creneau indoor 21:00–22:00 ajoute, badge INDOOR mis en avant (calendrier, modale, legende)
 - [x] Titre « Winter schedule » : smiley sur la meme ligne + taille adaptee aux petits ecrans (mobile)
 - [x] Adresse email du coach remplacee partout par youpitennisclub@gmail.com
+- [x] youpitennisclub@gmail.com rendu cliquable (mailto) sur toutes les pages ou il apparait (Contact, confidentialite, cookies, agenda)
+- [x] Ligne PayPal : adresse PayPal du coach retablie (chaouchyoucef@yahoo.com), non cliquable car cest un compte de paiement
