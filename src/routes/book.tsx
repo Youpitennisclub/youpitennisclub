@@ -578,6 +578,9 @@ function BookPage() {
             <span aria-hidden="true">☀️</span> Outdoor days
           </span>
         </div>
+      </section>
+
+      {/* SIGN-IN GATE — students must sign in to see the calendar */}
       {!unlocked && !checkingAuth && (
         <section className="max-w-6xl mx-auto px-5 sm:px-6 pb-16">
           <div className="rounded-3xl bg-card border-2 border-ink p-5 sm:p-6 shadow-lg grid gap-3 sm:flex sm:items-center sm:justify-between">
