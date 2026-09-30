@@ -99,6 +99,10 @@ const SPECIAL_90MIN_DAYS: Record<string, number> = {
 const EXTRA_60MIN_DAYS: Record<string, number[]> = {
   "2026-10-09": [16], // Fri 09.10 — 16:00–17:00 outdoor
 };
+/** Indoor 1-hour slots at BFC Alemannia — labelled INDOOR in the calendar. */
+const INDOOR_60MIN_DAYS: Record<string, number[]> = {
+  "2026-10-07": [21], // Wed 07.10 — 21:00–22:00 indoor
+};
 /** Days where regular hours are replaced by special evening slots (BFC Alemannia). */
 const EVENING_ONLY_DAYS: Record<string, number[]> = {
   "2026-10-08": [20, 21], // Thu 08.10 — 20:00–21:00 & 21:00–22:00 only
@@ -128,6 +132,7 @@ type Slot = {
   level: SlotLevel;
   venue: Venue;
   camp?: boolean;
+  indoor?: boolean;
 };
 
 type MyBooking = {
@@ -195,6 +200,12 @@ function buildSlotsForDate(date: Date): Slot[] {
     const d = new Date(date);
     d.setHours(h, 0, 0, 0);
     slots.push({ start: d, duration: 60, level: "open", venue: "alemannia" });
+  }
+  // Indoor 1-hour evening slots — highlighted as INDOOR.
+  for (const h of INDOOR_60MIN_DAYS[ymd(date)] ?? []) {
+    const d = new Date(date);
+    d.setHours(h, 0, 0, 0);
+    slots.push({ start: d, duration: 60, level: "open", venue: "alemannia", indoor: true });
   }
   // One-off 90-min slot 17:00–18:30 at BFC Alemannia.
   const specialHour = SPECIAL_90MIN_DAYS[ymd(date)];
