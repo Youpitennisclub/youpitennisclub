@@ -58,7 +58,7 @@ export function CopyNumberButton({
   };
 
   const text =
-    state === "copied" ? "Copied ✓" : state === "failed" ? PHONE_DISPLAY : label;
+    state === "copied" ? "Copied" : state === "failed" ? "Copy failed" : label;
 
   return (
     <span className={`inline-flex min-w-0 flex-wrap items-center gap-2 ${className}`}>
