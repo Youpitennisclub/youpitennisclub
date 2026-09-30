@@ -142,7 +142,8 @@ function Index() {
               <h3 className="font-display text-xl uppercase mb-4">🎾 How winter groups work</h3>
               <ol className="grid gap-4">
                 <li className="min-w-0">
-                  <div className="flex items-baseline gap-2 font-display text-base sm:text-lg uppercase text-sky">
+                  <div className="flex items-baseline gap-2 font-display text-base sm:text-lg uppercase text-clay">
+
                     <span className="shrink-0">1.</span>
                     <span className="min-w-0 break-words">Pick your level &amp; time</span>
                   </div>
