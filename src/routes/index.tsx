@@ -211,29 +211,6 @@ function Index() {
         </div>
       </section>
 
-      {/* HOW IT WORKS */}
-      <section className="max-w-7xl mx-auto px-5 sm:px-6 py-8 sm:py-10">
-        <div className="rounded-3xl bg-brick text-background p-5 sm:p-8 md:p-10">
-          <h2 className="text-[clamp(1.7rem,7vw,3.25rem)] font-display uppercase mb-6 break-words">
-            How it works
-          </h2>
-          <div className="grid md:grid-cols-2 gap-4">
-            {[
-              { i: "🎾", t: "90-min group sessions", d: "From 3 players — plenty of time for drills, tactics and point play." },
-              { i: "👥", t: "Only 2 registered?", d: "The session runs 60 min instead of 90." },
-              { i: "⏰", t: "Cancellation", d: "Less than 24h before the session, the full fee is charged." },
-              { i: "🌧️", t: "Rain policy", d: "More than 50% played → no refund. Less than 50% → full refund or reschedule, your call." },
-            ].map((r) => (
-              <div key={r.t} className="rounded-2xl bg-background text-ink p-5 sm:p-6 md:p-7">
-                <div className="text-3xl mb-2">{r.i}</div>
-                <div className="font-display text-xl sm:text-2xl md:text-3xl uppercase mb-2 break-words">{r.t}</div>
-                <p className="text-base md:text-lg text-ink/80">{r.d}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* WINTER SEASON */}
       <section id="pricing" className="max-w-7xl mx-auto px-5 sm:px-6 py-8 sm:py-10">
         <div className="rounded-[2rem] bg-navy text-background p-5 sm:p-10 md:p-12 relative overflow-hidden">

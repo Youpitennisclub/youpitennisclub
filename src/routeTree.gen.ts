@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TennisEventsRouteImport } from './routes/tennis-events'
+import { Route as SummerSeasonRouteImport } from './routes/summer-season'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as PrivacyRouteImport } from './routes/privacy'
@@ -28,6 +29,11 @@ import { Route as LovableEmailAuthPreviewRouteImport } from './routes/lovable/em
 const TennisEventsRoute = TennisEventsRouteImport.update({
   id: '/tennis-events',
   path: '/tennis-events',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SummerSeasonRoute = SummerSeasonRouteImport.update({
+  id: '/summer-season',
+  path: '/summer-season',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
@@ -114,6 +120,7 @@ export interface FileRoutesByFullPath {
   '/privacy': typeof PrivacyRoute
   '/reset-password': typeof ResetPasswordRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/summer-season': typeof SummerSeasonRoute
   '/tennis-events': typeof TennisEventsRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
@@ -131,6 +138,7 @@ export interface FileRoutesByTo {
   '/privacy': typeof PrivacyRoute
   '/reset-password': typeof ResetPasswordRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/summer-season': typeof SummerSeasonRoute
   '/tennis-events': typeof TennisEventsRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
@@ -149,6 +157,7 @@ export interface FileRoutesById {
   '/privacy': typeof PrivacyRoute
   '/reset-password': typeof ResetPasswordRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/summer-season': typeof SummerSeasonRoute
   '/tennis-events': typeof TennisEventsRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
@@ -168,6 +177,7 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/reset-password'
     | '/sitemap.xml'
+    | '/summer-season'
     | '/tennis-events'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
@@ -185,6 +195,7 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/reset-password'
     | '/sitemap.xml'
+    | '/summer-season'
     | '/tennis-events'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
@@ -202,6 +213,7 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/reset-password'
     | '/sitemap.xml'
+    | '/summer-season'
     | '/tennis-events'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
@@ -220,6 +232,7 @@ export interface RootRouteChildren {
   PrivacyRoute: typeof PrivacyRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  SummerSeasonRoute: typeof SummerSeasonRoute
   TennisEventsRoute: typeof TennisEventsRoute
   LovableEmailAuthPreviewRoute: typeof LovableEmailAuthPreviewRoute
   LovableEmailAuthWebhookRoute: typeof LovableEmailAuthWebhookRoute
@@ -232,6 +245,13 @@ declare module '@tanstack/react-router' {
       path: '/tennis-events'
       fullPath: '/tennis-events'
       preLoaderRoute: typeof TennisEventsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/summer-season': {
+      id: '/summer-season'
+      path: '/summer-season'
+      fullPath: '/summer-season'
+      preLoaderRoute: typeof SummerSeasonRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sitemap.xml': {
@@ -348,6 +368,7 @@ const rootRouteChildren: RootRouteChildren = {
   PrivacyRoute: PrivacyRoute,
   ResetPasswordRoute: ResetPasswordRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  SummerSeasonRoute: SummerSeasonRoute,
   TennisEventsRoute: TennisEventsRoute,
   LovableEmailAuthPreviewRoute: LovableEmailAuthPreviewRoute,
   LovableEmailAuthWebhookRoute: LovableEmailAuthWebhookRoute,
