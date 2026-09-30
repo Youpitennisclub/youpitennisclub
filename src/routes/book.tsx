@@ -3,6 +3,7 @@ import { useEffect, useMemo, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { PhotoPicker } from "@/components/PhotoPicker";
+import { WhatsAppIcon } from "@/components/WhatsAppIcon";
 import { createBooking, listMyBookings, cancelMyBooking } from "@/lib/bookings.functions";
 import { isAdmin } from "@/lib/admin.functions";
 import { ratesFor } from "@/lib/prices";

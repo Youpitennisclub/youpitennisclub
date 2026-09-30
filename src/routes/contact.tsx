@@ -27,7 +27,6 @@ export const Route = createFileRoute("/contact")({
 });
 
 const EMAIL = "chaouchyoucef@yahoo.com";
-const PHONE = "+4917645689622";
 
 function ContactPage() {
   const [subject, setSubject] = useState("");
