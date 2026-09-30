@@ -66,23 +66,24 @@ export function SiteHeader() {
       </div>
 
       {menuOpen && (
-        <nav className="border-t border-border bg-background px-4 py-4 lg:hidden" aria-label="Mobile navigation">
-          <div className="mx-auto grid max-w-7xl gap-1">
+        <nav className="border-t border-ink/10 bg-background px-4 py-4 shadow-lg lg:hidden" aria-label="Mobile navigation">
+          <div className="mx-auto grid max-w-7xl gap-1.5">
             {NAV_ITEMS.map((item) => (
               <Link
                 key={item.to}
                 to={item.to}
-                className="rounded-md px-4 py-3 font-semibold transition hover:bg-muted hover:text-clay"
-                activeProps={{ className: "bg-muted text-clay" }}
+                className="flex items-center justify-between gap-3 rounded-xl border border-ink/10 bg-background px-4 py-3.5 text-[15px] font-bold uppercase tracking-wide transition hover:bg-muted hover:text-clay"
+                activeProps={{ className: "bg-muted text-clay border-clay/40" }}
                 activeOptions={{ exact: item.to === "/" }}
                 onClick={() => setMenuOpen(false)}
               >
-                {item.label}
+                <span className="min-w-0 break-words">{item.label}</span>
+                <span aria-hidden="true" className="shrink-0 text-clay/70">→</span>
               </Link>
             ))}
             <Link
               to="/book"
-              className="mt-2 rounded-md bg-violet px-4 py-3 text-center font-semibold text-violet-foreground"
+              className="mt-2 rounded-xl bg-violet px-4 py-4 text-center font-bold uppercase tracking-wide text-violet-foreground shadow-sm transition hover:opacity-90"
               onClick={() => setMenuOpen(false)}
             >
               Book your lesson
@@ -90,6 +91,7 @@ export function SiteHeader() {
           </div>
         </nav>
       )}
+
     </header>
   );
 }
