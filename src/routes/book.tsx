@@ -95,7 +95,11 @@ const SPECIAL_90MIN_DAYS: Record<string, number> = {
   "2026-10-09": 17, // Fri 09.10
   "2026-10-12": 17, // Mon 12.10
 };
-/** Days played outdoor — shown as a badge in the day header. */
+/** Extra one-off 1-hour slots at BFC Alemannia on the outdoor days. */
+const EXTRA_60MIN_DAYS: Record<string, number[]> = {
+  "2026-10-09": [16], // Fri 09.10 — 16:00–17:00 outdoor
+};
+/** Days played outdoor — highlighted in the calendar. */
 const OUTDOOR_DAYS = new Set(["2026-10-07", "2026-10-09"]);
 /** TC Longline winter season starts on this date — no Longline slots before. */
 const LONGLINE_FROM = "2026-10-12";
@@ -170,6 +174,12 @@ function buildSlotsForDate(date: Date): Slot[] {
       d.setHours(h, 0, 0, 0);
       slots.push({ start: d, duration: 60, level: "open", venue: club });
     }
+  }
+  // Extra one-off 1-hour slots on the outdoor days (BFC Alemannia).
+  for (const h of EXTRA_60MIN_DAYS[ymd(date)] ?? []) {
+    const d = new Date(date);
+    d.setHours(h, 0, 0, 0);
+    slots.push({ start: d, duration: 60, level: "open", venue: "alemannia" });
   }
   // One-off 90-min slot 17:00–18:30 at BFC Alemannia.
   const specialHour = SPECIAL_90MIN_DAYS[ymd(date)];
@@ -564,10 +574,10 @@ function BookPage() {
               {VENUE_LABEL[v]}
             </span>
           ))}
+          <span className="inline-flex items-center gap-1.5 rounded-full border-2 border-sky bg-sky/30 px-3 py-1.5 text-ink">
+            <span aria-hidden="true">☀️</span> Outdoor days
+          </span>
         </div>
-      </section>
-
-      {/* SIGN-IN GATE — students must sign in to see the calendar */}
       {!unlocked && !checkingAuth && (
         <section className="max-w-6xl mx-auto px-5 sm:px-6 pb-16">
           <div className="rounded-3xl bg-card border-2 border-ink p-5 sm:p-6 shadow-lg grid gap-3 sm:flex sm:items-center sm:justify-between">
