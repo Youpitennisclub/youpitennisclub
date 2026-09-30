@@ -1,6 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 
+import { WhatsAppIcon } from "@/components/WhatsAppIcon";
+
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
@@ -65,10 +67,18 @@ function ContactPage() {
 
         <div className="mb-10 p-6 rounded-3xl bg-card border-2 border-ink/10">
           <div className="font-display text-xl uppercase mb-2">Phone</div>
-          <a href={`tel:${PHONE}`} className="text-lg font-semibold hover:text-clay transition">
+          <a
+            href="https://wa.me/4917645689622"
+            target="_blank"
+            rel="noopener"
+            className="inline-flex items-center gap-2 text-lg font-semibold hover:text-clay transition break-all"
+          >
+            <WhatsAppIcon className="text-[#25D366] text-xl" />
             +49 176 45689622
           </a>
-          <p className="text-sm text-muted-foreground mt-1">WhatsApp preferable 💬</p>
+          <p className="text-sm text-muted-foreground mt-1 inline-flex items-center gap-1.5">
+            <WhatsAppIcon className="text-[#25D366]" /> WhatsApp preferable 💬
+          </p>
           <div className="font-display text-xl uppercase mt-6 mb-2">Email</div>
           <a href={`mailto:${EMAIL}`} className="hover:text-clay transition break-all">
             {EMAIL}

@@ -523,8 +523,11 @@ function BookPage() {
           <b className="text-ink">3 students</b> — for a private lesson, contact me directly on{" "}
           <a
             href="https://wa.me/4917645689622"
-            className="text-clay font-semibold hover:underline break-all"
+            target="_blank"
+            rel="noopener"
+            className="inline-flex items-center gap-1 text-clay font-semibold hover:underline"
           >
+            <WhatsAppIcon className="text-[#25D366]" />
             WhatsApp
           </a>{" "}
           or by{" "}
@@ -843,8 +846,9 @@ function BookPage() {
               href="https://wa.me/4917645689622"
               target="_blank"
               rel="noopener"
-              className="px-6 py-4 text-center rounded-2xl bg-violet text-violet-foreground font-semibold hover:opacity-90 transition"
+              className="px-6 py-4 text-center rounded-2xl bg-violet text-violet-foreground font-semibold hover:opacity-90 transition inline-flex items-center justify-center gap-2"
             >
+              <WhatsAppIcon className="text-xl" />
               +49 176 45689622 · WhatsApp preferred
             </a>
             <a
