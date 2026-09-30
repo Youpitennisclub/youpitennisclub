@@ -39,7 +39,7 @@ export const Route = createFileRoute("/")({
           url: `${SITE}/`,
           image: OG_IMAGE,
           telephone: "+4917645689622",
-          email: "chaouchyoucef@yahoo.com",
+          email: "youpitennisclub@gmail.com",
           priceRange: "€€",
           currenciesAccepted: "EUR",
           paymentAccepted: "PayPal, SEPA, Cash",

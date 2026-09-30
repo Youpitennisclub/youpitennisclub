@@ -570,7 +570,7 @@ function BookPage() {
           </a>{" "}
           or by{" "}
           <a
-            href="mailto:chaouchyoucef@yahoo.com"
+            href="mailto:youpitennisclub@gmail.com"
             className="text-clay font-semibold hover:underline break-all"
           >
             email
@@ -920,7 +920,7 @@ function BookPage() {
               hint="if WhatsApp doesn't open"
             />
             <a
-              href="mailto:chaouchyoucef@yahoo.com?subject=Winter%20season"
+              href="mailto:youpitennisclub@gmail.com?subject=Winter%20season"
               className="px-6 py-4 text-center rounded-2xl border-2 border-ink/15 font-semibold hover:bg-ball/40 transition"
             >
               Send an email
@@ -966,7 +966,7 @@ function BookPage() {
               <ul className="space-y-1.5 text-sm">
                 <li>👥 Group of 4: BFC Alemannia members €130 / non-members €150</li>
                 <li>👥 Group of 6: BFC Alemannia members €100 / non-members €120</li>
-                <li>💳 Payment in advance via PayPal: chaouchyoucef@yahoo.com</li>
+                <li>💳 Payment in advance via PayPal: youpitennisclub@gmail.com</li>
               </ul>
             </div>
             <p>

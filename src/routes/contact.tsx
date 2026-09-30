@@ -27,7 +27,7 @@ export const Route = createFileRoute("/contact")({
   component: ContactPage,
 });
 
-const EMAIL = "chaouchyoucef@yahoo.com";
+const EMAIL = "youpitennisclub@gmail.com";
 
 function ContactPage() {
   const [subject, setSubject] = useState("");
