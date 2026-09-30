@@ -31,14 +31,16 @@ export function SiteHeader() {
             <Link
               key={item.to}
               to={item.to}
-              className="transition hover:text-clay"
-              activeProps={{ className: "text-clay" }}
+              className="group relative whitespace-nowrap py-1 transition hover:text-clay"
+              activeProps={{ className: "text-clay [&>span]:w-full" }}
               activeOptions={{ exact: item.to === "/" }}
             >
               {item.label}
+              <span className="absolute -bottom-0.5 left-0 h-[3px] w-0 rounded-full bg-clay transition-all duration-300 group-hover:w-full" />
             </Link>
           ))}
         </nav>
+
 
         <div className="flex shrink-0 items-center gap-2">
           <LanguageSwitcher />
@@ -52,13 +54,14 @@ export function SiteHeader() {
             type="button"
             variant="outline"
             size="icon"
-            className="rounded-full lg:hidden"
+            className="h-10 w-10 rounded-xl border-2 border-ink/15 bg-ink text-background shadow-sm transition hover:bg-clay hover:border-clay lg:hidden"
             aria-label={menuOpen ? "Close menu" : "Open menu"}
             aria-expanded={menuOpen}
             onClick={() => setMenuOpen((open) => !open)}
           >
-            {menuOpen ? <X /> : <Menu />}
+            {menuOpen ? <X className="h-5 w-5" strokeWidth={2.75} /> : <Menu className="h-5 w-5" strokeWidth={2.75} />}
           </Button>
+
         </div>
       </div>
 
