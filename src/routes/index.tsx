@@ -162,7 +162,7 @@ function Index() {
                   </ul>
                 </li>
                 <li className="min-w-0">
-                  <div className="flex items-baseline gap-2 font-display text-base sm:text-lg uppercase text-sky">
+                  <div className="flex items-baseline gap-2 font-display text-base sm:text-lg uppercase text-clay">
                     <span className="shrink-0">3.</span>
                     <span className="min-w-0 break-words">Get ready to play!</span>
                   </div>
