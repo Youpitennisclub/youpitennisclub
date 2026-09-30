@@ -166,7 +166,7 @@ function Index() {
                     <span className="shrink-0">3.</span>
                     <span className="min-w-0 break-words">Get ready to play!</span>
                   </div>
-                  <p className="mt-1 pl-7 text-sm sm:text-base text-background/80">
+                  <p className="mt-1 pl-7 text-sm sm:text-base text-ink/75">
                     We confirm your group and send you the final details.
                   </p>
                 </li>
