@@ -155,7 +155,7 @@ function Index() {
                     <span className="shrink-0">2.</span>
                     <span className="min-w-0 break-words">We build the group</span>
                   </div>
-                  <ul className="mt-2 pl-7 space-y-1.5 text-sm sm:text-base text-background/90">
+                  <ul className="mt-2 pl-7 space-y-1.5 text-sm sm:text-base text-ink/80">
                     <li className="flex gap-2"><span aria-hidden="true">👥</span> From 2 players → weekday groups</li>
                     <li className="flex gap-2"><span aria-hidden="true">🌙</span> From 4 players → weekday evenings after 4 PM</li>
                     <li className="flex gap-2"><span aria-hidden="true">📅</span> Weekends → 4 players</li>
