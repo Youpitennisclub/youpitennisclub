@@ -643,6 +643,11 @@ function BookPage() {
                         }`}
                       >
                         {fmtDay(day)}
+                        {OUTDOOR_DAYS.has(ymd(day)) && (
+                          <span className="mt-1.5 block w-fit rounded-full bg-ink px-2.5 py-0.5 text-[10px] font-bold tracking-widest text-background">
+                            OUTDOOR
+                          </span>
+                        )}
                       </div>
                       <div className="p-2.5 flex flex-col gap-2">
                         {slots.length === 0 ? (
