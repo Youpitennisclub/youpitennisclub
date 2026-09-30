@@ -255,22 +255,43 @@ function Index() {
 
 
             <div className="rounded-2xl bg-background/10 border-2 border-background/20 p-6">
-              <h3 className="font-display text-xl uppercase mb-3">How winter groups work</h3>
-              <p className="text-background/80 mb-4">
-                Pick several spots that interest you. I build the groups based on level, availability and preferences, then confirm the final details.
+              <h3 className="font-display text-xl uppercase mb-4">🎾 How winter groups work</h3>
+              <ol className="grid gap-4">
+                <li className="min-w-0">
+                  <div className="flex items-baseline gap-2 font-display text-base sm:text-lg uppercase text-sky">
+                    <span className="shrink-0">1.</span>
+                    <span className="min-w-0 break-words">Pick your level &amp; time</span>
+                  </div>
+                  <p className="mt-1 pl-7 text-sm sm:text-base text-background/80">Choose the slot that works for you.</p>
+                </li>
+                <li className="min-w-0">
+                  <div className="flex items-baseline gap-2 font-display text-base sm:text-lg uppercase text-sky">
+                    <span className="shrink-0">2.</span>
+                    <span className="min-w-0 break-words">We build the group</span>
+                  </div>
+                  <ul className="mt-2 pl-7 space-y-1.5 text-sm sm:text-base text-background/90">
+                    <li className="flex gap-2"><span aria-hidden="true">👥</span> From 2 players → weekday groups</li>
+                    <li className="flex gap-2"><span aria-hidden="true">🌙</span> From 4 players → weekday evenings after 4 PM</li>
+                    <li className="flex gap-2"><span aria-hidden="true">📅</span> Weekends → 4 players</li>
+                  </ul>
+                </li>
+                <li className="min-w-0">
+                  <div className="flex items-baseline gap-2 font-display text-base sm:text-lg uppercase text-sky">
+                    <span className="shrink-0">3.</span>
+                    <span className="min-w-0 break-words">Get ready to play!</span>
+                  </div>
+                  <p className="mt-1 pl-7 text-sm sm:text-base text-background/80">
+                    We confirm your group and send you the final details.
+                  </p>
+                </li>
+              </ol>
+              <p className="mt-5 rounded-xl border border-background/15 bg-background/10 p-3 text-sm text-background/85">
+                💶 Check prices by club &amp; time under “Pick your game”.
               </p>
-              <ul className="grid sm:grid-cols-2 gap-3 text-background/90">
-                <li className="flex gap-2"><span className="text-sky">✓</span> Groups of 4–6 students</li>
-                <li className="flex gap-2"><span className="text-sky">✓</span> Final day &amp; time</li>
-                <li className="flex gap-2"><span className="text-sky">✓</span> 60 min or 90 min training</li>
-                <li className="flex gap-2"><span className="text-sky">✓</span> Based on your wishes &amp; availability</li>
-              </ul>
-              <p className="mt-4 text-sm text-background/70">
-                Winter season bookings are open — see the prices per club and time in “Pick your game”.
-              </p>
-              <p className="mt-3 rounded-xl border border-background/15 bg-background/10 p-3 text-sm text-background/80">
-                Flexible with work? Book a weekday court at <strong translate="no" className="notranslate">TC Longline</strong> on
-                Friday between <strong>11:00 and 15:00</strong> in a group of two students — from 15:00, groups of four.
+              <p className="mt-3 rounded-xl border border-background/15 bg-background/10 p-3 text-sm text-background/85">
+                🕐 <strong>Flexible working times?</strong> Book a weekday court at{" "}
+                <strong translate="no" className="notranslate">BFC Alemannia</strong> (Mon–Thu) or{" "}
+                <strong translate="no" className="notranslate">TC Longline</strong> (Fri) between 11 AM and 5 PM.
               </p>
             </div>
 
