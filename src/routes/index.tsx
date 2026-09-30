@@ -291,6 +291,9 @@ function Index() {
                 </div>
                 <div className="min-w-0">
                   <div className="font-display text-2xl sm:text-3xl uppercase text-destructive mb-1">Coming soon</div>
+                  <div className="mb-2 inline-flex items-center gap-2 rounded-full border border-destructive/25 bg-destructive/10 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-destructive">
+                    15 October 2026
+                  </div>
                   <p className="text-sm text-ink/80">
                     Partnership with Urban Sport for a nice discount on your tennis lessons 😉
                   </p>
