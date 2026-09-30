@@ -147,7 +147,7 @@ function Index() {
                     <span className="shrink-0">1.</span>
                     <span className="min-w-0 break-words">Pick your level &amp; time</span>
                   </div>
-                  <p className="mt-1 pl-7 text-sm sm:text-base text-background/80">Choose the slot that works for you.</p>
+                  <p className="mt-1 pl-7 text-sm sm:text-base text-ink/75">Choose the slot that works for you.</p>
                 </li>
                 <li className="min-w-0">
                   <div className="flex items-baseline gap-2 font-display text-base sm:text-lg uppercase text-sky">
