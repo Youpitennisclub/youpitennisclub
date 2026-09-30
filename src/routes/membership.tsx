@@ -65,7 +65,7 @@ function MembershipPage() {
               <div className="flex justify-between gap-3 py-1.5"><span>Couple</span><span className="shrink-0 text-xl font-display">€580</span></div>
               <div className="flex justify-between gap-3 py-1.5"><span>Member of another Berlin club</span><span className="shrink-0 text-xl font-display">€160</span></div>
             </div>
-            <div className="mt-5 rounded-md border-2 border-ink bg-court p-5 text-primary-foreground">
+            <div className="mt-5 rounded-md border-2 border-ink bg-clay p-5 text-primary-foreground">
               <h2 className="mb-2 text-xl font-display uppercase sm:text-2xl">Unlimited outdoor access</h2>
               <p className="text-sm">
                 Membership gives you <strong>unlimited access to the outdoor clay courts</strong> to play with other members whenever you like, all summer long.

@@ -86,7 +86,7 @@ function ContactPage() {
             value={subject}
             onChange={(e) => setSubject(e.target.value)}
             placeholder="e.g. Group lesson for 2 friends"
-            className="w-full min-w-0 px-4 py-3 rounded-2xl bg-background border-2 border-ink/10 focus:border-court outline-none transition"
+            className="w-full min-w-0 px-4 py-3 rounded-2xl bg-background border-2 border-ink/10 focus:border-clay outline-none transition"
           />
           <label className="text-sm font-semibold mt-2" htmlFor="message">
             Message
@@ -99,7 +99,7 @@ function ContactPage() {
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             placeholder="Tell me about your level, your goals and when you'd like to play."
-            className="w-full min-w-0 px-4 py-3 rounded-2xl bg-background border-2 border-ink/10 focus:border-court outline-none transition resize-y"
+            className="w-full min-w-0 px-4 py-3 rounded-2xl bg-background border-2 border-ink/10 focus:border-clay outline-none transition resize-y"
           />
           <button
             type="submit"

@@ -113,10 +113,105 @@ function Index() {
         </div>
       </section>
 
+      {/* WINTER SEASON */}
+      <section id="pricing" className="max-w-7xl mx-auto px-5 sm:px-6 py-8 sm:py-10">
+        <div className="rounded-[2rem] bg-navy text-background p-5 sm:p-10 md:p-12 relative overflow-hidden">
+          <div className="absolute -top-20 -right-20 w-80 h-80 rounded-full bg-sky opacity-30 blur-3xl" />
+          <div className="absolute -bottom-20 -left-20 w-64 h-64 rounded-full bg-violet opacity-20 blur-3xl" />
+          <div className="relative">
+            <div className="flex flex-wrap items-center gap-3 mb-5">
+              <span translate="no" className="notranslate inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-sky/20 text-sky border border-sky/30 text-sm font-semibold">
+                Wintersaison
+              </span>
+              <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-violet/20 text-violet-foreground border border-violet/30 text-sm font-semibold">
+                Indoor
+              </span>
+            </div>
+
+            <h2 className="text-[clamp(1.75rem,7vw,3.75rem)] font-display uppercase break-words mb-6">
+              Winter schedule 🥶
+            </h2>
+
+
+            <div className="rounded-2xl bg-background/10 border-2 border-background/20 p-6">
+              <h3 className="font-display text-xl uppercase mb-4">🎾 How winter groups work</h3>
+              <ol className="grid gap-4">
+                <li className="min-w-0">
+                  <div className="flex items-baseline gap-2 font-display text-base sm:text-lg uppercase text-sky">
+                    <span className="shrink-0">1.</span>
+                    <span className="min-w-0 break-words">Pick your level &amp; time</span>
+                  </div>
+                  <p className="mt-1 pl-7 text-sm sm:text-base text-background/80">Choose the slot that works for you.</p>
+                </li>
+                <li className="min-w-0">
+                  <div className="flex items-baseline gap-2 font-display text-base sm:text-lg uppercase text-sky">
+                    <span className="shrink-0">2.</span>
+                    <span className="min-w-0 break-words">We build the group</span>
+                  </div>
+                  <ul className="mt-2 pl-7 space-y-1.5 text-sm sm:text-base text-background/90">
+                    <li className="flex gap-2"><span aria-hidden="true">👥</span> From 2 players → weekday groups</li>
+                    <li className="flex gap-2"><span aria-hidden="true">🌙</span> From 4 players → weekday evenings after 4 PM</li>
+                    <li className="flex gap-2"><span aria-hidden="true">📅</span> Weekends → 4 players</li>
+                  </ul>
+                </li>
+                <li className="min-w-0">
+                  <div className="flex items-baseline gap-2 font-display text-base sm:text-lg uppercase text-sky">
+                    <span className="shrink-0">3.</span>
+                    <span className="min-w-0 break-words">Get ready to play!</span>
+                  </div>
+                  <p className="mt-1 pl-7 text-sm sm:text-base text-background/80">
+                    We confirm your group and send you the final details.
+                  </p>
+                </li>
+              </ol>
+              <p className="mt-5 rounded-xl border border-background/15 bg-background/10 p-3 text-sm text-background/85">
+                💶 Prices per person are listed just below, under “Pick your game”.
+              </p>
+              <p className="mt-3 rounded-xl border border-background/15 bg-background/10 p-3 text-sm text-background/85">
+                🕐 <strong>Flexible working times?</strong> Book a weekday court at{" "}
+                <strong translate="no" className="notranslate">BFC Alemannia</strong> (Mon–Thu) or{" "}
+                <strong translate="no" className="notranslate">TC Longline</strong> (Fri) between 11 AM and 5 PM.
+              </p>
+            </div>
+
+            <article className="rounded-2xl bg-background text-ink p-6 border-2 border-pink/40 mt-6">
+              <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6">
+                <div className="grid w-full grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-2 sm:w-auto sm:gap-3">
+                  <img
+                    src={wellhubLogoAsset.url}
+                    alt="Wellhub"
+                    className="h-7 w-full min-w-0 object-contain sm:h-8 sm:max-w-[8rem]"
+                  />
+                  <span className="text-lg font-display uppercase text-ink">+</span>
+                  <img
+                    src={urbanSportsClubLogoAsset.url}
+                    alt="Urban Sports Club"
+                    className="h-9 w-full min-w-0 object-contain sm:h-10 sm:max-w-[9rem]"
+                  />
+                </div>
+                <div className="min-w-0">
+                  <div className="font-display text-2xl sm:text-3xl uppercase text-destructive mb-1">Coming soon</div>
+                  <div className="mb-2 inline-flex items-center gap-2 rounded-full border border-destructive/25 bg-destructive/10 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-destructive">
+                    15 October 2026
+                  </div>
+                  <p className="text-sm text-ink/80">
+                    Partnership with Urban Sport for a nice discount on your tennis lessons 😉
+                  </p>
+                </div>
+              </div>
+            </article>
+
+            <Link to="/book" className="block text-center mt-6 px-7 py-4 rounded-full bg-violet text-violet-foreground font-semibold hover:opacity-90 transition">
+              Book Your Winter Season →
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* LESSONS */}
       <section id="lessons" className="max-w-7xl mx-auto px-5 sm:px-6 py-8 sm:py-10">
         <h2 className="text-[clamp(1.75rem,7vw,3.75rem)] font-display uppercase max-w-2xl mb-6 break-words">
-          Pick your <span className="text-court">game</span>
+          Pick your <span className="text-clay">game</span>
         </h2>
 
         <p className="text-muted-foreground mb-6 max-w-2xl">
@@ -126,8 +221,8 @@ function Index() {
           {([
             { venue: "alemannia", club: "BFC Alemannia", hour: 10, color: "bg-navy", icon: "☀️" },
             { venue: "alemannia", club: "BFC Alemannia", hour: 17, color: "bg-navy", icon: "🌙" },
-            { venue: "longline", club: "TC Longline", hour: 10, color: "bg-court", icon: "☀️" },
-            { venue: "longline", club: "TC Longline", hour: 17, color: "bg-court", icon: "🌙" },
+            { venue: "longline", club: "TC Longline", hour: 10, color: "bg-clay", icon: "☀️" },
+            { venue: "longline", club: "TC Longline", hour: 17, color: "bg-clay", icon: "🌙" },
           ] as const).map((l) => {
             const r = ratesFor(l.venue, l.hour);
             return (
@@ -207,101 +302,6 @@ function Index() {
                 </div>
               </div>
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* WINTER SEASON */}
-      <section id="pricing" className="max-w-7xl mx-auto px-5 sm:px-6 py-8 sm:py-10">
-        <div className="rounded-[2rem] bg-navy text-background p-5 sm:p-10 md:p-12 relative overflow-hidden">
-          <div className="absolute -top-20 -right-20 w-80 h-80 rounded-full bg-sky opacity-30 blur-3xl" />
-          <div className="absolute -bottom-20 -left-20 w-64 h-64 rounded-full bg-violet opacity-20 blur-3xl" />
-          <div className="relative">
-            <div className="flex flex-wrap items-center gap-3 mb-5">
-              <span translate="no" className="notranslate inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-sky/20 text-sky border border-sky/30 text-sm font-semibold">
-                Wintersaison
-              </span>
-              <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-violet/20 text-violet-foreground border border-violet/30 text-sm font-semibold">
-                Indoor
-              </span>
-            </div>
-
-            <h2 className="text-[clamp(1.75rem,7vw,3.75rem)] font-display uppercase break-words mb-6">
-              Winter schedule 🥶
-            </h2>
-
-
-            <div className="rounded-2xl bg-background/10 border-2 border-background/20 p-6">
-              <h3 className="font-display text-xl uppercase mb-4">🎾 How winter groups work</h3>
-              <ol className="grid gap-4">
-                <li className="min-w-0">
-                  <div className="flex items-baseline gap-2 font-display text-base sm:text-lg uppercase text-sky">
-                    <span className="shrink-0">1.</span>
-                    <span className="min-w-0 break-words">Pick your level &amp; time</span>
-                  </div>
-                  <p className="mt-1 pl-7 text-sm sm:text-base text-background/80">Choose the slot that works for you.</p>
-                </li>
-                <li className="min-w-0">
-                  <div className="flex items-baseline gap-2 font-display text-base sm:text-lg uppercase text-sky">
-                    <span className="shrink-0">2.</span>
-                    <span className="min-w-0 break-words">We build the group</span>
-                  </div>
-                  <ul className="mt-2 pl-7 space-y-1.5 text-sm sm:text-base text-background/90">
-                    <li className="flex gap-2"><span aria-hidden="true">👥</span> From 2 players → weekday groups</li>
-                    <li className="flex gap-2"><span aria-hidden="true">🌙</span> From 4 players → weekday evenings after 4 PM</li>
-                    <li className="flex gap-2"><span aria-hidden="true">📅</span> Weekends → 4 players</li>
-                  </ul>
-                </li>
-                <li className="min-w-0">
-                  <div className="flex items-baseline gap-2 font-display text-base sm:text-lg uppercase text-sky">
-                    <span className="shrink-0">3.</span>
-                    <span className="min-w-0 break-words">Get ready to play!</span>
-                  </div>
-                  <p className="mt-1 pl-7 text-sm sm:text-base text-background/80">
-                    We confirm your group and send you the final details.
-                  </p>
-                </li>
-              </ol>
-              <p className="mt-5 rounded-xl border border-background/15 bg-background/10 p-3 text-sm text-background/85">
-                💶 Check prices by club &amp; time under “Pick your game”.
-              </p>
-              <p className="mt-3 rounded-xl border border-background/15 bg-background/10 p-3 text-sm text-background/85">
-                🕐 <strong>Flexible working times?</strong> Book a weekday court at{" "}
-                <strong translate="no" className="notranslate">BFC Alemannia</strong> (Mon–Thu) or{" "}
-                <strong translate="no" className="notranslate">TC Longline</strong> (Fri) between 11 AM and 5 PM.
-              </p>
-            </div>
-
-            <article className="rounded-2xl bg-background text-ink p-6 border-2 border-pink/40 mt-6">
-              <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6">
-                <div className="grid w-full grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-2 sm:w-auto sm:gap-3">
-                  <img
-                    src={wellhubLogoAsset.url}
-                    alt="Wellhub"
-                    className="h-7 w-full min-w-0 object-contain sm:h-8 sm:max-w-[8rem]"
-                  />
-                  <span className="text-lg font-display uppercase text-ink">+</span>
-                  <img
-                    src={urbanSportsClubLogoAsset.url}
-                    alt="Urban Sports Club"
-                    className="h-9 w-full min-w-0 object-contain sm:h-10 sm:max-w-[9rem]"
-                  />
-                </div>
-                <div className="min-w-0">
-                  <div className="font-display text-2xl sm:text-3xl uppercase text-destructive mb-1">Coming soon</div>
-                  <div className="mb-2 inline-flex items-center gap-2 rounded-full border border-destructive/25 bg-destructive/10 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-destructive">
-                    15 October 2026
-                  </div>
-                  <p className="text-sm text-ink/80">
-                    Partnership with Urban Sport for a nice discount on your tennis lessons 😉
-                  </p>
-                </div>
-              </div>
-            </article>
-
-            <Link to="/book" className="block text-center mt-6 px-7 py-4 rounded-full bg-violet text-violet-foreground font-semibold hover:opacity-90 transition">
-              Book Your Winter Season →
-            </Link>
           </div>
         </div>
       </section>

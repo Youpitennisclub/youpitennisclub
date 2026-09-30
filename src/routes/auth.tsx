@@ -72,7 +72,7 @@ function AuthPage() {
   }, [navigate]);
 
   const inputCls =
-    "w-full min-w-0 px-4 py-3 rounded-2xl bg-background border-2 border-ink/10 focus:border-court outline-none transition";
+    "w-full min-w-0 px-4 py-3 rounded-2xl bg-background border-2 border-ink/10 focus:border-clay outline-none transition";
 
   const openForgotPassword = () => {
     setResetEmail(email.trim());
@@ -238,7 +238,7 @@ function AuthPage() {
               type="checkbox"
               checked={showPassword}
               onChange={(e) => setShowPassword(e.target.checked)}
-              className="h-4 w-4 accent-court"
+              className="h-4 w-4 accent-clay"
             />
             Show password
           </label>
