@@ -34,7 +34,7 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
-  --color-court: var(--court);
+  --color-court: var(--clay); /* legacy alias — green removed from the palette */
   --color-clay: var(--clay);
   --color-ball: var(--ball);
   --color-pink: var(--pink);
@@ -50,13 +50,12 @@
 :root {
   --radius: 1rem;
 
-  /* Brand palette: tennis ball yellow, clay terracotta, court green, hot pink */
+  /* Brand palette: cream base, night navy ink, clay orange, azure blue */
   --background: oklch(0.985 0.02 95);          /* warm off-white */
   --foreground: oklch(0.18 0.03 160);          /* deep court ink */
   --ink: oklch(0.18 0.03 160);
 
   --ball: oklch(0.92 0.21 115);                /* tennis ball */
-  --court: oklch(0.52 0.16 155);               /* court green */
   --clay: oklch(0.62 0.18 40);                 /* clay orange */
   --pink: oklch(0.74 0.19 5);                  /* hot pink */
   --brick: oklch(0.44 0.13 27);                /* muted brick red */
@@ -72,7 +71,7 @@
   --popover: oklch(1 0 0);
   --popover-foreground: var(--ink);
 
-  --primary: var(--court);
+  --primary: var(--clay);
   --primary-foreground: oklch(0.985 0.02 95);
   --secondary: var(--ball);
   --secondary-foreground: var(--ink);
@@ -84,7 +83,7 @@
   --destructive-foreground: oklch(0.99 0 0);
   --border: oklch(0.18 0.03 160 / 0.12);
   --input: oklch(0.18 0.03 160 / 0.15);
-  --ring: var(--court);
+  --ring: var(--clay);
 }
 
 @layer base {
