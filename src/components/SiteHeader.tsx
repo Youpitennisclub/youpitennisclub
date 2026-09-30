@@ -18,14 +18,15 @@ export function SiteHeader() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border bg-background/90 backdrop-blur-md">
-      <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-3 sm:px-6">
+    <header className="sticky top-0 z-50 border-b-2 border-ink/10 bg-background/95 backdrop-blur-md shadow-[0_1px_0_0] shadow-ink/5">
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-3.5 sm:px-6">
         <Link to="/" className="flex min-w-0 items-center gap-2 font-display text-base uppercase leading-tight sm:text-2xl">
-          <span className="ball-spin inline-block h-7 w-7 shrink-0 rounded-full bg-ball shadow-inner" />
+          <span className="ball-spin inline-block h-7 w-7 shrink-0 rounded-full bg-ball shadow-inner sm:h-8 sm:w-8" />
           <span translate="no" className="notranslate min-w-0 break-words">Youpi Tennis Club</span>
         </Link>
 
-        <nav className="hidden items-center gap-6 text-sm font-medium lg:flex" aria-label="Main navigation">
+        <nav className="hidden min-w-0 items-center gap-5 text-[13px] font-bold uppercase tracking-wider lg:flex xl:gap-7" aria-label="Main navigation">
+
           {NAV_ITEMS.map((item) => (
             <Link
               key={item.to}
