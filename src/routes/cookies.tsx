@@ -103,7 +103,10 @@ function CookiesPage() {
         <h2 className="font-display text-2xl uppercase mt-10 mb-3">7. Contact</h2>
         <p>
           Questions about cookies or your privacy? Email{" "}
-          <strong>youpitennisclub@gmail.com</strong>.
+          <a href="mailto:youpitennisclub@gmail.com" className="text-clay font-semibold underline underline-offset-2 hover:text-clay/80 transition break-all">
+            youpitennisclub@gmail.com
+          </a>.
+
         </p>
       </article>
     </main>
