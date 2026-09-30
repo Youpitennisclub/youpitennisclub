@@ -138,7 +138,7 @@ function Index() {
 
 
 
-            <div className="rounded-2xl bg-background/10 border-2 border-background/20 p-6">
+            <div className="rounded-2xl bg-background text-ink border-2 border-ink/10 p-6">
               <h3 className="font-display text-xl uppercase mb-4">🎾 How winter groups work</h3>
               <ol className="grid gap-4">
                 <li className="min-w-0">
