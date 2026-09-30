@@ -208,7 +208,7 @@ function Index() {
               </div>
             </article>
 
-            <Link to="/book" className="block text-center mt-6 px-7 py-4 rounded-full bg-violet text-violet-foreground font-semibold hover:opacity-90 transition">
+            <Link to="/book" className="block text-center mt-6 px-7 py-4 rounded-full bg-ink text-background font-semibold hover:opacity-90 transition">
               Book Your Winter Season →
             </Link>
           </div>
