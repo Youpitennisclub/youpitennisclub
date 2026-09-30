@@ -3,6 +3,7 @@ import { useEffect, useMemo, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { PhotoPicker } from "@/components/PhotoPicker";
+import { CopyNumberButton } from "@/components/CopyNumberButton";
 import { WhatsAppIcon } from "@/components/WhatsAppIcon";
 import { createBooking, listMyBookings, cancelMyBooking } from "@/lib/bookings.functions";
 import { isAdmin } from "@/lib/admin.functions";
@@ -540,6 +541,11 @@ function BookPage() {
           </a>
           .
         </p>
+        <CopyNumberButton
+          className="mt-4"
+          label="Copy number"
+          hint="WhatsApp doesn't open? Copy the number and save it."
+        />
         <div className="mt-5 flex flex-wrap gap-2 text-xs font-bold uppercase tracking-wide">
           {(["total_beginner", "beginner", "intermediate", "advanced"] as Level[]).map((lv) => (
             <span key={lv} className={`px-3 py-1.5 rounded-full border-2 ${LEVEL_STYLE[lv]}`}>
@@ -852,6 +858,11 @@ function BookPage() {
               <WhatsAppIcon className="text-xl" />
               +49 176 45689622 · WhatsApp preferred
             </a>
+            <CopyNumberButton
+              className="justify-center"
+              label="Copy number"
+              hint="if WhatsApp doesn't open"
+            />
             <a
               href="mailto:chaouchyoucef@yahoo.com?subject=Winter%20season"
               className="px-6 py-4 text-center rounded-2xl border-2 border-ink/15 font-semibold hover:bg-ball/40 transition"
