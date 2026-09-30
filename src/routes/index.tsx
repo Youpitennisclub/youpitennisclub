@@ -268,6 +268,10 @@ function Index() {
               <p className="mt-4 text-sm text-background/70">
                 Winter season bookings are open — see the prices per club and time in “Pick your game”.
               </p>
+              <p className="mt-3 rounded-xl border border-background/15 bg-background/10 p-3 text-sm text-background/80">
+                Flexible with work? Book a weekday court at <strong translate="no" className="notranslate">TC Longline</strong> on
+                Friday between <strong>11:00 and 15:00</strong> in a group of two students — from 15:00, groups of four.
+              </p>
             </div>
 
             <article className="rounded-2xl bg-background text-ink p-6 border-2 border-pink/40 mt-6">
