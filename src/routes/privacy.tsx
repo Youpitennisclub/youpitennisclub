@@ -42,7 +42,12 @@ function PrivacyPage() {
         <p>
           The controller responsible for processing your personal data is:<br/>
           Youpi (Youcef Chaouch) — Tennis coaching in Berlin, Germany<br/>
-          Email: youpitennisclub@gmail.com · Phone: +49 176 45689622
+          Email:{" "}
+          <a href="mailto:youpitennisclub@gmail.com" className="text-clay font-semibold underline underline-offset-2 hover:text-clay/80 transition break-all">
+            youpitennisclub@gmail.com
+          </a>{" "}
+          · Phone: +49 176 45689622
+
         </p>
 
         <h2 className="font-display text-2xl uppercase mt-10 mb-3">2. What data we collect</h2>
