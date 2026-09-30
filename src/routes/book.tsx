@@ -68,7 +68,7 @@ const VENUE_LABEL: Record<Venue, string> = {
   longline: "TC Longline",
 };
 
-/** Club color codes: BFC Alemannia = navy blue, TC Longline = court green. */
+/** Club color codes: BFC Alemannia = navy blue, TC Longline = clay orange. */
 const VENUE_STYLE: Record<Venue, string> = {
   alemannia: "bg-navy text-background border-navy",
   longline: "bg-clay text-background border-clay",
@@ -570,7 +570,7 @@ function BookPage() {
                 <p className="text-xs text-muted-foreground mt-1">
                   Every slot shows its club:{" "}
                   <span className="font-semibold text-navy">navy = BFC Alemannia</span>,{" "}
-                  <span className="font-semibold text-clay">green = TC Longline</span>.
+                  <span className="font-semibold text-clay">orange = TC Longline</span>.
                 </p>
                 <p className="text-xs text-muted-foreground mt-1">
                   Winter season:{" "}
