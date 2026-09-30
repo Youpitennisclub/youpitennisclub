@@ -253,34 +253,6 @@ function Index() {
               Winter schedule 🥶
             </h2>
 
-            <div className="grid lg:grid-cols-2 gap-5 mb-8">
-              <article className="rounded-2xl bg-background text-ink p-6 border-2 border-sky/30">
-                <div className="flex items-center gap-3 mb-4">
-                  <span className="w-10 h-10 rounded-full bg-sky text-background grid place-items-center text-xl shrink-0">❄️</span>
-                  <h3 translate="no" className="notranslate font-display text-xl uppercase">TC Longline</h3>
-                </div>
-                <div className="space-y-2">
-                  <div translate="no" className="notranslate text-2xl font-display text-sky">Fr · 11–17 Uhr</div>
-                </div>
-                <p className="text-sm text-ink/70 mt-3">Friday indoor at TC Longline.</p>
-                <p className="mt-4 rounded-xl bg-sky/15 p-3 text-sm text-ink/80">
-                  Flexible with work? You can book a weekday court at TC Longline on Friday between
-                  <strong> 11:00 and 15:00</strong> in a group of two students — from 15:00, groups of four.
-                </p>
-              </article>
-
-              <article className="rounded-2xl bg-background text-ink p-6 border-2 border-violet/30">
-                <div className="flex items-center gap-3 mb-4">
-                  <span className="w-10 h-10 rounded-full bg-violet text-violet-foreground grid place-items-center text-xl shrink-0">🏠</span>
-                  <h3 translate="no" className="notranslate font-display text-xl uppercase">BFC Alemannia</h3>
-                </div>
-                <div className="space-y-2">
-                  <div translate="no" className="notranslate text-2xl font-display text-violet">Mo · Di · Do · Fr · 20–22 Uhr</div>
-                  <div translate="no" className="notranslate text-2xl font-display text-violet">Sa · 09–11 Uhr &amp; 13–15 Uhr</div>
-                </div>
-                <p className="text-sm text-ink/70 mt-3">Weekday evenings + Saturday morning &amp; afternoon at our home base.</p>
-              </article>
-            </div>
 
             <div className="rounded-2xl bg-background/10 border-2 border-background/20 p-6">
               <h3 className="font-display text-xl uppercase mb-3">How winter groups work</h3>
