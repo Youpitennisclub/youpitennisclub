@@ -39,7 +39,7 @@ export const Route = createFileRoute("/")({
           url: `${SITE}/`,
           image: OG_IMAGE,
           telephone: "+4917645689622",
-          email: "chaouchyoucef@yahoo.com",
+          email: "youpitennisclub@gmail.com",
           priceRange: "€€",
           currenciesAccepted: "EUR",
           paymentAccepted: "PayPal, SEPA, Cash",
@@ -115,7 +115,7 @@ function Index() {
 
       {/* WINTER SEASON */}
       <section id="pricing" className="max-w-7xl mx-auto px-5 sm:px-6 py-8 sm:py-10">
-        <div className="rounded-[2rem] bg-navy text-background p-5 sm:p-10 md:p-12 relative overflow-hidden">
+        <div className="rounded-[2rem] bg-navy text-background p-4 sm:p-10 md:p-12 relative overflow-hidden">
           <div className="absolute -top-20 -right-20 w-80 h-80 rounded-full bg-sky opacity-30 blur-3xl" />
           <div className="absolute -bottom-20 -left-20 w-64 h-64 rounded-full bg-violet opacity-20 blur-3xl" />
           <div className="relative">
@@ -128,9 +128,14 @@ function Index() {
               </span>
             </div>
 
-            <h2 className="text-[clamp(1.75rem,7vw,3.75rem)] font-display uppercase break-words mb-6">
-              Winter schedule 🥶
+            <h2 className="text-[min(6.2vw,3.75rem)] font-display uppercase tracking-tight mb-6">
+              <span className="inline-flex items-center gap-1.5 whitespace-nowrap">
+                Winter schedule
+                <span aria-hidden="true" className="shrink-0 leading-none text-[0.85em]">🥶</span>
+              </span>
             </h2>
+
+
 
 
             <div className="rounded-2xl bg-background/10 border-2 border-background/20 p-6">
