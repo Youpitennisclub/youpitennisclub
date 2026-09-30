@@ -520,8 +520,8 @@ function BookPage() {
         </h1>
         <p className="mt-4 max-w-xl text-base sm:text-lg text-muted-foreground">
           <b className="text-ink">Winter season bookings are open!</b> 1-hour sessions at BFC Alemannia and TC Longline. Pick your level and book — the session is confirmed automatically when enough students of the same level join:{" "}
-          <b className="text-ink">2 students</b> on weekdays before 15:00,{" "}
-          <b className="text-ink">4 students</b> on weekdays from 15:00 and on weekends. Intermediate and Advanced can play together. I can also train you in a group of{" "}
+          <b className="text-ink">2 students</b> on weekdays before 16:00,{" "}
+          <b className="text-ink">4 students</b> on weekdays from 16:00 and on weekends. Intermediate and Advanced can play together. I can also train you in a group of{" "}
           <b className="text-ink">3 students</b> — for a private lesson, contact me directly on{" "}
           <a
             href="https://wa.me/4917645689622"
