@@ -95,7 +95,15 @@ const SPECIAL_90MIN_DAYS: Record<string, number> = {
   "2026-10-09": 17, // Fri 09.10
   "2026-10-12": 17, // Mon 12.10
 };
-/** Days played outdoor — shown as a badge in the day header. */
+/** Extra one-off 1-hour slots at BFC Alemannia on the outdoor days. */
+const EXTRA_60MIN_DAYS: Record<string, number[]> = {
+  "2026-10-09": [16], // Fri 09.10 — 16:00–17:00 outdoor
+};
+/** Days where regular hours are replaced by special evening slots (BFC Alemannia). */
+const EVENING_ONLY_DAYS: Record<string, number[]> = {
+  "2026-10-08": [20, 21], // Thu 08.10 — 20:00–21:00 & 21:00–22:00 only
+};
+/** Days played outdoor — highlighted in the calendar. */
 const OUTDOOR_DAYS = new Set(["2026-10-07", "2026-10-09"]);
 /** TC Longline winter season starts on this date — no Longline slots before. */
 const LONGLINE_FROM = "2026-10-12";
@@ -158,6 +166,17 @@ function buildSlotsForDate(date: Date): Slot[] {
   const slots: Slot[] = [];
   const isCampDay = CAMP_DAYS.includes(ymd(date));
 
+  // Special days: evening slots only, regular hours are not offered.
+  const eveningOnly = EVENING_ONLY_DAYS[ymd(date)];
+  if (eveningOnly) {
+    for (const h of eveningOnly) {
+      const d = new Date(date);
+      d.setHours(h, 0, 0, 0);
+      slots.push({ start: d, duration: 60, level: "open", venue: "alemannia" });
+    }
+    return slots.sort((a, b) => a.start.getTime() - b.start.getTime());
+  }
+
   // 1-hour slots, only at the hours each club actually has free.
   for (const { club, hours } of CLUB_HOURS[day] ?? []) {
     // TC Longline: winter season starts 12 Oct — no Longline slots before that.
@@ -170,6 +189,12 @@ function buildSlotsForDate(date: Date): Slot[] {
       d.setHours(h, 0, 0, 0);
       slots.push({ start: d, duration: 60, level: "open", venue: club });
     }
+  }
+  // Extra one-off 1-hour slots on the outdoor days (BFC Alemannia).
+  for (const h of EXTRA_60MIN_DAYS[ymd(date)] ?? []) {
+    const d = new Date(date);
+    d.setHours(h, 0, 0, 0);
+    slots.push({ start: d, duration: 60, level: "open", venue: "alemannia" });
   }
   // One-off 90-min slot 17:00–18:30 at BFC Alemannia.
   const specialHour = SPECIAL_90MIN_DAYS[ymd(date)];
@@ -564,6 +589,9 @@ function BookPage() {
               {VENUE_LABEL[v]}
             </span>
           ))}
+          <span className="inline-flex items-center gap-1.5 rounded-full border-2 border-sky bg-sky/30 px-3 py-1.5 text-ink">
+            <span aria-hidden="true">☀️</span> Outdoor days
+          </span>
         </div>
       </section>
 
@@ -642,21 +670,29 @@ function BookPage() {
                 {days.map((day) => {
                   const slots = buildSlotsForDate(day);
                   const isToday = day.toDateString() === new Date().toDateString();
+                  const outdoor = OUTDOOR_DAYS.has(ymd(day));
                   return (
                     <div
                       key={day.toISOString()}
-                      className="rounded-2xl border-2 border-ink/10 bg-card overflow-hidden"
+                      className={`rounded-2xl border-2 bg-card overflow-hidden ${
+                        outdoor ? "border-sky" : "border-ink/10"
+                      }`}
                     >
                       <div
-                        className={`px-4 py-3 text-sm sm:text-base font-bold uppercase tracking-wide break-words ${
-                          isToday ? "bg-ball text-ink" : "bg-ink/5 text-ink"
+                        className={`px-4 py-3 font-bold uppercase tracking-wide break-words ${
+                          outdoor
+                            ? "bg-sky text-ink"
+                            : isToday
+                              ? "bg-ball text-ink"
+                              : "bg-ink/5 text-ink"
                         }`}
                       >
-                        {fmtDay(day)}
-                        {OUTDOOR_DAYS.has(ymd(day)) && (
-                          <span className="mt-1.5 block w-fit rounded-full bg-ink px-2.5 py-0.5 text-[10px] font-bold tracking-widest text-background">
+                        <div className="text-sm sm:text-base">{fmtDay(day)}</div>
+                        {outdoor && (
+                          <div className="mt-2 flex w-fit items-center gap-2 rounded-full bg-background px-3.5 py-1.5 font-display text-base tracking-[0.18em] text-ink shadow-sm">
+                            <span aria-hidden="true">☀️</span>
                             OUTDOOR
-                          </span>
+                          </div>
                         )}
                       </div>
                       <div className="p-2.5 flex flex-col gap-2">
