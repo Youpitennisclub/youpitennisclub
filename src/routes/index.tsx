@@ -128,7 +128,7 @@ function Index() {
               </span>
             </div>
 
-            <h2 className="text-[min(6vw,3.75rem)] font-display uppercase mb-6">
+            <h2 className="text-[min(6.4vw,3.75rem)] font-display uppercase tracking-tight mb-6">
               <span className="inline-flex items-center gap-1.5 whitespace-nowrap">
 
                 Winter schedule
