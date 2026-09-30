@@ -128,8 +128,9 @@ function Index() {
               </span>
             </div>
 
-            <h2 className="text-[clamp(1.5rem,6.2vw,3.75rem)] font-display uppercase mb-6">
-              <span className="inline-flex items-center gap-2 whitespace-nowrap">
+            <h2 className="text-[clamp(1.3rem,6vw,3.75rem)] font-display uppercase mb-6">
+              <span className="inline-flex items-center gap-1.5 whitespace-nowrap">
+
                 Winter schedule
                 <span aria-hidden="true" className="shrink-0 leading-none">🥶</span>
               </span>
