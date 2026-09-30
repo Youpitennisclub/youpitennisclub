@@ -15,3 +15,5 @@
 - [x] Option "Copy number" partout ou WhatsApp est mentionne (Contact, agenda, modale hiver)
 - [x] Agenda : texte "before 16:00" / "from 16:00" (au lieu de 15:00)
 - [x] Seuil de groupe bascule a 16:00 partout (compteurs + confirmation auto cote serveur)
+- [x] Agenda : creneau 16:00–17:00 ajoute le 09.10 + OUTDOOR mis en avant (badge + colonne + legende)
+- [x] Jeudi 08.10 : creneaux reguliers retires, remplaces par 20:00–21:00 et 21:00–22:00

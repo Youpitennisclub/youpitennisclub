@@ -99,6 +99,10 @@ const SPECIAL_90MIN_DAYS: Record<string, number> = {
 const EXTRA_60MIN_DAYS: Record<string, number[]> = {
   "2026-10-09": [16], // Fri 09.10 — 16:00–17:00 outdoor
 };
+/** Days where regular hours are replaced by special evening slots (BFC Alemannia). */
+const EVENING_ONLY_DAYS: Record<string, number[]> = {
+  "2026-10-08": [20, 21], // Thu 08.10 — 20:00–21:00 & 21:00–22:00 only
+};
 /** Days played outdoor — highlighted in the calendar. */
 const OUTDOOR_DAYS = new Set(["2026-10-07", "2026-10-09"]);
 /** TC Longline winter season starts on this date — no Longline slots before. */
@@ -161,6 +165,17 @@ function buildSlotsForDate(date: Date): Slot[] {
 
   const slots: Slot[] = [];
   const isCampDay = CAMP_DAYS.includes(ymd(date));
+
+  // Special days: evening slots only, regular hours are not offered.
+  const eveningOnly = EVENING_ONLY_DAYS[ymd(date)];
+  if (eveningOnly) {
+    for (const h of eveningOnly) {
+      const d = new Date(date);
+      d.setHours(h, 0, 0, 0);
+      slots.push({ start: d, duration: 60, level: "open", venue: "alemannia" });
+    }
+    return slots.sort((a, b) => a.start.getTime() - b.start.getTime());
+  }
 
   // 1-hour slots, only at the hours each club actually has free.
   for (const { club, hours } of CLUB_HOURS[day] ?? []) {
