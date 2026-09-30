@@ -120,7 +120,7 @@ function Index() {
           <div className="absolute -bottom-20 -left-20 w-64 h-64 rounded-full bg-background opacity-30 blur-3xl" />
           <div className="relative">
             <div className="flex flex-wrap items-center gap-3 mb-5">
-              <span translate="no" className="notranslate inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-sky/20 text-sky border border-sky/30 text-sm font-semibold">
+              <span translate="no" className="notranslate inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-ink text-background border border-ink text-sm font-semibold">
                 Wintersaison
               </span>
               <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-violet/20 text-violet-foreground border border-violet/30 text-sm font-semibold">
