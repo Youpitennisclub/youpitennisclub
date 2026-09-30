@@ -117,7 +117,7 @@ function Index() {
       <section id="pricing" className="max-w-7xl mx-auto px-5 sm:px-6 py-8 sm:py-10">
         <div className="rounded-[2rem] bg-clay text-ink p-4 sm:p-10 md:p-12 relative overflow-hidden">
           <div className="absolute -top-20 -right-20 w-80 h-80 rounded-full bg-ball opacity-35 blur-3xl" />
-          <div className="absolute -bottom-20 -left-20 w-64 h-64 rounded-full bg-violet opacity-20 blur-3xl" />
+          <div className="absolute -bottom-20 -left-20 w-64 h-64 rounded-full bg-background opacity-30 blur-3xl" />
           <div className="relative">
             <div className="flex flex-wrap items-center gap-3 mb-5">
               <span translate="no" className="notranslate inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-sky/20 text-sky border border-sky/30 text-sm font-semibold">
