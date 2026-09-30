@@ -22,3 +22,4 @@
 - [x] Adresse email du coach remplacee partout par youpitennisclub@gmail.com
 - [x] youpitennisclub@gmail.com rendu cliquable (mailto) sur toutes les pages ou il apparait (Contact, confidentialite, cookies, agenda)
 - [x] Ligne PayPal : adresse PayPal du coach retablie (chaouchyoucef@yahoo.com), non cliquable car cest un compte de paiement
+- [x] Bloc Winter schedule : bleu remplace par l\u2019orange dominant (carte, pastilles Wintersaison/Indoor, titres 1. 2. 3.)

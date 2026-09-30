@@ -115,15 +115,15 @@ function Index() {
 
       {/* WINTER SEASON */}
       <section id="pricing" className="max-w-7xl mx-auto px-5 sm:px-6 py-8 sm:py-10">
-        <div className="rounded-[2rem] bg-navy text-background p-4 sm:p-10 md:p-12 relative overflow-hidden">
-          <div className="absolute -top-20 -right-20 w-80 h-80 rounded-full bg-sky opacity-30 blur-3xl" />
-          <div className="absolute -bottom-20 -left-20 w-64 h-64 rounded-full bg-violet opacity-20 blur-3xl" />
+        <div className="rounded-[2rem] bg-clay text-ink p-4 sm:p-10 md:p-12 relative overflow-hidden">
+          <div className="absolute -top-20 -right-20 w-80 h-80 rounded-full bg-ball opacity-35 blur-3xl" />
+          <div className="absolute -bottom-20 -left-20 w-64 h-64 rounded-full bg-background opacity-30 blur-3xl" />
           <div className="relative">
             <div className="flex flex-wrap items-center gap-3 mb-5">
-              <span translate="no" className="notranslate inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-sky/20 text-sky border border-sky/30 text-sm font-semibold">
+              <span translate="no" className="notranslate inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-ink text-background border border-ink text-sm font-semibold">
                 Wintersaison
               </span>
-              <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-violet/20 text-violet-foreground border border-violet/30 text-sm font-semibold">
+              <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-background/85 text-ink border border-background/70 text-sm font-semibold">
                 Indoor
               </span>
             </div>
@@ -138,41 +138,43 @@ function Index() {
 
 
 
-            <div className="rounded-2xl bg-background/10 border-2 border-background/20 p-6">
+            <div className="rounded-2xl bg-background text-ink border-2 border-ink/10 p-6">
               <h3 className="font-display text-xl uppercase mb-4">🎾 How winter groups work</h3>
               <ol className="grid gap-4">
                 <li className="min-w-0">
-                  <div className="flex items-baseline gap-2 font-display text-base sm:text-lg uppercase text-sky">
+                  <div className="flex items-baseline gap-2 font-display text-base sm:text-lg uppercase text-clay">
                     <span className="shrink-0">1.</span>
+
                     <span className="min-w-0 break-words">Pick your level &amp; time</span>
                   </div>
-                  <p className="mt-1 pl-7 text-sm sm:text-base text-background/80">Choose the slot that works for you.</p>
+                  <p className="mt-1 pl-7 text-sm sm:text-base text-ink/75">Choose the slot that works for you.</p>
                 </li>
                 <li className="min-w-0">
-                  <div className="flex items-baseline gap-2 font-display text-base sm:text-lg uppercase text-sky">
+                  <div className="flex items-baseline gap-2 font-display text-base sm:text-lg uppercase text-clay">
                     <span className="shrink-0">2.</span>
+
                     <span className="min-w-0 break-words">We build the group</span>
                   </div>
-                  <ul className="mt-2 pl-7 space-y-1.5 text-sm sm:text-base text-background/90">
+                  <ul className="mt-2 pl-7 space-y-1.5 text-sm sm:text-base text-ink/80">
                     <li className="flex gap-2"><span aria-hidden="true">👥</span> From 2 players → weekday groups</li>
                     <li className="flex gap-2"><span aria-hidden="true">🌙</span> From 4 players → weekday evenings after 4 PM</li>
                     <li className="flex gap-2"><span aria-hidden="true">📅</span> Weekends → 4 players</li>
                   </ul>
                 </li>
                 <li className="min-w-0">
-                  <div className="flex items-baseline gap-2 font-display text-base sm:text-lg uppercase text-sky">
+                  <div className="flex items-baseline gap-2 font-display text-base sm:text-lg uppercase text-clay">
                     <span className="shrink-0">3.</span>
                     <span className="min-w-0 break-words">Get ready to play!</span>
                   </div>
-                  <p className="mt-1 pl-7 text-sm sm:text-base text-background/80">
+                  <p className="mt-1 pl-7 text-sm sm:text-base text-ink/75">
                     We confirm your group and send you the final details.
                   </p>
                 </li>
               </ol>
-              <p className="mt-5 rounded-xl border border-background/15 bg-background/10 p-3 text-sm text-background/85">
+              <p className="mt-5 rounded-xl border border-ink/10 bg-muted p-3 text-sm text-ink/80">
                 💶 Prices per person are listed just below, under “Pick your game”.
               </p>
-              <p className="mt-3 rounded-xl border border-background/15 bg-background/10 p-3 text-sm text-background/85">
+              <p className="mt-3 rounded-xl border border-ink/10 bg-muted p-3 text-sm text-ink/80">
                 🕐 <strong>Flexible working times?</strong> Book a weekday court at{" "}
                 <strong translate="no" className="notranslate">BFC Alemannia</strong> (Mon–Thu) or{" "}
                 <strong translate="no" className="notranslate">TC Longline</strong> (Fri) between 11 AM and 5 PM.
@@ -206,7 +208,7 @@ function Index() {
               </div>
             </article>
 
-            <Link to="/book" className="block text-center mt-6 px-7 py-4 rounded-full bg-violet text-violet-foreground font-semibold hover:opacity-90 transition">
+            <Link to="/book" className="block text-center mt-6 px-7 py-4 rounded-full bg-ink text-background font-semibold hover:opacity-90 transition">
               Book Your Winter Season →
             </Link>
           </div>
