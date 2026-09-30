@@ -10,3 +10,5 @@
 - [x] Membership : nouveau texte d'intro (Our base / clay courts & indoor / welcoming club + clubhouse restaurant + hidden gem)
 - [x] Winterschedule : retirer les bulles TC Longline et BFC Alemannia, ajouter la date 15 octobre 2026 dans Coming soon
 - [x] Winterschedule : remplacer le bloc « How winter groups work » par les 3 etapes (pick level & time / we build the group / get ready to play) + prix + horaires flexibles
+- [x] Accueil : bulle « Winter schedule » placée juste après le Hero, tarifs « Pick your game » juste en dessous
+- [x] Harmonisation couleurs : vert supprimé du thème (clubs = navy / clay orange)
