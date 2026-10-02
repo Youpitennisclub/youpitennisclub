@@ -1,7 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 
-import { CopyNumberButton } from "@/components/CopyNumberButton";
 import { useWhatsAppLink, WhatsAppIcon } from "@/components/WhatsAppIcon";
 
 export const Route = createFileRoute("/contact")({
@@ -83,11 +82,6 @@ function ContactPage() {
             </a>{" "}
             WhatsApp preferable 💬
           </p>
-          <CopyNumberButton
-            className="mt-3"
-            label="Copy number"
-            hint="WhatsApp doesn't open? Copy the number and save it."
-          />
           <div className="font-display text-xl uppercase mt-6 mb-2">Email</div>
           <a href={`mailto:${EMAIL}`} className="hover:text-clay transition break-all">
             {EMAIL}
