@@ -971,11 +971,6 @@ function BookPage() {
               <WhatsAppIcon className="text-xl" />
               +49 176 45689622 · WhatsApp preferred
             </a>
-            <CopyNumberButton
-              className="justify-center"
-              label="Copy number"
-              hint="if WhatsApp doesn't open"
-            />
             <a
               href="mailto:youpitennisclub@gmail.com?subject=Winter%20season"
               className="px-6 py-4 text-center rounded-2xl border-2 border-ink/15 font-semibold hover:bg-ball/40 transition"
