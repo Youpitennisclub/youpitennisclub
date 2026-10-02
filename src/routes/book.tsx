@@ -4,7 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { PhotoPicker } from "@/components/PhotoPicker";
 import { CopyNumberButton } from "@/components/CopyNumberButton";
-import { useWhatsAppLink, WhatsAppIcon } from "@/components/WhatsAppIcon";
+import { handleWhatsAppClick, useWhatsAppLink, WhatsAppIcon } from "@/components/WhatsAppIcon";
 import { createBooking, listMyBookings, cancelMyBooking } from "@/lib/bookings.functions";
 import { isAdmin } from "@/lib/admin.functions";
 import { PARTNER_DISCOUNT, ratesFor } from "@/lib/prices";
