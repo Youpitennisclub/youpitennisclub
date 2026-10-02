@@ -12,15 +12,33 @@ export function useWhatsAppLink(): string {
   return WHATSAPP_LINK;
 }
 
-// Click handler for every WhatsApp link: opens a new tab when the browser
-// allows it; when the new tab is blocked (e.g. inside an embedded preview
-// frame), falls back to navigating the current frame so WhatsApp still opens.
+// Click handler for every WhatsApp link. Layered so it works everywhere:
+// 1) open a new tab (normal browsers, published site);
+// 2) if new tabs are blocked (embedded preview frames / webviews), navigate
+//    the top page, then this frame, to the same wa.me URL;
+// 3) if every navigation is blocked by the frame, tell the visitor what to do.
 // The wa.me URL itself never changes — WhatsApp picks app vs WhatsApp Web.
 export function handleWhatsAppClick(e: MouseEvent<HTMLAnchorElement>): void {
   e.preventDefault();
   const href = e.currentTarget.href;
   const win = window.open(href, "_blank", "noopener,noreferrer");
-  if (!win) window.location.href = href;
+  if (win) return;
+  try {
+    if (window.top && window.top !== window) {
+      window.top.location.href = href;
+    } else {
+      window.location.href = href;
+    }
+  } catch {
+    window.location.href = href;
+  }
+  // If any navigation above had succeeded, this context is gone by now.
+  window.setTimeout(() => {
+    toast.error(
+      "WhatsApp cannot open inside this preview. Open this page in a full browser tab and try again.",
+      { duration: 8000 },
+    );
+  }, 800);
 }
 
 export function WhatsAppIcon({ className = "" }: { className?: string }) {
