@@ -1028,7 +1028,7 @@ function BookPage() {
           <div className="mt-3 rounded-2xl bg-ball/30 border-2 border-ink/10 p-4">
             <div className="font-display text-sm uppercase mb-2">2 · Tell me it's done</div>
             <p className="text-sm text-muted-foreground break-words">
-              Send me the payment reference and I load your credits.
+              Send me the transfer confirmation (screenshot) and I load your credits.
             </p>
             <div className="mt-3 grid gap-2">
               <a
