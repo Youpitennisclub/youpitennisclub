@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 
 import { CopyNumberButton } from "@/components/CopyNumberButton";
-import { WhatsAppIcon } from "@/components/WhatsAppIcon";
+import { WHATSAPP_LINK, WhatsAppIcon } from "@/components/WhatsAppIcon";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
