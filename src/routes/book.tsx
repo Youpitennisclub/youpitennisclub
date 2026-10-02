@@ -990,6 +990,112 @@ function BookPage() {
         </Modal>
       )}
 
+      {/* PACK 200 € MODAL */}
+      {packOpen && (
+        <Modal onClose={() => setPackOpen(false)}>
+          <div className="text-xs font-bold uppercase tracking-widest text-clay mb-2">
+            Pack {PACK_PRICE} €
+          </div>
+          <h3 className="font-display text-2xl sm:text-3xl uppercase leading-tight pr-10 break-words">
+            Buy your credits
+          </h3>
+          <div className="font-display text-3xl sm:text-4xl mt-1">€{PACK_PRICE}</div>
+          <p className="mt-3 text-sm sm:text-base text-muted-foreground break-words">
+            <b className="text-ink">€{PACK_PRICE} in credits</b> to spend on your sessions. Three
+            quick steps: pay, tell me, then book in the calendar.
+          </p>
+
+          <div className="mt-4 rounded-2xl bg-ball/30 border-2 border-ink/10 p-4">
+            <div className="font-display text-sm uppercase mb-2">1 · Pay with PayPal</div>
+            <div className="text-sm font-semibold break-all">{PACK_PAYPAL}</div>
+            <div className="mt-1 text-xs text-muted-foreground break-words">
+              Amount <b className="text-ink">€{PACK_PRICE}</b> · send it as “goods and services”.
+            </div>
+            <CopyNumberButton
+              className="mt-3"
+              value={PACK_PAYPAL}
+              label="Copy PayPal email"
+              hint="to paste it into PayPal"
+            />
+          </div>
+
+          <div className="mt-3 rounded-2xl bg-ball/30 border-2 border-ink/10 p-4">
+            <div className="font-display text-sm uppercase mb-2">2 · Tell me it's done</div>
+            <p className="text-sm text-muted-foreground break-words">
+              Send me the payment reference and I load your credits.
+            </p>
+            <div className="mt-3 grid gap-2">
+              <a
+                href={PACK_WHATSAPP_LINK}
+                target="_blank"
+                rel="noopener"
+                className="px-6 py-4 text-center rounded-2xl bg-violet text-violet-foreground font-semibold hover:opacity-90 transition inline-flex items-center justify-center gap-2"
+              >
+                <WhatsAppIcon className="text-xl" />
+                Send the proof on WhatsApp
+              </a>
+              <a
+                href="mailto:youpitennisclub@gmail.com?subject=Pack%20200%20%E2%82%AC"
+                className="px-6 py-4 text-center rounded-2xl border-2 border-ink/15 font-semibold hover:bg-ball/40 transition break-all"
+              >
+                Send an email
+              </a>
+            </div>
+          </div>
+
+          <div className="mt-3 rounded-2xl bg-ball/30 border-2 border-ink/10 p-4">
+            <div className="font-display text-sm uppercase mb-2">3 · Book your sessions</div>
+            {unlocked ? (
+              <button
+                type="button"
+                onClick={() => {
+                  setPackOpen(false);
+                  window.setTimeout(
+                    () =>
+                      document
+                        .getElementById("calendar")
+                        ?.scrollIntoView({ behavior: "smooth", block: "start" }),
+                    60,
+                  );
+                }}
+                className="w-full min-w-0 px-6 py-3.5 rounded-2xl bg-violet text-violet-foreground font-semibold hover:opacity-90 transition"
+              >
+                Open the calendar 🎾
+              </button>
+            ) : (
+              <Link
+                to="/auth"
+                onClick={() => setPackOpen(false)}
+                className="block w-full min-w-0 px-6 py-3.5 text-center rounded-2xl bg-violet text-violet-foreground font-semibold hover:opacity-90 transition"
+              >
+                Sign in to book 🎾
+              </Link>
+            )}
+          </div>
+
+          <ul className="mt-4 grid gap-1.5 text-xs text-ink/70">
+            <li className="break-words">
+              <span aria-hidden="true">✅</span> Valid{" "}
+              <b className="text-ink">3 months (90 days)</b> — 4 months (120 days) for Urban Sports
+              Club members.
+            </li>
+            <li className="break-words">
+              <span aria-hidden="true">⚠️</span> Unused credit after that is{" "}
+              <b className="text-ink">lost and non-refundable</b>.
+            </li>
+            <li className="break-words">
+              <span aria-hidden="true">🩹</span> Only exception: exceptional injury, proven by a{" "}
+              <b className="text-ink">medical certificate</b>.
+            </li>
+            <li className="break-words">
+              <span aria-hidden="true">💙</span> The{" "}
+              <b className="text-ink">€7 Urban Sports Club discount</b> still applies — after each
+              session, once your check-in is validated on site.
+            </li>
+          </ul>
+        </Modal>
+      )}
+
       {/* SUMMER CAMP MODAL */}
       {campInfo && (
         <Modal onClose={() => setCampInfo(null)}>
