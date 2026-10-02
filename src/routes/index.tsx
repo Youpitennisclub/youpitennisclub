@@ -173,8 +173,8 @@ function Index() {
               </ol>
             </div>
 
-            <article className="rounded-2xl bg-background text-ink p-5 sm:p-6 border-2 border-pink/40 mt-6">
-              <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6">
+            <article className="mx-auto mt-6 max-w-4xl rounded-2xl bg-background text-ink p-5 sm:p-6 border-2 border-pink/40">
+              <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-5">
                 <div className="mx-auto grid w-fit max-w-full grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-2 rounded-xl border border-ink/10 bg-ball/40 px-3 py-3 sm:mx-0 sm:w-auto sm:gap-4 sm:px-5 sm:py-4">
                   <img
                     src={wellhubLogoAsset.url}
