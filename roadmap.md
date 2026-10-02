@@ -32,4 +32,4 @@
 - [x] Pack 200 EUR : conditions présentées dans un encadré plus lisible (titre, filet, espacement, alignement icônes)
 - [x] Emoji 📧 ajouté à côté de « email » partout (Contact, accueil agenda, fenêtre hiver, fenêtre pack)
 - [x] Emoji 📧 marqué décoratif (aria-hidden) pour ne pas être annoncé par les lecteurs d'écran
-- [ ] Chaque bouton email relié à la bonne adresse via un mailto cohérent (site, fenêtre hiver, fenêtre pack)
+- [x] Chaque bouton email relie a la bonne adresse via un mailto coherent (Contact, accueil agenda avec sujet Tennis lessons, fenêtre hiver avec sujet Winter season, fenêtre pack avec sujet Pack 200 EUR, confidentialite, cookies)
