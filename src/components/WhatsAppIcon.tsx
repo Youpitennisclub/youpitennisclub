@@ -16,7 +16,12 @@ const DESKTOP_LINK = `https://web.whatsapp.com/send?phone=4917645689622&text=${E
 export function useWhatsAppLink(): string {
   const [link, setLink] = useState(MOBILE_LINK);
   useEffect(() => {
-    if (!/Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent)) {
+    const ua = navigator.userAgent;
+    const isMobile =
+      /Android|iPhone|iPad|iPod|Mobile/i.test(ua) ||
+      // iPadOS reports itself as a Mac; detect it via touch support.
+      (/Macintosh/i.test(ua) && navigator.maxTouchPoints > 1);
+    if (!isMobile) {
       setLink(DESKTOP_LINK);
     }
   }, []);
