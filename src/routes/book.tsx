@@ -1292,7 +1292,7 @@ function BookPage() {
                         €{PARTNER_DISCOUNT} discount per person
                       </div>
                       <div className="mt-0.5 text-xs text-ink/60">
-                        Classic plan or higher · valid at both clubs
+                        Classic plan or higher · valid at both clubs · max. 4 sessions/month
                       </div>
                     </div>
                   </>

@@ -173,32 +173,32 @@ function Index() {
               </ol>
             </div>
 
-            <article className="rounded-2xl bg-background text-ink p-6 border-2 border-pink/40 mt-6">
-              <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6">
-                <div className="grid w-full grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-2 sm:w-auto sm:gap-3">
+            <article className="rounded-2xl bg-background text-ink p-5 sm:p-6 border-2 border-pink/40 mt-6">
+              <div className="grid gap-5">
+                <div className="grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-2 sm:gap-6 rounded-2xl border-2 border-ink/10 bg-ball/30 px-3 py-4 sm:px-8 sm:py-7">
                   <img
                     src={wellhubLogoAsset.url}
                     alt="Wellhub"
-                    className="h-7 w-full min-w-0 object-contain sm:h-8 sm:max-w-[8rem]"
+                    className="h-14 w-full min-w-0 object-contain sm:h-16"
                   />
-                  <span className="text-lg font-display uppercase text-ink">+</span>
+                  <span className="shrink-0 font-display text-xl sm:text-4xl uppercase text-clay">+</span>
                   <img
                     src={urbanSportsClubLogoAsset.url}
                     alt="Urban Sports Club"
-                    className="h-9 w-full min-w-0 object-contain sm:h-10 sm:max-w-[9rem]"
+                    className="h-16 w-full min-w-0 object-contain sm:h-20"
                   />
                 </div>
-                <div className="min-w-0">
-                  <div className="font-display text-2xl sm:text-3xl uppercase text-clay mb-2">
-                    €{PARTNER_DISCOUNT} off with Wellhub or Urban Sports Club
+                <div className="min-w-0 text-center">
+                  <div className="font-display text-base sm:text-2xl uppercase text-ink break-words">
+                    <span aria-hidden="true">💙</span> Wellhub + Urban Sports Club
                   </div>
-                  <p className="text-sm font-semibold text-ink">
-                    Members pay €{PARTNER_DISCOUNT} less per person, for every session — at BFC Alemannia and TC Longline.
+                  <div className="mt-2 font-display text-xl sm:text-4xl uppercase text-clay break-words">
+                    €{PARTNER_DISCOUNT} off every tennis session <span aria-hidden="true">🎾</span>
+                  </div>
+                  <p className="mt-2 text-sm sm:text-base text-ink/75 break-words">
+                    For members with a Classic plan or higher — max. 4 sessions/month.
                   </p>
-                  <p className="mt-1 text-xs text-ink/70">
-                    Works with any plan from Classic upwards.
-                  </p>
-                  <div className="mt-2 inline-flex items-center gap-2 rounded-full border border-destructive/25 bg-destructive/10 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-destructive">
+                  <div className="mt-3 inline-flex items-center rounded-full border border-destructive/25 bg-destructive/10 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-destructive">
                     From 15 October 2026
                   </div>
                 </div>
