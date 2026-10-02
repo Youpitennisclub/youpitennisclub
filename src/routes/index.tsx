@@ -174,31 +174,31 @@ function Index() {
             </div>
 
             <article className="rounded-2xl bg-background text-ink p-5 sm:p-6 border-2 border-pink/40 mt-6">
-              <div className="grid gap-5">
-                <div className="grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-2 sm:gap-6 rounded-2xl border-2 border-ink/10 bg-ball/30 px-3 py-4 sm:px-8 sm:py-7">
+              <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6">
+                <div className="grid w-full grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-2 rounded-xl border border-ink/10 bg-ball/40 px-3 py-2.5 sm:w-auto sm:gap-3 sm:px-4 sm:py-3">
                   <img
                     src={wellhubLogoAsset.url}
                     alt="Wellhub"
-                    className="h-14 w-full min-w-0 object-contain sm:h-16"
+                    className="h-8 w-full min-w-0 object-contain sm:h-9 sm:max-w-[8rem]"
                   />
-                  <span className="shrink-0 font-display text-xl sm:text-4xl uppercase text-clay">+</span>
+                  <span className="shrink-0 font-display text-lg uppercase text-clay">+</span>
                   <img
                     src={urbanSportsClubLogoAsset.url}
                     alt="Urban Sports Club"
-                    className="h-16 w-full min-w-0 object-contain sm:h-20"
+                    className="h-10 w-full min-w-0 object-contain sm:h-11 sm:max-w-[9rem]"
                   />
                 </div>
-                <div className="min-w-0 text-center">
-                  <div className="font-display text-base sm:text-2xl uppercase text-ink break-words">
+                <div className="min-w-0">
+                  <div className="font-display text-sm uppercase text-ink/60 break-words">
                     <span aria-hidden="true">💙</span> Wellhub + Urban Sports Club
                   </div>
-                  <div className="mt-2 font-display text-xl sm:text-4xl uppercase text-clay break-words">
+                  <div className="mt-0.5 font-display text-xl sm:text-2xl uppercase text-clay break-words">
                     €{PARTNER_DISCOUNT} off every tennis session <span aria-hidden="true">🎾</span>
                   </div>
-                  <p className="mt-2 text-sm sm:text-base text-ink/75 break-words">
+                  <p className="mt-1 text-xs text-ink/70 break-words">
                     For members with a Classic plan or higher — max. 4 sessions/month.
                   </p>
-                  <div className="mt-3 inline-flex items-center rounded-full border border-destructive/25 bg-destructive/10 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-destructive">
+                  <div className="mt-1.5 inline-flex items-center rounded-full border border-destructive/25 bg-destructive/10 px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wider text-destructive">
                     From 15 October 2026
                   </div>
                 </div>
