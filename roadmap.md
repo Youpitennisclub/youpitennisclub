@@ -27,3 +27,9 @@
 - [x] Accueil : supprimer les lignes « Prices per person are listed just below » et « Flexible working times? »
 - [x] Tarifs et agenda : réduction de 7 EUR pour les membres Wellhub et Urban Sports Club (Classic et plus), valable dans les deux clubs, avec les deux logos
 - [x] Pack 200 EUR : bouton d'achat visible ouvrant le parcours paiement (PayPal) puis reservation dans le calendrier
+- [x] Retirer l'option "Copy number" et son texte d'aide (Contact, accueil agenda, fenêtre de réservation)
+- [x] Pack 200 EUR : texte marketing « More freedom, more tennis » intégré au-dessus des conditions
+- [x] Pack 200 EUR : conditions présentées dans un encadré plus lisible (titre, filet, espacement, alignement icônes)
+- [x] Emoji 📧 ajouté à côté de « email » partout (Contact, accueil agenda, fenêtre hiver, fenêtre pack)
+- [x] Emoji 📧 marqué décoratif (aria-hidden) pour ne pas être annoncé par les lecteurs d'écran
+- [ ] Chaque bouton email relié à la bonne adresse via un mailto cohérent (site, fenêtre hiver, fenêtre pack)
