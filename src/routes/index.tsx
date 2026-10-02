@@ -173,19 +173,19 @@ function Index() {
               </ol>
             </div>
 
-            <article className="mx-auto mt-6 max-w-4xl rounded-2xl bg-background text-ink p-5 sm:p-6 border-2 border-pink/40">
-              <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-5">
-                <div className="mx-auto grid w-fit max-w-full grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-2 rounded-xl border border-ink/10 bg-ball/40 px-3 py-3 sm:mx-0 sm:w-auto sm:gap-4 sm:px-5 sm:py-4">
+            <article className="mx-auto mt-6 max-w-4xl rounded-2xl bg-background text-ink p-4 sm:p-6 border-2 border-pink/40">
+              <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-5">
+                <div className="mx-auto grid w-fit max-w-full grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-2 rounded-xl border border-ink/10 bg-ball/40 px-2.5 py-2 sm:mx-0 sm:w-auto sm:gap-4 sm:px-5 sm:py-4">
                   <img
                     src={wellhubLogoAsset.url}
                     alt="Wellhub"
-                    className="h-10 w-full min-w-0 object-contain sm:h-12 sm:max-w-[10rem]"
+                    className="h-8 w-full min-w-0 object-contain sm:h-12 sm:max-w-[10rem]"
                   />
-                  <span className="shrink-0 font-display text-xl uppercase text-clay">+</span>
+                  <span className="shrink-0 font-display text-lg uppercase text-clay sm:text-xl">+</span>
                   <img
                     src={urbanSportsClubLogoAsset.url}
                     alt="Urban Sports Club"
-                    className="h-12 w-full min-w-0 object-contain sm:h-14 sm:max-w-[11rem]"
+                    className="h-9 w-full min-w-0 object-contain sm:h-14 sm:max-w-[11rem]"
                   />
                 </div>
                 <div className="min-w-0">
