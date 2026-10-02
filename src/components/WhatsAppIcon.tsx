@@ -1,31 +1,13 @@
 // Official WhatsApp brand glyph (simplified). Brand logos keep their own colors,
 // so this uses WhatsApp green regardless of the site palette.
-import { useEffect, useState } from "react";
 
-const WHATSAPP_MESSAGE =
-  "Hi Youpi! I found you through your website and I'd like to know more about tennis lessons 🎾";
+// Official WhatsApp Click-to-Chat link, used as a plain HTML anchor everywhere.
+// WhatsApp itself decides whether to open the app (mobile) or WhatsApp Web (desktop).
+export const WHATSAPP_LINK =
+  "https://wa.me/4917645689622?text=Hi%20Youpi%21%20I%20found%20you%20through%20your%20website%20and%20I%27d%20like%20to%20know%20more%20about%20tennis%20lessons%20%F0%9F%8E%BE";
 
-const ENCODED_MESSAGE = encodeURIComponent(WHATSAPP_MESSAGE);
-const MOBILE_LINK = `https://wa.me/4917645689622?text=${ENCODED_MESSAGE}`;
-const DESKTOP_LINK = `https://web.whatsapp.com/send?phone=4917645689622&text=${ENCODED_MESSAGE}`;
-
-// Mobile: wa.me opens the WhatsApp app. Desktop: open WhatsApp Web directly
-// (wa.me sometimes fails to redirect properly on desktop browsers).
-// Default to the mobile link so SSR/first paint always has a working href,
-// then switch to WhatsApp Web after hydration on desktop devices.
 export function useWhatsAppLink(): string {
-  const [link, setLink] = useState(MOBILE_LINK);
-  useEffect(() => {
-    const ua = navigator.userAgent;
-    const isMobile =
-      /Android|iPhone|iPad|iPod|Mobile/i.test(ua) ||
-      // iPadOS reports itself as a Mac; detect it via touch support.
-      (/Macintosh/i.test(ua) && navigator.maxTouchPoints > 1);
-    if (!isMobile) {
-      setLink(DESKTOP_LINK);
-    }
-  }, []);
-  return link;
+  return WHATSAPP_LINK;
 }
 
 export function WhatsAppIcon({ className = "" }: { className?: string }) {
