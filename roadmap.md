@@ -37,3 +37,4 @@
 - [x] Bulle Wellhub/Urban Sports : « Coming soon » retire, texte simplifi (titre €7 off + 2 phrases claires), date gardee en pastille « From 15 October 2026 »
 - [x] Bulle Wellhub/Urban Sports : texte corrige (€7 off every tennis session / Classic or higher - max. 4 sessions/month / From 15 October 2026), logos agrandis et mis en avant au-dessus du texte ; même règle « max. 4 sessions/month » ajoutée dans la fenêtre de réservation
 - [x] Bulle Wellhub/Urban Sports : retour a la taille d origine (1 rangee sur ordinateur, logos a gauche dans une pastille jaune, texte a droite en petits corps) en gardant le nouveau texte et la regle max. 4 sessions/mois
+- [x] Bulle Wellhub/Urban Sports : logos agrandis (48x56 px sur ordinateur, 40x48 sur telephone), ligne "7 EUR off every tennis session" reduite a 16-18 px; hauteur totale 150 px sur ordinateur
