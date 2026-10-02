@@ -586,7 +586,7 @@ function BookPage() {
           </a>{" "}
           or by{" "}
           <a
-            href="mailto:youpitennisclub@gmail.com"
+            href="mailto:youpitennisclub@gmail.com?subject=Tennis%20lessons"
             className="text-clay font-semibold hover:underline break-all"
           >
             email <span aria-hidden="true">📧</span>
