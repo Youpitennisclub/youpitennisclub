@@ -201,7 +201,6 @@ function Index() {
                   <div className="mt-2 inline-flex items-center gap-2 rounded-full border border-destructive/25 bg-destructive/10 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-destructive">
                     From 15 October 2026
                   </div>
-                  </p>
                 </div>
               </div>
             </article>
