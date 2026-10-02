@@ -85,7 +85,7 @@ const VENUE_STYLE: Record<Venue, string> = {
    ========================================================================= */
 const PACK_PRICE = 200;
 const PACK_IBAN = "DE84 1001 1001 2694 8756 79";
-const PACK_REFERENCE = "Prenom + Nom package Winter 2026-27";
+const PACK_REFERENCE = "First name + Last name package Winter 2026-27";
 const PACK_WHATSAPP_LINK =
   "https://wa.me/4917645689622?text=Hi%20Youpi%21%20I%27d%20like%20to%20buy%20the%20Pack%20200%20%E2%82%AC%20of%20credits%20%F0%9F%8E%BE";
 
