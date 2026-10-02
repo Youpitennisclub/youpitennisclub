@@ -78,7 +78,10 @@ function ContactPage() {
             +49 176 45689622
           </a>
           <p className="text-sm text-muted-foreground mt-1 inline-flex items-center gap-1.5">
-            <WhatsAppIcon className="text-[#25D366]" /> WhatsApp preferable 💬
+            <a href={whatsappLink} target="_blank" rel="noopener" aria-label="WhatsApp">
+              <WhatsAppIcon className="text-[#25D366]" />
+            </a>{" "}
+            WhatsApp preferable 💬
           </p>
           <CopyNumberButton
             className="mt-3"
