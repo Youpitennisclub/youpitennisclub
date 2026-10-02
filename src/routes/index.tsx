@@ -220,8 +220,6 @@ function Index() {
           {([
             { venue: "alemannia", club: "BFC Alemannia", hour: 10, color: "bg-navy", icon: "☀️" },
             { venue: "alemannia", club: "BFC Alemannia", hour: 17, color: "bg-navy", icon: "🌙" },
-            { venue: "longline", club: "TC Longline", hour: 10, color: "bg-clay", icon: "☀️" },
-            { venue: "longline", club: "TC Longline", hour: 17, color: "bg-clay", icon: "🌙" },
           ] as const).map((l) => {
             const r = ratesFor(l.venue, l.hour);
             return (
@@ -247,6 +245,32 @@ function Index() {
             );
           })}
         </div>
+
+        {/* TC Longline — Friday only, compact */}
+        <aside className="mt-6 rounded-2xl border-2 border-clay/35 bg-clay/5 p-4 sm:p-5">
+          <div className="flex flex-wrap items-center gap-2 mb-3">
+            <span className="w-2.5 h-2.5 rounded-full bg-clay shrink-0" aria-hidden="true" />
+            <h3 className="font-display text-base sm:text-lg uppercase text-ink break-words">TC Longline · Fridays only</h3>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {([10, 17] as const).map((h) => {
+              const r = ratesFor("longline", h);
+              return (
+                <div key={h} className="min-w-0 rounded-xl bg-background border border-ink/10 px-3 py-2.5">
+                  <div className="text-[11px] uppercase tracking-wider font-semibold text-clay">{r.period}</div>
+                  <ul className="mt-1.5 space-y-1">
+                    {r.rates.map((x) => (
+                      <li key={x.n} className="flex justify-between gap-3 text-sm">
+                        <span className="text-ink/70 font-medium">{x.n}</span>
+                        <span className="font-display text-ink shrink-0">{x.p} / pers</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              );
+            })}
+          </div>
+        </aside>
       </section>
 
 
