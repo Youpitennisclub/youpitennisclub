@@ -34,3 +34,4 @@
 - [x] Emoji 📧 marqué décoratif (aria-hidden) pour ne pas être annoncé par les lecteurs d'écran
 - [x] Chaque bouton email relie a la bonne adresse via un mailto coherent (Contact, accueil agenda avec sujet Tennis lessons, fenêtre hiver avec sujet Winter season, fenêtre pack avec sujet Pack 200 EUR, confidentialite, cookies)
 - [x] Pack : titre « €200 Credit Pack », texte remplace (More freedom. More tennis. / 4 points / Pay once. Plan ahead. Play more. / Ready to play?), conditions reformulees (certificat medical requis, check-in valide sur place), bouton et fenetre renommes « €200 Credit Pack »
+- [x] Bulle Wellhub/Urban Sports : « Coming soon » retire, texte simplifi (titre €7 off + 2 phrases claires), date gardee en pastille « From 15 October 2026 »
