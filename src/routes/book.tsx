@@ -621,31 +621,37 @@ function BookPage() {
 
         <div className="mt-6 rounded-3xl border-2 border-clay bg-clay/10 p-5 sm:p-6 max-w-2xl">
           <h2 className="font-display text-xl sm:text-2xl uppercase break-words flex items-center gap-3">
-            <span className="h-3 w-3 shrink-0 rounded-full bg-clay" />
-            Pack 200 € — credits
+            <span aria-hidden="true">🎾</span>
+            €{PACK_PRICE} Credit Pack
           </h2>
           <p className="mt-3 font-display text-lg sm:text-xl uppercase text-ink break-words">
-            <span aria-hidden="true">🎾</span> More freedom, more tennis
+            More freedom. More tennis.
           </p>
           <p className="mt-2 text-sm sm:text-base text-muted-foreground break-words">
-            With the 3-month pass, you get <b className="text-ink">€200 in tennis credits</b> to use on your sessions.
+            Get <b className="text-ink">€200 in tennis credits</b> to use throughout the next{" "}
+            <b className="text-ink">3 months</b> — giving you more flexibility to plan your sessions
+            around your schedule.
           </p>
           <ul className="mt-3 grid gap-2 text-sm text-ink/80">
             <li className="break-words">
-              <span aria-hidden="true">📅</span> Plan ahead for the next <b className="text-ink">3 months</b>.
+              <span aria-hidden="true">📅</span> <b className="text-ink">Plan ahead</b> — organize
+              your tennis for the next 3 months.
             </li>
             <li className="break-words">
-              <span aria-hidden="true">🔄</span> Use your credits <b className="text-ink">whenever you want</b>, according to your schedule.
+              <span aria-hidden="true">🔄</span> <b className="text-ink">Stay flexible</b> — use
+              your credits whenever it suits you.
             </li>
             <li className="break-words">
-              <span aria-hidden="true">🎾</span> Play more regularly and easily <b className="text-ink">stay connected with your group</b>.
+              <span aria-hidden="true">🎾</span> <b className="text-ink">Play regularly</b> — keep
+              your spot and stay connected with your group.
             </li>
             <li className="break-words">
-              <span aria-hidden="true">😌</span> Keep it simple — your <b className="text-ink">tennis budget is already taken care of</b>.
+              <span aria-hidden="true">😌</span> <b className="text-ink">Keep it simple</b> — pay
+              once and enjoy a ready-to-use tennis budget.
             </li>
           </ul>
           <p className="mt-3 text-sm sm:text-base font-semibold text-ink break-words">
-            Pay once, plan ahead and enjoy your tennis.
+            Pay once. Plan ahead. Play more.
           </p>
           <div className="mt-5 rounded-2xl border-2 border-ink/10 bg-card/80 p-4 sm:p-5">
             <div className="font-display text-base sm:text-lg uppercase tracking-wide text-ink break-words">
@@ -659,19 +665,31 @@ function BookPage() {
               </li>
               <li className="grid min-w-0 grid-cols-[1.6rem_minmax(0,1fr)] items-start gap-2 break-words">
                 <span aria-hidden="true" className="text-lg leading-none">⏳</span>
-                <span>Extended to <b className="text-ink">4 months (120 days)</b> for Urban Sports Club members.</span>
+                <span>
+                  Urban Sports Club members: validity is extended to{" "}
+                  <b className="text-ink">4 months (120 days)</b>.
+                </span>
               </li>
               <li className="grid min-w-0 grid-cols-[1.6rem_minmax(0,1fr)] items-start gap-2 break-words">
                 <span aria-hidden="true" className="text-lg leading-none">⚠️</span>
-                <span>Any credit not used within that time is <b className="text-ink">lost and non-refundable</b>.</span>
+                <span>
+                  Unused credits expire at the end of the validity period and are{" "}
+                  <b className="text-ink">non-refundable</b>.
+                </span>
               </li>
               <li className="grid min-w-0 grid-cols-[1.6rem_minmax(0,1fr)] items-start gap-2 break-words">
                 <span aria-hidden="true" className="text-lg leading-none">🩹</span>
-                <span>Only exception: an exceptional injury, proven by a <b className="text-ink">medical certificate</b>.</span>
+                <span>
+                  Exception: in the event of an exceptional injury, a{" "}
+                  <b className="text-ink">medical certificate</b> is required.
+                </span>
               </li>
               <li className="grid min-w-0 grid-cols-[1.6rem_minmax(0,1fr)] items-start gap-2 break-words">
                 <span aria-hidden="true" className="text-lg leading-none">💙</span>
-                <span>The <b className="text-ink">€7 Urban Sports Club discount</b> works with the pack — it is applied after each session, once your check-in is validated on site.</span>
+                <span>
+                  The <b className="text-ink">€7 Urban Sports Club discount</b> still applies — it
+                  is deducted after each session, once your check-in has been validated on site.
+                </span>
               </li>
             </ul>
           </div>
@@ -682,7 +700,7 @@ function BookPage() {
               className="w-full min-w-0 px-6 py-4 rounded-2xl bg-clay text-primary-foreground font-display text-lg uppercase tracking-wide hover:opacity-90 transition inline-flex items-center justify-center gap-2"
             >
               <span aria-hidden="true">🎾</span>
-              Buy the Pack {PACK_PRICE} €
+              Buy the €{PACK_PRICE} Credit Pack
             </button>
             <a
               href={whatsappLink}
@@ -691,7 +709,7 @@ function BookPage() {
               className="w-full min-w-0 px-4 py-2.5 rounded-2xl border-2 border-ink text-center text-sm font-semibold hover:bg-ball/40 transition inline-flex items-center justify-center gap-2"
             >
               <WhatsAppIcon className="text-[#25D366]" />
-              Question about the pack? WhatsApp me
+              Questions about the pack? WhatsApp me <span aria-hidden="true">💬</span>
             </a>
           </div>
         </div>
@@ -1016,7 +1034,7 @@ function BookPage() {
       {packOpen && (
         <Modal onClose={() => setPackOpen(false)}>
           <div className="text-xs font-bold uppercase tracking-widest text-clay mb-2">
-            Pack {PACK_PRICE} €
+            €{PACK_PRICE} Credit Pack
           </div>
           <h3 className="font-display text-2xl sm:text-3xl uppercase leading-tight pr-10 break-words">
             Buy your credits
