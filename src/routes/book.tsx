@@ -95,9 +95,10 @@ const SPECIAL_90MIN_DAYS: Record<string, number> = {
   "2026-10-09": 17, // Fri 09.10
   "2026-10-12": 17, // Mon 12.10
 };
-/** Extra one-off 1-hour slots at BFC Alemannia on the outdoor days. */
+/** Extra one-off 1-hour slots at BFC Alemannia (outdoor days & one-off additions). */
 const EXTRA_60MIN_DAYS: Record<string, number[]> = {
   "2026-10-09": [16], // Fri 09.10 — 16:00–17:00 outdoor
+  "2026-10-10": [16, 17], // Sat 10.10 — 16:00–17:00 & 17:00–18:00
 };
 /** Indoor 1-hour slots at BFC Alemannia — labelled INDOOR in the calendar. */
 const INDOOR_60MIN_DAYS: Record<string, number[]> = {

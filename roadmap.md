@@ -23,3 +23,5 @@
 - [x] youpitennisclub@gmail.com rendu cliquable (mailto) sur toutes les pages ou il apparait (Contact, confidentialite, cookies, agenda)
 - [x] Ligne PayPal : adresse PayPal du coach retablie (chaouchyoucef@yahoo.com), non cliquable car cest un compte de paiement
 - [x] Bloc Winter schedule : bleu remplace par l\u2019orange dominant (carte, pastilles Wintersaison/Indoor, titres 1. 2. 3.)
+- [x] Agenda : creneaux 16:00–17:00 et 17:00–18:00 ajoutes le samedi 10.10 (BFC Alemannia)
+- [x] Accueil : supprimer les lignes « Prices per person are listed just below » et « Flexible working times? »
