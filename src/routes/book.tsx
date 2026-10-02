@@ -693,7 +693,10 @@ function BookPage() {
               </li>
             </ul>
           </div>
-          <div className="mt-5 grid gap-2 sm:max-w-md">
+          <p className="mt-5 font-display text-lg sm:text-xl uppercase text-ink break-words">
+            Ready to play?
+          </p>
+          <div className="mt-4 grid gap-2 sm:max-w-md">
             <button
               type="button"
               onClick={() => setPackOpen(true)}
