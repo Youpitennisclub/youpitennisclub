@@ -173,26 +173,26 @@ function Index() {
               </ol>
             </div>
 
-            <article className="rounded-2xl bg-background text-ink p-6 border-2 border-pink/40 mt-6">
+            <article className="rounded-2xl bg-background text-ink p-5 sm:p-6 border-2 border-pink/40 mt-6">
               <div className="grid gap-5">
-                <div className="grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-3 sm:gap-6 rounded-2xl border-2 border-ink/10 bg-ball/30 px-4 py-5 sm:px-8 sm:py-7">
+                <div className="grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-2 sm:gap-6 rounded-2xl border-2 border-ink/10 bg-ball/30 px-3 py-4 sm:px-8 sm:py-7">
                   <img
                     src={wellhubLogoAsset.url}
                     alt="Wellhub"
-                    className="h-12 w-full min-w-0 object-contain sm:h-16"
+                    className="h-14 w-full min-w-0 object-contain sm:h-16"
                   />
-                  <span className="font-display text-3xl sm:text-4xl uppercase text-clay">+</span>
+                  <span className="shrink-0 font-display text-xl sm:text-4xl uppercase text-clay">+</span>
                   <img
                     src={urbanSportsClubLogoAsset.url}
                     alt="Urban Sports Club"
-                    className="h-14 w-full min-w-0 object-contain sm:h-20"
+                    className="h-16 w-full min-w-0 object-contain sm:h-20"
                   />
                 </div>
                 <div className="min-w-0 text-center">
-                  <div className="font-display text-lg sm:text-2xl uppercase text-ink break-words">
+                  <div className="font-display text-base sm:text-2xl uppercase text-ink break-words">
                     <span aria-hidden="true">💙</span> Wellhub + Urban Sports Club
                   </div>
-                  <div className="mt-2 font-display text-2xl sm:text-4xl uppercase text-clay break-words">
+                  <div className="mt-2 font-display text-xl sm:text-4xl uppercase text-clay break-words">
                     €{PARTNER_DISCOUNT} off every tennis session <span aria-hidden="true">🎾</span>
                   </div>
                   <p className="mt-2 text-sm sm:text-base text-ink/75 break-words">
