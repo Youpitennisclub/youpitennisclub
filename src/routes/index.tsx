@@ -173,7 +173,7 @@ function Index() {
               </ol>
             </div>
 
-            <article className="mx-auto mt-6 w-full max-w-md md:max-w-lg lg:w-fit lg:max-w-4xl rounded-2xl bg-background text-ink p-4 md:p-5 lg:p-6 border-2 border-pink/40">
+            <article className="mx-auto mt-6 w-full max-w-md md:max-w-lg lg:w-fit lg:max-w-4xl rounded-2xl bg-background text-ink py-4 md:py-5 lg:py-6 px-[max(1rem,env(safe-area-inset-left))] pr-[max(1rem,env(safe-area-inset-right))] md:px-[max(1.25rem,env(safe-area-inset-left))] md:pr-[max(1.25rem,env(safe-area-inset-right))] lg:px-[max(1.5rem,env(safe-area-inset-left))] lg:pr-[max(1.5rem,env(safe-area-inset-right))] border-2 border-pink/40">
               <div className="flex flex-col gap-2 md:gap-3 lg:flex-row lg:items-center lg:gap-6">
                 <div className="mx-auto grid w-fit max-w-full grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-2 rounded-xl border border-ink/10 bg-ball/40 px-2.5 py-2 md:gap-3 md:px-3.5 md:py-3 lg:mx-0 lg:w-auto lg:gap-4 lg:px-5 lg:py-4">
                   <img
