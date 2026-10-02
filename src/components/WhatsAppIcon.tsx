@@ -1,3 +1,5 @@
+import type { MouseEvent } from "react";
+
 // Official WhatsApp brand glyph (simplified). Brand logos keep their own colors,
 // so this uses WhatsApp green regardless of the site palette.
 
@@ -8,6 +10,17 @@ export const WHATSAPP_LINK =
 
 export function useWhatsAppLink(): string {
   return WHATSAPP_LINK;
+}
+
+// Click handler for every WhatsApp link: opens a new tab when the browser
+// allows it; when the new tab is blocked (e.g. inside an embedded preview
+// frame), falls back to navigating the current frame so WhatsApp still opens.
+// The wa.me URL itself never changes — WhatsApp picks app vs WhatsApp Web.
+export function handleWhatsAppClick(e: MouseEvent<HTMLAnchorElement>): void {
+  e.preventDefault();
+  const href = e.currentTarget.href;
+  const win = window.open(href, "_blank", "noopener,noreferrer");
+  if (!win) window.location.href = href;
 }
 
 export function WhatsAppIcon({ className = "" }: { className?: string }) {
