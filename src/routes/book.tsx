@@ -652,7 +652,7 @@ function BookPage() {
               Conditions
             </div>
             <div className="mt-2 h-px w-full bg-ink/10" aria-hidden="true" />
-            <ul className="mt-3 grid gap-3 text-sm sm:text-base leading-relaxed text-ink/90">
+            <ul className="mt-3 grid gap-4 sm:gap-3 text-sm sm:text-base leading-relaxed text-ink/90">
               <li className="grid min-w-0 grid-cols-[1.6rem_minmax(0,1fr)] items-start gap-2 break-words">
                 <span aria-hidden="true" className="text-lg leading-none">✅</span>
                 <span>Valid for <b className="text-ink">3 months (90 days)</b>.</span>
