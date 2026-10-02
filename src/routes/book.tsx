@@ -78,6 +78,16 @@ const VENUE_STYLE: Record<Venue, string> = {
   longline: "bg-clay text-background border-clay",
 };
 
+/* =========================================================================
+   PACK 200 € — credits. The purchase follows the path the club already uses:
+   a PayPal transfer, a message to the coach who loads the credits, then the
+   student books in the calendar.
+   ========================================================================= */
+const PACK_PRICE = 200;
+const PACK_PAYPAL = "chaouchyoucef@yahoo.com";
+const PACK_WHATSAPP_LINK =
+  "https://wa.me/4917645689622?text=Hi%20Youpi%21%20I%27d%20like%20to%20buy%20the%20Pack%20200%20%E2%82%AC%20of%20credits%20%F0%9F%8E%BE";
+
 /** Available court hours (1h slots), per weekday and per club. */
 const CLUB_HOURS: Record<number, { club: Venue; hours: number[] }[]> = {
   1: [{ club: "alemannia", hours: [13, 14, 15] }], // Mon — BFC Alemannia 13–16h
@@ -278,6 +288,7 @@ function BookPage() {
   const [selectedSlot, setSelectedSlot] = useState<Slot | null>(null);
   const [campInfo, setCampInfo] = useState<Slot | null>(null);
   const [winterOpen, setWinterOpen] = useState(false);
+  const [packOpen, setPackOpen] = useState(false);
   const [bookings, setBookings] = useState<PublicBooking[]>([]);
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
@@ -637,15 +648,25 @@ function BookPage() {
               <span aria-hidden="true">💙</span> The <b className="text-ink">€7 Urban Sports Club discount</b> works with the pack — it is applied after each session, once your check-in is validated on site.
             </li>
           </ul>
-          <a
-            href={whatsappLink}
-            target="_blank"
-            rel="noopener"
-            className="mt-4 inline-flex items-center gap-2 rounded-2xl border-2 border-ink px-4 py-2.5 text-sm font-semibold hover:bg-ball/40 transition"
-          >
-            <WhatsAppIcon className="text-[#25D366]" />
-            Interested in the pack? WhatsApp me
-          </a>
+          <div className="mt-5 grid gap-2 sm:max-w-md">
+            <button
+              type="button"
+              onClick={() => setPackOpen(true)}
+              className="w-full min-w-0 px-6 py-4 rounded-2xl bg-clay text-primary-foreground font-display text-lg uppercase tracking-wide hover:opacity-90 transition inline-flex items-center justify-center gap-2"
+            >
+              <span aria-hidden="true">🎾</span>
+              Buy the Pack {PACK_PRICE} €
+            </button>
+            <a
+              href={whatsappLink}
+              target="_blank"
+              rel="noopener"
+              className="w-full min-w-0 px-4 py-2.5 rounded-2xl border-2 border-ink text-center text-sm font-semibold hover:bg-ball/40 transition inline-flex items-center justify-center gap-2"
+            >
+              <WhatsAppIcon className="text-[#25D366]" />
+              Question about the pack? WhatsApp me
+            </a>
+          </div>
         </div>
       </section>
 
@@ -674,7 +695,7 @@ function BookPage() {
       {unlocked && (
       <>
           {/* CALENDAR */}
-          <section className="max-w-6xl mx-auto px-5 sm:px-6 pb-16">
+          <section id="calendar" className="max-w-6xl mx-auto px-5 sm:px-6 pb-16">
             <div className="grid gap-3 mb-4 md:flex md:items-end md:justify-between">
               <div className="min-w-0">
                 <h2 className="font-display text-xl sm:text-2xl uppercase break-words">

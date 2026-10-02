@@ -40,10 +40,12 @@ export function CopyNumberButton({
   className = "",
   label = "Copy number",
   hint,
+  value = PHONE_DISPLAY,
 }: {
   className?: string;
   label?: string;
   hint?: string;
+  value?: string;
 }) {
   const [state, setState] = useState<"idle" | "copied" | "failed">("idle");
   const timer = useRef<number | undefined>(undefined);
@@ -51,7 +53,7 @@ export function CopyNumberButton({
   useEffect(() => () => window.clearTimeout(timer.current), []);
 
   const run = async () => {
-    const ok = await copyToClipboard(PHONE_DISPLAY);
+    const ok = await copyToClipboard(value);
     setState(ok ? "copied" : "failed");
     window.clearTimeout(timer.current);
     timer.current = window.setTimeout(() => setState("idle"), 2500);
@@ -65,7 +67,7 @@ export function CopyNumberButton({
       <button
         type="button"
         onClick={run}
-        aria-label={`Copy phone number ${PHONE_DISPLAY}`}
+        aria-label={`Copy ${value}`}
         className={`inline-flex shrink-0 items-center gap-1.5 rounded-full border-2 px-3 py-1.5 text-xs font-semibold transition ${
           state === "copied"
             ? "border-clay text-clay bg-ball/30"
@@ -85,7 +87,7 @@ export function CopyNumberButton({
         {text}
       </button>
       <span aria-live="polite" className="sr-only">
-        {state === "copied" ? `Phone number ${PHONE_DISPLAY} copied` : ""}
+        {state === "copied" ? `${value} copied` : ""}
       </span>
       {hint && state !== "copied" && (
         <span className="text-xs text-muted-foreground">{hint}</span>
