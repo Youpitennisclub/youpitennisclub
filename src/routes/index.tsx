@@ -174,7 +174,7 @@ function Index() {
             </div>
 
             <article className="mx-auto mt-6 max-w-4xl rounded-2xl bg-background text-ink p-4 sm:p-6 border-2 border-pink/40">
-              <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-5">
+              <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-5">
                 <div className="mx-auto grid w-fit max-w-full grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-2 rounded-xl border border-ink/10 bg-ball/40 px-2.5 py-2 sm:mx-0 sm:w-auto sm:gap-4 sm:px-5 sm:py-4">
                   <img
                     src={wellhubLogoAsset.url}
@@ -189,13 +189,13 @@ function Index() {
                   />
                 </div>
                 <div className="min-w-0">
-                  <div className="font-display text-sm uppercase text-ink/60 break-words">
+                  <div className="font-display text-xs uppercase text-ink/60 break-words sm:text-sm">
                     <span aria-hidden="true">💙</span> Wellhub + Urban Sports Club
                   </div>
-                  <div className="mt-0.5 font-display text-base sm:text-lg uppercase text-clay break-words">
+                  <div className="mt-0.5 font-display text-sm uppercase text-clay break-words sm:text-lg">
                     €{PARTNER_DISCOUNT} off every tennis session <span aria-hidden="true">🎾</span>
                   </div>
-                  <p className="mt-1 text-xs text-ink/70 break-words">
+                  <p className="mt-1 text-xs text-ink/70 break-words sm:whitespace-nowrap">
                     For members with a Classic plan or higher — max. 4 sessions/month.
                   </p>
                   <div className="mt-1.5 inline-flex items-center rounded-full border border-destructive/25 bg-destructive/10 px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wider text-destructive">
