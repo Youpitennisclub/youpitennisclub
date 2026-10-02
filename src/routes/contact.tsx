@@ -68,7 +68,7 @@ function ContactPage() {
         <div className="mb-10 p-6 rounded-3xl bg-card border-2 border-ink/10">
           <div className="font-display text-xl uppercase mb-2">Phone</div>
           <a
-            href="https://wa.me/4917645689622"
+            href={WHATSAPP_LINK}
             target="_blank"
             rel="noopener"
             className="inline-flex items-center gap-2 text-lg font-semibold hover:text-clay transition break-all"
