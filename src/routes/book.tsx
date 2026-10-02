@@ -80,11 +80,12 @@ const VENUE_STYLE: Record<Venue, string> = {
 
 /* =========================================================================
    PACK 200 € — credits. The purchase follows the path the club already uses:
-   a PayPal transfer, a message to the coach who loads the credits, then the
-   student books in the calendar.
+   a bank transfer to the coach's N26 account, a message to the coach who
+   loads the credits, then the student books in the calendar.
    ========================================================================= */
 const PACK_PRICE = 200;
-const PACK_PAYPAL = "chaouchyoucef@yahoo.com";
+const PACK_IBAN = "DE84 1001 1001 2694 8756 79";
+const PACK_REFERENCE = "Prenom + Nom package Winter 2026-27";
 const PACK_WHATSAPP_LINK =
   "https://wa.me/4917645689622?text=Hi%20Youpi%21%20I%27d%20like%20to%20buy%20the%20Pack%20200%20%E2%82%AC%20of%20credits%20%F0%9F%8E%BE";
 
@@ -1006,23 +1007,28 @@ function BookPage() {
           </p>
 
           <div className="mt-4 rounded-2xl bg-ball/30 border-2 border-ink/10 p-4">
-            <div className="font-display text-sm uppercase mb-2">1 · Pay with PayPal</div>
-            <div className="text-sm font-semibold break-all">{PACK_PAYPAL}</div>
+            <div className="font-display text-sm uppercase mb-2">1 · Pay by bank transfer</div>
+            <div className="text-sm font-semibold break-all">{PACK_IBAN}</div>
+            <div className="text-sm font-semibold break-all">N26</div>
             <div className="mt-1 text-xs text-muted-foreground break-words">
-              Amount <b className="text-ink">€{PACK_PRICE}</b> · send it as “goods and services”.
+              Amount <b className="text-ink">€{PACK_PRICE}</b> · use the reference below as the
+              transfer comment:
             </div>
-            <CopyNumberButton
-              className="mt-3"
-              value={PACK_PAYPAL}
-              label="Copy PayPal email"
-              hint="to paste it into PayPal"
-            />
+            <div className="mt-1 text-sm font-semibold break-all">{PACK_REFERENCE}</div>
+            <div className="mt-3 flex flex-wrap gap-2">
+              <CopyNumberButton value={PACK_IBAN} label="Copy IBAN" hint="to paste it into your banking app" />
+              <CopyNumberButton
+                value={PACK_REFERENCE}
+                label="Copy reference"
+                hint="as the transfer comment"
+              />
+            </div>
           </div>
 
           <div className="mt-3 rounded-2xl bg-ball/30 border-2 border-ink/10 p-4">
             <div className="font-display text-sm uppercase mb-2">2 · Tell me it's done</div>
             <p className="text-sm text-muted-foreground break-words">
-              Send me the payment reference and I load your credits.
+              Send me the transfer confirmation (screenshot) and I load your credits.
             </p>
             <div className="mt-3 grid gap-2">
               <a
