@@ -173,29 +173,29 @@ function Index() {
               </ol>
             </div>
 
-            <article className="mx-auto mt-6 max-w-4xl rounded-2xl bg-background text-ink p-4 sm:p-6 border-2 border-pink/40">
-              <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-5">
-                <div className="mx-auto grid w-fit max-w-full grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-2 rounded-xl border border-ink/10 bg-ball/40 px-2.5 py-2 sm:mx-0 sm:w-auto sm:gap-4 sm:px-5 sm:py-4">
+            <article className="mx-auto mt-6 max-w-4xl rounded-2xl bg-background text-ink p-4 md:p-5 lg:p-6 border-2 border-pink/40">
+              <div className="flex flex-col gap-2 md:gap-3 lg:flex-row lg:items-center lg:gap-5">
+                <div className="mx-auto grid w-fit max-w-full grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-2 rounded-xl border border-ink/10 bg-ball/40 px-2.5 py-2 md:gap-3 md:px-3.5 md:py-3 lg:mx-0 lg:w-auto lg:gap-4 lg:px-5 lg:py-4">
                   <img
                     src={wellhubLogoAsset.url}
                     alt="Wellhub"
-                    className="h-8 w-full min-w-0 object-contain sm:h-12 sm:max-w-[10rem]"
+                    className="h-8 w-full min-w-0 object-contain md:h-10 md:max-w-[9rem] lg:h-12 lg:max-w-[10rem]"
                   />
-                  <span className="shrink-0 font-display text-lg uppercase text-clay sm:text-xl">+</span>
+                  <span className="shrink-0 font-display text-lg uppercase text-clay md:text-xl">+</span>
                   <img
                     src={urbanSportsClubLogoAsset.url}
                     alt="Urban Sports Club"
-                    className="h-9 w-full min-w-0 object-contain sm:h-14 sm:max-w-[11rem]"
+                    className="h-9 w-full min-w-0 object-contain md:h-11 md:max-w-[10rem] lg:h-14 lg:max-w-[11rem]"
                   />
                 </div>
-                <div className="min-w-0 text-center sm:text-left">
-                  <div className="font-display text-xs uppercase text-ink/60 break-words sm:text-sm">
+                <div className="min-w-0 text-center lg:text-left">
+                  <div className="font-display text-xs uppercase text-ink/60 break-words md:text-sm">
                     <span aria-hidden="true">💙</span> Wellhub + Urban Sports Club
                   </div>
-                  <div className="mt-0.5 font-display text-sm uppercase text-clay break-words sm:text-lg">
+                  <div className="mt-0.5 font-display text-sm uppercase text-clay break-words md:text-base lg:text-lg">
                     €{PARTNER_DISCOUNT} off every tennis session <span aria-hidden="true">🎾</span>
                   </div>
-                  <p className="mt-1 text-xs text-ink/70 break-words sm:whitespace-nowrap">
+                  <p className="mt-1 text-xs text-ink/70 break-words md:text-[13px] lg:whitespace-nowrap">
                     For members with a Classic plan or higher — max. 4 sessions/month.
                   </p>
                   <div className="mt-1.5 inline-flex items-center rounded-full border border-destructive/25 bg-destructive/10 px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wider text-destructive">
