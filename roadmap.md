@@ -39,3 +39,4 @@
 - [x] Bulle Wellhub/Urban Sports : retour a la taille d origine (1 rangee sur ordinateur, logos a gauche dans une pastille jaune, texte a droite en petits corps) en gardant le nouveau texte et la regle max. 4 sessions/mois
 - [x] Bulle Wellhub/Urban Sports : logos agrandis (48x56 px sur ordinateur, 40x48 sur telephone), ligne "7 EUR off every tennis session" reduite a 16-18 px; hauteur totale 150 px sur ordinateur
 - [ ] Bulle Wellhub/Urban Sports : adapter espacement + taille des elements pour rester compacte sur mobile
+- [x] Bulle Wellhub/Urban Sports : compacte sur mobile (201 px au lieu de 289) et sur ordinateur (896 x 151, logos 48-56 px, ligne 7 EUR reduite, note sur 1 ligne, texte centre sur telephone)

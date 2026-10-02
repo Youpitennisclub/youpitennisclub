@@ -188,7 +188,7 @@ function Index() {
                     className="h-9 w-full min-w-0 object-contain sm:h-14 sm:max-w-[11rem]"
                   />
                 </div>
-                <div className="min-w-0">
+                <div className="min-w-0 text-center sm:text-left">
                   <div className="font-display text-xs uppercase text-ink/60 break-words sm:text-sm">
                     <span aria-hidden="true">💙</span> Wellhub + Urban Sports Club
                   </div>
