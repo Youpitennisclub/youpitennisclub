@@ -171,14 +171,6 @@ function Index() {
                   </p>
                 </li>
               </ol>
-              <p className="mt-5 rounded-xl border border-ink/10 bg-muted p-3 text-sm text-ink/80">
-                💶 Prices per person are listed just below, under “Pick your game”.
-              </p>
-              <p className="mt-3 rounded-xl border border-ink/10 bg-muted p-3 text-sm text-ink/80">
-                🕐 <strong>Flexible working times?</strong> Book a weekday court at{" "}
-                <strong translate="no" className="notranslate">BFC Alemannia</strong> (Mon–Thu) or{" "}
-                <strong translate="no" className="notranslate">TC Longline</strong> (Fri) between 11 AM and 5 PM.
-              </p>
             </div>
 
             <article className="rounded-2xl bg-background text-ink p-6 border-2 border-pink/40 mt-6">
