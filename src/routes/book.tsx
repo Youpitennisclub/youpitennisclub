@@ -647,26 +647,34 @@ function BookPage() {
           <p className="mt-3 text-sm sm:text-base font-semibold text-ink break-words">
             Pay once, plan ahead and enjoy your tennis.
           </p>
-          <div className="mt-4 font-display text-sm uppercase tracking-wide text-ink/70">
-            Conditions
+          <div className="mt-5 rounded-2xl border-2 border-ink/10 bg-card/80 p-4 sm:p-5">
+            <div className="font-display text-base sm:text-lg uppercase tracking-wide text-ink break-words">
+              Conditions
+            </div>
+            <div className="mt-2 h-px w-full bg-ink/10" aria-hidden="true" />
+            <ul className="mt-3 grid gap-3 text-sm sm:text-base leading-relaxed text-ink/90">
+              <li className="grid min-w-0 grid-cols-[1.6rem_minmax(0,1fr)] items-start gap-2 break-words">
+                <span aria-hidden="true" className="text-lg leading-none">✅</span>
+                <span>Valid for <b className="text-ink">3 months (90 days)</b>.</span>
+              </li>
+              <li className="grid min-w-0 grid-cols-[1.6rem_minmax(0,1fr)] items-start gap-2 break-words">
+                <span aria-hidden="true" className="text-lg leading-none">⏳</span>
+                <span>Extended to <b className="text-ink">4 months (120 days)</b> for Urban Sports Club members.</span>
+              </li>
+              <li className="grid min-w-0 grid-cols-[1.6rem_minmax(0,1fr)] items-start gap-2 break-words">
+                <span aria-hidden="true" className="text-lg leading-none">⚠️</span>
+                <span>Any credit not used within that time is <b className="text-ink">lost and non-refundable</b>.</span>
+              </li>
+              <li className="grid min-w-0 grid-cols-[1.6rem_minmax(0,1fr)] items-start gap-2 break-words">
+                <span aria-hidden="true" className="text-lg leading-none">🩹</span>
+                <span>Only exception: an exceptional injury, proven by a <b className="text-ink">medical certificate</b>.</span>
+              </li>
+              <li className="grid min-w-0 grid-cols-[1.6rem_minmax(0,1fr)] items-start gap-2 break-words">
+                <span aria-hidden="true" className="text-lg leading-none">💙</span>
+                <span>The <b className="text-ink">€7 Urban Sports Club discount</b> works with the pack — it is applied after each session, once your check-in is validated on site.</span>
+              </li>
+            </ul>
           </div>
-          <ul className="mt-2 grid gap-2 text-sm text-ink/80">
-            <li className="break-words">
-              <span aria-hidden="true">✅</span> Valid for <b className="text-ink">3 months (90 days)</b>.
-            </li>
-            <li className="break-words">
-              <span aria-hidden="true">⏳</span> Extended to <b className="text-ink">4 months (120 days)</b> for Urban Sports Club members.
-            </li>
-            <li className="break-words">
-              <span aria-hidden="true">⚠️</span> Any credit not used within that time is <b className="text-ink">lost and non-refundable</b>.
-            </li>
-            <li className="break-words">
-              <span aria-hidden="true">🩹</span> Only exception: an exceptional injury, proven by a <b className="text-ink">medical certificate</b>.
-            </li>
-            <li className="break-words">
-              <span aria-hidden="true">💙</span> The <b className="text-ink">€7 Urban Sports Club discount</b> works with the pack — it is applied after each session, once your check-in is validated on site.
-            </li>
-          </ul>
           <div className="mt-5 grid gap-2 sm:max-w-md">
             <button
               type="button"
