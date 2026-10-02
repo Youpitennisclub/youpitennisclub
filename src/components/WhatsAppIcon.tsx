@@ -1,6 +1,10 @@
 // Official WhatsApp brand glyph (simplified). Brand logos keep their own colors,
 // so this uses WhatsApp green regardless of the site palette.
-export const WHATSAPP_LINK = "https://wa.me/4917645689622";
+const WHATSAPP_MESSAGE =
+  "Hi Youpi! I found you through your website and I'd like to know more about tennis lessons 🎾";
+
+// wa.me opens the WhatsApp app on mobile and WhatsApp Web on desktop.
+export const WHATSAPP_LINK = `https://wa.me/4917645689622?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`;
 
 export function WhatsAppIcon({ className = "" }: { className?: string }) {
   return (
