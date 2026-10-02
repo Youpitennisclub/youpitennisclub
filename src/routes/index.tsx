@@ -189,16 +189,18 @@ function Index() {
                   />
                 </div>
                 <div className="min-w-0">
-                  <div className="font-display text-2xl sm:text-3xl uppercase text-destructive mb-1">Coming soon</div>
-                  <div className="mb-2 inline-flex items-center gap-2 rounded-full border border-destructive/25 bg-destructive/10 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-destructive">
-                    15 October 2026
+                  <div className="font-display text-2xl sm:text-3xl uppercase text-clay mb-2">
+                    €{PARTNER_DISCOUNT} off with Wellhub or Urban Sports Club
                   </div>
                   <p className="text-sm font-semibold text-ink">
-                    €{PARTNER_DISCOUNT} discount per person at both BFC Alemannia and TC Longline.
+                    Members pay €{PARTNER_DISCOUNT} less per person, for every session — at BFC Alemannia and TC Longline.
                   </p>
                   <p className="mt-1 text-xs text-ink/70">
-                    For Wellhub and Urban Sports Club members with a Classic plan or higher.
+                    Works with any plan from Classic upwards.
                   </p>
+                  <div className="mt-2 inline-flex items-center gap-2 rounded-full border border-destructive/25 bg-destructive/10 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-destructive">
+                    From 15 October 2026
+                  </div>
                 </div>
               </div>
             </article>
