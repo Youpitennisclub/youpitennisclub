@@ -3,8 +3,16 @@
 const WHATSAPP_MESSAGE =
   "Hi Youpi! I found you through your website and I'd like to know more about tennis lessons 🎾";
 
-// wa.me opens the WhatsApp app on mobile and WhatsApp Web on desktop.
-export const WHATSAPP_LINK = `https://wa.me/4917645689622?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`;
+const ENCODED_MESSAGE = encodeURIComponent(WHATSAPP_MESSAGE);
+
+// Mobile: wa.me opens the WhatsApp app. Desktop: open WhatsApp Web directly
+// (wa.me sometimes fails to redirect properly on desktop browsers).
+export function getWhatsAppLink(): string {
+  if (typeof navigator !== "undefined" && !/Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent)) {
+    return `https://web.whatsapp.com/send?phone=4917645689622&text=${ENCODED_MESSAGE}`;
+  }
+  return `https://wa.me/4917645689622?text=${ENCODED_MESSAGE}`;
+}
 
 export function WhatsAppIcon({ className = "" }: { className?: string }) {
   return (
