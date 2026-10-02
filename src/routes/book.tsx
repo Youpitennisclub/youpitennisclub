@@ -4,7 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { PhotoPicker } from "@/components/PhotoPicker";
 import { CopyNumberButton } from "@/components/CopyNumberButton";
-import { useWhatsAppLink, WhatsAppIcon } from "@/components/WhatsAppIcon";
+import { handleWhatsAppClick, useWhatsAppLink, WhatsAppIcon } from "@/components/WhatsAppIcon";
 import { createBooking, listMyBookings, cancelMyBooking } from "@/lib/bookings.functions";
 import { isAdmin } from "@/lib/admin.functions";
 import { PARTNER_DISCOUNT, ratesFor } from "@/lib/prices";
@@ -577,6 +577,7 @@ function BookPage() {
           <b className="text-ink">3 students</b> — for a private lesson, contact me directly on{" "}
           <a
             href={whatsappLink}
+            onClick={handleWhatsAppClick}
             target="_blank"
             rel="noopener"
             className="inline-flex items-center gap-1 text-clay font-semibold hover:underline"
@@ -707,6 +708,7 @@ function BookPage() {
             </button>
             <a
               href={whatsappLink}
+              onClick={handleWhatsAppClick}
               target="_blank"
               rel="noopener"
               className="w-full min-w-0 px-4 py-2.5 rounded-2xl border-2 border-ink text-center text-sm font-semibold hover:bg-ball/40 transition inline-flex items-center justify-center gap-2"
@@ -1016,6 +1018,7 @@ function BookPage() {
           <div className="mt-5 grid gap-2">
             <a
               href={whatsappLink}
+              onClick={handleWhatsAppClick}
               target="_blank"
               rel="noopener"
               className="px-6 py-4 text-center rounded-2xl bg-violet text-violet-foreground font-semibold hover:opacity-90 transition inline-flex items-center justify-center gap-2"
@@ -1075,6 +1078,7 @@ function BookPage() {
             <div className="mt-3 grid gap-2">
               <a
                 href={PACK_WHATSAPP_LINK}
+                onClick={handleWhatsAppClick}
                 target="_blank"
                 rel="noopener"
                 className="px-6 py-4 text-center rounded-2xl bg-violet text-violet-foreground font-semibold hover:opacity-90 transition inline-flex items-center justify-center gap-2"

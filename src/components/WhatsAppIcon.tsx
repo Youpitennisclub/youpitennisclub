@@ -1,3 +1,6 @@
+import type { MouseEvent } from "react";
+import { toast } from "sonner";
+
 // Official WhatsApp brand glyph (simplified). Brand logos keep their own colors,
 // so this uses WhatsApp green regardless of the site palette.
 
@@ -8,6 +11,45 @@ export const WHATSAPP_LINK =
 
 export function useWhatsAppLink(): string {
   return WHATSAPP_LINK;
+}
+
+// Click handler for every WhatsApp link. Layered so it works everywhere:
+// 1) open a new tab (normal browsers, published site);
+// 2) standalone with popups blocked: navigate this tab to the same wa.me URL;
+// 3) inside an embedding frame (preview): hand the navigation to the top page;
+// 4) if nothing can navigate, explain what to do instead of staying silent.
+// The wa.me URL itself never changes — WhatsApp picks app vs WhatsApp Web.
+export function handleWhatsAppClick(e: MouseEvent<HTMLAnchorElement>): void {
+  e.preventDefault();
+  const href = e.currentTarget.href;
+  const win = window.open(href, "_blank", "noopener,noreferrer");
+  if (win) return;
+  let standalone = false;
+  try {
+    standalone = window.top === window;
+  } catch {
+    standalone = false;
+  }
+  if (standalone) {
+    try {
+      window.location.href = href;
+    } catch {
+      // navigation refused — stay on the page
+    }
+  } else {
+    try {
+      window.top!.location.href = href;
+    } catch {
+      // cross-origin write refused — stay on the page
+    }
+  }
+  // If a navigation above had succeeded, this context is gone by now.
+  window.setTimeout(() => {
+    toast.error(
+      "WhatsApp cannot open from this window. Open this page in a full browser tab and try again.",
+      { duration: 8000 },
+    );
+  }, 800);
 }
 
 export function WhatsAppIcon({ className = "" }: { className?: string }) {
