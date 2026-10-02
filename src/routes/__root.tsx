@@ -79,7 +79,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   head: () => ({
     meta: [
       { charSet: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
+      { name: "viewport", content: "width=device-width, initial-scale=1, viewport-fit=cover" },
       { title: "Youpi Multi Culti Tennis — Tennis lessons in Berlin" },
       { name: "description", content: "Fun, international tennis lessons in Berlin for all players. All levels, all languages — book your first session today." },
       { name: "author", content: "Youpi Tennis Club" },
