@@ -35,3 +35,4 @@
 - [x] Chaque bouton email relie a la bonne adresse via un mailto coherent (Contact, accueil agenda avec sujet Tennis lessons, fenêtre hiver avec sujet Winter season, fenêtre pack avec sujet Pack 200 EUR, confidentialite, cookies)
 - [x] Pack : titre « €200 Credit Pack », texte remplace (More freedom. More tennis. / 4 points / Pay once. Plan ahead. Play more. / Ready to play?), conditions reformulees (certificat medical requis, check-in valide sur place), bouton et fenetre renommes « €200 Credit Pack »
 - [x] Bulle Wellhub/Urban Sports : « Coming soon » retire, texte simplifi (titre €7 off + 2 phrases claires), date gardee en pastille « From 15 October 2026 »
+- [x] Bulle Wellhub/Urban Sports : texte corrige (€7 off every tennis session / Classic or higher - max. 4 sessions/month / From 15 October 2026), logos agrandis et mis en avant au-dessus du texte ; même règle « max. 4 sessions/month » ajoutée dans la fenêtre de réservation
