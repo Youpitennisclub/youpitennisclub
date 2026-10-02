@@ -25,3 +25,4 @@
 - [x] Bloc Winter schedule : bleu remplace par l\u2019orange dominant (carte, pastilles Wintersaison/Indoor, titres 1. 2. 3.)
 - [x] Agenda : creneaux 16:00–17:00 et 17:00–18:00 ajoutes le samedi 10.10 (BFC Alemannia)
 - [x] Accueil : supprimer les lignes « Prices per person are listed just below » et « Flexible working times? »
+- [x] Tarifs et agenda : réduction de 7 EUR pour les membres Wellhub et Urban Sports Club (Classic et plus), valable dans les deux clubs, avec les deux logos

@@ -1,4 +1,4 @@
-import { ratesFor } from "@/lib/prices";
+import { PARTNER_DISCOUNT, ratesFor } from "@/lib/prices";
 import { createFileRoute, Link } from "@tanstack/react-router";
 
 import posterAsset from "@/assets/youpi-court.jpg.asset.json";
@@ -193,8 +193,11 @@ function Index() {
                   <div className="mb-2 inline-flex items-center gap-2 rounded-full border border-destructive/25 bg-destructive/10 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-destructive">
                     15 October 2026
                   </div>
-                  <p className="text-sm text-ink/80">
-                    Partnership with Urban Sport for a nice discount on your tennis lessons 😉
+                  <p className="text-sm font-semibold text-ink">
+                    €{PARTNER_DISCOUNT} discount per person at both BFC Alemannia and TC Longline.
+                  </p>
+                  <p className="mt-1 text-xs text-ink/70">
+                    For Wellhub and Urban Sports Club members with a Classic plan or higher.
                   </p>
                 </div>
               </div>

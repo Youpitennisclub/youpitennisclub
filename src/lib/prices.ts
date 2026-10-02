@@ -1,6 +1,9 @@
 /** Winter season price grid — 1 hour, per person. */
 export type PriceVenue = "alemannia" | "longline";
 
+/** Partner benefit available at both clubs for eligible Wellhub and Urban Sports Club members. */
+export const PARTNER_DISCOUNT = 7;
+
 export const PRICE_GRID: Record<PriceVenue, { before16: number[]; after16: number[]; nonMemberExtra: number }> = {
   // index 0 = 2 players, 1 = 3 players, 2 = 4 players
   alemannia: { before16: [37, 30, 24], after16: [39, 32, 26], nonMemberExtra: 2 },
