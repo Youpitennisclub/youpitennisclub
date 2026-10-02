@@ -83,11 +83,6 @@ function ContactPage() {
             </a>{" "}
             WhatsApp preferable 💬
           </p>
-          <CopyNumberButton
-            className="mt-3"
-            label="Copy number"
-            hint="WhatsApp doesn't open? Copy the number and save it."
-          />
           <div className="font-display text-xl uppercase mt-6 mb-2">Email</div>
           <a href={`mailto:${EMAIL}`} className="hover:text-clay transition break-all">
             {EMAIL}

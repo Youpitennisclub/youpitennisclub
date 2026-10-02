@@ -593,11 +593,6 @@ function BookPage() {
           </a>
           .
         </p>
-        <CopyNumberButton
-          className="mt-4"
-          label="Copy number"
-          hint="WhatsApp doesn't open? Copy the number and save it."
-        />
         <div className="mt-5 flex flex-wrap gap-2 text-xs font-bold uppercase tracking-wide">
           {(["total_beginner", "beginner", "intermediate", "advanced"] as Level[]).map((lv) => (
             <span key={lv} className={`px-3 py-1.5 rounded-full border-2 ${LEVEL_STYLE[lv]}`}>
