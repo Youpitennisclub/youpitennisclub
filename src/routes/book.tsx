@@ -589,7 +589,7 @@ function BookPage() {
             href="mailto:youpitennisclub@gmail.com"
             className="text-clay font-semibold hover:underline break-all"
           >
-            email
+            email <span aria-hidden="true">📧</span>
           </a>
           .
         </p>
@@ -1006,7 +1006,7 @@ function BookPage() {
               href="mailto:youpitennisclub@gmail.com?subject=Winter%20season"
               className="px-6 py-4 text-center rounded-2xl border-2 border-ink/15 font-semibold hover:bg-ball/40 transition"
             >
-              Send an email
+              <span aria-hidden="true">📧</span> Send an email
             </a>
           </div>
         </Modal>
@@ -1065,7 +1065,7 @@ function BookPage() {
                 href="mailto:youpitennisclub@gmail.com?subject=Pack%20200%20%E2%82%AC"
                 className="px-6 py-4 text-center rounded-2xl border-2 border-ink/15 font-semibold hover:bg-ball/40 transition break-all"
               >
-                Send an email
+                <span aria-hidden="true">📧</span> Send an email
               </a>
             </div>
           </div>
