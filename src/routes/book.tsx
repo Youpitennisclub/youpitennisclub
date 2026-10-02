@@ -624,10 +624,33 @@ function BookPage() {
             <span className="h-3 w-3 shrink-0 rounded-full bg-clay" />
             Pack 200 € — credits
           </h2>
+          <p className="mt-3 font-display text-lg sm:text-xl uppercase text-ink break-words">
+            <span aria-hidden="true">🎾</span> More freedom, more tennis
+          </p>
           <p className="mt-2 text-sm sm:text-base text-muted-foreground break-words">
-            Buy <b className="text-ink">€200 in credits</b> and use them for your sessions, whenever the calendar is open.
+            With the 3-month pass, you get <b className="text-ink">€200 in tennis credits</b> to use on your sessions.
           </p>
           <ul className="mt-3 grid gap-2 text-sm text-ink/80">
+            <li className="break-words">
+              <span aria-hidden="true">📅</span> Plan ahead for the next <b className="text-ink">3 months</b>.
+            </li>
+            <li className="break-words">
+              <span aria-hidden="true">🔄</span> Use your credits <b className="text-ink">whenever you want</b>, according to your schedule.
+            </li>
+            <li className="break-words">
+              <span aria-hidden="true">🎾</span> Play more regularly and easily <b className="text-ink">stay connected with your group</b>.
+            </li>
+            <li className="break-words">
+              <span aria-hidden="true">😌</span> Keep it simple — your <b className="text-ink">tennis budget is already taken care of</b>.
+            </li>
+          </ul>
+          <p className="mt-3 text-sm sm:text-base font-semibold text-ink break-words">
+            Pay once, plan ahead and enjoy your tennis.
+          </p>
+          <div className="mt-4 font-display text-sm uppercase tracking-wide text-ink/70">
+            Conditions
+          </div>
+          <ul className="mt-2 grid gap-2 text-sm text-ink/80">
             <li className="break-words">
               <span aria-hidden="true">✅</span> Valid for <b className="text-ink">3 months (90 days)</b>.
             </li>
