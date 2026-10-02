@@ -82,7 +82,9 @@ function ContactPage() {
             </a>{" "}
             WhatsApp preferable 💬
           </p>
-          <div className="font-display text-xl uppercase mt-6 mb-2">Email</div>
+          <div className="font-display text-xl uppercase mt-6 mb-2">
+            <span aria-hidden="true">📧</span> Email
+          </div>
           <a href={`mailto:${EMAIL}`} className="hover:text-clay transition break-all">
             {EMAIL}
           </a>
