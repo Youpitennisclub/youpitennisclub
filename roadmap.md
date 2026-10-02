@@ -41,4 +41,4 @@
 - [ ] Bulle Wellhub/Urban Sports : adapter espacement + taille des elements pour rester compacte sur mobile
 - [x] Bulle Wellhub/Urban Sports : compacte sur mobile (201 px au lieu de 289) et sur ordinateur (896 x 151, logos 48-56 px, ligne 7 EUR reduite, note sur 1 ligne, texte centre sur telephone)
 - [x] Bulle Wellhub/Urban Sports : paliers md (768-1023, empile centre, bulle 512 px) et lg (1024+, 1 rangee, bulle 880-896 px) ; verifie sur tablette portrait/paysage et telephone paysage, aucun debordement
-- [ ] Tests visuels bulle Wellhub : mobile + tablette, portrait + paysage, visibilite complete pres des bords
+- [x] Tests visuels bulle Wellhub : mobile + tablette, portrait + paysage, visibilite complete pres des bords
