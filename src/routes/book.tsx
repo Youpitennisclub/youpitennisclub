@@ -611,6 +611,42 @@ function BookPage() {
             <span aria-hidden="true">🌙</span> Indoor sessions
           </span>
         </div>
+
+        <div className="mt-6 rounded-3xl border-2 border-clay bg-clay/10 p-5 sm:p-6 max-w-2xl">
+          <h2 className="font-display text-xl sm:text-2xl uppercase break-words flex items-center gap-3">
+            <span className="h-3 w-3 shrink-0 rounded-full bg-clay" />
+            Pack 200 € — credits
+          </h2>
+          <p className="mt-2 text-sm sm:text-base text-muted-foreground break-words">
+            Buy <b className="text-ink">€200 in credits</b> and use them for your sessions, whenever the calendar is open.
+          </p>
+          <ul className="mt-3 grid gap-2 text-sm text-ink/80">
+            <li className="break-words">
+              <span aria-hidden="true">✅</span> Valid for <b className="text-ink">3 months (90 days)</b>.
+            </li>
+            <li className="break-words">
+              <span aria-hidden="true">⏳</span> Extended to <b className="text-ink">4 months (120 days)</b> for Urban Sports Club members.
+            </li>
+            <li className="break-words">
+              <span aria-hidden="true">⚠️</span> Any credit not used within that time is <b className="text-ink">lost and non-refundable</b>.
+            </li>
+            <li className="break-words">
+              <span aria-hidden="true">🩹</span> Only exception: an exceptional injury, proven by a <b className="text-ink">medical certificate</b>.
+            </li>
+            <li className="break-words">
+              <span aria-hidden="true">💙</span> The <b className="text-ink">€7 Urban Sports Club discount</b> works with the pack — it is applied after each session, once your check-in is validated on site.
+            </li>
+          </ul>
+          <a
+            href={whatsappLink}
+            target="_blank"
+            rel="noopener"
+            className="mt-4 inline-flex items-center gap-2 rounded-2xl border-2 border-ink px-4 py-2.5 text-sm font-semibold hover:bg-ball/40 transition"
+          >
+            <WhatsAppIcon className="text-[#25D366]" />
+            Interested in the pack? WhatsApp me
+          </a>
+        </div>
       </section>
 
       {/* SIGN-IN GATE — students must sign in to see the calendar */}
