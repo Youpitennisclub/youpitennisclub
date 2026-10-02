@@ -7,7 +7,9 @@ import { CopyNumberButton } from "@/components/CopyNumberButton";
 import { useWhatsAppLink, WhatsAppIcon } from "@/components/WhatsAppIcon";
 import { createBooking, listMyBookings, cancelMyBooking } from "@/lib/bookings.functions";
 import { isAdmin } from "@/lib/admin.functions";
-import { ratesFor } from "@/lib/prices";
+import { PARTNER_DISCOUNT, ratesFor } from "@/lib/prices";
+import wellhubLogoAsset from "@/assets/wellhub-logo.png.asset.json";
+import urbanSportsClubLogoAsset from "@/assets/urban-sports-club-logo.png.asset.json";
 
 
 export const Route = createFileRoute("/book")({
@@ -1057,6 +1059,27 @@ function BookPage() {
                     {r.nonMemberExtra > 0 && (
                       <div className="mt-2 text-xs text-ink/60">Non-members: +€{r.nonMemberExtra} per person</div>
                     )}
+                    <div className="mt-3 border-t border-ink/10 pt-3">
+                      <div className="flex items-center gap-3">
+                        <img
+                          src={wellhubLogoAsset.url}
+                          alt="Wellhub"
+                          className="h-5 w-auto max-w-[6.5rem] object-contain"
+                        />
+                        <span className="text-xs font-bold text-ink/45">+</span>
+                        <img
+                          src={urbanSportsClubLogoAsset.url}
+                          alt="Urban Sports Club"
+                          className="h-7 w-auto max-w-[7.5rem] object-contain"
+                        />
+                      </div>
+                      <div className="mt-2 text-sm font-bold text-destructive">
+                        €{PARTNER_DISCOUNT} discount per person
+                      </div>
+                      <div className="mt-0.5 text-xs text-ink/60">
+                        Classic plan or higher · valid at both clubs
+                      </div>
+                    </div>
                   </>
                 );
               })()
