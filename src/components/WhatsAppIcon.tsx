@@ -1,10 +1,27 @@
 // Official WhatsApp brand glyph (simplified). Brand logos keep their own colors,
 // so this uses WhatsApp green regardless of the site palette.
+import { useEffect, useState } from "react";
+
 const WHATSAPP_MESSAGE =
   "Hi Youpi! I found you through your website and I'd like to know more about tennis lessons 🎾";
 
-// wa.me opens the WhatsApp app on mobile and WhatsApp Web on desktop.
-export const WHATSAPP_LINK = `https://wa.me/4917645689622?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`;
+const ENCODED_MESSAGE = encodeURIComponent(WHATSAPP_MESSAGE);
+const MOBILE_LINK = `https://wa.me/4917645689622?text=${ENCODED_MESSAGE}`;
+const DESKTOP_LINK = `https://web.whatsapp.com/send?phone=4917645689622&text=${ENCODED_MESSAGE}`;
+
+// Mobile: wa.me opens the WhatsApp app. Desktop: open WhatsApp Web directly
+// (wa.me sometimes fails to redirect properly on desktop browsers).
+// Default to the mobile link so SSR/first paint always has a working href,
+// then switch to WhatsApp Web after hydration on desktop devices.
+export function useWhatsAppLink(): string {
+  const [link, setLink] = useState(MOBILE_LINK);
+  useEffect(() => {
+    if (!/Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent)) {
+      setLink(DESKTOP_LINK);
+    }
+  }, []);
+  return link;
+}
 
 export function WhatsAppIcon({ className = "" }: { className?: string }) {
   return (

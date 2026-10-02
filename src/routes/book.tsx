@@ -4,7 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { PhotoPicker } from "@/components/PhotoPicker";
 import { CopyNumberButton } from "@/components/CopyNumberButton";
-import { WHATSAPP_LINK, WhatsAppIcon } from "@/components/WhatsAppIcon";
+import { useWhatsAppLink, WhatsAppIcon } from "@/components/WhatsAppIcon";
 import { createBooking, listMyBookings, cancelMyBooking } from "@/lib/bookings.functions";
 import { isAdmin } from "@/lib/admin.functions";
 import { ratesFor } from "@/lib/prices";
@@ -268,6 +268,7 @@ function Modal({ onClose, children }: { onClose: () => void; children: React.Rea
 }
 
 function BookPage() {
+  const whatsappLink = useWhatsAppLink();
   const navigate = useNavigate();
   const today = startOfDay(new Date());
   const [weekStart, setWeekStart] = useState<Date>(today);
@@ -560,7 +561,7 @@ function BookPage() {
           <b className="text-ink">4 students</b> on weekdays from 16:00 and on weekends. Intermediate and Advanced can play together. I can also train you in a group of{" "}
           <b className="text-ink">3 students</b> — for a private lesson, contact me directly on{" "}
           <a
-            href={WHATSAPP_LINK}
+            href={whatsappLink}
             target="_blank"
             rel="noopener"
             className="inline-flex items-center gap-1 text-clay font-semibold hover:underline"
@@ -906,7 +907,7 @@ function BookPage() {
           </div>
           <div className="mt-5 grid gap-2">
             <a
-              href={WHATSAPP_LINK}
+              href={whatsappLink}
               target="_blank"
               rel="noopener"
               className="px-6 py-4 text-center rounded-2xl bg-violet text-violet-foreground font-semibold hover:opacity-90 transition inline-flex items-center justify-center gap-2"

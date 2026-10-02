@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 
 import { CopyNumberButton } from "@/components/CopyNumberButton";
-import { WHATSAPP_LINK, WhatsAppIcon } from "@/components/WhatsAppIcon";
+import { useWhatsAppLink, WhatsAppIcon } from "@/components/WhatsAppIcon";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -31,6 +31,7 @@ const EMAIL = "youpitennisclub@gmail.com";
 
 function ContactPage() {
   const [subject, setSubject] = useState("");
+  const whatsappLink = useWhatsAppLink();
   const [message, setMessage] = useState("");
 
   const send = (e: React.FormEvent) => {
@@ -68,7 +69,7 @@ function ContactPage() {
         <div className="mb-10 p-6 rounded-3xl bg-card border-2 border-ink/10">
           <div className="font-display text-xl uppercase mb-2">Phone</div>
           <a
-            href={WHATSAPP_LINK}
+            href={whatsappLink}
             target="_blank"
             rel="noopener"
             className="inline-flex items-center gap-2 text-lg font-semibold hover:text-clay transition break-all"
