@@ -11,6 +11,7 @@ const NAV_ITEMS = [
   { to: "/tennis-events", label: "Tennis events" },
   { to: "/summer-season", label: "Summer saison" },
   { to: "/about", label: "About me" },
+  { to: "/leave-a-review", label: "Leave a review" },
   { to: "/contact", label: "Contact" },
 ] as const;
 
