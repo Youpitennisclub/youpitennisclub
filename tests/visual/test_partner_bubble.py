@@ -39,11 +39,16 @@ async def run(p, engine, name):
         page = await ctx.new_page()
         await page.goto(URL, wait_until="networkidle")
         await check(page, f"{engine}_{tag}_{orient}")
-        # Viewport shrink: address bar / virtual keyboard (~40% height lost)
+        # Virtual keyboard open/close: shrink viewport (keyboard opens,
+        # ~40% height lost), then restore (keyboard closes) — 3 cycles to
+        # catch layout that sticks after the keyboard disappears.
         v = d["viewport"]
-        await page.set_viewport_size({"width": v["width"], "height": int(v["height"] * 0.6)})
-        await check(page, f"{engine}_{tag}_{orient}_keyboard")
-        await page.set_viewport_size(v)
+        kb = {"width": v["width"], "height": int(v["height"] * 0.6)}
+        for cycle in (1, 2, 3):
+            await page.set_viewport_size(kb)   # keyboard opens
+            await check(page, f"{engine}_{tag}_{orient}_kbd_open{cycle}")
+            await page.set_viewport_size(v)    # keyboard closes
+            await check(page, f"{engine}_{tag}_{orient}_kbd_closed{cycle}")
         # Zoom: text/page zoom 150% and 200% (equivalent CSS width reduction)
         for z in (1.5, 2):
             await page.set_viewport_size({"width": int(v["width"] / z), "height": v["height"]})
