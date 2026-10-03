@@ -316,7 +316,7 @@ function Index() {
               I can build a group just for you. And I really take care of putting players together by level, so
               everyone enjoys the session — something most coaches simply don't do.
             </p>
-            <p className="max-w-full font-display text-xl sm:text-3xl md:text-4xl uppercase leading-tight text-clay break-words">
+            <p className="max-w-full font-display text-base sm:text-2xl md:text-3xl uppercase leading-tight text-clay break-words">
               Student satisfaction is what matters most to me.
             </p>
           </div>
