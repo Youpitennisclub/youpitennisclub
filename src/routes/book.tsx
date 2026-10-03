@@ -1272,7 +1272,7 @@ function BookPage() {
                       ))}
                     </ul>
                     {r.nonMemberExtra > 0 && (
-                      <div className="mt-2 text-xs text-ink/60">Non-members: +€{r.nonMemberExtra} per person</div>
+                      <div className="mt-2 text-xs text-ink/60">Non-members of BFC Alemannia: +€{r.nonMemberExtra} per person</div>
                     )}
                     <div className="mt-3 border-t border-ink/10 pt-3">
                       <div className="flex items-center gap-3">

@@ -252,7 +252,7 @@ function Index() {
                   ))}
                 </ul>
                 {r.nonMemberExtra > 0 && (
-                  <p className="mt-3 text-xs text-muted-foreground">Non-members: +€{r.nonMemberExtra} per person</p>
+                  <p className="mt-3 text-xs text-muted-foreground">Non-members of BFC Alemannia: +€{r.nonMemberExtra} per person</p>
                 )}
               </article>
             );
