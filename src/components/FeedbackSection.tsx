@@ -3,8 +3,9 @@ import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { PhotoPicker } from "@/components/PhotoPicker";
 
-// Google Business Profile short review link ("Ask for reviews") — opens the review form directly.
-const GOOGLE_REVIEW_URL = "https://g.page/r/Ceaalu-EJ6mMEBM/review";
+// Google Business Profile direct review link — opens the review form for Youpi Tennis Club's listing.
+const GOOGLE_REVIEW_URL =
+  "https://search.google.com/local/writereview?placeid=0x2cc76d9f5a5bec31:0x8ca92784ef969ae6";
 
 
 type PublicFeedback = {
