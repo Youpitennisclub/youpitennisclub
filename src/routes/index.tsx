@@ -179,9 +179,6 @@ function Index() {
                   </p>
                 </li>
               </ol>
-              <p className="mt-4 border-t border-ink/10 pt-3 text-sm sm:text-base text-ink/75">
-                <span className="font-semibold text-ink">Non-members of BFC Alemannia:</span> +2€
-              </p>
             </div>
 
             <article className="mx-auto mt-6 w-full max-w-md md:max-w-lg lg:w-fit lg:max-w-4xl rounded-2xl bg-background text-ink py-4 md:py-5 lg:py-6 px-[max(1rem,env(safe-area-inset-left))] pr-[max(1rem,env(safe-area-inset-right))] md:px-[max(1.25rem,env(safe-area-inset-left))] md:pr-[max(1.25rem,env(safe-area-inset-right))] lg:px-[max(1.5rem,env(safe-area-inset-left))] lg:pr-[max(1.5rem,env(safe-area-inset-right))] border-2 border-pink/40">
