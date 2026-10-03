@@ -66,7 +66,7 @@ export const Route = createFileRoute("/")({
 });
 
 
-const FLAGS = ["🇫🇷", "🇩🇪", "🇺🇸", "🇹🇷", "🇺🇦", "🇪🇸", "🇮🇹", "🇧🇷", "🇯🇵", "🇲🇽", "🇵🇱", "🇪🇬", "🇱🇧", "🇷🇺", "🇬🇷", "🇬🇧", "🇨🇳", "🇸🇪", "🇰🇷", "🇮🇳"];
+const FLAGS = ["FR", "DE", "US", "TR", "UA", "ES", "IT", "BR", "JP", "MX", "PL", "EG", "LB", "RU", "GR", "GB", "CN", "SE", "KR", "IN"];
 
 function Index() {
   return (
@@ -93,9 +93,9 @@ function Index() {
             </div>
 
             <div className="mt-8 flex items-center gap-6">
-              <div className="flex -space-x-2 text-xl sm:text-2xl">
+              <div className="flex -space-x-2">
                 {FLAGS.slice(0, 6).map((f) => (
-                  <span key={f} className="w-9 h-9 sm:w-10 sm:h-10 shrink-0 rounded-full bg-background border-2 border-background shadow-md grid place-items-center">{f}</span>
+                  <span key={f} className="w-9 h-9 sm:w-10 sm:h-10 shrink-0 rounded-full bg-background border-2 border-background shadow-md grid place-items-center text-[11px] sm:text-xs font-bold tracking-wide text-ink">{f}</span>
                 ))}
               </div>
               <div className="min-w-0">

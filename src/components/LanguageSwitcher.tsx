@@ -1,12 +1,14 @@
-const LANGS: { code: string; label: string; flag: string }[] = [
-  { code: "en", label: "English", flag: "🇬🇧" },
-  { code: "de", label: "Deutsch", flag: "🇩🇪" },
-  { code: "fr", label: "Français", flag: "🇫🇷" },
-  { code: "ru", label: "Русский", flag: "🇷🇺" },
-  { code: "es", label: "Español", flag: "🇪🇸" },
-  { code: "pt", label: "Português", flag: "🇵🇹" },
-  { code: "tr", label: "Türkçe", flag: "🇹🇷" },
-  { code: "pl", label: "Polski", flag: "🇵🇱" },
+import { Globe } from "lucide-react";
+
+const LANGS: { code: string; label: string }[] = [
+  { code: "en", label: "English" },
+  { code: "de", label: "Deutsch" },
+  { code: "fr", label: "Français" },
+  { code: "ru", label: "Русский" },
+  { code: "es", label: "Español" },
+  { code: "pt", label: "Português" },
+  { code: "tr", label: "Türkçe" },
+  { code: "pl", label: "Polski" },
 ];
 
 export function LanguageSwitcher({ className = "" }: { className?: string }) {
@@ -24,9 +26,7 @@ export function LanguageSwitcher({ className = "" }: { className?: string }) {
 
   return (
     <label className={`inline-flex items-center gap-1.5 ${className}`}>
-      <span className="text-base leading-none" aria-hidden>
-        🌐
-      </span>
+      <Globe className="h-4 w-4 shrink-0 text-ink" strokeWidth={2.25} aria-hidden />
       <span className="sr-only">Choose language</span>
       <select
         defaultValue="en"
@@ -35,7 +35,7 @@ export function LanguageSwitcher({ className = "" }: { className?: string }) {
       >
         {LANGS.map((l) => (
           <option key={l.code} value={l.code}>
-            {l.flag} {l.label}
+            {l.code.toUpperCase()} · {l.label}
           </option>
         ))}
       </select>

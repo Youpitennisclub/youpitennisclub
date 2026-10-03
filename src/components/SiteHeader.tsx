@@ -42,7 +42,7 @@ export function SiteHeader() {
         </nav>
 
 
-        <div className="flex shrink-0 items-center gap-2">
+        <div className="flex shrink-0 items-center gap-2 sm:gap-3 xl:ml-6">
           <LanguageSwitcher />
           <Link
             to="/book"
