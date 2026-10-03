@@ -50,3 +50,4 @@
 - [x] Accueil : carte (plan) de BFC Alemannia ajoutee tout en bas de la page (avant le pied de page)
 - [x] Accueil : phrase « Student satisfaction is what matters most to me. » reduite (36 -> 30 px ordinateur, 20 -> 16 px telephone)
 - [x] Accueil : phrase « Student satisfaction... » mise sur une seule ligne (pleine largeur sous les 2 colonnes, 32 px ordinateur, 20 px tablette ; telephone : 2 lignes)
+- [x] Accueil : phrase « Student satisfaction... » replacee sous le paragraphe « I can build a group just for you... » (une ligne a partir de 1280 px, 18 px ; tablette/telephone : 2 lignes)
