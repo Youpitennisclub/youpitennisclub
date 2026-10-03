@@ -348,6 +348,7 @@ function Index() {
             { q: "I don't speak German. Is that ok?", a: "Absolutely — most of our community is international. Lessons run in English by default." },
             { q: "Do I need my own racket?", a: "No — but you can rent a racket for €2 per session." },
             { q: "How do I pay?", a: "PayPal, SEPA or cash on court. Packs are non-refundable but transferable." },
+            { q: "What is Urban Sports Club?", a: "Urban Sports Club (and Wellhub) is a sports membership: one subscription gives you access to gyms, studios and sports partners all over Berlin — including your tennis sessions with me. If you have a Classic plan or higher, you get €7 off every session, up to 4 discounted sessions per month, at BFC Alemannia and TC Longline, from 15 October 2026. Just bring your membership, check in on site, and the €7 is deducted after your session. It also works with the €200 Credit Pack." },
           ].map((f) => (
             <details key={f.q} className="group py-6 cursor-pointer">
               <summary className="flex items-start justify-between gap-4 font-display text-lg sm:text-xl uppercase list-none">
