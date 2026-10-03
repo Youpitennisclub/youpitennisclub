@@ -11,6 +11,7 @@ const NAV_ITEMS = [
   { to: "/tennis-events", label: "Tennis events" },
   { to: "/summer-season", label: "Summer saison" },
   { to: "/about", label: "About me" },
+  { to: "/leave-a-review", label: "Leave a review" },
   { to: "/contact", label: "Contact" },
 ] as const;
 
@@ -22,10 +23,10 @@ export function SiteHeader() {
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-3.5 sm:px-6">
         <Link to="/" className="flex min-w-0 items-center gap-2 font-display text-[13px] uppercase leading-tight min-[380px]:text-base sm:text-2xl">
           <span className="ball-spin inline-block h-7 w-7 shrink-0 rounded-full bg-ball shadow-inner sm:h-8 sm:w-8" />
-          <span translate="no" className="notranslate min-w-0">Youpi Tennis Club</span>
+          <span translate="no" className="notranslate min-w-0 xl:whitespace-nowrap">Youpi Tennis Club</span>
         </Link>
 
-        <nav className="hidden min-w-0 items-center gap-5 text-[13px] font-bold uppercase tracking-wider xl:flex xl:gap-7" aria-label="Main navigation">
+        <nav className="hidden min-w-0 shrink-0 items-center gap-4 text-xs font-bold uppercase tracking-wider xl:flex" aria-label="Main navigation">
 
           {NAV_ITEMS.map((item) => (
             <Link
