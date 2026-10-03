@@ -262,7 +262,7 @@ function Index() {
         {/* TC Longline — Friday only, compact */}
         <aside className="mt-6 rounded-2xl border-2 border-clay/35 bg-clay/5 p-5 sm:p-6">
           <div className="flex flex-wrap items-center gap-2 mb-4">
-            <h3 className="font-display text-[13px] min-[380px]:text-base min-[430px]:text-lg uppercase leading-snug text-ink break-words">TC Longline · Fridays only</h3>
+            <h3 className="font-display text-[13px] min-[380px]:text-base min-[430px]:text-lg uppercase leading-[1.15]! text-ink break-words">TC Longline · Fridays only</h3>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {([10, 17] as const).map((h) => {
