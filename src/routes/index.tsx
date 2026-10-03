@@ -260,11 +260,11 @@ function Index() {
         </div>
 
         {/* TC Longline — Friday only, compact */}
-        <aside className="mt-6 rounded-2xl border-2 border-clay/35 bg-clay/5 p-4 sm:p-5">
-          <div className="flex flex-wrap items-center gap-2 mb-3">
-            <h3 className="font-display text-base sm:text-lg uppercase text-ink break-words">TC Longline · Fridays only</h3>
+        <aside className="mt-6 rounded-2xl border-2 border-clay/35 bg-clay/5 p-5 sm:p-6">
+          <div className="flex flex-wrap items-center gap-2 mb-4">
+            <h3 className="font-display text-[14px] min-[380px]:text-base min-[430px]:text-lg uppercase text-ink break-words">TC Longline · Fridays only</h3>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {([10, 17] as const).map((h) => {
               const r = ratesFor("longline", h);
               return (
