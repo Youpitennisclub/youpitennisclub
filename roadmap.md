@@ -46,3 +46,5 @@
 - [x] Accueil « How Winter Groups Work » : nouveau texte (pick level & schedule / we match you up / get ready to play, details at least 24h before)
 - [x] Accueil « How Winter Groups Work » : mention « Non-members of BFC Alemannia: +2€ » ajoutee
 - [x] Accueil : tout ce qui suit le bouton « Leave a Google review » (formulaire + avis publies) deplace sur une page « Leave a review » ajoutee dans le menu juste avant Contact
+- [x] Accueil : mention « Non-members of BFC Alemannia: +2€ » retirée de l'encadré « How Winter Groups Work »
+- [x] Accueil : carte (plan) de BFC Alemannia ajoutee tout en bas de la page (avant le pied de page)
