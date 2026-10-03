@@ -66,7 +66,7 @@ export const Route = createFileRoute("/")({
 });
 
 
-const FLAGS = ["🇫🇷", "🇩🇪", "🇺🇸", "🇹🇷", "🇺🇦", "🇪🇸", "🇮🇹", "🇧🇷", "🇯🇵", "🇲🇽", "🇵🇱", "🇪🇬", "🇱🇧", "🇷🇺", "🇬🇷", "🇬🇧", "🇨🇳", "🇸🇪", "🇰🇷", "🇮🇳"];
+const FLAGS = ["FR", "DE", "US", "TR", "UA", "ES", "IT", "BR", "JP", "MX", "PL", "EG", "LB", "RU", "GR", "GB", "CN", "SE", "KR", "IN"];
 
 function Index() {
   return (
