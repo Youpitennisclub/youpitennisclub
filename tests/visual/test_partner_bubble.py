@@ -49,6 +49,13 @@ async def run(p, engine, name):
             await check(page, f"{engine}_{tag}_{orient}_kbd_open{cycle}")
             await page.set_viewport_size(v)    # keyboard closes
             await check(page, f"{engine}_{tag}_{orient}_kbd_closed{cycle}")
+        # Keyboard stays open while focus moves from one field to another
+        # (viewport keeps its reduced height the whole time).
+        await page.set_viewport_size(kb)
+        for step in (1, 2, 3):
+            await page.keyboard.press("Tab")   # next field, keyboard stays up
+            await check(page, f"{engine}_{tag}_{orient}_kbd_field{step}")
+        await page.set_viewport_size(v)
         # Zoom: text/page zoom 150% and 200% (equivalent CSS width reduction)
         for z in (1.5, 2):
             await page.set_viewport_size({"width": int(v["width"] / z), "height": v["height"]})
