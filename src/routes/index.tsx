@@ -139,26 +139,34 @@ function Index() {
 
 
             <div className="rounded-2xl bg-background text-ink border-2 border-ink/10 p-6">
-              <h3 className="font-display text-xl uppercase mb-4">🎾 How winter groups work</h3>
+              <h3 className="font-display text-xl uppercase mb-4">🎾 How Winter Groups Work</h3>
               <ol className="grid gap-4">
                 <li className="min-w-0">
                   <div className="flex items-baseline gap-2 font-display text-base sm:text-lg uppercase text-clay">
                     <span className="shrink-0">1.</span>
-
-                    <span className="min-w-0 break-words">Pick your level &amp; time</span>
+                    <span className="min-w-0 break-words">Pick your level &amp; schedule</span>
                   </div>
-                  <p className="mt-1 pl-7 text-sm sm:text-base text-ink/75">Choose the slot that works for you.</p>
+                  <p className="mt-1 pl-7 text-sm sm:text-base text-ink/75">
+                    Choose your preferred time slot and skill level.
+                  </p>
                 </li>
                 <li className="min-w-0">
                   <div className="flex items-baseline gap-2 font-display text-base sm:text-lg uppercase text-clay">
                     <span className="shrink-0">2.</span>
-
-                    <span className="min-w-0 break-words">We build the group</span>
+                    <span className="min-w-0 break-words">We match you up</span>
                   </div>
+                  <p className="mt-1 pl-7 text-sm sm:text-base text-ink/75">
+                    No partner needed! We organize the groups based on court availability:
+                  </p>
                   <ul className="mt-2 pl-7 space-y-1.5 text-sm sm:text-base text-ink/80">
-                    <li className="flex gap-2"><span aria-hidden="true">👥</span> From 2 players → weekday groups</li>
-                    <li className="flex gap-2"><span aria-hidden="true">🌙</span> From 4 players → weekday evenings after 4 PM</li>
-                    <li className="flex gap-2"><span aria-hidden="true">📅</span> Weekends → 4 players</li>
+                    <li className="flex gap-2">
+                      <span aria-hidden="true">•</span>
+                      <span className="min-w-0 break-words"><span className="font-semibold text-ink">Weekdays (before 4 PM)</span>: Sessions run with 2 to 4 players.</span>
+                    </li>
+                    <li className="flex gap-2">
+                      <span aria-hidden="true">•</span>
+                      <span className="min-w-0 break-words"><span className="font-semibold text-ink">Evenings &amp; Weekends</span>: Sessions confirm as soon as 4 players join.</span>
+                    </li>
                   </ul>
                 </li>
                 <li className="min-w-0">
@@ -167,7 +175,7 @@ function Index() {
                     <span className="min-w-0 break-words">Get ready to play!</span>
                   </div>
                   <p className="mt-1 pl-7 text-sm sm:text-base text-ink/75">
-                    We confirm your group and send you the final details.
+                    We lock in your slot and send the training details as soon as your group is ready (at least 24h before).
                   </p>
                 </li>
               </ol>
