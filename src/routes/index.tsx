@@ -262,7 +262,6 @@ function Index() {
         {/* TC Longline — Friday only, compact */}
         <aside className="mt-6 rounded-2xl border-2 border-clay/35 bg-clay/5 p-4 sm:p-5">
           <div className="flex flex-wrap items-center gap-2 mb-3">
-            <span className="w-2.5 h-2.5 rounded-full bg-clay shrink-0" aria-hidden="true" />
             <h3 className="font-display text-base sm:text-lg uppercase text-ink break-words">TC Longline · Fridays only</h3>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
