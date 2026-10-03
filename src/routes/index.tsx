@@ -175,24 +175,26 @@ function Index() {
 
             <article className="mx-auto mt-6 w-full max-w-md md:max-w-lg lg:w-fit lg:max-w-4xl rounded-2xl bg-background text-ink py-4 md:py-5 lg:py-6 px-[max(1rem,env(safe-area-inset-left))] pr-[max(1rem,env(safe-area-inset-right))] md:px-[max(1.25rem,env(safe-area-inset-left))] md:pr-[max(1.25rem,env(safe-area-inset-right))] lg:px-[max(1.5rem,env(safe-area-inset-left))] lg:pr-[max(1.5rem,env(safe-area-inset-right))] border-2 border-pink/40">
               <div className="flex flex-col gap-2 md:gap-3 lg:flex-row lg:items-center lg:gap-6">
-                <div className="mx-auto grid w-fit max-w-full grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-2 rounded-xl border border-ink/10 bg-ball/40 px-2.5 py-2 md:gap-3 md:px-3.5 md:py-3 lg:mx-0 lg:w-auto lg:gap-4 lg:px-5 lg:py-4">
-                  <img
-                    src={wellhubLogoAsset.url}
-                    alt="Wellhub"
-                    className="h-8 w-full min-w-0 object-contain md:h-10 md:max-w-[9rem] lg:h-12 lg:max-w-[10rem]"
-                  />
-                  <span className="shrink-0 font-display text-lg uppercase text-clay md:text-xl">+</span>
-                  <img
-                    src={urbanSportsClubLogoAsset.url}
-                    alt="Urban Sports Club"
-                    className="h-9 w-full min-w-0 object-contain md:h-11 md:max-w-[10rem] lg:h-14 lg:max-w-[11rem]"
-                  />
+                <div className="flex flex-col items-center gap-1.5 lg:items-start">
+                  <div className="mx-auto grid w-fit max-w-full grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-2 rounded-xl border border-ink/10 bg-ball/40 px-2.5 py-2 md:gap-3 md:px-3.5 md:py-3 lg:mx-0 lg:w-auto lg:gap-4 lg:px-5 lg:py-4">
+                    <img
+                      src={wellhubLogoAsset.url}
+                      alt="Wellhub"
+                      className="h-8 w-full min-w-0 object-contain md:h-10 md:max-w-[9rem] lg:h-12 lg:max-w-[10rem]"
+                    />
+                    <span className="shrink-0 font-display text-lg uppercase text-clay md:text-xl">+</span>
+                    <img
+                      src={urbanSportsClubLogoAsset.url}
+                      alt="Urban Sports Club"
+                      className="h-9 w-full min-w-0 object-contain md:h-11 md:max-w-[10rem] lg:h-14 lg:max-w-[11rem]"
+                    />
+                  </div>
+                  <div className="font-display text-xs uppercase text-ink/60 break-words md:text-sm">
+                    Wellhub + Urban Sports Club
+                  </div>
                 </div>
                 <div className="min-w-0 text-center lg:text-left">
-                  <div className="font-display text-xs uppercase text-ink/60 break-words md:text-sm">
-                    <span aria-hidden="true">💙</span> Wellhub + Urban Sports Club
-                  </div>
-                  <div className="mt-0.5 font-display text-sm uppercase text-clay break-words md:text-base lg:text-lg">
+                  <div className="font-display text-sm uppercase text-clay break-words md:text-base lg:text-lg">
                     €{PARTNER_DISCOUNT} off every tennis session <span aria-hidden="true">🎾</span>
                   </div>
                   <p className="mt-1 text-xs text-ink/70 break-words md:text-[13px] lg:whitespace-nowrap">
