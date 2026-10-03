@@ -333,9 +333,6 @@ function Index() {
               </div>
             ))}
           </div>
-          <p className="mt-6 max-w-full font-display text-base uppercase leading-tight text-clay md:col-span-2 md:mt-8 md:whitespace-nowrap md:text-[clamp(1rem,2.6vw,2rem)]">
-            Student satisfaction is what matters most to me.
-          </p>
         </div>
       </section>
 
