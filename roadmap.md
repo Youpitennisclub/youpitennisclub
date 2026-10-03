@@ -43,3 +43,4 @@
 - [x] Bulle Wellhub/Urban Sports : paliers md (768-1023, empile centre, bulle 512 px) et lg (1024+, 1 rangee, bulle 880-896 px) ; verifie sur tablette portrait/paysage et telephone paysage, aucun debordement
 - [x] Tests visuels bulle Wellhub : mobile + tablette, portrait + paysage, visibilite complete pres des bords
 - [x] Bulle partenaire : ligne « Wellhub + Urban Sports Club » supprimee, il ne reste que les logos et le texte de reduction
+- [x] Accueil « How Winter Groups Work » : nouveau texte (pick level & schedule / we match you up / get ready to play, details at least 24h before)
