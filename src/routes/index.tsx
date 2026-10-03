@@ -268,13 +268,13 @@ function Index() {
             {([10, 17] as const).map((h) => {
               const r = ratesFor("longline", h);
               return (
-                <div key={h} className="min-w-0 rounded-xl bg-background border border-ink/10 px-3 py-2.5">
+                <div key={h} className="min-w-0 rounded-xl bg-background border border-ink/10 px-4 py-3.5">
                   <div className="text-[11px] uppercase tracking-wider font-semibold text-clay">{r.period}</div>
-                  <ul className="mt-1.5 space-y-1">
+                  <ul className="mt-2 space-y-1.5">
                     {r.rates.map((x) => (
                       <li key={x.n} className="flex justify-between gap-3 text-sm">
-                        <span className="text-ink/70 font-medium">{x.n}</span>
-                        <span className="font-display text-ink shrink-0">{x.p} / pers</span>
+                        <span className="text-ink/70 font-medium whitespace-nowrap">{x.n}</span>
+                        <span className="font-display text-ink shrink-0 whitespace-nowrap">{x.p} / pers</span>
                       </li>
                     ))}
                   </ul>
