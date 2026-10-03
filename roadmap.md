@@ -51,3 +51,4 @@
 - [x] Accueil : phrase « Student satisfaction is what matters most to me. » reduite (36 -> 30 px ordinateur, 20 -> 16 px telephone)
 - [x] Accueil : phrase « Student satisfaction... » mise sur une seule ligne (pleine largeur sous les 2 colonnes, 32 px ordinateur, 20 px tablette ; telephone : 2 lignes)
 - [x] Accueil : phrase « Student satisfaction... » replacee sous le paragraphe « I can build a group just for you... » (une ligne a partir de 1280 px, 18 px ; tablette/telephone : 2 lignes)
+- [x] FAQ accueil : nouvelle question « What is Urban Sports Club? » (explication Wellhub/USC + remise 7 EUR, Classic ou plus, max 4 seances/mois, des 15 oct. 2026, 2 clubs, compatible Pack 200 EUR)
