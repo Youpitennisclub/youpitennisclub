@@ -49,3 +49,4 @@
 - [x] Accueil : mention « Non-members of BFC Alemannia: +2€ » retirée de l'encadré « How Winter Groups Work »
 - [x] Accueil : carte (plan) de BFC Alemannia ajoutee tout en bas de la page (avant le pied de page)
 - [x] Accueil : phrase « Student satisfaction is what matters most to me. » reduite (36 -> 30 px ordinateur, 20 -> 16 px telephone)
+- [x] Accueil : phrase « Student satisfaction... » mise sur une seule ligne (pleine largeur sous les 2 colonnes, 32 px ordinateur, 20 px tablette ; telephone : 2 lignes)
