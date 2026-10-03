@@ -42,8 +42,8 @@ export function SiteHeader() {
         </nav>
 
 
-        <div className="flex shrink-0 items-center gap-2 sm:gap-3">
-          <LanguageSwitcher className="ml-1 sm:ml-2" />
+        <div className="flex shrink-0 items-center gap-2 sm:gap-3 xl:ml-6">
+          <LanguageSwitcher />
           <Link
             to="/book"
             className="hidden rounded-full bg-violet px-5 py-2.5 text-sm font-semibold text-violet-foreground transition hover:opacity-90 sm:inline-flex"
