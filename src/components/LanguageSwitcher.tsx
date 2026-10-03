@@ -31,7 +31,7 @@ export function LanguageSwitcher({ className = "" }: { className?: string }) {
       <select
         defaultValue="en"
         onChange={(e) => onChange(e.target.value)}
-        className="max-w-[7.5rem] truncate rounded-full border-2 border-ink/15 bg-background px-2.5 py-1.5 text-xs font-semibold outline-none focus:border-clay"
+        className="max-w-[6.75rem] min-[380px]:max-w-[7.5rem] truncate rounded-full border-2 border-ink/15 bg-background px-2 min-[380px]:px-2.5 py-1.5 text-xs font-semibold outline-none focus:border-clay"
       >
         {LANGS.map((l) => (
           <option key={l.code} value={l.code}>
