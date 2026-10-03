@@ -47,4 +47,4 @@
 - [x] Accueil « How Winter Groups Work » : mention « Non-members of BFC Alemannia: +2€ » ajoutee
 - [x] Accueil : tout ce qui suit le bouton « Leave a Google review » (formulaire + avis publies) deplace sur une page « Leave a review » ajoutee dans le menu juste avant Contact
 - [x] Accueil : mention « Non-members of BFC Alemannia: +2€ » retirée de l'encadré « How Winter Groups Work »
-- [ ] Accueil : carte (plan) de BFC Alemannia tout en bas de la page d'accueil
+- [x] Accueil : carte (plan) de BFC Alemannia ajoutee tout en bas de la page (avant le pied de page)
