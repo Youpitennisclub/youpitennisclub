@@ -22,12 +22,12 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-50 border-b-2 border-ink/10 bg-background/95 backdrop-blur-md shadow-[0_1px_0_0] shadow-ink/5">
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-3.5 sm:px-6">
-        <Link to="/" className="flex min-w-0 items-center gap-2 font-display text-[13px] uppercase leading-tight min-[380px]:text-base sm:text-2xl">
+        <Link to="/" className="flex min-w-0 shrink-0 items-center gap-2 font-display text-[13px] uppercase leading-tight min-[380px]:text-base sm:text-2xl">
           <span className="ball-spin inline-block h-7 w-7 shrink-0 rounded-full bg-ball shadow-inner sm:h-8 sm:w-8" />
           <span translate="no" className="notranslate min-w-0 xl:whitespace-nowrap">Youpi Tennis Club</span>
         </Link>
 
-        <nav className="hidden min-w-0 shrink-0 items-center gap-3 text-xs font-bold uppercase tracking-wider min-[1440px]:flex" aria-label="Main navigation">
+        <nav className="hidden min-w-0 shrink-0 items-center gap-2.5 text-[11px] font-bold uppercase tracking-normal min-[1440px]:flex" aria-label="Main navigation">
 
           {NAV_ITEMS.map((item) => (
             <Link
