@@ -4,6 +4,12 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import posterAsset from "@/assets/youpi-court.jpg.asset.json";
 import wellhubLogoAsset from "@/assets/wellhub-logo.png.asset.json";
 import urbanSportsClubLogoAsset from "@/assets/urban-sports-club-logo.png.asset.json";
+import franceFlag from "@/assets/flags/fr.png.asset.json";
+import germanyFlag from "@/assets/flags/de.png.asset.json";
+import usaFlag from "@/assets/flags/us.png.asset.json";
+import turkeyFlag from "@/assets/flags/tr.png.asset.json";
+import ukraineFlag from "@/assets/flags/ua.png.asset.json";
+import spainFlag from "@/assets/flags/es.png.asset.json";
 import { FeedbackSection } from "@/components/FeedbackSection";
 import { SiteHeader } from "@/components/SiteHeader";
 
@@ -66,7 +72,14 @@ export const Route = createFileRoute("/")({
 });
 
 
-const FLAGS = ["FR", "DE", "US", "TR", "UA", "ES", "IT", "BR", "JP", "MX", "PL", "EG", "LB", "RU", "GR", "GB", "CN", "SE", "KR", "IN"];
+const FLAGS = [
+  { name: "France", asset: franceFlag },
+  { name: "Germany", asset: germanyFlag },
+  { name: "United States", asset: usaFlag },
+  { name: "Turkey", asset: turkeyFlag },
+  { name: "Ukraine", asset: ukraineFlag },
+  { name: "Spain", asset: spainFlag },
+];
 
 function Index() {
   return (
@@ -87,15 +100,14 @@ function Index() {
               <Link to="/book" className="px-6 sm:px-7 py-4 rounded-full bg-violet text-violet-foreground font-semibold hover:opacity-90 transition">
                 Book your lesson 🎾
               </Link>
-              <a href="#lessons" className="px-6 sm:px-7 py-4 rounded-full border-2 border-ink/15 font-semibold hover:border-clay hover:text-clay transition">
-                See lessons →
-              </a>
             </div>
 
-            <div className="mt-8 flex items-center gap-6">
+            <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
               <div className="flex -space-x-2">
-                {FLAGS.slice(0, 6).map((f) => (
-                  <span key={f} className="w-9 h-9 sm:w-10 sm:h-10 shrink-0 rounded-full bg-background border-2 border-background shadow-md grid place-items-center text-[11px] sm:text-xs font-bold tracking-wide text-ink">{f}</span>
+                {FLAGS.map((flag) => (
+                  <span key={flag.name} className="w-9 h-9 sm:w-10 sm:h-10 shrink-0 rounded-full bg-background border-2 border-background shadow-md grid place-items-center overflow-hidden">
+                    <img src={flag.asset.url} alt={flag.name} width={40} height={40} className="h-full w-full object-cover" />
+                  </span>
                 ))}
               </div>
               <div className="min-w-0">
@@ -187,13 +199,17 @@ function Index() {
                   <img
                     src={wellhubLogoAsset.url}
                     alt="Wellhub"
-                    className="h-8 w-full min-w-0 object-contain md:h-10 md:max-w-[9rem] lg:h-12 lg:max-w-[10rem]"
+                    width={160}
+                    height={48}
+                    className="h-8 w-28 min-w-0 max-w-full object-contain md:h-10 md:w-36 lg:h-12 lg:w-40"
                   />
                   <span className="shrink-0 font-display text-lg uppercase text-clay md:text-xl">+</span>
                   <img
                     src={urbanSportsClubLogoAsset.url}
                     alt="Urban Sports Club"
-                    className="h-9 w-full min-w-0 object-contain md:h-11 md:max-w-[10rem] lg:h-14 lg:max-w-[11rem]"
+                    width={176}
+                    height={56}
+                    className="h-9 w-28 min-w-0 max-w-full object-contain md:h-11 md:w-40 lg:h-14 lg:w-44"
                   />
                 </div>
                 <div className="min-w-0 text-center lg:text-left">
