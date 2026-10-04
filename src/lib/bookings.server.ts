@@ -6,7 +6,6 @@ import { maxSessionPriceCents, sessionPriceCents } from "./prices";
 function berlinHour(iso: string) {
   return Number(new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/Berlin", hour: "2-digit", hour12: false }).format(new Date(iso)));
 }
-const eur = (c: number) => `€${(c / 100).toFixed(2).replace(/\.00$/, "")}`;
 
 /** Current balance and the part still free (balance minus the max price of pending bookings). */
 export async function getCreditSummary(userId: string) {

@@ -13,6 +13,7 @@ const bookingSchema = z.object({
   duration: z.number().int().min(30).max(240),
   camp: z.boolean().optional(),
   venue: z.enum(["alemannia", "longline"]).default("alemannia"),
+  non_member: z.boolean().default(false),
 });
 
 export const createBooking = createServerFn({ method: "POST" })
@@ -60,4 +61,12 @@ export const confirmCancellation = createServerFn({ method: "POST" })
   .handler(async ({ data }) => {
     const { confirmCancellationRecord } = await import("./bookings.server");
     return confirmCancellationRecord(data.token);
+  });
+
+/** Credit balance of the signed-in student. */
+export const getMyCredits = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+    const { getCreditSummary } = await import("./bookings.server");
+    return getCreditSummary(context.userId);
   });
