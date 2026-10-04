@@ -1,6 +1,43 @@
 import { createClient } from "@supabase/supabase-js";
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
 import { coachEmail, sendMail, siteUrl, wrap } from "./mailer.server";
+import { maxSessionPriceCents, sessionPriceCents } from "./prices";
+
+function berlinHour(iso: string) {
+  return Number(new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/Berlin", hour: "2-digit", hour12: false }).format(new Date(iso)));
+}
+const eur = (c: number) => `€${(c / 100).toFixed(2).replace(/\.00$/, "")}`;
+
+/** Current balance and the part still free (balance minus the max price of pending bookings). */
+export async function getCreditSummary(userId: string) {
+  const { data: row } = await supabaseAdmin.from("student_credits").select("balance_cents").eq("user_id", userId).maybeSingle();
+  const balance = row?.balance_cents ?? 0;
+  const { data: pending } = await supabaseAdmin
+    .from("bookings")
+    .select("starts_at, venue, non_member, duration")
+    .eq("user_id", userId)
+    .is("cancelled_at", null)
+    .is("confirmed_at", null)
+    .gte("starts_at", new Date().toISOString());
+  const reserved = (pending ?? []).reduce(
+    (sum, b) => sum + maxSessionPriceCents({ venue: b.venue as Venue, hour: berlinHour(b.starts_at), nonMember: b.non_member, duration: b.duration }),
+    0,
+  );
+  return { balance_cents: balance, reserved_cents: reserved, available_cents: balance - reserved };
+}
+
+async function applyCredit(userId: string, amount: number, reason: string, bookingId?: string) {
+  const { error } = await supabaseAdmin.rpc("apply_credit", { _user_id: userId, _amount_cents: amount, _reason: reason, _booking_id: bookingId ?? null });
+  if (error) throw new Error(error.message);
+}
+
+/** Gives back the amount charged for a booking (on cancellation). */
+async function refundBooking(id: string) {
+  const { data } = await supabaseAdmin.from("bookings").select("user_id, charged_cents").eq("id", id).maybeSingle();
+  if (!data?.user_id || !data.charged_cents) return;
+  await applyCredit(data.user_id, data.charged_cents, "Refund — cancelled session", id);
+  await supabaseAdmin.from("bookings").update({ charged_cents: 0 }).eq("id", id);
+}
 
 /** Re-checks the account password before a sensitive action (cancellation). */
 export async function verifyAccountPassword(email: string, password: string) {
@@ -83,10 +120,17 @@ export async function createBookingRecord(input: {
   photo_url?: string | null;
   duration: number;
   camp?: boolean;
+  non_member: boolean;
   user_id: string;
 }) {
   if (new Date(input.starts_at).getTime() <= Date.now()) {
     throw new Error("This slot is in the past.");
+  }
+
+  const need = maxSessionPriceCents({ venue: input.venue, hour: berlinHour(input.starts_at), nonMember: input.non_member, duration: input.duration });
+  const credits = await getCreditSummary(input.user_id);
+  if (credits.available_cents < need) {
+    throw new Error(`INSUFFICIENT_CREDITS:${credits.available_cents}:${need}`);
   }
 
   const { data, error } = await supabaseAdmin
@@ -101,6 +145,8 @@ export async function createBookingRecord(input: {
       phone: input.phone,
       photo_url: input.photo_url ?? null,
       user_id: input.user_id,
+      non_member: input.non_member,
+      duration: input.duration,
     })
     .select("id, cancel_token")
     .single();
@@ -114,7 +160,7 @@ export async function createBookingRecord(input: {
   // Count active students of the same level already booked on this slot.
   const { data: group, error: gErr } = await supabaseAdmin
     .from("bookings")
-    .select("id, first_name, last_name, email, confirmed_at")
+    .select("id, first_name, last_name, email, confirmed_at, user_id, non_member, duration")
     .eq("starts_at", input.starts_at)
     .eq("venue", input.venue)
     .in("level", levelGroup(input.level))
@@ -131,6 +177,14 @@ export async function createBookingRecord(input: {
       .from("bookings")
       .update({ confirmed_at: new Date().toISOString() })
       .in("id", toConfirm.map((m) => m.id));
+
+    // Charge each newly confirmed student the exact price for this group size.
+    for (const m of toConfirm) {
+      if (!m.user_id) continue;
+      const price = sessionPriceCents({ venue: input.venue, hour: berlinHour(input.starts_at), players: count, nonMember: m.non_member, duration: m.duration });
+      await applyCredit(m.user_id, -price, `Session ${when} — ${where} (${count} players)`, m.id);
+      await supabaseAdmin.from("bookings").update({ charged_cents: price }).eq("id", m.id);
+    }
 
     for (const m of toConfirm) {
       await sendMail({
@@ -223,6 +277,7 @@ export async function cancelByEmailRecord(email: string) {
       eligible.map((b) => b.id),
     );
   if (upErr) throw new Error(upErr.message);
+  for (const b of eligible) await refundBooking(b.id);
 
   const s = eligible[0]!;
   const list = eligible.map((b) => `<li>${fmt(b.starts_at)}</li>`).join("");
@@ -346,6 +401,7 @@ export async function confirmCancellationRecord(token: string) {
     .update({ cancelled_at: new Date().toISOString() })
     .eq("id", data.id);
   if (upErr) throw new Error(upErr.message);
+  await refundBooking(data.id);
 
   const when = fmt(data.starts_at);
   const name = `${data.first_name} ${data.last_name}`;
@@ -436,6 +492,7 @@ export async function cancelOwnBookingRecord(userId: string, bookingId: string) 
     .eq("id", data.id)
     .eq("user_id", userId);
   if (upErr) throw new Error(upErr.message);
+  await refundBooking(data.id);
 
   const when = fmt(data.starts_at);
   const name = `${data.first_name} ${data.last_name}`;
