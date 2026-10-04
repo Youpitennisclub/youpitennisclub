@@ -68,7 +68,7 @@ export function SiteHeader() {
       </div>
 
       {menuOpen && (
-        <nav className="border-t border-ink/10 bg-background px-4 py-4 shadow-lg xl:hidden" aria-label="Mobile navigation">
+        <nav className="border-t border-ink/10 bg-background px-4 py-4 shadow-lg min-[1440px]:hidden" aria-label="Mobile navigation">
           <div className="mx-auto grid max-w-7xl gap-1.5">
             {NAV_ITEMS.map((item) => (
               <Link
