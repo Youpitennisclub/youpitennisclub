@@ -509,7 +509,7 @@ function BookPage() {
     } catch (err) {
       const msg = err instanceof Error ? err.message : "";
       if (msg.includes("INSUFFICIENT_CREDITS")) {
-        const [, avail, need] = msg.split("INSUFFICIENT_CREDITS:")[1]!.split(/[^0-9-]+/).length ? ["", ...msg.split("INSUFFICIENT_CREDITS:")[1]!.split(":")] : [];
+        const [avail = "0", need = "0"] = (msg.split("INSUFFICIENT_CREDITS:")[1] ?? "").split(":");
         toast.error(
           `Not enough credits: this session needs up to €${(Number(need) / 100).toFixed(0)} and you have €${(Number(avail) / 100).toFixed(0)} available. Top up your €200 Credit Pack first.`,
         );
