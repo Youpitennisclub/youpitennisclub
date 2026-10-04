@@ -102,7 +102,7 @@ function Index() {
               </Link>
             </div>
 
-            <div className="mt-8 flex items-center gap-6">
+            <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
               <div className="flex -space-x-2">
                 {FLAGS.map((flag) => (
                   <span key={flag.name} className="w-9 h-9 sm:w-10 sm:h-10 shrink-0 rounded-full bg-background border-2 border-background shadow-md grid place-items-center overflow-hidden">
