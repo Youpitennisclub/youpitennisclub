@@ -10,6 +10,7 @@ const NAV_ITEMS = [
   { to: "/membership", label: "Membership Club 2027" },
   { to: "/tennis-events", label: "Tennis events" },
   { to: "/summer-season", label: "Summer saison" },
+  { to: "/photos", label: "Photos" },
   { to: "/about", label: "About me" },
   { to: "/leave-a-review", label: "Leave a review" },
   { to: "/contact", label: "Contact" },
