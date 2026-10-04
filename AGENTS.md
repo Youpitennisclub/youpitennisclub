@@ -1,5 +1,7 @@
 # Architecture
 
+- Render nationality flags as CDN-backed image assets rather than emoji or country-code text so Chrome displays them consistently across operating systems.
+
 - Shared public navigation lives in `src/components/SiteHeader.tsx` so desktop and mobile menus stay consistent across content routes.
 - Every WhatsApp link keeps its plain `wa.me` anchor (`href`, `target="_blank"`, `rel="noopener"`) plus `handleWhatsAppClick` from `src/components/WhatsAppIcon.tsx`: new tab when allowed, else top-frame navigation, else an explanatory toast — because the preview iframe blocks new tabs and WhatsApp's pages refuse iframes, which made plain anchors silently dead there.
 - Site feedback is split: `FeedbackSection` (home page) renders only the intro plus the Google review card and a link; the review form and the published reviews live in `FeedbackBoard` on the `/leave-a-review` route — because the home page must stay short and reviews now have their own menu entry.
