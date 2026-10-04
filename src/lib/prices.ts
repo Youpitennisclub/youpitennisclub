@@ -19,3 +19,24 @@ export function ratesFor(venue: PriceVenue, hour: number) {
     rates: list.map((p, i) => ({ n: `${i + 2} players`, p: `€${p}` })),
   };
 }
+
+/** Price in cents charged to one student for one session.
+ *  `players` is the group size (2–4 priced; more than 4 uses the 4-player price). */
+export function sessionPriceCents(opts: {
+  venue: PriceVenue;
+  hour: number;
+  players: number;
+  nonMember: boolean;
+  duration: number;
+}) {
+  const g = PRICE_GRID[opts.venue];
+  const list = opts.hour < 16 ? g.before16 : g.after16;
+  const idx = Math.min(Math.max(opts.players, 2), 4) - 2;
+  const perHour = list[idx]! + (opts.nonMember ? g.nonMemberExtra : 0);
+  return Math.round(perHour * 100 * (opts.duration / 60));
+}
+
+/** Highest possible price (2-player group) — used to check the balance at booking time. */
+export function maxSessionPriceCents(opts: Omit<Parameters<typeof sessionPriceCents>[0], "players">) {
+  return sessionPriceCents({ ...opts, players: 2 });
+}

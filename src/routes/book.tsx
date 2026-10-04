@@ -5,8 +5,10 @@ import { toast } from "sonner";
 import { PhotoPicker } from "@/components/PhotoPicker";
 import { CopyNumberButton } from "@/components/CopyNumberButton";
 import { handleWhatsAppClick, useWhatsAppLink, WhatsAppIcon } from "@/components/WhatsAppIcon";
-import { createBooking, listMyBookings, cancelMyBooking } from "@/lib/bookings.functions";
+import { createBooking, listMyBookings, cancelMyBooking, getMyCredits } from "@/lib/bookings.functions";
 import { isAdmin } from "@/lib/admin.functions";
+import { AdminCredits } from "@/components/AdminCredits";
+import { maxSessionPriceCents } from "@/lib/prices";
 import { PARTNER_DISCOUNT, ratesFor } from "@/lib/prices";
 import wellhubLogoAsset from "@/assets/wellhub-logo.png.asset.json";
 import urbanSportsClubLogoAsset from "@/assets/urban-sports-club-logo.png.asset.json";
@@ -309,6 +311,8 @@ function BookPage() {
   const [checkingAuth, setCheckingAuth] = useState(true);
   const [unlocked, setUnlocked] = useState(false);
   const [myBookings, setMyBookings] = useState<MyBooking[]>([]);
+  const [credits, setCredits] = useState<{ balance_cents: number; available_cents: number } | null>(null);
+  const [nonMember, setNonMember] = useState(false);
 
   const applyUser = (user: {
     email?: string | null;
@@ -354,6 +358,7 @@ function BookPage() {
     try {
       const rows = await listMyBookings({});
       setMyBookings(rows as MyBooking[]);
+      setCredits(await getMyCredits({}));
     } catch {
       /* not signed in */
     }
@@ -490,6 +495,7 @@ function BookPage() {
           photo_url: photo,
           duration: selectedSlot.duration,
           camp: Boolean(selectedSlot.camp),
+          non_member: selectedSlot.venue === "alemannia" && nonMember,
         },
       })) as { confirmed?: boolean; count?: number };
       toast.success(
@@ -502,6 +508,13 @@ function BookPage() {
       await loadMyBookings();
     } catch (err) {
       const msg = err instanceof Error ? err.message : "";
+      if (msg.includes("INSUFFICIENT_CREDITS")) {
+        const [avail = "0", need = "0"] = (msg.split("INSUFFICIENT_CREDITS:")[1] ?? "").split(":");
+        toast.error(
+          `Not enough credits: this session needs up to €${(Number(need) / 100).toFixed(0)} and you have €${(Number(avail) / 100).toFixed(0)} available. Top up your €200 Credit Pack first.`,
+        );
+        return;
+      }
       toast.error(
         msg.includes("fully booked")
           ? "Sorry, this slot just got fully booked."
@@ -916,6 +929,8 @@ function BookPage() {
               </div>
             )}
 
+            {adminView && <AdminCredits />}
+
             {/* MY BOOKINGS */}
             {unlocked && (
             <div className="mt-8 rounded-3xl bg-card border-2 border-ink p-5 sm:p-7">
@@ -928,6 +943,18 @@ function BookPage() {
                 >
                   Sign out
                 </button>
+              </div>
+              <div className="mt-4 flex flex-wrap items-baseline gap-x-3 gap-y-1 rounded-2xl bg-ball/30 border-2 border-ink/10 px-4 py-3">
+                <span className="font-display text-sm uppercase">Credit balance</span>
+                <span className="font-display text-2xl">€{((credits?.balance_cents ?? 0) / 100).toFixed(2)}</span>
+                {credits && credits.available_cents !== credits.balance_cents && (
+                  <span className="text-xs text-muted-foreground">
+                    €{(credits.available_cents / 100).toFixed(2)} free — the rest is held for sessions waiting for their group
+                  </span>
+                )}
+                <span className="basis-full text-xs text-muted-foreground">
+                  The exact price is taken from your balance when your group is confirmed, and given back if you cancel in time.
+                </span>
               </div>
               <p className="mt-2 text-sm text-muted-foreground">
                 Only your own sessions appear here — cancellation is possible up to 24h before
@@ -1300,6 +1327,34 @@ function BookPage() {
               })()
             )}
           </div>
+
+          {!selectedSlot.camp && (() => {
+            const hour = Number(new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/Berlin", hour: "2-digit", hour12: false }).format(selectedSlot.start));
+            const need = maxSessionPriceCents({ venue: selectedSlot.venue, hour, nonMember: selectedSlot.venue === "alemannia" && nonMember, duration: selectedSlot.duration });
+            const avail = credits?.available_cents ?? 0;
+            return (
+              <div className="mt-4 rounded-2xl border-2 border-ink/10 p-4 text-sm">
+                {selectedSlot.venue === "alemannia" && (
+                  <label className="mb-3 flex items-center gap-2 font-semibold">
+                    <input type="checkbox" checked={nonMember} onChange={(e) => setNonMember(e.target.checked)} className="h-4 w-4" />
+                    I'm not a member of BFC Alemannia (+€2)
+                  </label>
+                )}
+                <div className="flex justify-between gap-3">
+                  <span className="text-ink/70">Your credits available</span>
+                  <span className="font-display">€{(avail / 100).toFixed(2)}</span>
+                </div>
+                <div className="mt-1 text-xs text-ink/60">
+                  You need at least €{(need / 100).toFixed(2)} free to book. The exact price is taken when your group is confirmed.
+                </div>
+                {avail < need && (
+                  <div className="mt-2 font-semibold text-destructive">
+                    Not enough credits — top up your €200 Credit Pack to book this session.
+                  </div>
+                )}
+              </div>
+            );
+          })()}
 
           <h3 className="font-display text-xl uppercase mt-6 mb-3">Your details</h3>
           <form onSubmit={submit} className="grid gap-3">

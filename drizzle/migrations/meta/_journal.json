@@ -22,6 +22,13 @@
       "when": 1790633308570,
       "tag": "0002_add_booking_venue",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1791146592553,
+      "tag": "0003_student_credits",
+      "breakpoints": true
     }
   ]
 }

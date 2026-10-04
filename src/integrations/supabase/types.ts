@@ -18,13 +18,16 @@ export type Database = {
         Row: {
           cancel_token: string
           cancelled_at: string | null
+          charged_cents: number
           confirmed_at: string | null
           created_at: string
+          duration: number
           email: string
           first_name: string
           id: string
           last_name: string
           level: Database["public"]["Enums"]["tennis_level"]
+          non_member: boolean
           phone: string
           photo_url: string | null
           starts_at: string
@@ -34,13 +37,16 @@ export type Database = {
         Insert: {
           cancel_token?: string
           cancelled_at?: string | null
+          charged_cents?: number
           confirmed_at?: string | null
           created_at?: string
+          duration?: number
           email: string
           first_name: string
           id?: string
           last_name: string
           level: Database["public"]["Enums"]["tennis_level"]
+          non_member?: boolean
           phone: string
           photo_url?: string | null
           starts_at: string
@@ -50,18 +56,48 @@ export type Database = {
         Update: {
           cancel_token?: string
           cancelled_at?: string | null
+          charged_cents?: number
           confirmed_at?: string | null
           created_at?: string
+          duration?: number
           email?: string
           first_name?: string
           id?: string
           last_name?: string
           level?: Database["public"]["Enums"]["tennis_level"]
+          non_member?: boolean
           phone?: string
           photo_url?: string | null
           starts_at?: string
           user_id?: string | null
           venue?: string
+        }
+        Relationships: []
+      }
+      credit_transactions: {
+        Row: {
+          amount_cents: number
+          booking_id: string | null
+          created_at: string
+          id: string
+          reason: string
+          user_id: string
+        }
+        Insert: {
+          amount_cents: number
+          booking_id?: string | null
+          created_at?: string
+          id?: string
+          reason: string
+          user_id: string
+        }
+        Update: {
+          amount_cents?: number
+          booking_id?: string | null
+          created_at?: string
+          id?: string
+          reason?: string
+          user_id?: string
         }
         Relationships: []
       }
@@ -98,11 +134,38 @@ export type Database = {
         }
         Relationships: []
       }
+      student_credits: {
+        Row: {
+          balance_cents: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          balance_cents?: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          balance_cents?: number
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
+      apply_credit: {
+        Args: {
+          _amount_cents: number
+          _booking_id?: string
+          _reason: string
+          _user_id: string
+        }
+        Returns: number
+      }
       get_public_bookings: {
         Args: { from_ts: string }
         Returns: {
