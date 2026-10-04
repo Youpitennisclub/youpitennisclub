@@ -26,7 +26,7 @@ export async function getCreditSummary(userId: string) {
 }
 
 async function applyCredit(userId: string, amount: number, reason: string, bookingId?: string) {
-  const { error } = await supabaseAdmin.rpc("apply_credit", { _user_id: userId, _amount_cents: amount, _reason: reason, _booking_id: bookingId ?? null });
+  const { error } = await supabaseAdmin.rpc("apply_credit", { _user_id: userId, _amount_cents: amount, _reason: reason, _booking_id: bookingId });
   if (error) throw new Error(error.message);
 }
 
