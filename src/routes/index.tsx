@@ -362,7 +362,7 @@ function Index() {
         <h2 className="text-3xl sm:text-4xl font-display uppercase mb-8">FAQ</h2>
         <div className="max-w-3xl divide-y divide-border border-y border-border">
           {[
-            { q: "Where do we play?", a: "Summer season: BFC Alemannia Tennis Club — Ollenhauerstr. 64e, 13403 Berlin (clay courts). Winter season: TC Longline, with possible extra slots at TCW and Sportcenter Wittenau." },
+            { q: "Where do we play?", a: "Summer season: BFC Alemannia Tennis Club — Ollenhauerstr. 64e, 13403 Berlin (clay courts). Winter season: mainly at BFC Alemannia, with some sessions at TC Longline." },
             { q: "I don't speak German. Is that ok?", a: "Absolutely — most of our community is international. Lessons run in English by default." },
             { q: "Do I need my own racket?", a: "No — but you can rent a racket for €2 per session." },
             { q: "How do I pay?", a: "PayPal, SEPA or cash on court. Packs are non-refundable but transferable." },
