@@ -358,7 +358,7 @@ function Index() {
       {/* FAQ */}
       <section id="faq" className="max-w-7xl mx-auto px-5 sm:px-6 py-8 sm:py-10">
         <h2 className="text-3xl sm:text-4xl font-display uppercase mb-8">FAQ</h2>
-        <div className="divide-y divide-border border-y border-border">
+        <div className="max-w-3xl divide-y divide-border border-y border-border">
           {[
             { q: "Where do we play?", a: "Summer season: BFC Alemannia Tennis Club — Ollenhauerstr. 64e, 13403 Berlin (clay courts). Winter season: TC Longline, with possible extra slots at TCW and Sportcenter Wittenau." },
             { q: "I don't speak German. Is that ok?", a: "Absolutely — most of our community is international. Lessons run in English by default." },
