@@ -381,34 +381,36 @@ function Index() {
       <FeedbackSection />
 
       {/* LOCATION — BFC Alemannia */}
-      <section id="location" className="max-w-4xl mx-auto px-5 sm:px-6 py-8 sm:py-10">
-        <h2 className="text-3xl sm:text-4xl font-display uppercase mb-3 break-words">
-          <span aria-hidden="true">📍</span> BFC Alemannia Tennis Club
-        </h2>
-        <p className="mb-2 max-w-full break-words text-base font-semibold text-ink sm:text-lg">
-          Ollenhauerstr. 64e, 13403 Berlin
-        </p>
-        <p className="mb-6 max-w-full break-words text-muted-foreground">
-          🚉 4 min walk from U8 Lindauer Allee &amp; S25 Karl-Bonhoeffer-Nervenklinik — easy from
-          all of Berlin.
-        </p>
-        <div className="rounded-3xl border-2 border-ink/10 bg-card p-2 sm:p-3">
-          <iframe
-            title="Map showing BFC Alemannia Tennis Club at Ollenhauerstr. 64e, 13403 Berlin"
-            src="https://maps.google.com/maps?q=Ollenhauerstr.%2064e%2C%2013403%20Berlin&t=&z=15&ie=UTF8&iwloc=&output=embed"
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-            className="h-72 w-full min-w-0 rounded-2xl border-0 sm:h-96"
-          />
+      <section id="location" className="max-w-7xl mx-auto px-5 sm:px-6 py-8 sm:py-10">
+        <div className="max-w-3xl">
+          <h2 className="text-3xl sm:text-4xl font-display uppercase mb-3 break-words">
+            <span aria-hidden="true">📍</span> BFC Alemannia Tennis Club
+          </h2>
+          <p className="mb-2 max-w-full break-words text-base font-semibold text-ink sm:text-lg">
+            Ollenhauerstr. 64e, 13403 Berlin
+          </p>
+          <p className="mb-6 max-w-full break-words text-muted-foreground">
+            🚉 4 min walk from U8 Lindauer Allee &amp; S25 Karl-Bonhoeffer-Nervenklinik — easy from
+            all of Berlin.
+          </p>
+          <div className="rounded-3xl border-2 border-ink/10 bg-card p-2 sm:p-3">
+            <iframe
+              title="Map showing BFC Alemannia Tennis Club at Ollenhauerstr. 64e, 13403 Berlin"
+              src="https://maps.google.com/maps?q=Ollenhauerstr.%2064e%2C%2013403%20Berlin&t=&z=15&ie=UTF8&iwloc=&output=embed"
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              className="h-72 w-full min-w-0 rounded-2xl border-0 sm:h-96"
+            />
+          </div>
+          <a
+            href="https://www.google.com/maps/search/?api=1&query=Ollenhauerstr.%2064e%2C%2013403%20Berlin"
+            target="_blank"
+            rel="noopener"
+            className="mt-4 inline-flex items-center gap-2 rounded-full border-2 border-ink/15 px-5 py-3 text-sm font-semibold uppercase tracking-wide transition hover:border-clay hover:text-clay"
+          >
+            Open in Google Maps →
+          </a>
         </div>
-        <a
-          href="https://www.google.com/maps/search/?api=1&query=Ollenhauerstr.%2064e%2C%2013403%20Berlin"
-          target="_blank"
-          rel="noopener"
-          className="mt-4 inline-flex items-center gap-2 rounded-full border-2 border-ink/15 px-5 py-3 text-sm font-semibold uppercase tracking-wide transition hover:border-clay hover:text-clay"
-        >
-          Open in Google Maps →
-        </a>
       </section>
 
 
