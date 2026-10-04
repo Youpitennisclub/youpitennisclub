@@ -10,6 +10,7 @@ const NAV_ITEMS = [
   { to: "/membership", label: "Membership Club 2027" },
   { to: "/tennis-events", label: "Tennis events" },
   { to: "/summer-season", label: "Summer saison" },
+  { to: "/photos", label: "Photos" },
   { to: "/about", label: "About me" },
   { to: "/leave-a-review", label: "Leave a review" },
   { to: "/contact", label: "Contact" },
@@ -21,12 +22,12 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-50 border-b-2 border-ink/10 bg-background/95 backdrop-blur-md shadow-[0_1px_0_0] shadow-ink/5">
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-3.5 sm:px-6">
-        <Link to="/" className="flex min-w-0 items-center gap-2 font-display text-[13px] uppercase leading-tight min-[380px]:text-base sm:text-2xl">
+        <Link to="/" className="flex min-w-0 shrink-0 items-center gap-2 font-display text-[13px] uppercase leading-tight min-[380px]:text-base sm:text-2xl">
           <span className="ball-spin inline-block h-7 w-7 shrink-0 rounded-full bg-ball shadow-inner sm:h-8 sm:w-8" />
           <span translate="no" className="notranslate min-w-0 xl:whitespace-nowrap">Youpi Tennis Club</span>
         </Link>
 
-        <nav className="hidden min-w-0 shrink-0 items-center gap-4 text-xs font-bold uppercase tracking-wider xl:flex" aria-label="Main navigation">
+        <nav className="hidden min-w-0 shrink-0 items-center gap-2.5 text-[11px] font-bold uppercase tracking-normal min-[1440px]:flex" aria-label="Main navigation">
 
           {NAV_ITEMS.map((item) => (
             <Link
@@ -55,7 +56,7 @@ export function SiteHeader() {
             type="button"
             variant="outline"
             size="icon"
-            className="h-10 w-10 rounded-xl border-2 border-ink/15 bg-ink text-background shadow-sm transition hover:bg-clay hover:border-clay xl:hidden"
+            className="h-10 w-10 rounded-xl border-2 border-ink/15 bg-ink text-background shadow-sm transition hover:bg-clay hover:border-clay min-[1440px]:hidden"
             aria-label={menuOpen ? "Close menu" : "Open menu"}
             aria-expanded={menuOpen}
             onClick={() => setMenuOpen((open) => !open)}
@@ -67,7 +68,7 @@ export function SiteHeader() {
       </div>
 
       {menuOpen && (
-        <nav className="border-t border-ink/10 bg-background px-4 py-4 shadow-lg xl:hidden" aria-label="Mobile navigation">
+        <nav className="border-t border-ink/10 bg-background px-4 py-4 shadow-lg min-[1440px]:hidden" aria-label="Mobile navigation">
           <div className="mx-auto grid max-w-7xl gap-1.5">
             {NAV_ITEMS.map((item) => (
               <Link

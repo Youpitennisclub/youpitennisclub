@@ -14,6 +14,7 @@ import { Route as SummerSeasonRouteImport } from './routes/summer-season'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as PhotosRouteImport } from './routes/photos'
 import { Route as MembershipRouteImport } from './routes/membership'
 import { Route as LeaveAReviewRouteImport } from './routes/leave-a-review'
 import { Route as CookiesRouteImport } from './routes/cookies'
@@ -50,6 +51,11 @@ const ResetPasswordRoute = ResetPasswordRouteImport.update({
 const PrivacyRoute = PrivacyRouteImport.update({
   id: '/privacy',
   path: '/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PhotosRoute = PhotosRouteImport.update({
+  id: '/photos',
+  path: '/photos',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MembershipRoute = MembershipRouteImport.update({
@@ -124,6 +130,7 @@ export interface FileRoutesByFullPath {
   '/cookies': typeof CookiesRoute
   '/leave-a-review': typeof LeaveAReviewRoute
   '/membership': typeof MembershipRoute
+  '/photos': typeof PhotosRoute
   '/privacy': typeof PrivacyRoute
   '/reset-password': typeof ResetPasswordRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -143,6 +150,7 @@ export interface FileRoutesByTo {
   '/cookies': typeof CookiesRoute
   '/leave-a-review': typeof LeaveAReviewRoute
   '/membership': typeof MembershipRoute
+  '/photos': typeof PhotosRoute
   '/privacy': typeof PrivacyRoute
   '/reset-password': typeof ResetPasswordRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -163,6 +171,7 @@ export interface FileRoutesById {
   '/cookies': typeof CookiesRoute
   '/leave-a-review': typeof LeaveAReviewRoute
   '/membership': typeof MembershipRoute
+  '/photos': typeof PhotosRoute
   '/privacy': typeof PrivacyRoute
   '/reset-password': typeof ResetPasswordRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -184,6 +193,7 @@ export interface FileRouteTypes {
     | '/cookies'
     | '/leave-a-review'
     | '/membership'
+    | '/photos'
     | '/privacy'
     | '/reset-password'
     | '/sitemap.xml'
@@ -203,6 +213,7 @@ export interface FileRouteTypes {
     | '/cookies'
     | '/leave-a-review'
     | '/membership'
+    | '/photos'
     | '/privacy'
     | '/reset-password'
     | '/sitemap.xml'
@@ -222,6 +233,7 @@ export interface FileRouteTypes {
     | '/cookies'
     | '/leave-a-review'
     | '/membership'
+    | '/photos'
     | '/privacy'
     | '/reset-password'
     | '/sitemap.xml'
@@ -242,6 +254,7 @@ export interface RootRouteChildren {
   CookiesRoute: typeof CookiesRoute
   LeaveAReviewRoute: typeof LeaveAReviewRoute
   MembershipRoute: typeof MembershipRoute
+  PhotosRoute: typeof PhotosRoute
   PrivacyRoute: typeof PrivacyRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
@@ -286,6 +299,13 @@ declare module '@tanstack/react-router' {
       path: '/privacy'
       fullPath: '/privacy'
       preLoaderRoute: typeof PrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/photos': {
+      id: '/photos'
+      path: '/photos'
+      fullPath: '/photos'
+      preLoaderRoute: typeof PhotosRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/membership': {
@@ -386,6 +406,7 @@ const rootRouteChildren: RootRouteChildren = {
   CookiesRoute: CookiesRoute,
   LeaveAReviewRoute: LeaveAReviewRoute,
   MembershipRoute: MembershipRoute,
+  PhotosRoute: PhotosRoute,
   PrivacyRoute: PrivacyRoute,
   ResetPasswordRoute: ResetPasswordRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
