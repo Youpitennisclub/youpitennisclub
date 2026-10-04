@@ -57,7 +57,7 @@ export function LanguageSwitcher({ className = "" }: { className?: string }) {
         aria-expanded={open}
         aria-label={`Choose language, current: ${current.label}`}
         onClick={() => setOpen((v) => !v)}
-        className="inline-flex items-center gap-1.5 max-w-[8.5rem] truncate rounded-full border-2 border-ink/15 bg-background px-2.5 py-1.5 text-xs font-semibold outline-none focus:border-clay hover:border-clay/50 transition-colors"
+        className="inline-flex items-center gap-1.5 max-w-[7.75rem] min-[420px]:max-w-none truncate rounded-full border-2 border-ink/15 bg-background px-2.5 py-1.5 text-xs font-semibold outline-none focus:border-clay hover:border-clay/50 transition-colors"
       >
         <Globe className="h-4 w-4 shrink-0 text-ink" strokeWidth={2.25} aria-hidden />
         <img
