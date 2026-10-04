@@ -356,9 +356,9 @@ function Index() {
       </section>
 
       {/* FAQ */}
-      <section id="faq" className="max-w-4xl mx-auto px-5 sm:px-6 py-8 sm:py-10">
+      <section id="faq" className="max-w-7xl mx-auto px-5 sm:px-6 py-8 sm:py-10">
         <h2 className="text-3xl sm:text-4xl font-display uppercase mb-8">FAQ</h2>
-        <div className="divide-y divide-border border-y border-border">
+        <div className="max-w-3xl divide-y divide-border border-y border-border">
           {[
             { q: "Where do we play?", a: "Summer season: BFC Alemannia Tennis Club — Ollenhauerstr. 64e, 13403 Berlin (clay courts). Winter season: TC Longline, with possible extra slots at TCW and Sportcenter Wittenau." },
             { q: "I don't speak German. Is that ok?", a: "Absolutely — most of our community is international. Lessons run in English by default." },
@@ -371,7 +371,7 @@ function Index() {
                 <span className="min-w-0 break-words">{f.q}</span>
                 <span className="text-clay text-3xl shrink-0 group-open:rotate-45 transition">+</span>
               </summary>
-              <p className="mt-3 text-muted-foreground">{f.a}</p>
+              <p className="mt-3 max-w-3xl text-muted-foreground">{f.a}</p>
             </details>
           ))}
         </div>
