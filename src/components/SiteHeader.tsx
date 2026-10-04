@@ -27,7 +27,7 @@ export function SiteHeader() {
           <span translate="no" className="notranslate min-w-0 xl:whitespace-nowrap">Youpi Tennis Club</span>
         </Link>
 
-        <nav className="hidden min-w-0 shrink-0 items-center gap-3 text-xs font-bold uppercase tracking-wider lg:flex" aria-label="Main navigation">
+        <nav className="hidden min-w-0 shrink-0 items-center gap-3 text-xs font-bold uppercase tracking-wider xl:flex" aria-label="Main navigation">
 
           {NAV_ITEMS.map((item) => (
             <Link
