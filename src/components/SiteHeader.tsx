@@ -27,7 +27,7 @@ export function SiteHeader() {
           <span translate="no" className="notranslate min-w-0 xl:whitespace-nowrap">Youpi Tennis Club</span>
         </Link>
 
-        <nav className="hidden min-w-0 shrink-0 items-center gap-3 text-xs font-bold uppercase tracking-wider xl:flex" aria-label="Main navigation">
+        <nav className="hidden min-w-0 shrink-0 items-center gap-3 text-xs font-bold uppercase tracking-wider min-[1440px]:flex" aria-label="Main navigation">
 
           {NAV_ITEMS.map((item) => (
             <Link
@@ -56,7 +56,7 @@ export function SiteHeader() {
             type="button"
             variant="outline"
             size="icon"
-            className="h-10 w-10 rounded-xl border-2 border-ink/15 bg-ink text-background shadow-sm transition hover:bg-clay hover:border-clay xl:hidden"
+            className="h-10 w-10 rounded-xl border-2 border-ink/15 bg-ink text-background shadow-sm transition hover:bg-clay hover:border-clay min-[1440px]:hidden"
             aria-label={menuOpen ? "Close menu" : "Open menu"}
             aria-expanded={menuOpen}
             onClick={() => setMenuOpen((open) => !open)}
