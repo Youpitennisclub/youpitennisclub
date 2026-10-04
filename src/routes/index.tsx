@@ -244,8 +244,8 @@ function Index() {
         </p>
         <div className="grid md:grid-cols-2 gap-6">
           {([
-            { venue: "alemannia", club: "BFC Alemannia", hour: 10, color: "bg-navy", icon: "☀️" },
-            { venue: "alemannia", club: "BFC Alemannia", hour: 17, color: "bg-navy", icon: "🌙" },
+            { venue: "alemannia", club: "BFC Alemannia", days: "Mon–Thu + weekends", hour: 10, color: "bg-navy", icon: "☀️" },
+            { venue: "alemannia", club: "BFC Alemannia", days: "Mon–Thu + weekends", hour: 17, color: "bg-navy", icon: "🌙" },
           ] as const).map((l) => {
             const r = ratesFor(l.venue, l.hour);
             return (
@@ -255,6 +255,7 @@ function Index() {
                 </div>
                 <div className="text-xs uppercase tracking-widest font-semibold text-clay mb-3">Group · 60 min</div>
                 <h3 className="text-2xl sm:text-3xl mb-1 break-words pr-12">{l.club} <span className="font-sans font-normal normal-case whitespace-nowrap text-sm sm:text-base text-muted-foreground">(tennis club)</span></h3>
+                <p className="mb-1 text-sm font-semibold text-navy">{l.days}</p>
                 <p className="text-muted-foreground mb-4">{r.period}</p>
                 <ul className="rounded-2xl bg-ball/30 border-2 border-ink/10 p-4 space-y-1.5">
                   {r.rates.map((x) => (
@@ -275,8 +276,9 @@ function Index() {
         {/* TC Longline — Friday only, compact */}
         <aside className="mt-6 rounded-2xl border-2 border-clay/35 bg-clay/5 p-5 sm:p-6">
           <div className="mb-4">
-            <h3 className="font-display text-[13px] min-[380px]:text-base min-[430px]:text-lg uppercase leading-[1.15]! text-ink break-words">TC Longline · Fridays only</h3>
+            <h3 className="font-display text-[13px] min-[380px]:text-base min-[430px]:text-lg uppercase leading-[1.15]! text-ink break-words">TC Longline</h3>
             <p className="mt-1 text-xs text-muted-foreground">(tennis club)</p>
+            <p className="mt-1 text-sm font-semibold text-clay">Fridays</p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {([10, 17] as const).map((h) => {
