@@ -302,12 +302,12 @@ function Index() {
 
       {/* MANIFESTO */}
       <section className="max-w-7xl mx-auto px-5 sm:px-6 py-8 sm:py-10">
+        <h2 className="mb-5 whitespace-nowrap font-display text-[clamp(1.15rem,5.8vw,3.25rem)] uppercase leading-[1.05]">
+          No place in a club?<br/>
+          <span className="text-clay">Tired of ball-feeders?</span>
+        </h2>
         <div className="grid min-w-0 md:grid-cols-2 gap-8 items-start">
           <div className="min-w-0 max-w-full overflow-visible">
-            <h2 className="max-w-full text-[clamp(1.7rem,7vw,3.25rem)] font-display uppercase leading-[1.05] mb-5 break-words">
-              No place in a club?<br/>
-              <span className="text-clay">Tired of ball-feeders?</span>
-            </h2>
             <p className="max-w-full text-muted-foreground text-base leading-relaxed sm:text-lg mb-4 break-words">
               <strong>No place in a Berlin tennis club?</strong> Tired of coaches who just{" "}
               <strong>feed balls</strong> and rarely correct your technique? Whether you want to{" "}
