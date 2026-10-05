@@ -89,6 +89,32 @@ const PACK_PRICE = 200;
 const PACK_IBAN = "DE84 1001 1001 2694 8756 79";
 const PACK_REFERENCE = "First name + Last name package Winter 2026-27";
 
+const MONTHS_EN = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+
+/** "2026-10-03" -> "3 October 2026" — the date as the student sees it on their transfer. */
+function formatTransferDate(iso: string) {
+  const parts = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso.trim());
+  if (!parts) return iso.trim();
+  const year = Number(parts[1]);
+  const month = Number(parts[2]);
+  const day = Number(parts[3]);
+  if (month < 1 || month > 12 || day < 1 || day > 31) return iso.trim();
+  return `${day} ${MONTHS_EN[month - 1]} ${year}`;
+}
+
 function packProofEmailLink({
   transferDate,
   firstName,
@@ -107,7 +133,7 @@ function packProofEmailLink({
     "",
     "I have made the bank transfer for my Credit Pack.",
     "",
-    `Transfer date: ${transferDate || "To be completed"}`,
+    `Transfer date: ${transferDate.trim() ? formatTransferDate(transferDate) : "To be completed"}`,
     `Student first name: ${firstName.trim() || "To be completed"}`,
     `Student last name: ${lastName.trim() || "To be completed"}`,
     `Amount: €${amount.trim() || PACK_PRICE}`,
@@ -1155,6 +1181,9 @@ function BookPage() {
                   onChange={(event) => setPackTransferDate(event.target.value)}
                   className="min-w-0 rounded-xl border-2 border-ink/15 bg-background px-3 py-2.5 text-sm font-normal"
                 />
+                <span className="text-[11px] font-normal text-muted-foreground">
+                  As shown on your transfer
+                </span>
               </label>
               <label className="grid gap-1 text-xs font-semibold">
                 Amount (€)
