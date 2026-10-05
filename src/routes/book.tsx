@@ -82,14 +82,42 @@ const VENUE_STYLE: Record<Venue, string> = {
 
 /* =========================================================================
    PACK 200 € — credits. The purchase follows the path the club already uses:
-   a bank transfer to the coach's N26 account, a message to the coach who
+   a bank transfer to the coach's N26 account, an email to the coach who
    loads the credits, then the student books in the calendar.
    ========================================================================= */
 const PACK_PRICE = 200;
 const PACK_IBAN = "DE84 1001 1001 2694 8756 79";
 const PACK_REFERENCE = "First name + Last name package Winter 2026-27";
-const PACK_WHATSAPP_LINK =
-  "https://wa.me/4917645689622?text=Hi%20Youpi%21%20I%27d%20like%20to%20buy%20the%20Pack%20200%20%E2%82%AC%20of%20credits%20%F0%9F%8E%BE";
+
+function packProofEmailLink({
+  transferDate,
+  firstName,
+  lastName,
+  amount,
+}: {
+  transferDate: string;
+  firstName: string;
+  lastName: string;
+  amount: string;
+}) {
+  const studentName = `${firstName.trim()} ${lastName.trim()}`.trim() || "Student";
+  const subject = `Pack €200 — transfer proof — ${studentName}`;
+  const body = [
+    "Hello Youpi,",
+    "",
+    "I have made the bank transfer for my Credit Pack.",
+    "",
+    `Transfer date: ${transferDate || "To be completed"}`,
+    `Student first name: ${firstName.trim() || "To be completed"}`,
+    `Student last name: ${lastName.trim() || "To be completed"}`,
+    `Amount: €${amount.trim() || PACK_PRICE}`,
+    "",
+    "I have attached the transfer proof to this email.",
+    "",
+    "Thank you!",
+  ].join("\n");
+  return `mailto:youpitennisclub@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+}
 
 /** Available court hours (1h slots), per weekday and per club. */
 const CLUB_HOURS: Record<number, { club: Venue; hours: number[] }[]> = {
@@ -292,6 +320,12 @@ function BookPage() {
   const [campInfo, setCampInfo] = useState<Slot | null>(null);
   const [winterOpen, setWinterOpen] = useState(false);
   const [packOpen, setPackOpen] = useState(false);
+  const [packTransferDate, setPackTransferDate] = useState(() => {
+    const now = new Date();
+    const local = new Date(now.getTime() - now.getTimezoneOffset() * 60000);
+    return local.toISOString().slice(0, 10);
+  });
+  const [packAmount, setPackAmount] = useState(String(PACK_PRICE));
   const [bookings, setBookings] = useState<PublicBooking[]>([]);
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
@@ -313,6 +347,16 @@ function BookPage() {
   const [myBookings, setMyBookings] = useState<MyBooking[]>([]);
   const [credits, setCredits] = useState<{ balance_cents: number; available_cents: number } | null>(null);
   const [nonMember, setNonMember] = useState(false);
+  const packEmailLink = useMemo(
+    () =>
+      packProofEmailLink({
+        transferDate: packTransferDate,
+        firstName,
+        lastName,
+        amount: packAmount,
+      }),
+    [packTransferDate, firstName, lastName, packAmount],
+  );
 
   const applyUser = (user: {
     email?: string | null;
@@ -1098,26 +1142,55 @@ function BookPage() {
           </div>
 
           <div className="mt-3 rounded-2xl bg-ball/30 border-2 border-ink/10 p-4">
-            <div className="font-display text-sm uppercase mb-2">2 · Tell me it's done</div>
+            <div className="font-display text-sm uppercase mb-2">2 · Send the proof by email</div>
             <p className="text-sm text-muted-foreground break-words">
-              Send me the transfer confirmation (screenshot) and I load your credits.
+              Check your details below, then attach your transfer confirmation in your email app. I will load your credits after receiving it.
             </p>
+            <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <label className="grid gap-1 text-xs font-semibold">
+                Transfer date
+                <input
+                  type="date"
+                  value={packTransferDate}
+                  onChange={(event) => setPackTransferDate(event.target.value)}
+                  className="min-w-0 rounded-xl border-2 border-ink/15 bg-background px-3 py-2.5 text-sm font-normal"
+                />
+              </label>
+              <label className="grid gap-1 text-xs font-semibold">
+                Amount (€)
+                <input
+                  type="number"
+                  min="1"
+                  step="0.01"
+                  inputMode="decimal"
+                  value={packAmount}
+                  onChange={(event) => setPackAmount(event.target.value)}
+                  className="min-w-0 rounded-xl border-2 border-ink/15 bg-background px-3 py-2.5 text-sm font-normal"
+                />
+              </label>
+              <label className="grid gap-1 text-xs font-semibold">
+                Student first name
+                <input
+                  value={firstName}
+                  onChange={(event) => setFirstName(event.target.value)}
+                  className="min-w-0 rounded-xl border-2 border-ink/15 bg-background px-3 py-2.5 text-sm font-normal"
+                />
+              </label>
+              <label className="grid gap-1 text-xs font-semibold">
+                Student last name
+                <input
+                  value={lastName}
+                  onChange={(event) => setLastName(event.target.value)}
+                  className="min-w-0 rounded-xl border-2 border-ink/15 bg-background px-3 py-2.5 text-sm font-normal"
+                />
+              </label>
+            </div>
             <div className="mt-3 grid gap-2">
               <a
-                href={PACK_WHATSAPP_LINK}
-                onClick={handleWhatsAppClick}
-                target="_blank"
-                rel="noopener"
-                className="px-6 py-4 text-center rounded-2xl bg-violet text-violet-foreground font-semibold hover:opacity-90 transition inline-flex items-center justify-center gap-2"
+                href={packEmailLink}
+                className="px-6 py-4 text-center rounded-2xl bg-violet text-violet-foreground font-semibold hover:opacity-90 transition break-words"
               >
-                <WhatsAppIcon className="text-xl" />
-                Send the proof on WhatsApp
-              </a>
-              <a
-                href="mailto:youpitennisclub@gmail.com?subject=Pack%20200%20%E2%82%AC"
-                className="px-6 py-4 text-center rounded-2xl border-2 border-ink/15 font-semibold hover:bg-ball/40 transition break-all"
-              >
-                <span aria-hidden="true">📧</span> Send an email
+                <span aria-hidden="true">📧</span> Open the pre-filled email
               </a>
             </div>
           </div>
