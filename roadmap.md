@@ -55,3 +55,4 @@
 - [x] Accueil : phrase « Student satisfaction... » replacee sous le paragraphe « I can build a group just for you... » (une ligne a partir de 1280 px, 18 px ; tablette/telephone : 2 lignes)
 - [x] FAQ accueil : nouvelle question « What is Urban Sports Club? » (explication Wellhub/USC + remise 7 EUR, Classic ou plus, max 4 seances/mois, des 15 oct. 2026, 2 clubs, compatible Pack 200 EUR)
 - [x] FAQ accueil : question reformulee « What advantage do I get with Wellhub or Urban Sports Club? » (reponse centree sur la remise 7 EUR, puis rappel de ce qu'est l'abonnement)
+- [ ] Pack 200 € : remplacer l’envoi de preuve WhatsApp par un email prérempli avec date du virement, prénom, nom et somme
