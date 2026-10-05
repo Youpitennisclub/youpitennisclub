@@ -1182,7 +1182,7 @@ function BookPage() {
                   className="min-w-0 rounded-xl border-2 border-ink/15 bg-background px-3 py-2.5 text-sm font-normal"
                 />
                 <span className="text-[11px] font-normal text-muted-foreground">
-                  The date shown on your bank transfer
+                  As shown on your transfer
                 </span>
               </label>
               <label className="grid gap-1 text-xs font-semibold">
