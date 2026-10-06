@@ -126,11 +126,7 @@ export async function createBookingRecord(input: {
     throw new Error("This slot is in the past.");
   }
 
-  const need = maxSessionPriceCents({ venue: input.venue, hour: berlinHour(input.starts_at), nonMember: input.non_member, duration: input.duration });
-  const credits = await getCreditSummary(input.user_id);
-  if (credits.available_cents < need) {
-    throw new Error(`INSUFFICIENT_CREDITS:${credits.available_cents}:${need}`);
-  }
+  // The €200 pack is optional: students without enough credits still book and pay after the session.
 
   const { data, error } = await supabaseAdmin
     .from("bookings")
@@ -177,10 +173,12 @@ export async function createBookingRecord(input: {
       .update({ confirmed_at: new Date().toISOString() })
       .in("id", toConfirm.map((m) => m.id));
 
-    // Charge each newly confirmed student the exact price for this group size.
+    // Charge from credits only students whose balance covers the price; others pay after the session.
     for (const m of toConfirm) {
       if (!m.user_id) continue;
       const price = sessionPriceCents({ venue: input.venue, hour: berlinHour(input.starts_at), players: count, nonMember: m.non_member, duration: m.duration });
+      const { data: bal } = await supabaseAdmin.from("student_credits").select("balance_cents").eq("user_id", m.user_id).maybeSingle();
+      if ((bal?.balance_cents ?? 0) < price) continue;
       await applyCredit(m.user_id, -price, `Session ${when} — ${where} (${count} players)`, m.id);
       await supabaseAdmin.from("bookings").update({ charged_cents: price }).eq("id", m.id);
     }
