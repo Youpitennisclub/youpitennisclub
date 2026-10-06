@@ -87,7 +87,14 @@ const VENUE_STYLE: Record<Venue, string> = {
    ========================================================================= */
 const PACK_PRICE = 200;
 const PACK_IBAN = "DE84 1001 1001 2694 8756 79";
+const PACK_ACCOUNT_HOLDER = "Youcef Chaouch";
 const PACK_REFERENCE = "First name + Last name package Winter 2026-27";
+/** Split so the last token ("2026-27") is never orphaned on a line of its own. */
+const PACK_REFERENCE_TAIL = PACK_REFERENCE.split(" ").slice(-1)[0];
+const PACK_REFERENCE_HEAD = PACK_REFERENCE.slice(
+  0,
+  PACK_REFERENCE.length - PACK_REFERENCE_TAIL.length,
+).trimEnd();
 
 const MONTHS_EN = [
   "January",
@@ -1150,14 +1157,21 @@ function BookPage() {
 
           <div className="mt-4 rounded-2xl bg-ball/30 border-2 border-ink/10 p-4">
             <div className="font-display text-sm uppercase mb-2">1 · Pay by bank transfer</div>
+            <div className="text-xs text-muted-foreground">Recipient</div>
+            <div className="text-sm font-semibold break-words">{PACK_ACCOUNT_HOLDER}</div>
+            <div className="mt-2 text-xs text-muted-foreground">IBAN</div>
             <div className="text-sm font-semibold break-all">{PACK_IBAN}</div>
             <div className="text-sm font-semibold break-all">N26</div>
             <div className="mt-1 text-xs text-muted-foreground break-words">
               Amount <b className="text-ink">€{PACK_PRICE}</b> · use the reference below as the
               transfer comment:
             </div>
-            <div className="mt-1 text-sm font-semibold break-all">{PACK_REFERENCE}</div>
+            <div className="mt-1 text-sm font-semibold break-words">
+              {PACK_REFERENCE_HEAD}{" "}
+              <span className="whitespace-nowrap">{PACK_REFERENCE_TAIL}</span>
+            </div>
             <div className="mt-3 flex flex-wrap gap-2">
+              <CopyNumberButton value={PACK_ACCOUNT_HOLDER} label="Copy recipient" />
               <CopyNumberButton value={PACK_IBAN} label="Copy IBAN" hint="to paste it into your banking app" />
               <CopyNumberButton
                 value={PACK_REFERENCE}
