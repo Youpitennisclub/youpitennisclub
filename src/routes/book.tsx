@@ -89,6 +89,12 @@ const PACK_PRICE = 200;
 const PACK_IBAN = "DE84 1001 1001 2694 8756 79";
 const PACK_ACCOUNT_HOLDER = "Youcef Chaouch";
 const PACK_REFERENCE = "First name + Last name package Winter 2026-27";
+/** Split so the last token ("2026-27") is never orphaned on a line of its own. */
+const PACK_REFERENCE_TAIL = PACK_REFERENCE.split(" ").slice(-1)[0];
+const PACK_REFERENCE_HEAD = PACK_REFERENCE.slice(
+  0,
+  PACK_REFERENCE.length - PACK_REFERENCE_TAIL.length,
+).trimEnd();
 
 const MONTHS_EN = [
   "January",
