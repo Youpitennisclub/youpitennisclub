@@ -57,3 +57,4 @@
 - [x] FAQ accueil : question reformulee « What advantage do I get with Wellhub or Urban Sports Club? » (reponse centree sur la remise 7 EUR, puis rappel de ce qu'est l'abonnement)
 - [x] Pack 200 € : remplacer l’envoi de preuve WhatsApp par un email prérempli avec date du virement, prénom, nom et somme
 - [x] Pack 200 € : champ « Transfer date » pour saisir la date réelle du virement, insérée dans l'email prérempli (ex. « 3 October 2026 »)
+- [x] Pack 200 € : destinataire du compte bancaire « Youcef Chaouch » affiché sous « 1 · Pay by bank transfer » (avec bouton copier)
