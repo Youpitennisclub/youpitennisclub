@@ -386,7 +386,7 @@ function BookPage() {
         transferDate: packTransferDate,
         firstName,
         lastName,
-        amount: packAmount,
+        amount: String(PACK_PRICE),
       }),
     [packTransferDate, firstName, lastName, packAmount],
   );
@@ -1202,13 +1202,11 @@ function BookPage() {
               <label className="grid gap-1 text-xs font-semibold">
                 Amount (€)
                 <input
-                  type="number"
-                  min="1"
-                  step="0.01"
-                  inputMode="decimal"
-                  value={packAmount}
-                  onChange={(event) => setPackAmount(event.target.value)}
-                  className="min-w-0 rounded-xl border-2 border-ink/15 bg-background px-3 py-2.5 text-sm font-normal"
+                  type="text"
+                  readOnly
+                  aria-readonly="true"
+                  value={String(PACK_PRICE)}
+                  className="min-w-0 cursor-not-allowed rounded-xl border-2 border-ink/15 bg-muted px-3 py-2.5 text-sm font-normal"
                 />
               </label>
               <label className="grid gap-1 text-xs font-semibold">
