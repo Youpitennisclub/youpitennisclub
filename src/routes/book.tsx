@@ -386,7 +386,7 @@ function BookPage() {
         transferDate: packTransferDate,
         firstName,
         lastName,
-        amount: packAmount,
+        amount: String(PACK_PRICE),
       }),
     [packTransferDate, firstName, lastName, packAmount],
   );
