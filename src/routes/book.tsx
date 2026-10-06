@@ -1162,6 +1162,7 @@ function BookPage() {
             </div>
             <div className="mt-1 text-sm font-semibold break-all">{PACK_REFERENCE}</div>
             <div className="mt-3 flex flex-wrap gap-2">
+              <CopyNumberButton value={PACK_ACCOUNT_HOLDER} label="Copy recipient" />
               <CopyNumberButton value={PACK_IBAN} label="Copy IBAN" hint="to paste it into your banking app" />
               <CopyNumberButton
                 value={PACK_REFERENCE}
