@@ -1459,13 +1459,10 @@ function BookPage() {
                   <span className="font-display">€{(avail / 100).toFixed(2)}</span>
                 </div>
                 <div className="mt-1 text-xs text-ink/60">
-                  You need at least €{(need / 100).toFixed(2)} free to book. The exact price is taken when your group is confirmed.
+                  {avail >= need
+                    ? "The price will be taken from your credits when your group is confirmed."
+                    : "No pack needed: you can book now and pay after the session."}
                 </div>
-                {avail < need && (
-                  <div className="mt-2 font-semibold text-destructive">
-                    Not enough credits — top up your €200 Credit Pack to book this session.
-                  </div>
-                )}
               </div>
             );
           })()}
