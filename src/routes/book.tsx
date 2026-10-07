@@ -418,6 +418,23 @@ function BookPage() {
   const [credits, setCredits] = useState<{ balance_cents: number; available_cents: number } | null>(null);
   const [nonMember, setNonMember] = useState(false);
   const [confirmation, setConfirmation] = useState<Confirmation | null>(null);
+  // TEMP-VERIFY-RECAP
+  useEffect(() => {
+    const mode = new URLSearchParams(window.location.search).get("recap");
+    if (mode) {
+      setConfirmation({
+        title: mode === "pack" ? "Group formation — 1/2 players" : "Group formation — 1/2 players",
+        date: "Saturday 10 October 2026",
+        time: "13:00–14:00",
+        club: "BFC Alemannia (clay courts)",
+        priceLabel: "\u20ac37 / person (1h)",
+        credits: mode === "pack" ? { balance: 163, pending: 0, available: 163 } : { balance: 0, pending: 0, available: 0 },
+        nonMember: false,
+        confirmed: false,
+        count: 1,
+      });
+    }
+  }, []);
   const packEmailLink = useMemo(
     () =>
       packProofEmailLink({
