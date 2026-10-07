@@ -967,31 +967,26 @@ function BookPage() {
                                   </div>
                                 )}
                                 {parts.length > 0 && !past && (
-                                  <div className="mt-2 flex flex-col gap-1.5">
-                                    <div className="flex items-center gap-1.5">
-                                      {parts.slice(0, 6).map((p, i) =>
-                                        p.photo_url ? (
+                                  <div className="mt-2 flex flex-wrap items-center gap-1.5">
+                                    {parts.map((p, i) => (
+                                      <span
+                                        key={i}
+                                        title={LEVEL_LABEL[p.level]}
+                                        aria-label={`${p.first_name} ${p.last_initials.trim().slice(0, 1).toUpperCase()}. — ${LEVEL_LABEL[p.level]}`}
+                                        className={`inline-flex min-w-0 max-w-full items-center gap-1.5 rounded-full border-2 px-2.5 py-1 text-sm font-semibold leading-snug ${LEVEL_STYLE[p.level]}`}
+                                      >
+                                        {p.photo_url && (
                                           <img
-                                            key={i}
                                             src={p.photo_url}
-                                            alt={p.first_name}
-                                            className="h-7 w-7 shrink-0 rounded-full object-cover border border-ink/10"
+                                            alt=""
+                                            className="h-5 w-5 shrink-0 rounded-full object-cover"
                                           />
-                                        ) : (
-                                          <span
-                                            key={i}
-                                            className="h-7 w-7 shrink-0 rounded-full bg-ink/10 grid place-items-center text-[11px] font-bold"
-                                          >
-                                            {p.first_name.slice(0, 1)}
-                                          </span>
-                                        ),
-                                      )}
-                                    </div>
-                                    <div className="text-sm font-semibold leading-snug break-words">
-                                      {parts
-                                        .map((p) => `${p.first_name} ${p.last_initials}.`)
-                                        .join(" · ")}
-                                    </div>
+                                        )}
+                                        <span className="min-w-0 break-words">
+                                          {p.first_name} {p.last_initials.trim().slice(0, 1).toUpperCase()}.
+                                        </span>
+                                      </span>
+                                    ))}
                                   </div>
                                 )}
 
