@@ -418,26 +418,6 @@ function BookPage() {
   const [credits, setCredits] = useState<{ balance_cents: number; available_cents: number } | null>(null);
   const [nonMember, setNonMember] = useState(false);
   const [confirmation, setConfirmation] = useState<Confirmation | null>(null);
-  // TEMP-VERIFY-RECAP
-  useEffect(() => {
-    const mode = (window.location.hash.match(/recap=(\w+)/) || [])[1];
-    console.log("TEMP-RECAP mode=", mode, "hash=", window.location.hash);
-    if (mode) {
-      setConfirmation({
-        start: new Date("2026-10-10T13:00:00"),
-        duration: 60,
-        venue: "alemannia",
-        level: "beginner",
-        indoor: mode === "indoor",
-        confirmed: false,
-        count: 1,
-        min: 2,
-        paidFromCredits: mode === "pack",
-        priceFromCents: 2400,
-        priceToCents: 3700,
-      });
-    }
-  }, []);
   const packEmailLink = useMemo(
     () =>
       packProofEmailLink({
