@@ -40,7 +40,7 @@
 - [x] Bulle Wellhub/Urban Sports : texte corrige (€7 off every tennis session / Classic or higher - max. 4 sessions/month / From 15 October 2026), logos agrandis et mis en avant au-dessus du texte ; même règle « max. 4 sessions/month » ajoutée dans la fenêtre de réservation
 - [x] Bulle Wellhub/Urban Sports : retour a la taille d origine (1 rangee sur ordinateur, logos a gauche dans une pastille jaune, texte a droite en petits corps) en gardant le nouveau texte et la regle max. 4 sessions/mois
 - [x] Bulle Wellhub/Urban Sports : logos agrandis (48x56 px sur ordinateur, 40x48 sur telephone), ligne "7 EUR off every tennis session" reduite a 16-18 px; hauteur totale 150 px sur ordinateur
-- [ ] Bulle Wellhub/Urban Sports : adapter espacement + taille des elements pour rester compacte sur mobile
+- [x] Bulle Wellhub/Urban Sports : adapter espacement + taille des elements pour rester compacte sur mobile
 - [x] Bulle Wellhub/Urban Sports : compacte sur mobile (201 px au lieu de 289) et sur ordinateur (896 x 151, logos 48-56 px, ligne 7 EUR reduite, note sur 1 ligne, texte centre sur telephone)
 - [x] Bulle Wellhub/Urban Sports : paliers md (768-1023, empile centre, bulle 512 px) et lg (1024+, 1 rangee, bulle 880-896 px) ; verifie sur tablette portrait/paysage et telephone paysage, aucun debordement
 - [x] Tests visuels bulle Wellhub : mobile + tablette, portrait + paysage, visibilite complete pres des bords
@@ -58,3 +58,5 @@
 - [x] Pack 200 € : remplacer l’envoi de preuve WhatsApp par un email prérempli avec date du virement, prénom, nom et somme
 - [x] Pack 200 € : champ « Transfer date » pour saisir la date réelle du virement, insérée dans l'email prérempli (ex. « 3 October 2026 »)
 - [x] Pack 200 € : destinataire du compte bancaire « Youcef Chaouch » affiché sous « 1 · Pay by bank transfer » (avec bouton copier)
+- [x] Réservation sans pack : fenêtre de confirmation après la réservation, avec récapitulatif complet (date, heure, durée, club, niveau, joueurs, prix, façon de payer) et accès « My bookings »
+- [x] Réservation : phrase « Rain policy: 50% refund or reschedule » retirée du calendrier et de la fenêtre de réservation (l'hiver se joue en intérieur)
