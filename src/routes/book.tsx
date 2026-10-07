@@ -421,6 +421,7 @@ function BookPage() {
   // TEMP-VERIFY-RECAP
   useEffect(() => {
     const mode = (window.location.hash.match(/recap=(\w+)/) || [])[1];
+    console.log("TEMP-RECAP mode=", mode, "hash=", window.location.hash);
     if (mode) {
       setConfirmation({
         start: new Date("2026-10-10T13:00:00"),
