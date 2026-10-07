@@ -420,7 +420,7 @@ function BookPage() {
   const [confirmation, setConfirmation] = useState<Confirmation | null>(null);
   // TEMP-VERIFY-RECAP
   useEffect(() => {
-    const mode = new URLSearchParams(window.location.search).get("recap");
+    const mode = (window.location.hash.match(/recap=(\w+)/) || [])[1];
     if (mode) {
       setConfirmation({
         title: mode === "pack" ? "Group formation — 1/2 players" : "Group formation — 1/2 players",
