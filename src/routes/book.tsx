@@ -8,7 +8,7 @@ import { handleWhatsAppClick, useWhatsAppLink, WhatsAppIcon } from "@/components
 import { createBooking, listMyBookings, cancelMyBooking, getMyCredits } from "@/lib/bookings.functions";
 import { isAdmin } from "@/lib/admin.functions";
 import { AdminCredits } from "@/components/AdminCredits";
-import { maxSessionPriceCents } from "@/lib/prices";
+import { maxSessionPriceCents, sessionPriceCents } from "@/lib/prices";
 import { PARTNER_DISCOUNT, ratesFor } from "@/lib/prices";
 import wellhubLogoAsset from "@/assets/wellhub-logo.png.asset.json";
 import urbanSportsClubLogoAsset from "@/assets/urban-sports-club-logo.png.asset.json";
@@ -220,6 +220,21 @@ type MyBooking = {
   cancellable: boolean;
 };
 
+/** What the student sees right after booking: the session recap + how they pay. */
+type Confirmation = {
+  start: Date;
+  duration: number;
+  venue: Venue;
+  level: Level;
+  indoor?: boolean;
+  confirmed: boolean;
+  count: number;
+  min: number;
+  paidFromCredits: boolean;
+  priceFromCents: number;
+  priceToCents: number;
+};
+
 function ymd(d: Date) {
   const m = `${d.getMonth() + 1}`.padStart(2, "0");
   const day = `${d.getDate()}`.padStart(2, "0");
@@ -322,6 +337,17 @@ function endTime(slot: Slot) {
   return fmtTime(new Date(slot.start.getTime() + slot.duration * 60000));
 }
 
+/** Wall-clock hour in Berlin — the price grid and the group rules follow it. */
+function berlinHourOf(d: Date) {
+  return Number(
+    new Intl.DateTimeFormat("en-GB", {
+      timeZone: "Europe/Berlin",
+      hour: "2-digit",
+      hour12: false,
+    }).format(d),
+  );
+}
+
 function Modal({ onClose, children }: { onClose: () => void; children: React.ReactNode }) {
   return (
     <div className="fixed inset-0 z-[100] flex items-end sm:items-center justify-center">
@@ -340,6 +366,16 @@ function Modal({ onClose, children }: { onClose: () => void; children: React.Rea
         </button>
         {children}
       </div>
+    </div>
+  );
+}
+
+/** One line of the after-booking recap: label on the left, value on the right. */
+function ConfirmRow({ label, value }: { label: string; value: React.ReactNode }) {
+  return (
+    <div className="flex items-baseline justify-between gap-3">
+      <dt className="shrink-0 text-ink/60">{label}</dt>
+      <dd className="break-words text-right font-semibold">{value}</dd>
     </div>
   );
 }
