@@ -423,15 +423,17 @@ function BookPage() {
     const mode = (window.location.hash.match(/recap=(\w+)/) || [])[1];
     if (mode) {
       setConfirmation({
-        title: mode === "pack" ? "Group formation — 1/2 players" : "Group formation — 1/2 players",
-        date: "Saturday 10 October 2026",
-        time: "13:00–14:00",
-        club: "BFC Alemannia (clay courts)",
-        priceLabel: "\u20ac37 / person (1h)",
-        credits: mode === "pack" ? { balance: 163, pending: 0, available: 163 } : { balance: 0, pending: 0, available: 0 },
-        nonMember: false,
+        start: new Date("2026-10-10T13:00:00"),
+        duration: 60,
+        venue: "alemannia",
+        level: "beginner",
+        indoor: mode === "indoor",
         confirmed: false,
         count: 1,
+        min: 2,
+        paidFromCredits: mode === "pack",
+        priceFromCents: 2400,
+        priceToCents: 3700,
       });
     }
   }, []);
