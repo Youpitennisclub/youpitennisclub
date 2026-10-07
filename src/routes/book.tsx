@@ -227,6 +227,7 @@ type Confirmation = {
   venue: Venue;
   level: Level;
   indoor?: boolean;
+  camp?: boolean;
   confirmed: boolean;
   count: number;
   min: number;
@@ -416,6 +417,7 @@ function BookPage() {
   const [myBookings, setMyBookings] = useState<MyBooking[]>([]);
   const [credits, setCredits] = useState<{ balance_cents: number; available_cents: number } | null>(null);
   const [nonMember, setNonMember] = useState(false);
+  const [confirmation, setConfirmation] = useState<Confirmation | null>(null);
   const packEmailLink = useMemo(
     () =>
       packProofEmailLink({
@@ -611,11 +613,27 @@ function BookPage() {
           non_member: selectedSlot.venue === "alemannia" && nonMember,
         },
       })) as { confirmed?: boolean; count?: number };
-      toast.success(
-        res.confirmed
-          ? "🎾 Group confirmed! A confirmation email is on its way."
-          : `⏳ Booked (${res.count ?? 1}/${groupMin(selectedSlot.start)}). The session is confirmed automatically once ${groupMin(selectedSlot.start)} students of your level join.`,
-      );
+      const slot = selectedSlot;
+      const priceOpts = {
+        venue: slot.venue,
+        hour: berlinHourOf(slot.start),
+        nonMember: slot.venue === "alemannia" && nonMember,
+        duration: slot.duration,
+      };
+      setConfirmation({
+        start: slot.start,
+        duration: slot.duration,
+        venue: slot.venue,
+        level,
+        indoor: slot.indoor,
+        camp: Boolean(slot.camp),
+        confirmed: Boolean(res.confirmed),
+        count: res.count ?? 1,
+        min: groupMin(slot.start),
+        paidFromCredits: (credits?.available_cents ?? 0) >= maxSessionPriceCents(priceOpts),
+        priceFromCents: sessionPriceCents({ ...priceOpts, players: 4 }),
+        priceToCents: maxSessionPriceCents(priceOpts),
+      });
       setSelectedSlot(null);
       await loadBookings();
       await loadMyBookings();
@@ -1041,7 +1059,7 @@ function BookPage() {
 
             {/* MY BOOKINGS */}
             {unlocked && (
-            <div className="mt-8 rounded-3xl bg-card border-2 border-ink p-5 sm:p-7">
+            <div id="my-bookings" className="mt-8 rounded-3xl bg-card border-2 border-ink p-5 sm:p-7">
               <div className="flex flex-wrap items-center justify-between gap-3">
                 <h3 className="font-display text-xl sm:text-2xl uppercase">My bookings</h3>
                 <button
@@ -1608,11 +1626,99 @@ function BookPage() {
 
 
 
-            <p className="text-xs text-muted-foreground">
-              Rain policy: 50% refund or reschedule.
-            </p>
-
           </form>
+        </Modal>
+      )}
+
+      {/* AFTER-BOOKING CONFIRMATION — the recap the student reads right after booking. */}
+      {confirmation && (
+        <Modal onClose={() => setConfirmation(null)}>
+          <div className="text-xs font-bold uppercase tracking-widest text-clay mb-2">
+            {confirmation.confirmed ? "Session confirmed" : "Spot saved"}
+          </div>
+          <h3 className="font-display text-2xl sm:text-3xl uppercase leading-tight pr-10 break-words">
+            {confirmation.confirmed ? "🎾 You're in!" : "⏳ You're booked"}
+          </h3>
+          <p className="mt-2 text-sm text-muted-foreground break-words">
+            {confirmation.confirmed
+              ? "Your group is complete — the session is confirmed. A confirmation email is on its way."
+              : `Your spot is saved (${confirmation.count}/${confirmation.min} students). The session is confirmed automatically as soon as ${confirmation.min} students of your level join — you'll get an email.`}
+          </p>
+
+          <div className="mt-4 rounded-2xl bg-ball/30 border-2 border-ink/10 p-4">
+            <div className="font-display text-sm uppercase mb-3">Session recap</div>
+            <dl className="grid gap-2 text-sm">
+              <ConfirmRow label="Date" value={fmtLongDay(confirmation.start)} />
+              <ConfirmRow
+                label="Time"
+                value={`${fmtTime(confirmation.start)}–${fmtTime(
+                  new Date(confirmation.start.getTime() + confirmation.duration * 60000),
+                )}`}
+              />
+              <ConfirmRow label="Duration" value={`${confirmation.duration} minutes`} />
+              <ConfirmRow
+                label="Club"
+                value={`${VENUE_LABEL[confirmation.venue]}${confirmation.indoor ? " · INDOOR" : ""}`}
+              />
+              <ConfirmRow label="Level" value={LEVEL_LABEL[confirmation.level]} />
+              <ConfirmRow label="Students" value={`${confirmation.count}/${confirmation.min}`} />
+            </dl>
+          </div>
+
+          {!confirmation.camp && (
+            <div className="mt-3 rounded-2xl border-2 border-ink/10 p-4">
+              <div className="font-display text-sm uppercase mb-2">How you pay</div>
+              <div className="flex justify-between gap-3 text-sm">
+                <span className="text-ink/70">Price per person</span>
+                <span className="font-display shrink-0">
+                  €{(confirmation.priceFromCents / 100).toFixed(0)}–€
+                  {(confirmation.priceToCents / 100).toFixed(0)}
+                </span>
+              </div>
+              <p className="mt-2 text-sm break-words">
+                {confirmation.paidFromCredits
+                  ? "The exact price is taken from your credits when your group is confirmed."
+                  : "No pack needed: you pay after the session. Nothing is taken from your account now."}
+              </p>
+            </div>
+          )}
+
+          <div className="mt-3 rounded-2xl bg-destructive/10 border-2 border-destructive p-4">
+            <div className="font-display text-base uppercase leading-tight text-destructive">
+              Cancellation up to 24h before
+            </div>
+            <p className="mt-1 text-sm break-words">
+              This session appears under “My bookings”, where you can cancel it in time.
+            </p>
+          </div>
+
+          <div className="mt-4 grid sm:grid-cols-2 gap-2">
+            <button
+              type="button"
+              onClick={() => {
+                setConfirmation(null);
+                window.setTimeout(
+                  () =>
+                    document
+                      .getElementById("my-bookings")
+                      ?.scrollIntoView({ behavior: "smooth", block: "start" }),
+                  60,
+                );
+              }}
+              className="px-6 py-3.5 rounded-2xl bg-violet text-violet-foreground font-semibold hover:opacity-90 transition"
+            >
+              See my bookings
+            </button>
+            <a
+              href={whatsappLink}
+              onClick={handleWhatsAppClick}
+              target="_blank"
+              rel="noopener"
+              className="px-6 py-3.5 text-center rounded-2xl border-2 border-ink/15 font-semibold hover:bg-ball/40 transition"
+            >
+              <WhatsAppIcon /> Ask a question
+            </a>
+          </div>
         </Modal>
       )}
 
