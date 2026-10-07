@@ -375,7 +375,7 @@ function Modal({ onClose, children }: { onClose: () => void; children: React.Rea
 function ConfirmRow({ label, value }: { label: string; value: React.ReactNode }) {
   return (
     <div className="flex items-baseline justify-between gap-3">
-      <dt className="shrink-0 text-ink/60">{label}</dt>
+      <dt className="shrink-0 text-ink/75">{label}</dt>
       <dd className="break-words text-right font-semibold">{value}</dd>
     </div>
   );
@@ -1656,7 +1656,7 @@ function BookPage() {
           <div className="text-xs font-bold uppercase tracking-widest text-clay mb-2">
             {confirmation.confirmed ? "Session confirmed" : "Spot saved"}
           </div>
-          <h3 className="font-display text-2xl sm:text-3xl uppercase leading-tight pr-10 break-words">
+          <h3 className="font-display text-xl sm:text-3xl uppercase leading-tight pr-10 break-words">
             {confirmation.confirmed ? "🎾 You're in!" : "⏳ You're booked"}
           </h3>
           <p className="mt-2 text-sm text-muted-foreground break-words">
@@ -1665,9 +1665,9 @@ function BookPage() {
               : `Your spot is saved (${confirmation.count}/${confirmation.min} students). The session is confirmed automatically as soon as ${confirmation.min} students of your level join — you'll get an email.`}
           </p>
 
-          <div className="mt-4 rounded-2xl bg-ball/30 border-2 border-ink/10 p-4">
+          <div className="mt-3 rounded-2xl bg-ball/30 border-2 border-ink/10 p-3.5 sm:p-4">
             <div className="font-display text-sm uppercase mb-3">Session recap</div>
-            <dl className="grid gap-2 text-sm">
+            <dl className="grid gap-1.5 sm:gap-2 text-sm">
               <ConfirmRow label="Date" value={fmtLongDay(confirmation.start)} />
               <ConfirmRow
                 label="Time"
@@ -1686,7 +1686,7 @@ function BookPage() {
           </div>
 
           {!confirmation.camp && (
-            <div className="mt-3 rounded-2xl border-2 border-ink/10 p-4">
+            <div className="mt-3 rounded-2xl border-2 border-ink/10 p-3.5 sm:p-4">
               <div className="font-display text-sm uppercase mb-2">How you pay</div>
               <div className="flex justify-between gap-3 text-sm">
                 <span className="text-ink/70">Price per person</span>
@@ -1703,7 +1703,7 @@ function BookPage() {
             </div>
           )}
 
-          <div className="mt-3 rounded-2xl bg-destructive/10 border-2 border-destructive p-4">
+          <div className="mt-3 rounded-2xl bg-destructive/10 border-2 border-destructive p-3.5 sm:p-4">
             <div className="font-display text-base uppercase leading-tight text-destructive">
               Cancellation up to 24h before
             </div>
@@ -1725,7 +1725,7 @@ function BookPage() {
                   60,
                 );
               }}
-              className="px-6 py-3.5 rounded-2xl bg-violet text-violet-foreground font-semibold hover:opacity-90 transition"
+              className="px-4 py-3 sm:py-3.5 rounded-2xl bg-violet text-violet-foreground font-semibold hover:opacity-90 transition"
             >
               See my bookings
             </button>
@@ -1734,7 +1734,7 @@ function BookPage() {
               onClick={handleWhatsAppClick}
               target="_blank"
               rel="noopener"
-              className="px-6 py-3.5 text-center rounded-2xl border-2 border-ink/15 font-semibold hover:bg-ball/40 transition"
+              className="px-4 py-3 sm:py-3.5 text-center rounded-2xl border-2 border-ink/15 font-semibold hover:bg-ball/40 transition"
             >
               <WhatsAppIcon /> Ask a question
             </a>
