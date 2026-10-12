@@ -189,6 +189,44 @@ const OUTDOOR_DAYS = new Set(["2026-10-07", "2026-10-09"]);
 /** TC Longline winter season starts on this date — no Longline slots before. */
 const LONGLINE_FROM = "2026-10-12";
 
+/* =========================================================================
+   COACH SESSIONS — sessions the coach runs directly (booked outside the
+   site). They are displayed in the calendar but cannot be booked here.
+   ========================================================================= */
+type CoachEvent = {
+  title: string;
+  /** "17:20–17:35" as shown on the card. */
+  time: string;
+  /** Names exactly as the coach lists them ("?" = player not confirmed). */
+  players: string[];
+  /** Colors the player pills like the calendar levels. */
+  level?: SlotLevel;
+  note?: string;
+};
+
+const COACH_EVENTS: Record<string, CoachEvent[]> = {
+  "2026-10-07": [
+    {
+      title: "Schnuppertraining 5",
+      time: "17:20–17:35",
+      players: ["Ines", "Sumru"],
+      note: "Sie spielen weiter kostenlos bis 18:15 Uhr, weil Tom draußen spielt und Abo. hat.",
+    },
+    { title: "Gruppe 1 Int.", time: "17:35–18:45", players: ["Kasia", "Kadiatou"], level: "intermediate" },
+    { title: "Damenmannschaft", time: "19:00–20:20", players: ["Anna", "Lisa", "Vicky", "Natalia", "?", "?"] },
+  ],
+  "2026-10-10": [
+    {
+      title: "Gruppe 1 Fort.",
+      time: "13:10–14:40",
+      players: ["Anna K.", "Olesia"],
+      level: "advanced",
+      note: "20 Minuten Regen 🌦️",
+    },
+    { title: "Privatraining mit Kristin", time: "14:40–16:00", players: ["Kristin"] },
+  ],
+};
+
 /** Price grid shown in the booking modal: see ratesFor (club + hour). */
 
 /* ========================================================================= */
