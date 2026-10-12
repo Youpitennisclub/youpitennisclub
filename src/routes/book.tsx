@@ -588,6 +588,20 @@ function BookPage() {
     return d;
   }, [weekStart]);
 
+  const prevWeekStart = useMemo(() => {
+    const d = new Date(weekStart);
+    d.setDate(d.getDate() - 7);
+    return d;
+  }, [weekStart]);
+
+  /** Monday of the week that contains the season's first day — the calendar never goes before it. */
+  const FIRST_WEEK_START = useMemo(() => {
+    const d = new Date(FIRST_OPEN_DAY);
+    const daysSinceMonday = (d.getDay() + 6) % 7;
+    d.setDate(d.getDate() - daysSinceMonday);
+    return d;
+  }, []);
+
   const loadBookings = async () => {
     setLoading(true);
     const { data, error } = await supabase.rpc("get_public_bookings", {
