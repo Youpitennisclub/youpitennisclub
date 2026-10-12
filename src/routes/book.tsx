@@ -1098,6 +1098,39 @@ function BookPage() {
                             );
                           })
                         )}
+
+                      {(COACH_EVENTS[ymd(day)] ?? []).map((ev, evIndex) => (
+                        <div
+                          key={`coach-${evIndex}`}
+                          className="rounded-2xl border-2 border-dashed border-ink/25 bg-ink/5 px-3.5 py-3 text-left"
+                        >
+                          <div className="min-w-0 break-words text-base sm:text-lg font-semibold">
+                            {ev.time}
+                          </div>
+                          <div className="mt-1.5 min-w-0 break-words text-xs font-bold uppercase tracking-wide text-ink/80">
+                            {ev.title}
+                          </div>
+                          <div className="mt-2 flex flex-wrap gap-1.5">
+                            {ev.players.map((p, pIndex) => (
+                              <span
+                                key={pIndex}
+                                className={`inline-flex items-center rounded-full border-2 px-2.5 py-1 text-sm font-semibold leading-snug ${
+                                  ev.level && p !== "?"
+                                    ? LEVEL_STYLE[ev.level]
+                                    : "bg-ink/5 text-ink/60 border-ink/15"
+                                }`}
+                              >
+                                {p}
+                              </span>
+                            ))}
+                          </div>
+                          {ev.note && (
+                            <div className="mt-2 break-words text-xs leading-snug text-ink/70">
+                              {ev.note}
+                            </div>
+                          )}
+                        </div>
+                      ))}
                       </div>
                     </div>
                   );
