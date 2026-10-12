@@ -189,6 +189,44 @@ const OUTDOOR_DAYS = new Set(["2026-10-07", "2026-10-09"]);
 /** TC Longline winter season starts on this date — no Longline slots before. */
 const LONGLINE_FROM = "2026-10-12";
 
+/* =========================================================================
+   COACH SESSIONS — sessions the coach runs directly (booked outside the
+   site). They are displayed in the calendar but cannot be booked here.
+   ========================================================================= */
+type CoachEvent = {
+  title: string;
+  /** "17:20–17:35" as shown on the card. */
+  time: string;
+  /** Names exactly as the coach lists them ("?" = player not confirmed). */
+  players: string[];
+  /** Colors the player pills like the calendar levels. */
+  level?: SlotLevel;
+  note?: string;
+};
+
+const COACH_EVENTS: Record<string, CoachEvent[]> = {
+  "2026-10-07": [
+    {
+      title: "Schnuppertraining 5",
+      time: "17:20–17:35",
+      players: ["Ines", "Sumru"],
+      note: "Sie spielen weiter kostenlos bis 18:15 Uhr, weil Tom draußen spielt und Abo. hat.",
+    },
+    { title: "Gruppe 1 Int.", time: "17:35–18:45", players: ["Kasia", "Kadiatou"], level: "intermediate" },
+    { title: "Damenmannschaft", time: "19:00–20:20", players: ["Anna", "Lisa", "Vicky", "Natalia", "?", "?"] },
+  ],
+  "2026-10-10": [
+    {
+      title: "Gruppe 1 Fort.",
+      time: "13:10–14:40",
+      players: ["Anna K.", "Olesia"],
+      level: "advanced",
+      note: "20 Minuten Regen 🌦️",
+    },
+    { title: "Privatraining mit Kristin", time: "14:40–16:00", players: ["Kristin"] },
+  ],
+};
+
 /** Price grid shown in the booking modal: see ratesFor (club + hour). */
 
 /* ========================================================================= */
@@ -550,6 +588,20 @@ function BookPage() {
     return d;
   }, [weekStart]);
 
+  const prevWeekStart = useMemo(() => {
+    const d = new Date(weekStart);
+    d.setDate(d.getDate() - 7);
+    return d;
+  }, [weekStart]);
+
+  /** Monday of the week that contains the season's first day — the calendar never goes before it. */
+  const FIRST_WEEK_START = useMemo(() => {
+    const d = new Date(FIRST_OPEN_DAY);
+    const daysSinceMonday = (d.getDay() + 6) % 7;
+    d.setDate(d.getDate() - daysSinceMonday);
+    return d;
+  }, []);
+
   const loadBookings = async () => {
     setLoading(true);
     const { data, error } = await supabase.rpc("get_public_bookings", {
@@ -909,13 +961,11 @@ function BookPage() {
               <div className="flex gap-2 shrink-0">
                 <button
                   onClick={() => {
-                    const d = new Date(weekStart);
-                    d.setDate(d.getDate() - 7);
-                    if (d < today) return;
-                    setWeekStart(d);
+                    if (prevWeekStart.getTime() < FIRST_WEEK_START.getTime()) return;
+                    setWeekStart(prevWeekStart);
                   }}
                   className="flex-1 md:flex-none px-4 py-2.5 rounded-full border-2 border-ink/15 text-sm font-semibold disabled:opacity-40 hover:bg-ball/40 transition"
-                  disabled={weekStart.getTime() <= today.getTime()}
+                  disabled={prevWeekStart.getTime() < FIRST_WEEK_START.getTime()}
                 >
                   ← Previous
                 </button>
@@ -1048,6 +1098,39 @@ function BookPage() {
                             );
                           })
                         )}
+
+                      {(COACH_EVENTS[ymd(day)] ?? []).map((ev, evIndex) => (
+                        <div
+                          key={`coach-${evIndex}`}
+                          className="rounded-2xl border-2 border-dashed border-ink/25 bg-ink/5 px-3.5 py-3 text-left"
+                        >
+                          <div className="min-w-0 break-words text-base sm:text-lg font-semibold">
+                            {ev.time}
+                          </div>
+                          <div className="mt-1.5 min-w-0 break-words text-xs font-bold uppercase tracking-wide text-ink/80">
+                            {ev.title}
+                          </div>
+                          <div className="mt-2 flex flex-wrap gap-1.5">
+                            {ev.players.map((p, pIndex) => (
+                              <span
+                                key={pIndex}
+                                className={`inline-flex items-center rounded-full border-2 px-2.5 py-1 text-sm font-semibold leading-snug ${
+                                  ev.level && p !== "?"
+                                    ? LEVEL_STYLE[ev.level]
+                                    : "bg-ink/5 text-ink/60 border-ink/15"
+                                }`}
+                              >
+                                {p}
+                              </span>
+                            ))}
+                          </div>
+                          {ev.note && (
+                            <div className="mt-2 break-words text-xs leading-snug text-ink/70">
+                              {ev.note}
+                            </div>
+                          )}
+                        </div>
+                      ))}
                       </div>
                     </div>
                   );
