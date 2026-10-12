@@ -61,3 +61,4 @@
 - [x] Réservation sans pack : fenêtre de confirmation après la réservation, avec récapitulatif complet (date, heure, durée, club, niveau, joueurs, prix, façon de payer) et accès « My bookings »
 - [x] Réservation : phrase « Rain policy: 50% refund or reschedule » retirée du calendrier et de la fenêtre de réservation (l'hiver se joue en intérieur)
 - [x] Calendrier : séances du coach du 07.10 (Schnuppertraining 5, Gruppe 1 Int., Damenmannschaft) et du 10.10 (Gruppe 1 Fort., Privatraining mit Kristin) affichées en cartes dédiées ; navigation « ← Previous » possible jusqu'à la semaine du 07.10
+- [x] Calendrier 10.10 : Anna K. et Olesia indiquées « Total beginner » (bulles bleues), Kristin « Advanced » (bulle rose) ; chaque carte du coach affiche maintenant l'étiquette de niveau à côté du titre
