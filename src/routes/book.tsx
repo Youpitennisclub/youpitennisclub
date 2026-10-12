@@ -961,13 +961,11 @@ function BookPage() {
               <div className="flex gap-2 shrink-0">
                 <button
                   onClick={() => {
-                    const d = new Date(weekStart);
-                    d.setDate(d.getDate() - 7);
-                    if (d < today) return;
-                    setWeekStart(d);
+                    if (prevWeekStart.getTime() < FIRST_WEEK_START.getTime()) return;
+                    setWeekStart(prevWeekStart);
                   }}
                   className="flex-1 md:flex-none px-4 py-2.5 rounded-full border-2 border-ink/15 text-sm font-semibold disabled:opacity-40 hover:bg-ball/40 transition"
-                  disabled={weekStart.getTime() <= today.getTime()}
+                  disabled={prevWeekStart.getTime() < FIRST_WEEK_START.getTime()}
                 >
                   ← Previous
                 </button>
