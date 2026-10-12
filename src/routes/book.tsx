@@ -220,10 +220,10 @@ const COACH_EVENTS: Record<string, CoachEvent[]> = {
       title: "Gruppe 1 Fort.",
       time: "13:10–14:40",
       players: ["Anna K.", "Olesia"],
-      level: "advanced",
+      level: "total_beginner",
       note: "20 Minuten Regen 🌦️",
     },
-    { title: "Privatraining mit Kristin", time: "14:40–16:00", players: ["Kristin"] },
+    { title: "Privatraining mit Kristin", time: "14:40–16:00", players: ["Kristin"], level: "advanced" },
   ],
 };
 
@@ -1107,8 +1107,17 @@ function BookPage() {
                           <div className="min-w-0 break-words text-base sm:text-lg font-semibold">
                             {ev.time}
                           </div>
-                          <div className="mt-1.5 min-w-0 break-words text-xs font-bold uppercase tracking-wide text-ink/80">
-                            {ev.title}
+                          <div className="mt-1.5 flex flex-wrap items-center gap-x-2 gap-y-1">
+                            <span className="min-w-0 break-words text-xs font-bold uppercase tracking-wide text-ink/80">
+                              {ev.title}
+                            </span>
+                            {ev.level && ev.level !== "open" && (
+                              <span
+                                className={`inline-flex items-center rounded-full border-2 px-2 py-0.5 text-[11px] font-semibold leading-snug ${LEVEL_STYLE[ev.level]}`}
+                              >
+                                {LEVEL_LABEL[ev.level]}
+                              </span>
+                            )}
                           </div>
                           <div className="mt-2 flex flex-wrap gap-1.5">
                             {ev.players.map((p, pIndex) => (
