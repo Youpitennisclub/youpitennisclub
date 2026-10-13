@@ -1,10 +1,17 @@
 import { createClient } from "@supabase/supabase-js";
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
 import { coachEmail, sendMail, siteUrl, wrap } from "./mailer.server";
-import { maxSessionPriceCents, sessionPriceCents } from "./prices";
+import { isOutdoorSlot, maxSessionPriceCents, sessionPriceCents } from "./prices";
 
 function berlinHour(iso: string) {
   return Number(new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/Berlin", hour: "2-digit", hour12: false }).format(new Date(iso)));
+}
+
+function berlinYmd(iso: string) {
+  return new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Berlin" }).format(new Date(iso));
+}
+function outdoorOf(venue: Venue, iso: string) {
+  return isOutdoorSlot(venue, berlinYmd(iso), berlinHour(iso));
 }
 
 /** Current balance and the part still free (balance minus the max price of pending bookings). */
@@ -19,7 +26,7 @@ export async function getCreditSummary(userId: string) {
     .is("confirmed_at", null)
     .gte("starts_at", new Date().toISOString());
   const reserved = (pending ?? []).reduce(
-    (sum, b) => sum + maxSessionPriceCents({ venue: b.venue as Venue, hour: berlinHour(b.starts_at), nonMember: b.non_member, duration: b.duration }),
+    (sum, b) => sum + maxSessionPriceCents({ venue: b.venue as Venue, hour: berlinHour(b.starts_at), nonMember: b.non_member, duration: b.duration, outdoor: outdoorOf(b.venue as Venue, b.starts_at) }),
     0,
   );
   return { balance_cents: balance, reserved_cents: reserved, available_cents: balance - reserved };
@@ -176,7 +183,7 @@ export async function createBookingRecord(input: {
     // Charge from credits only students whose balance covers the price; others pay after the session.
     for (const m of toConfirm) {
       if (!m.user_id) continue;
-      const price = sessionPriceCents({ venue: input.venue, hour: berlinHour(input.starts_at), players: count, nonMember: m.non_member, duration: m.duration });
+      const price = sessionPriceCents({ venue: input.venue, hour: berlinHour(input.starts_at), players: count, nonMember: m.non_member, duration: m.duration, outdoor: outdoorOf(input.venue, input.starts_at) });
       const { data: bal } = await supabaseAdmin.from("student_credits").select("balance_cents").eq("user_id", m.user_id).maybeSingle();
       if ((bal?.balance_cents ?? 0) < price) continue;
       await applyCredit(m.user_id, -price, `Session ${when} — ${where} (${count} players)`, m.id);
