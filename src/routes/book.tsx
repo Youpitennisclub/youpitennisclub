@@ -9,7 +9,7 @@ import { createBooking, listMyBookings, cancelMyBooking, getMyCredits } from "@/
 import { isAdmin } from "@/lib/admin.functions";
 import { AdminCredits } from "@/components/AdminCredits";
 import { maxSessionPriceCents, sessionPriceCents } from "@/lib/prices";
-import { PARTNER_DISCOUNT, ratesFor } from "@/lib/prices";
+import { OUTDOOR_UNTIL, PARTNER_DISCOUNT, isOutdoorSlot, ratesFor } from "@/lib/prices";
 import wellhubLogoAsset from "@/assets/wellhub-logo.png.asset.json";
 import urbanSportsClubLogoAsset from "@/assets/urban-sports-club-logo.png.asset.json";
 
@@ -186,18 +186,26 @@ const EVENING_ONLY_DAYS: Record<string, number[]> = {
 };
 /** Days played outdoor — highlighted in the calendar. */
 const OUTDOOR_DAYS = new Set(["2026-10-07", "2026-10-09"]);
-/** Until this date (inclusive), every weekday offers outdoor slots 12:00–18:00 at BFC Alemannia. */
-const OUTDOOR_UNTIL = "2026-10-24";
+/** Until OUTDOOR_UNTIL, every weekday offers outdoor slots 12:00–18:00 at BFC Alemannia. */
 /** Outdoor hours on those weekdays (12:00–18:00 = slots starting 12–17). */
 const OUTDOOR_WEEKDAY_HOURS = [12, 13, 14, 15, 16, 17];
 function isOutdoorWeekday(date: Date) {
   const day = date.getDay();
   return day >= 1 && day <= 5 && ymd(date) <= OUTDOOR_UNTIL;
 }
+/** Until OUTDOOR_UNTIL, Saturdays are outdoor at BFC Alemannia 12:00–16:00 (replaces the indoor hours). */
+const OUTDOOR_SATURDAY_HOURS = [12, 13, 14, 15];
+function isOutdoorSaturday(date: Date) {
+  return date.getDay() === 6 && ymd(date) <= OUTDOOR_UNTIL;
+}
+/** Outdoor slot = summer prices (no court fee). */
+function slotOutdoor(slot: { venue: Venue; start: Date; indoor?: boolean }) {
+  return !slot.indoor && isOutdoorSlot(slot.venue, ymd(slot.start), slot.start.getHours());
+}
 function isOutdoorDay(date: Date) {
   // Evening-only days (e.g. Thu 08.10) are not outdoor days.
   if (EVENING_ONLY_DAYS[ymd(date)]) return false;
-  return OUTDOOR_DAYS.has(ymd(date)) || isOutdoorWeekday(date);
+  return OUTDOOR_DAYS.has(ymd(date)) || isOutdoorWeekday(date) || isOutdoorSaturday(date);
 }
 /** TC Longline winter season starts on this date — no Longline slots before. */
 const LONGLINE_FROM = "2026-10-12";
@@ -338,7 +346,9 @@ function buildSlotsForDate(date: Date): Slot[] {
     // TC Longline: winter season starts 12 Oct — no Longline slots before that.
     if (club === "longline" && ymd(date) < LONGLINE_FROM) continue;
     const effectiveHours =
-      outdoorWeekday && club === "alemannia"
+      isOutdoorSaturday(date) && club === "alemannia"
+        ? OUTDOOR_SATURDAY_HOURS
+        : outdoorWeekday && club === "alemannia"
         ? [...new Set([...hours, ...OUTDOOR_WEEKDAY_HOURS])].sort((a, b) => a - b)
         : hours;
     for (const h of effectiveHours) {
@@ -696,6 +706,7 @@ function BookPage() {
         hour: berlinHourOf(slot.start),
         nonMember: slot.venue === "alemannia" && nonMember,
         duration: slot.duration,
+        outdoor: slotOutdoor(slot),
       };
       setConfirmation({
         start: slot.start,
@@ -1566,6 +1577,7 @@ function BookPage() {
                 const r = ratesFor(
                   selectedSlot.venue,
                   Number(new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/Berlin", hour: "2-digit", hour12: false }).format(selectedSlot.start)),
+                  slotOutdoor(selectedSlot),
                 );
                 return (
                   <>
@@ -1610,7 +1622,7 @@ function BookPage() {
 
           {!selectedSlot.camp && (() => {
             const hour = Number(new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/Berlin", hour: "2-digit", hour12: false }).format(selectedSlot.start));
-            const need = maxSessionPriceCents({ venue: selectedSlot.venue, hour, nonMember: selectedSlot.venue === "alemannia" && nonMember, duration: selectedSlot.duration });
+            const need = maxSessionPriceCents({ venue: selectedSlot.venue, hour, nonMember: selectedSlot.venue === "alemannia" && nonMember, duration: selectedSlot.duration, outdoor: slotOutdoor(selectedSlot) });
             const avail = credits?.available_cents ?? 0;
             return (
               <div className="mt-4 rounded-2xl border-2 border-ink/10 p-4 text-sm">
