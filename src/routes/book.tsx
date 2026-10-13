@@ -1577,6 +1577,7 @@ function BookPage() {
                 const r = ratesFor(
                   selectedSlot.venue,
                   Number(new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/Berlin", hour: "2-digit", hour12: false }).format(selectedSlot.start)),
+                  slotOutdoor(selectedSlot),
                 );
                 return (
                   <>
@@ -1621,7 +1622,7 @@ function BookPage() {
 
           {!selectedSlot.camp && (() => {
             const hour = Number(new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/Berlin", hour: "2-digit", hour12: false }).format(selectedSlot.start));
-            const need = maxSessionPriceCents({ venue: selectedSlot.venue, hour, nonMember: selectedSlot.venue === "alemannia" && nonMember, duration: selectedSlot.duration });
+            const need = maxSessionPriceCents({ venue: selectedSlot.venue, hour, nonMember: selectedSlot.venue === "alemannia" && nonMember, duration: selectedSlot.duration, outdoor: slotOutdoor(selectedSlot) });
             const avail = credits?.available_cents ?? 0;
             return (
               <div className="mt-4 rounded-2xl border-2 border-ink/10 p-4 text-sm">
