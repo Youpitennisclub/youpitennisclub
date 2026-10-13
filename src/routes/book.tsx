@@ -200,7 +200,10 @@ function isOutdoorSaturday(date: Date) {
 }
 /** Outdoor slot = summer prices (no court fee). */
 function slotOutdoor(slot: { venue: Venue; start: Date; indoor?: boolean }) {
-  return !slot.indoor && isOutdoorSlot(slot.venue, ymd(slot.start), slot.start.getHours());
+  return (
+    !slot.indoor &&
+    isOutdoorSlot(slot.venue, ymd(slot.start), berlinHourOf(slot.start))
+  );
 }
 function isOutdoorDay(date: Date) {
   // Evening-only days (e.g. Thu 08.10) are not outdoor days.
