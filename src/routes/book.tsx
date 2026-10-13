@@ -357,7 +357,7 @@ function buildSlotsForDate(date: Date): Slot[] {
   }
   // One-off 90-min slot 17:00–18:30 at BFC Alemannia.
   const specialHour = SPECIAL_90MIN_DAYS[ymd(date)];
-  if (specialHour !== undefined) {
+  if (specialHour !== undefined && !slots.some((s) => s.start.getHours() === specialHour)) {
     const d = new Date(date);
     d.setHours(specialHour, 0, 0, 0);
     slots.push({ start: d, duration: 90, level: "open", venue: "alemannia" });
