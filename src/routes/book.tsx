@@ -329,7 +329,12 @@ function buildSlotsForDate(date: Date): Slot[] {
   // 1-hour slots, only at the hours each club actually has free.
   // Until 24 Oct, every weekday is outdoor at BFC Alemannia 12:00–18:00.
   const outdoorWeekday = isOutdoorWeekday(date);
-  for (const { club, hours } of CLUB_HOURS[day] ?? []) {
+  const dayEntries = [...(CLUB_HOURS[day] ?? [])];
+  // Fridays have no regular BFC hours — add the outdoor ones anyway.
+  if (outdoorWeekday && !dayEntries.some((e) => e.club === "alemannia")) {
+    dayEntries.push({ club: "alemannia", hours: OUTDOOR_WEEKDAY_HOURS });
+  }
+  for (const { club, hours } of dayEntries) {
     // TC Longline: winter season starts 12 Oct — no Longline slots before that.
     if (club === "longline" && ymd(date) < LONGLINE_FROM) continue;
     const effectiveHours =
