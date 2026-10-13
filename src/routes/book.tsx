@@ -195,6 +195,8 @@ function isOutdoorWeekday(date: Date) {
   return day >= 1 && day <= 5 && ymd(date) <= OUTDOOR_UNTIL;
 }
 function isOutdoorDay(date: Date) {
+  // Evening-only days (e.g. Thu 08.10) are not outdoor days.
+  if (EVENING_ONLY_DAYS[ymd(date)]) return false;
   return OUTDOOR_DAYS.has(ymd(date)) || isOutdoorWeekday(date);
 }
 /** TC Longline winter season starts on this date — no Longline slots before. */
@@ -345,6 +347,7 @@ function buildSlotsForDate(date: Date): Slot[] {
   }
   // Extra one-off 1-hour slots on the outdoor days (BFC Alemannia).
   for (const h of EXTRA_60MIN_DAYS[ymd(date)] ?? []) {
+    if (slots.some((s) => s.start.getHours() === h)) continue;
     const d = new Date(date);
     d.setHours(h, 0, 0, 0);
     slots.push({ start: d, duration: 60, level: "open", venue: "alemannia" });
