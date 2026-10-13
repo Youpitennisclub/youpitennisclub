@@ -186,6 +186,17 @@ const EVENING_ONLY_DAYS: Record<string, number[]> = {
 };
 /** Days played outdoor — highlighted in the calendar. */
 const OUTDOOR_DAYS = new Set(["2026-10-07", "2026-10-09"]);
+/** Until this date (inclusive), every weekday offers outdoor slots 12:00–18:00 at BFC Alemannia. */
+const OUTDOOR_UNTIL = "2026-10-24";
+/** Outdoor hours on those weekdays (12:00–18:00 = slots starting 12–17). */
+const OUTDOOR_WEEKDAY_HOURS = [12, 13, 14, 15, 16, 17];
+function isOutdoorWeekday(date: Date) {
+  const day = date.getDay();
+  return day >= 1 && day <= 5 && ymd(date) <= OUTDOOR_UNTIL;
+}
+function isOutdoorDay(date: Date) {
+  return OUTDOOR_DAYS.has(ymd(date)) || isOutdoorWeekday(date);
+}
 /** TC Longline winter season starts on this date — no Longline slots before. */
 const LONGLINE_FROM = "2026-10-12";
 
