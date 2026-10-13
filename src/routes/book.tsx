@@ -186,6 +186,19 @@ const EVENING_ONLY_DAYS: Record<string, number[]> = {
 };
 /** Days played outdoor — highlighted in the calendar. */
 const OUTDOOR_DAYS = new Set(["2026-10-07", "2026-10-09"]);
+/** Until this date (inclusive), every weekday offers outdoor slots 12:00–18:00 at BFC Alemannia. */
+const OUTDOOR_UNTIL = "2026-10-24";
+/** Outdoor hours on those weekdays (12:00–18:00 = slots starting 12–17). */
+const OUTDOOR_WEEKDAY_HOURS = [12, 13, 14, 15, 16, 17];
+function isOutdoorWeekday(date: Date) {
+  const day = date.getDay();
+  return day >= 1 && day <= 5 && ymd(date) <= OUTDOOR_UNTIL;
+}
+function isOutdoorDay(date: Date) {
+  // Evening-only days (e.g. Thu 08.10) are not outdoor days.
+  if (EVENING_ONLY_DAYS[ymd(date)]) return false;
+  return OUTDOOR_DAYS.has(ymd(date)) || isOutdoorWeekday(date);
+}
 /** TC Longline winter season starts on this date — no Longline slots before. */
 const LONGLINE_FROM = "2026-10-12";
 
@@ -314,10 +327,21 @@ function buildSlotsForDate(date: Date): Slot[] {
   }
 
   // 1-hour slots, only at the hours each club actually has free.
-  for (const { club, hours } of CLUB_HOURS[day] ?? []) {
+  // Until 24 Oct, every weekday is outdoor at BFC Alemannia 12:00–18:00.
+  const outdoorWeekday = isOutdoorWeekday(date);
+  const dayEntries = [...(CLUB_HOURS[day] ?? [])];
+  // Fridays have no regular BFC hours — add the outdoor ones anyway.
+  if (outdoorWeekday && !dayEntries.some((e) => e.club === "alemannia")) {
+    dayEntries.push({ club: "alemannia", hours: OUTDOOR_WEEKDAY_HOURS });
+  }
+  for (const { club, hours } of dayEntries) {
     // TC Longline: winter season starts 12 Oct — no Longline slots before that.
     if (club === "longline" && ymd(date) < LONGLINE_FROM) continue;
-    for (const h of hours) {
+    const effectiveHours =
+      outdoorWeekday && club === "alemannia"
+        ? [...new Set([...hours, ...OUTDOOR_WEEKDAY_HOURS])].sort((a, b) => a - b)
+        : hours;
+    for (const h of effectiveHours) {
       // Mon 12.10: slots only from 15:00.
       if (ymd(date) === "2026-10-12" && h < 15) continue;
       if (isCampDay && h >= 18) continue;
@@ -328,6 +352,7 @@ function buildSlotsForDate(date: Date): Slot[] {
   }
   // Extra one-off 1-hour slots on the outdoor days (BFC Alemannia).
   for (const h of EXTRA_60MIN_DAYS[ymd(date)] ?? []) {
+    if (slots.some((s) => s.start.getHours() === h)) continue;
     const d = new Date(date);
     d.setHours(h, 0, 0, 0);
     slots.push({ start: d, duration: 60, level: "open", venue: "alemannia" });
@@ -340,7 +365,7 @@ function buildSlotsForDate(date: Date): Slot[] {
   }
   // One-off 90-min slot 17:00–18:30 at BFC Alemannia.
   const specialHour = SPECIAL_90MIN_DAYS[ymd(date)];
-  if (specialHour !== undefined) {
+  if (specialHour !== undefined && !slots.some((s) => s.start.getHours() === specialHour)) {
     const d = new Date(date);
     d.setHours(specialHour, 0, 0, 0);
     slots.push({ start: d, duration: 90, level: "open", venue: "alemannia" });
@@ -989,7 +1014,7 @@ function BookPage() {
                 {days.map((day) => {
                   const slots = buildSlotsForDate(day);
                   const isToday = day.toDateString() === new Date().toDateString();
-                  const outdoor = OUTDOOR_DAYS.has(ymd(day));
+                  const outdoor = isOutdoorDay(day);
                   return (
                     <div
                       key={day.toISOString()}
