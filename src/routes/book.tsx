@@ -1006,7 +1006,7 @@ function BookPage() {
                 {days.map((day) => {
                   const slots = buildSlotsForDate(day);
                   const isToday = day.toDateString() === new Date().toDateString();
-                  const outdoor = OUTDOOR_DAYS.has(ymd(day));
+                  const outdoor = isOutdoorDay(day);
                   return (
                     <div
                       key={day.toISOString()}
