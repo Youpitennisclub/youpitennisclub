@@ -133,7 +133,7 @@ function Index() {
           <div className="relative">
             <div className="flex flex-wrap items-center gap-3 mb-5">
               <span translate="no" className="notranslate inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-ink text-background border border-ink text-sm font-semibold">
-                Wintersaison
+                Winter season
               </span>
               <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-background/85 text-ink border border-background/70 text-sm font-semibold">
                 Indoor
@@ -165,21 +165,11 @@ function Index() {
                 <li className="min-w-0">
                   <div className="flex items-baseline gap-2 font-display text-base sm:text-lg uppercase text-clay">
                     <span className="shrink-0">2.</span>
-                    <span className="min-w-0 break-words">We match you up</span>
+                    <span className="min-w-0 break-words">Join a group</span>
                   </div>
                   <p className="mt-1 pl-7 text-sm sm:text-base text-ink/75">
-                    No partner needed! We organize the groups based on court availability:
+                    Up to 4 players of your level. As soon as 2 players have joined, the session is confirmed by email, and up to 2 more can still join. The more players join, the lower the price per person.
                   </p>
-                  <ul className="mt-2 pl-7 space-y-1.5 text-sm sm:text-base text-ink/80">
-                    <li className="flex gap-2">
-                      <span aria-hidden="true">•</span>
-                      <span className="min-w-0 break-words"><span className="font-semibold text-ink">Weekdays (before 4 PM)</span>: Sessions run with 2 to 4 players.</span>
-                    </li>
-                    <li className="flex gap-2">
-                      <span aria-hidden="true">•</span>
-                      <span className="min-w-0 break-words"><span className="font-semibold text-ink">Evenings &amp; Weekends</span>: Sessions confirm as soon as 4 players join.</span>
-                    </li>
-                  </ul>
                 </li>
                 <li className="min-w-0">
                   <div className="flex items-baseline gap-2 font-display text-base sm:text-lg uppercase text-clay">
@@ -187,7 +177,7 @@ function Index() {
                     <span className="min-w-0 break-words">Get ready to play!</span>
                   </div>
                   <p className="mt-1 pl-7 text-sm sm:text-base text-ink/75">
-                    We lock in your slot and send the training details as soon as your group is ready (at least 24h before).
+                    You receive a confirmation email as soon as your session is confirmed.
                   </p>
                 </li>
               </ol>
@@ -265,9 +255,6 @@ function Index() {
                     </li>
                   ))}
                 </ul>
-                {r.nonMemberExtra > 0 && (
-                  <p className="mt-3 text-xs text-muted-foreground">Non-members of BFC Alemannia: +€{r.nonMemberExtra} per person</p>
-                )}
               </article>
             );
           })}
@@ -362,7 +349,9 @@ function Index() {
         <h2 className="text-3xl sm:text-4xl font-display uppercase mb-8">FAQ</h2>
         <div className="max-w-3xl divide-y divide-border border-y border-border">
           {[
-            { q: "Where do we play?", a: "Summer season: BFC Alemannia Tennis Club — Ollenhauerstr. 64e, 13403 Berlin (clay courts). Winter season: mainly at BFC Alemannia, with some sessions at TC Longline." },
+            { q: "Where do we play?", a: "Summer season: BFC Alemannia Tennis Club — Ollenhauerstr. 64e, 13403 Berlin (clay courts). Winter season: mainly at BFC Alemannia, with sessions at TC Longline (Nordufer 28A, 13351 Berlin) on Fridays only." },
+            { q: "What is the cancellation policy?", a: "Cancellation is free up to 48 hours before your session. Within 48 hours, the court is already booked and the club charges it, so the session is due unless another player takes your place. Bookings made less than 48 hours before the session are binding immediately." },
+            { q: "What should I wear?", a: "Our courts are clay and can be slippery. Wear all-court or clay-court tennis shoes; regular sports shoes are fine for your first sessions." },
             { q: "I don't speak German. Is that ok?", a: "Absolutely — most of our community is international. Lessons run in English by default." },
             { q: "Do I need my own racket?", a: "No — but you can rent a racket for €2 per session." },
             { q: "How do I pay?", a: "PayPal, SEPA or cash on court. Packs are non-refundable but transferable." },

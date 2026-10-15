@@ -5,6 +5,7 @@ import { toast } from "sonner";
 import { PhotoPicker } from "@/components/PhotoPicker";
 import { CopyNumberButton } from "@/components/CopyNumberButton";
 import { handleWhatsAppClick, useWhatsAppLink, WhatsAppIcon } from "@/components/WhatsAppIcon";
+import { BOOKING_NOTICE, MAX_PLAYERS, MIN_PLAYERS, canJoin, compatibleLevels } from "@/lib/booking-rules";
 import { createBooking, listMyBookings, cancelMyBooking, getMyCredits } from "@/lib/bookings.functions";
 import { isAdmin } from "@/lib/admin.functions";
 import { AdminCredits } from "@/components/AdminCredits";
@@ -43,7 +44,7 @@ type SlotLevel = Level | "open";
 /** Clubs the sessions take place at. */
 type Venue = "alemannia" | "longline";
 
-const MAX_PER_SLOT = 6;
+const MAX_PER_SLOT = MAX_PLAYERS;
 
 /* =========================================================================
    ADMIN CONFIG — edit the group names, the daily level rotation and the
@@ -310,13 +311,8 @@ const FIRST_OPEN_DAY = "2026-10-07";
 const SEASON_END = new Date("2027-04-04T23:59:59");
 
 /** Minimum students of the same level to confirm a slot. */
-function groupMin(start: Date) {
-  const day = start.getDay();
-  const weekend = day === 0 || day === 6;
-  if (weekend) return 4;
-  const h = start.getHours();
-  // From 16:00 on weekdays a full group of 4 is needed.
-  return h >= 16 ? 4 : 2;
+function groupMin(_start: Date) {
+  return MIN_PLAYERS;
 }
 
 function buildSlotsForDate(date: Date): Slot[] {
@@ -575,14 +571,15 @@ function BookPage() {
       const res = (await cancelMyBooking({
         data: { id, password: cancelPassword },
       })) as { status: string };
-      if (res.status === "cancelled") {
-        toast.success("Booking cancelled — a confirmation email is on its way.");
+      if (res.status === "cancelled" || res.status === "cancelled_due") {
+        if (res.status === "cancelled_due") toast.info("Your spot is released. The session remains due unless another player takes your place.");
+        else toast.success("Booking cancelled — a confirmation email is on its way.");
         setCancelId(null);
         setCancelPassword("");
       } else if (res.status === "bad_password") {
         toast.error("Wrong password. Only the account owner can cancel this booking.");
       } else if (res.status === "too_late") {
-        toast.error("Too late: cancellation is only possible up to 24h before the session.");
+        toast.error("Too late: cancellation is only possible up to 48h before the session.");
         setCancelId(null);
       } else if (res.status === "already") {
         toast.info("This booking was already cancelled.");
@@ -668,7 +665,7 @@ function BookPage() {
     );
 
   const isFull = (slot: Slot) => participantsFor(slot).length >= MAX_PER_SLOT;
-  const isPast = (slot: Slot) => slot.start.getTime() <= Date.now();
+  const isPast = (slot: Slot) => !canJoin(slot.start.getTime(), 0);
 
   const openSlot = (slot: Slot) => {
     if (slot.camp) {
@@ -679,6 +676,9 @@ function BookPage() {
       toast.error("Sign in to book this slot — use the sign-in button above the calendar.");
       return;
     }
+    if (!canJoin(slot.start.getTime(), participantsFor(slot).length)) return;
+    const first = participantsFor(slot)[0];
+    if (first && !compatibleLevels(level, first.level)) setLevel(first.level);
     if (slot.level !== "open") setLevel(slot.level);
     setSelectedSlot(slot);
   };
@@ -730,16 +730,13 @@ function BookPage() {
       await loadMyBookings();
     } catch (err) {
       const msg = err instanceof Error ? err.message : "";
-      if (msg.includes("INSUFFICIENT_CREDITS")) {
-        const [avail = "0", need = "0"] = (msg.split("INSUFFICIENT_CREDITS:")[1] ?? "").split(":");
-        toast.error(
-          `Not enough credits: this session needs up to €${(Number(need) / 100).toFixed(0)} and you have €${(Number(avail) / 100).toFixed(0)} available. Top up your €200 Credit Pack first.`,
-        );
-        return;
-      }
       toast.error(
         msg.includes("fully booked")
           ? "Sorry, this slot just got fully booked."
+          : msg.includes("BOOKING_CLOSED") ? "Bookings close 3 hours before the session."
+          : msg.includes("LEVEL_MISMATCH") ? "Please join a group of your level. Intermediate and Advanced can train together."
+          : msg.includes("ALREADY_BOOKED") ? "You have already booked this slot."
+          : msg.includes("SLOT_CANCELLED") ? "This session was cancelled because there were not enough players."
           : "Something went wrong. Please try again.",
       );
     } finally {
@@ -806,10 +803,7 @@ function BookPage() {
           Book your <span className="text-clay">tennis session</span>
         </h1>
         <p className="mt-4 max-w-xl text-base sm:text-lg text-muted-foreground">
-          <b className="text-ink">Winter season bookings are open!</b> 1-hour sessions at BFC Alemannia and TC Longline. Pick your level and book — the session is confirmed automatically when enough students of the same level join:{" "}
-          <b className="text-ink">2 students</b> on weekdays before 16:00,{" "}
-          <b className="text-ink">4 students</b> on weekdays from 16:00 and on weekends. Intermediate and Advanced can play together. I can also train you in a group of{" "}
-          <b className="text-ink">3 students</b> — for a private lesson, contact me directly on{" "}
+          <b className="text-ink">Winter season bookings are open!</b> 1-hour group sessions at BFC Alemannia and TC Longline. Pick your level and join a group of up to 4 players. As soon as 2 players of the same level have joined, the session is confirmed by email, and up to 2 more players can still join afterwards. The more players join, the lower the price per person, and the price is shown when you book. Intermediate and Advanced players can train together. Looking for a private lesson? Contact me directly on{" "}
           <a
             href={whatsappLink}
             onClick={handleWhatsAppClick}
@@ -1080,7 +1074,7 @@ function BookPage() {
                                     {fmtTime(slot.start)}–{endTime(slot)}
                                   </span>
                                   <span className="shrink-0 text-xs px-2 py-0.5 rounded-full bg-ink/10">
-                                    {parts.length}/{groupMin(slot.start)}
+                                    {parts.length}/{MAX_PER_SLOT}
                                   </span>
                                 </div>
                                 {slot.indoor && (
@@ -1214,7 +1208,7 @@ function BookPage() {
                 </span>
               </div>
               <p className="mt-2 text-sm text-muted-foreground">
-                Only your own sessions appear here — cancellation is possible up to 24h before
+                Only your own sessions appear here — cancellation is possible up to 48h before
                 the start.
               </p>
               {myBookings.length === 0 ? (
@@ -1244,7 +1238,7 @@ function BookPage() {
                       </span>
                       <button
                         type="button"
-                        disabled={!b.cancellable || cancellingId === b.id}
+                        disabled={cancellingId === b.id}
                         onClick={() => cancelOne(b.id)}
                         className="px-4 py-2.5 rounded-full bg-destructive text-destructive-foreground text-sm font-semibold hover:opacity-90 transition disabled:opacity-40"
                       >
@@ -1252,7 +1246,7 @@ function BookPage() {
                           ? "Cancelling…"
                           : b.cancellable
                             ? "Cancel"
-                            : "Less than 24h"}
+                            : "Cancel — payment due"}
                       </button>
                     </li>
                   ))}
@@ -1557,7 +1551,7 @@ function BookPage() {
           )}
           <div className="mt-2 text-sm text-muted-foreground">
             {selectedSlot.duration} minutes ·{" "}
-            {participantsFor(selectedSlot).length}/{groupMin(selectedSlot.start)} students
+            {participantsFor(selectedSlot).length}/{MAX_PER_SLOT} students
           </div>
 
           <div className="mt-4 rounded-2xl bg-ball/30 border-2 border-ink/10 p-4">
@@ -1648,6 +1642,7 @@ function BookPage() {
             );
           })()}
 
+          <p className="mt-4 text-sm text-muted-foreground">{BOOKING_NOTICE}</p>
           <h3 className="font-display text-xl uppercase mt-6 mb-3">Your details</h3>
           <form onSubmit={submit} className="grid gap-3">
             <div className="grid sm:grid-cols-2 gap-3">
@@ -1725,7 +1720,7 @@ function BookPage() {
               return (
                 <button
                   type="button"
-                  disabled={cancellingId === existing.id || !existing.cancellable}
+                  disabled={cancellingId === existing.id}
                   onClick={() => cancelOne(existing.id)}
                   className="mt-3 px-7 py-5 rounded-2xl bg-destructive text-destructive-foreground font-semibold text-lg hover:opacity-90 transition disabled:opacity-50"
                 >
@@ -1733,7 +1728,7 @@ function BookPage() {
                     ? "Cancelling…"
                     : existing.cancellable
                       ? "Cancel my booking ❌"
-                      : "Cannot cancel — less than 24h"}
+                      : "Cancel — payment due"}
                 </button>
               );
             })()}
@@ -1747,12 +1742,10 @@ function BookPage() {
             </button>
             <div className="mt-3 rounded-2xl bg-destructive/10 border-2 border-destructive p-4">
               <div className="font-display text-lg sm:text-xl uppercase text-destructive leading-tight">
-                Cancellation only up to 24h before the session
+                Cancellation only up to 48h before the session
               </div>
               <p className="mt-2 text-sm font-semibold text-ink">
-                You can cancel your booking directly here or under “My bookings”. Only you can
-                cancel your own sessions. Later than 24h before the start, cancellation is not
-                possible.
+                Cancellation is free up to 48 hours before your session. Within 48 hours, the session is due unless another player takes your place. Bookings made less than 48 hours before are binding immediately.
               </p>
             </div>
 
@@ -1773,7 +1766,7 @@ function BookPage() {
           </h3>
           <p className="mt-2 text-sm text-muted-foreground break-words">
             {confirmation.confirmed
-              ? "Your group is complete — the session is confirmed. A confirmation email is on its way."
+              ? "Your session is confirmed — up to 4 players can join. A confirmation email is on its way."
               : `Your spot is saved (${confirmation.count}/${confirmation.min} students). The session is confirmed automatically as soon as ${confirmation.min} students of your level join — you'll get an email.`}
           </p>
 
@@ -1793,7 +1786,7 @@ function BookPage() {
                 value={`${VENUE_LABEL[confirmation.venue]}${confirmation.indoor ? " · INDOOR" : ""}`}
               />
               <ConfirmRow label="Level" value={LEVEL_LABEL[confirmation.level]} />
-              <ConfirmRow label="Students" value={`${confirmation.count}/${confirmation.min}`} />
+              <ConfirmRow label="Students" value={`${confirmation.count}/${MAX_PER_SLOT}`} />
             </dl>
           </div>
 
@@ -1817,7 +1810,7 @@ function BookPage() {
 
           <div className="mt-3 rounded-2xl bg-destructive/10 border-2 border-destructive p-3.5 sm:p-4">
             <div className="font-display text-base uppercase leading-tight text-destructive">
-              Cancellation up to 24h before
+              Cancellation up to 48h before
             </div>
             <p className="mt-1 text-sm break-words">
               This session appears under “My bookings”, where you can cancel it in time.
@@ -1858,7 +1851,7 @@ function BookPage() {
         <Modal onClose={() => setCancelId(null)}>
           <h3 className="font-display text-2xl uppercase leading-tight">Confirm cancellation</h3>
           <p className="mt-2 text-sm text-muted-foreground">
-            For your security, enter your account password. Nobody else can cancel your session.
+            For your security, enter your account password. Cancellation is free at least 48 hours before the session. Within 48 hours, payment remains due unless another player takes your place.
           </p>
           <label className="mt-4 block text-sm font-semibold">Your password</label>
           <input
