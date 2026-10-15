@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { confirmCancellation } from "@/lib/bookings.functions";
 
-type Status = "loading" | "cancelled" | "already" | "too_late" | "invalid" | "error";
+type Status = "loading" | "cancelled_due" | "cancelled" | "already" | "too_late" | "invalid" | "error";
 
 export const Route = createFileRoute("/cancel")({
   head: () => ({
@@ -11,12 +11,12 @@ export const Route = createFileRoute("/cancel")({
       {
         name: "description",
         content:
-          "Confirm the cancellation of your tennis session with Youpi Tennis Club Berlin. Cancellation is possible up to 24 hours before the lesson starts.",
+          "Confirm the cancellation of your tennis session with Youpi Tennis Club Berlin. Cancellation is possible up to 48 hours before the lesson starts.",
       },
       { property: "og:title", content: "Cancel your session — Youpi Tennis Club" },
       {
         property: "og:description",
-        content: "Confirm your cancellation. Possible up to 24 hours before the session.",
+        content: "Confirm your cancellation. Possible up to 48 hours before the session.",
       },
       { property: "og:type", content: "website" },
       { name: "robots", content: "noindex, follow" },
@@ -46,10 +46,11 @@ function CancelPage() {
       t: "Cancellation confirmed ❌",
       p: "Your spot is released and your name was removed from the calendar. Youpi has been notified.",
     },
+    cancelled_due: { t: "Spot released — payment due", p: "Cancellation is within 48 hours. The session remains due unless another player takes your place." },
     already: { t: "Already cancelled", p: "This session was already cancelled." },
     too_late: {
       t: "Too late to cancel",
-      p: "Cancellation is only possible up to 24 hours before the session starts. Please contact Youpi directly.",
+      p: "Cancellation is only possible up to 48 hours before the session starts. Please contact Youpi directly.",
     },
     invalid: { t: "Invalid link", p: "This cancellation link is not valid anymore." },
     error: { t: "Something went wrong", p: "Please try again or contact Youpi directly." },

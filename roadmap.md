@@ -1,5 +1,9 @@
 # Roadmap
 
+- [ ] Apply 2–4-player groups, 3h booking cutoff, 48h cancellation, automatic lone-player cancellation and emails, with transactional capacity and credit repricing.
+- [ ] Update only requested group/intro/FAQ/menu/badge copy; hide home BFC surcharge lines without changing prices.
+- [ ] Test booking rules and verify desktop/mobile display and authenticated booking flow.
+
 - [x] Rétablir les drapeaux en images, stabiliser la taille des logos partenaires et retirer « See lessons ».
 
 - [x] Calendrier rempli jusqu'au 4 avril 2027 (fin de saison hiver)
