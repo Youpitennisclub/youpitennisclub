@@ -2,6 +2,8 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
+import { playerLabel } from "@/lib/player-label";
+import { Button } from "@/components/ui/button";
 import { PhotoPicker } from "@/components/PhotoPicker";
 import { CopyNumberButton } from "@/components/CopyNumberButton";
 import { handleWhatsAppClick, useWhatsAppLink, WhatsAppIcon } from "@/components/WhatsAppIcon";
@@ -53,20 +55,20 @@ const MAX_PER_SLOT = MAX_PLAYERS;
 
 /** Group names shown in the calendar (edit freely). "open" shows no label. */
 const LEVEL_LABEL: Record<SlotLevel, string> = {
-  total_beginner: "Total beginner",
-  beginner: "Beginner",
-  intermediate: "Intermediate",
-  advanced: "Advanced",
+  total_beginner: "🌱 Total beginner",
+  beginner: "🎾 Beginner",
+  intermediate: "🔥 Intermediate",
+  advanced: "🏆 Advanced",
   open: "",
 };
 
 /** Colors per group: total beginner = sky, beginner = yellow, intermediate = orange, advanced = pink. */
 const LEVEL_STYLE: Record<SlotLevel, string> = {
-  total_beginner: "bg-sky text-ink border-sky hover:brightness-105",
-  beginner: "bg-ball text-ink border-ball hover:brightness-105",
-  intermediate: "bg-clay text-background border-clay hover:brightness-110",
-  advanced: "bg-pink text-ink border-pink hover:brightness-105",
-  open: "bg-background text-ink border-ink/15 hover:bg-ink/5",
+  total_beginner: "bg-level-total text-level-total-ink border-level-total",
+  beginner: "bg-level-beginner text-level-beginner-ink border-level-beginner",
+  intermediate: "bg-level-intermediate text-level-light border-level-intermediate",
+  advanced: "bg-level-advanced text-level-light border-level-advanced",
+  open: "bg-card text-ink border-border",
 };
 
 /** Club names — shown in the legend, on every slot, in the modals and in the emails. */
@@ -77,8 +79,8 @@ const VENUE_LABEL: Record<Venue, string> = {
 
 /** Club color codes: BFC Alemannia = navy blue, TC Longline = clay orange. */
 const VENUE_STYLE: Record<Venue, string> = {
-  alemannia: "bg-navy text-background border-navy",
-  longline: "bg-clay text-background border-clay",
+  alemannia: "bg-book-club-blue text-level-light border-book-club-blue",
+  longline: "bg-book-club-teal text-level-light border-book-club-teal",
 };
 
 /* =========================================================================
@@ -180,6 +182,8 @@ const EXTRA_60MIN_DAYS: Record<string, number[]> = {
 /** Indoor 1-hour slots at BFC Alemannia — labelled INDOOR in the calendar. */
 const INDOOR_60MIN_DAYS: Record<string, number[]> = {
   "2026-10-07": [21], // Wed 07.10 — 21:00–22:00 indoor
+  "2026-10-20": [18, 19, 20, 21],
+  "2026-10-21": [18, 19, 20, 21],
 };
 /** Days where regular hours are replaced by special evening slots (BFC Alemannia). */
 const EVENING_ONLY_DAYS: Record<string, number[]> = {
@@ -281,6 +285,8 @@ type MyBooking = {
   level: Level;
   venue?: Venue;
   cancellable: boolean;
+  cancelled?: boolean;
+  payment_due?: boolean;
 };
 
 /** What the student sees right after booking: the session recap + how they pay. */
@@ -424,19 +430,19 @@ function berlinHourOf(d: Date) {
 function Modal({ onClose, children }: { onClose: () => void; children: React.ReactNode }) {
   return (
     <div className="fixed inset-0 z-[100] flex items-end sm:items-center justify-center">
-      <button
+      <Button
         aria-label="Close"
         onClick={onClose}
         className="absolute inset-0 bg-ink/60 backdrop-blur-sm"
       />
       <div className="relative w-full sm:max-w-lg max-h-[92vh] overflow-y-auto rounded-t-3xl sm:rounded-3xl bg-card border-2 border-ink/10 shadow-2xl p-5 sm:p-7">
-        <button
+        <Button
           onClick={onClose}
           className="absolute right-4 top-4 h-9 w-9 rounded-full bg-ink/5 grid place-items-center text-lg font-bold"
           aria-label="Close"
         >
           ×
-        </button>
+        </Button>
         {children}
       </div>
     </div>
@@ -454,6 +460,7 @@ function ConfirmRow({ label, value }: { label: string; value: React.ReactNode })
 }
 
 function BookPage() {
+  const [clubFilter, setClubFilter] = useState<Venue | "all">("all");
   const whatsappLink = useWhatsAppLink();
   const navigate = useNavigate();
   const today = startOfDay(new Date());
@@ -750,16 +757,16 @@ function BookPage() {
 
 
   const inputCls =
-    "w-full min-w-0 px-4 py-3 rounded-2xl bg-background border-2 border-ink/10 focus:border-clay outline-none transition";
+    "w-full min-w-0 px-4 py-3 rounded-2xl bg-background border-2 border-ink/10 focus:border-violet outline-none transition";
 
   return (
-    <main className="relative min-h-screen text-left">
+    <main className="booking-page relative min-h-screen text-left bg-background">
       {/* NAV */}
       <header className="sticky top-0 z-50 backdrop-blur-md bg-background/70 border-b border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3">
           <Link to="/" className="flex min-w-0 items-center gap-2 font-display text-base sm:text-2xl uppercase leading-tight">
             <span
-              className="inline-block w-7 h-7 shrink-0 rounded-full bg-ball ball-spin shadow-inner"
+              className="inline-block w-7 h-7 shrink-0 rounded-full bg-muted ball-spin shadow-inner"
               style={{ boxShadow: "inset -4px -4px 0 oklch(0.77 0.17 100)" }}
             />
             <span className="min-w-0 break-words">Youpi Tennis Club</span>
@@ -768,7 +775,7 @@ function BookPage() {
             {unlocked && (
               <span
                 title={email}
-                className="inline-flex min-w-0 max-w-full items-center gap-2 px-3 py-2 rounded-full border-2 border-clay/40 bg-clay/10 text-xs sm:max-w-[14rem] sm:text-sm font-semibold"
+                className="inline-flex min-w-0 max-w-full items-center gap-2 px-3 py-2 rounded-full border-2 border-violet/40 bg-muted text-xs sm:max-w-[14rem] sm:text-sm font-semibold"
               >
                 <span className="relative flex h-2.5 w-2.5 shrink-0">
                   <span className="absolute inline-flex h-full w-full rounded-full bg-clay opacity-60 animate-ping" />
@@ -780,16 +787,16 @@ function BookPage() {
               </span>
             )}
             {unlocked && (
-              <button
+              <Button
                 onClick={signOut}
                 className="shrink-0 px-3 py-2.5 rounded-full border-2 border-ink/15 text-sm font-semibold hover:bg-ink/5 transition"
               >
                 Sign out
-              </button>
+              </Button>
             )}
             <Link
               to="/"
-              className="shrink-0 px-4 py-2.5 rounded-full border-2 border-ink/15 text-sm font-semibold hover:bg-ball/40 transition"
+              className="shrink-0 px-4 py-2.5 rounded-full border-2 border-ink/15 text-sm font-semibold hover:bg-muted transition"
             >
               ← Back
             </Link>
@@ -799,154 +806,30 @@ function BookPage() {
       </header>
 
       <section className="max-w-6xl mx-auto px-5 sm:px-6 pt-8 pb-6">
-        <h1 className="text-[clamp(2rem,8vw,4.5rem)] font-display uppercase leading-none break-words">
-          Book your <span className="text-clay">tennis session</span>
-        </h1>
-        <p className="mt-4 max-w-xl text-base sm:text-lg text-muted-foreground">
-          <b className="text-ink">Winter season bookings are open!</b> 1-hour group sessions at BFC Alemannia and TC Longline. Pick your level and join a group of up to 4 players. As soon as 2 players of the same level have joined, the session is confirmed by email, and up to 2 more players can still join afterwards. The more players join, the lower the price per person, and the price is shown when you book. Intermediate and Advanced players can train together. Looking for a private lesson? Contact me directly on{" "}
-          <a
-            href={whatsappLink}
-            onClick={handleWhatsAppClick}
-            target="_blank"
-            rel="noopener"
-            className="inline-flex items-center gap-1 text-clay font-semibold hover:underline"
-          >
-            <WhatsAppIcon className="text-[#25D366]" />
-            WhatsApp
-          </a>{" "}
-          or by{" "}
-          <a
-            href="mailto:youpitennisclub@gmail.com?subject=Tennis%20lessons"
-            className="text-clay font-semibold hover:underline break-all"
-          >
-            email <span aria-hidden="true">📧</span>
-          </a>
-          .
-        </p>
-        <div className="mt-5 flex flex-wrap gap-2 text-xs font-bold uppercase tracking-wide">
-          {(["total_beginner", "beginner", "intermediate", "advanced"] as Level[]).map((lv) => (
-            <span key={lv} className={`px-3 py-1.5 rounded-full border-2 ${LEVEL_STYLE[lv]}`}>
-              {LEVEL_LABEL[lv]}
-            </span>
-          ))}
+        <h1 className="font-display text-3xl sm:text-5xl leading-tight break-words">🎾 Book your tennis session</h1>
+        <div className="mt-5 rounded-lg border-2 border-book-callout bg-book-callout-surface p-5 sm:p-6 text-lg leading-relaxed text-ink">
+          <p>👆 Pick a time slot, choose your level, book.</p>
+          <p className="mt-2">✅ Your session is confirmed by email as soon as 2 players of your level have joined (max. 4).</p>
+          <p className="mt-2">💸 The more players join, the lower the price per person.</p>
+          <p className="mt-2">⏰ Free cancellation up to 48 hours before the session.</p>
         </div>
-        <div className="mt-3 flex flex-wrap items-center gap-2 text-xs font-bold uppercase tracking-wide">
-          <span className="text-muted-foreground font-semibold normal-case">Where:</span>
-          {(["alemannia", "longline"] as Venue[]).map((v) => (
-            <span
-              key={v}
-              className={`inline-flex items-center gap-2 rounded-full border-2 px-3 py-1.5 ${VENUE_STYLE[v]}`}
-            >
-              <span className="h-2 w-2 shrink-0 rounded-full bg-background" />
-              {VENUE_LABEL[v]}
-            </span>
-          ))}
-          <span className="inline-flex items-center gap-1.5 rounded-full border-2 border-sky bg-sky/30 px-3 py-1.5 text-ink">
-            <span aria-hidden="true">☀️</span> Outdoor days
-          </span>
-          <span className="inline-flex items-center gap-1.5 rounded-full border-2 border-ink bg-ink/10 px-3 py-1.5 text-ink">
-            <span aria-hidden="true">🌙</span> Indoor sessions
-          </span>
-        </div>
+        <p className="mt-4 font-bold">⭐ Urban Sports Club or Wellhub member? Just book here and check in on site: €7 off.</p>
+        <p className="mt-2">💬 Private lesson? <a href={whatsappLink} onClick={handleWhatsAppClick} target="_blank" rel="noopener" className="inline-flex min-h-11 items-center font-semibold underline">WhatsApp</a> or <a href="mailto:youpitennisclub@gmail.com?subject=Tennis%20lessons" className="inline-flex min-h-11 items-center font-semibold underline">email me</a></p>
+        <fieldset className="mt-5"><legend className="mb-2 font-semibold">Your level</legend>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+            {(["total_beginner", "beginner", "intermediate", "advanced"] as Level[]).map(lv => (
+              <Button key={lv} type="button" onClick={() => setLevel(lv)} aria-pressed={level === lv} className={`min-h-12 h-auto whitespace-normal rounded-lg border-2 px-3 py-3 ${LEVEL_STYLE[lv]} ${level === lv ? "ring-2 ring-ink ring-offset-2" : "opacity-85"}`}>{LEVEL_LABEL[lv]}</Button>
+            ))}
+          </div>
+          <p className="mt-3 text-muted-foreground">🌱 → 🎾 → 🔥 → 🏆 (darker = more advanced)</p>
+        </fieldset>
+        <fieldset className="mt-5"><legend className="mb-2 font-semibold">Club</legend>
+          <div className="flex flex-wrap gap-2">
+            <Button type="button" variant="outline" onClick={() => setClubFilter("all")} aria-pressed={clubFilter === "all"}>Both clubs</Button>
+            {(["alemannia", "longline"] as Venue[]).map(v => <Button key={v} type="button" onClick={() => setClubFilter(v)} aria-pressed={clubFilter === v} className={`min-h-11 rounded-lg ${VENUE_STYLE[v]} ${clubFilter === v ? "ring-2 ring-ink ring-offset-2" : ""}`}>{VENUE_LABEL[v]}</Button>)}
+          </div>
+        </fieldset>
 
-        <div className="mt-6 rounded-3xl border-2 border-clay bg-clay/10 p-5 sm:p-6 max-w-2xl">
-          <h2 className="font-display text-xl sm:text-2xl uppercase break-words flex items-center gap-3">
-            <span aria-hidden="true">🎾</span>
-            €{PACK_PRICE} Credit Pack
-          </h2>
-          <p className="mt-3 font-display text-lg sm:text-xl uppercase text-ink break-words">
-            More freedom. More tennis.
-          </p>
-          <p className="mt-2 text-sm sm:text-base text-muted-foreground break-words">
-            Get <b className="text-ink">€200 in tennis credits</b> to use throughout the next{" "}
-            <b className="text-ink">3 months</b> — giving you more flexibility to plan your sessions
-            around your schedule.
-          </p>
-          <ul className="mt-3 grid gap-2 text-sm text-ink/80">
-            <li className="break-words">
-              <span aria-hidden="true">📅</span> <b className="text-ink">Plan ahead</b> — organize
-              your tennis for the next 3 months.
-            </li>
-            <li className="break-words">
-              <span aria-hidden="true">🔄</span> <b className="text-ink">Stay flexible</b> — use
-              your credits whenever it suits you.
-            </li>
-            <li className="break-words">
-              <span aria-hidden="true">🎾</span> <b className="text-ink">Play regularly</b> — keep
-              your spot and stay connected with your group.
-            </li>
-            <li className="break-words">
-              <span aria-hidden="true">😌</span> <b className="text-ink">Keep it simple</b> — pay
-              once and enjoy a ready-to-use tennis budget.
-            </li>
-          </ul>
-          <p className="mt-3 text-sm sm:text-base font-semibold text-ink break-words">
-            Pay once. Plan ahead. Play more.
-          </p>
-          <div className="mt-5 rounded-2xl border-2 border-ink/10 bg-card/80 p-4 sm:p-5">
-            <div className="font-display text-base sm:text-lg uppercase tracking-wide text-ink break-words">
-              Conditions
-            </div>
-            <div className="mt-2 h-px w-full bg-ink/10" aria-hidden="true" />
-            <ul className="mt-3 grid gap-4 sm:gap-3 text-sm sm:text-base leading-relaxed text-ink/90">
-              <li className="grid min-w-0 grid-cols-[1.6rem_minmax(0,1fr)] items-start gap-2 break-words">
-                <span aria-hidden="true" className="text-lg leading-none">✅</span>
-                <span>Valid for <b className="text-ink">3 months (90 days)</b>.</span>
-              </li>
-              <li className="grid min-w-0 grid-cols-[1.6rem_minmax(0,1fr)] items-start gap-2 break-words">
-                <span aria-hidden="true" className="text-lg leading-none">⏳</span>
-                <span>
-                  Urban Sports Club members: validity is extended to{" "}
-                  <b className="text-ink">4 months (120 days)</b>.
-                </span>
-              </li>
-              <li className="grid min-w-0 grid-cols-[1.6rem_minmax(0,1fr)] items-start gap-2 break-words">
-                <span aria-hidden="true" className="text-lg leading-none">⚠️</span>
-                <span>
-                  Unused credits expire at the end of the validity period and are{" "}
-                  <b className="text-ink">non-refundable</b>.
-                </span>
-              </li>
-              <li className="grid min-w-0 grid-cols-[1.6rem_minmax(0,1fr)] items-start gap-2 break-words">
-                <span aria-hidden="true" className="text-lg leading-none">🩹</span>
-                <span>
-                  Exception: in the event of an exceptional injury, a{" "}
-                  <b className="text-ink">medical certificate</b> is required.
-                </span>
-              </li>
-              <li className="grid min-w-0 grid-cols-[1.6rem_minmax(0,1fr)] items-start gap-2 break-words">
-                <span aria-hidden="true" className="text-lg leading-none">💙</span>
-                <span>
-                  The <b className="text-ink">€7 Urban Sports Club discount</b> still applies — it
-                  is deducted after each session, once your check-in has been validated on site.
-                </span>
-              </li>
-            </ul>
-          </div>
-          <p className="mt-5 font-display text-lg sm:text-xl uppercase text-ink break-words">
-            Ready to play?
-          </p>
-          <div className="mt-4 grid gap-2 sm:max-w-md">
-            <button
-              type="button"
-              onClick={() => setPackOpen(true)}
-              className="w-full min-w-0 px-6 py-4 rounded-2xl bg-clay text-primary-foreground font-display text-lg uppercase tracking-wide hover:opacity-90 transition inline-flex items-center justify-center gap-2"
-            >
-              <span aria-hidden="true">🎾</span>
-              Buy the €{PACK_PRICE} Credit Pack
-            </button>
-            <a
-              href={whatsappLink}
-              onClick={handleWhatsAppClick}
-              target="_blank"
-              rel="noopener"
-              className="w-full min-w-0 px-4 py-2.5 rounded-2xl border-2 border-ink text-center text-sm font-semibold hover:bg-ball/40 transition inline-flex items-center justify-center gap-2"
-            >
-              <WhatsAppIcon className="text-[#25D366]" />
-              Questions about the pack? WhatsApp me <span aria-hidden="true">💬</span>
-            </a>
-          </div>
-        </div>
       </section>
 
       {/* SIGN-IN GATE — students must sign in to see the calendar */}
@@ -981,37 +864,30 @@ function BookPage() {
                   Available slots{" "}
                   <span className="text-muted-foreground text-base normal-case">(Winter season)</span>
                 </h2>
-                <p className="text-xs text-muted-foreground mt-1">
-                  Every slot shows its club:{" "}
-                  <span className="font-semibold text-navy">navy = BFC Alemannia</span>,{" "}
-                  <span className="font-semibold text-clay">orange = TC Longline</span>.
-                </p>
-                <p className="text-xs text-muted-foreground mt-1">
-                  Winter season:{" "}
-                  <span className="font-semibold text-ink">7 Oct 2026 → 4 Apr 2027</span>.
-                </p>
+                <p className="mt-3 font-semibold">Sessions for: {LEVEL_LABEL[level]}</p>
+                <div className="mt-3 flex flex-wrap gap-2" aria-label="Club legend">{(["alemannia", "longline"] as Venue[]).map(v => <span key={v} className={`rounded-full px-3 py-2 font-semibold ${VENUE_STYLE[v]}`}>{VENUE_LABEL[v]}</span>)}</div>
               </div>
               <div className="flex gap-2 shrink-0">
-                <button
+                <Button
                   onClick={() => {
                     if (prevWeekStart.getTime() < FIRST_WEEK_START.getTime()) return;
                     setWeekStart(prevWeekStart);
                   }}
-                  className="flex-1 md:flex-none px-4 py-2.5 rounded-full border-2 border-ink/15 text-sm font-semibold disabled:opacity-40 hover:bg-ball/40 transition"
+                  className="flex-1 md:flex-none px-4 py-2.5 rounded-full border-2 border-ink/15 text-sm font-semibold disabled:opacity-40 hover:bg-muted transition"
                   disabled={prevWeekStart.getTime() < FIRST_WEEK_START.getTime()}
                 >
                   ← Previous
-                </button>
-                <button
+                </Button>
+                <Button
                   onClick={() => {
                     if (nextWeekStart.getTime() > SEASON_END.getTime()) return;
                     setWeekStart(nextWeekStart);
                   }}
-                  className="flex-1 md:flex-none px-4 py-2.5 rounded-full border-2 border-ink/15 text-sm font-semibold hover:bg-ball/40 transition disabled:opacity-40"
+                  className="flex-1 md:flex-none px-4 py-2.5 rounded-full border-2 border-ink/15 text-sm font-semibold hover:bg-muted transition disabled:opacity-40"
                   disabled={nextWeekStart.getTime() > SEASON_END.getTime()}
                 >
                   Next →
-                </button>
+                </Button>
               </div>
             </div>
 
@@ -1020,33 +896,15 @@ function BookPage() {
             ) : (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
                 {days.map((day) => {
-                  const slots = buildSlotsForDate(day);
+                  const slots = buildSlotsForDate(day).filter(slot => (clubFilter === "all" || slot.venue === clubFilter) && (participantsFor(slot).length === 0 || participantsFor(slot).some(p => compatibleLevels(level, p.level))));
                   const isToday = day.toDateString() === new Date().toDateString();
                   const outdoor = isOutdoorDay(day);
                   return (
                     <div
                       key={day.toISOString()}
-                      className={`rounded-2xl border-2 bg-card overflow-hidden ${
-                        outdoor ? "border-sky" : "border-ink/10"
-                      }`}
+                      className="min-w-0 bg-card"
                     >
-                      <div
-                        className={`px-4 py-3 font-bold uppercase tracking-wide break-words ${
-                          outdoor
-                            ? "bg-sky text-ink"
-                            : isToday
-                              ? "bg-ball text-ink"
-                              : "bg-ink/5 text-ink"
-                        }`}
-                      >
-                        <div className="text-sm sm:text-base">{fmtDay(day)}</div>
-                        {outdoor && (
-                          <div className="mt-2 flex w-fit items-center gap-2 rounded-full bg-background px-3.5 py-1.5 font-display text-base tracking-[0.18em] text-ink shadow-sm">
-                            <span aria-hidden="true">☀️</span>
-                            OUTDOOR
-                          </div>
-                        )}
-                      </div>
+                      <div className="sticky top-24 z-10 bg-background px-3 py-4 font-bold border-b border-border sm:static">{fmtDay(day)}</div>
                       <div className="p-2.5 flex flex-col gap-2">
                         {slots.length === 0 ? (
                           <div className="text-sm text-muted-foreground px-2 py-3">Rest day</div>
@@ -1056,78 +914,20 @@ function BookPage() {
                             const full = isFull(slot);
                             const past = isPast(slot);
                             return (
-                              <button
+                              <Button
                                 key={`${slot.start.toISOString()}-${slot.venue}-${slot.camp ? "camp" : "lesson"}`}
-                                type="button"
-                                onClick={() => openSlot(slot)}
-                                disabled={full || past}
-                                className={`w-full min-w-0 text-left rounded-xl px-3.5 py-3 font-semibold transition border-2 ${
-                                  past
-                                    ? "opacity-40 line-through cursor-not-allowed border-transparent"
-                                    : full
-                                      ? "bg-ink/5 text-muted-foreground line-through cursor-not-allowed border-transparent"
-                                      : LEVEL_STYLE[slot.level]
-                                }`}
+                                type="button" variant="outline" onClick={() => openSlot(slot)} disabled={full || past}
+                                className={`block h-auto w-full min-w-0 whitespace-normal rounded-lg border border-l-4 bg-card px-3 py-4 text-left text-ink disabled:opacity-55 ${slot.venue === "alemannia" ? "border-l-book-club-blue" : "border-l-book-club-teal"}`}
                               >
-                                <div className="flex items-center justify-between gap-2">
-                                  <span className="min-w-0 break-words text-base sm:text-lg">
-                                    {fmtTime(slot.start)}–{endTime(slot)}
-                                  </span>
-                                  <span className="shrink-0 text-xs px-2 py-0.5 rounded-full bg-ink/10">
-                                    {parts.length}/{MAX_PER_SLOT}
-                                  </span>
+                                <div className="font-bold text-lg">{fmtTime(slot.start)}–{endTime(slot)}</div>
+                                <div className="mt-2 flex flex-wrap gap-2"><span className={`rounded-full px-2 py-1 font-semibold ${VENUE_STYLE[slot.venue]}`}>{VENUE_LABEL[slot.venue]}</span><span className="rounded bg-muted px-2 py-1 text-muted-foreground">{slotOutdoor(slot) ? "☀️ Outdoor" : "🌙 Indoor"}</span></div>
+                                <div className="mt-2 font-semibold">{LEVEL_LABEL[parts[0]?.level ?? level]}</div>
+                                <p className="mt-2 font-normal text-muted-foreground">{parts.length === 0 ? "✨ Open" : parts.length === 1 ? "⏳ 1 player, waiting for 1 more" : parts.length === 4 ? "🔒 Full" : "✅ Confirmed"}<br/>{parts.length}/4 players 👥</p>
+                                <div className="mt-3 flex flex-wrap gap-2">
+                                  {parts.map((p,i) => <span key={i} title={LEVEL_LABEL[p.level]} aria-label={`${playerLabel(p.first_name,p.last_initials)} — ${LEVEL_LABEL[p.level]}`} className={`max-w-full rounded-full border px-3 py-1.5 font-semibold break-words ${LEVEL_STYLE[p.level]}`}>{playerLabel(p.first_name,p.last_initials)}</span>)}
+                                  {Array.from({length: Math.max(0, MAX_PER_SLOT-parts.length)},(_,i) => <span key={`free-${i}`} className="rounded-full border border-dashed border-border bg-muted px-3 py-1.5 font-normal text-muted-foreground">free spot</span>)}
                                 </div>
-                                {slot.indoor && (
-                                  <div className="mt-2 flex w-fit items-center gap-2 rounded-full border-2 border-ink bg-ink/10 px-3 py-1.5 font-display text-xs font-bold uppercase tracking-[0.2em] text-ink">
-                                    <span aria-hidden="true">🌙</span>
-                                    INDOOR
-                                  </div>
-                                )}
-                                <div className="mt-1.5 flex flex-wrap items-center gap-x-2 gap-y-1">
-                                  <span
-                                    className={`inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full border-2 px-2.5 py-1 text-[10px] font-bold ${VENUE_STYLE[slot.venue]}`}
-                                  >
-                                    <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-background" />
-                                    {VENUE_LABEL[slot.venue]}
-                                  </span>
-                                  {slot.level !== "open" && (
-                                    <span className="min-w-0 break-words text-xs font-bold uppercase tracking-wide opacity-90">
-                                      {LEVEL_LABEL[slot.level]}
-                                    </span>
-                                  )}
-                                </div>
-                                {parts.length > 0 && !past && (
-                                  <div className="mt-1 text-xs font-bold break-words">
-                                    {parts.some((p) => p.confirmed)
-                                      ? "✅ Confirmed"
-                                      : `⏳ Booked ${parts.length}/${groupMin(slot.start)}`}
-                                  </div>
-                                )}
-                                {parts.length > 0 && !past && (
-                                  <div className="mt-2 flex flex-wrap items-center gap-1.5">
-                                    {parts.map((p, i) => (
-                                      <span
-                                        key={i}
-                                        title={LEVEL_LABEL[p.level]}
-                                        aria-label={`${p.first_name} ${p.last_initials.trim().slice(0, 1).toUpperCase()}. — ${LEVEL_LABEL[p.level]}`}
-                                        className={`inline-flex min-w-0 max-w-full items-center gap-1.5 rounded-full border-2 px-2.5 py-1 text-sm font-semibold leading-snug ${LEVEL_STYLE[p.level]}`}
-                                      >
-                                        {p.photo_url && (
-                                          <img
-                                            src={p.photo_url}
-                                            alt=""
-                                            className="h-5 w-5 shrink-0 rounded-full object-cover"
-                                          />
-                                        )}
-                                        <span className="min-w-0 break-words">
-                                          {p.first_name} {p.last_initials.trim().slice(0, 1).toUpperCase()}.
-                                        </span>
-                                      </span>
-                                    ))}
-                                  </div>
-                                )}
-
-                              </button>
+                              </Button>
                             );
                           })
                         )}
@@ -1184,19 +984,20 @@ function BookPage() {
 
             {/* MY BOOKINGS */}
             {unlocked && (
-            <div id="my-bookings" className="mt-8 rounded-3xl bg-card border-2 border-ink p-5 sm:p-7">
+            <div id="my-bookings" className="mt-10 border-t border-border pt-8">
               <div className="flex flex-wrap items-center justify-between gap-3">
-                <h3 className="font-display text-xl sm:text-2xl uppercase">My bookings</h3>
-                <button
+                <h3 className="font-display text-xl sm:text-2xl uppercase">📅 My bookings</h3>
+                <Button
                   type="button"
                   onClick={signOut}
-                  className="px-4 py-2.5 rounded-full border-2 border-ink/15 text-sm font-semibold hover:bg-ball/40 transition"
+                  className="px-4 py-2.5 rounded-full border-2 border-ink/15 text-sm font-semibold hover:bg-muted transition"
                 >
                   Sign out
-                </button>
+                </Button>
               </div>
-              <div className="mt-4 flex flex-wrap items-baseline gap-x-3 gap-y-1 rounded-2xl bg-ball/30 border-2 border-ink/10 px-4 py-3">
-                <span className="font-display text-sm uppercase">Credit balance</span>
+              {(credits?.balance_cents ?? 0) > 0 && (
+              <div className="mt-4 flex flex-wrap items-baseline gap-x-3 gap-y-1 rounded-2xl bg-muted border-2 border-ink/10 px-4 py-3">
+                <span className="font-display text-sm uppercase">💳 Credit balance</span>
                 <span className="font-display text-2xl">€{((credits?.balance_cents ?? 0) / 100).toFixed(2)}</span>
                 {credits && credits.available_cents !== credits.balance_cents && (
                   <span className="text-xs text-muted-foreground">
@@ -1207,9 +1008,9 @@ function BookPage() {
                   The exact price is taken from your balance when your group is confirmed, and given back if you cancel in time.
                 </span>
               </div>
+              )}
               <p className="mt-2 text-sm text-muted-foreground">
-                Only your own sessions appear here — cancellation is possible up to 48h before
-                the start.
+                Free cancellation up to 48 hours before the session. Late cancellations remain due unless replaced.
               </p>
               {myBookings.length === 0 ? (
                 <p className="mt-4 text-sm text-muted-foreground">No upcoming booking yet.</p>
@@ -1236,18 +1037,18 @@ function BookPage() {
                           {LEVEL_LABEL[b.level]}
                         </span>
                       </span>
-                      <button
+                      <Button
                         type="button"
-                        disabled={cancellingId === b.id}
+                        disabled={cancellingId === b.id || b.cancelled}
                         onClick={() => cancelOne(b.id)}
                         className="px-4 py-2.5 rounded-full bg-destructive text-destructive-foreground text-sm font-semibold hover:opacity-90 transition disabled:opacity-40"
                       >
                         {cancellingId === b.id
                           ? "Cancelling…"
-                          : b.cancellable
+                          : b.cancelled ? "Spot released — payment due" : b.cancellable
                             ? "Cancel"
                             : "Cancel — payment due"}
-                      </button>
+                      </Button>
                     </li>
                   ))}
                 </ul>
@@ -1259,25 +1060,105 @@ function BookPage() {
 
 
 
-            <div className="mt-8 rounded-3xl bg-navy text-background p-5 sm:p-7">
-
-              <h3 className="font-display text-xl sm:text-2xl uppercase">Winter season bookings are open 🥶</h3>
-              <p className="mt-2 text-background/75 text-sm sm:text-base max-w-xl">
-                Indoor season from October to end of March — book your 1-hour sessions directly in the
-                calendar above. Prices depend on the club, the time and the group size.
-              </p>
-              <button
-                type="button"
-                onClick={() => setWinterOpen(true)}
-                className="mt-4 inline-block px-6 py-3.5 rounded-full bg-violet text-violet-foreground font-semibold hover:opacity-90 transition"
-              >
-                Questions? Contact me
-              </button>
-            </div>
           </section>
         </>
       )}
 
+        <section className="max-w-6xl mx-auto px-5 sm:px-6 pb-10"><div className="rounded-lg border border-border bg-card p-5 sm:p-6">
+          <h2 className="font-display text-xl sm:text-2xl uppercase break-words flex items-center gap-3">
+            <span aria-hidden="true">🎁</span>
+            €{PACK_PRICE} Credit Pack
+          </h2>
+          <p className="mt-3">More freedom, more tennis: prepay €200 of sessions for the next 3 months. 🎾</p>
+          <details className="mt-3"><summary className="min-h-11 cursor-pointer py-3 font-semibold">See details 👇</summary>
+          <ul className="mt-3 grid gap-2 text-sm text-ink/80">
+            <li className="break-words">
+              <span aria-hidden="true">📅</span> <b className="text-ink">Plan ahead</b> — organize
+              your tennis for the next 3 months.
+            </li>
+            <li className="break-words">
+              <span aria-hidden="true">🔄</span> <b className="text-ink">Stay flexible</b> — use
+              your credits whenever it suits you.
+            </li>
+            <li className="break-words">
+              <span aria-hidden="true">🎾</span> <b className="text-ink">Play regularly</b> — keep
+              your spot and stay connected with your group.
+            </li>
+            <li className="break-words">
+              <span aria-hidden="true">😌</span> <b className="text-ink">Keep it simple</b> — pay
+              once and enjoy a ready-to-use tennis budget.
+            </li>
+          </ul>
+          <p className="mt-3 text-sm sm:text-base font-semibold text-ink break-words">
+            Pay once. Plan ahead. Play more.
+          </p>
+          <div className="mt-5 border-t border-border pt-5">
+            <div className="font-display text-base sm:text-lg uppercase tracking-wide text-ink break-words">
+              Conditions
+            </div>
+            <div className="mt-2 h-px w-full bg-ink/10" aria-hidden="true" />
+            <ul className="mt-3 grid gap-4 sm:gap-3 text-sm sm:text-base leading-relaxed text-ink/90">
+              <li className="grid min-w-0 grid-cols-[1.6rem_minmax(0,1fr)] items-start gap-2 break-words">
+                <span aria-hidden="true" className="text-lg leading-none">✅</span>
+                <span>Valid for <b className="text-ink">3 months (90 days)</b>.</span>
+              </li>
+              <li className="grid min-w-0 grid-cols-[1.6rem_minmax(0,1fr)] items-start gap-2 break-words">
+                <span aria-hidden="true" className="text-lg leading-none">⏳</span>
+                <span>
+                  Urban Sports Club members: validity is extended to{" "}
+                  <b className="text-ink">4 months (120 days)</b>.
+                </span>
+              </li>
+              <li className="grid min-w-0 grid-cols-[1.6rem_minmax(0,1fr)] items-start gap-2 break-words">
+                <span aria-hidden="true" className="text-lg leading-none">⚠️</span>
+                <span>
+                  Unused credits expire at the end of the validity period and are{" "}
+                  <b className="text-ink">non-refundable</b>.
+                </span>
+              </li>
+              <li className="grid min-w-0 grid-cols-[1.6rem_minmax(0,1fr)] items-start gap-2 break-words">
+                <span aria-hidden="true" className="text-lg leading-none">🩹</span>
+                <span>
+                  Exception: in the event of an exceptional injury, a{" "}
+                  <b className="text-ink">medical certificate</b> is required.
+                </span>
+              </li>
+              <li className="grid min-w-0 grid-cols-[1.6rem_minmax(0,1fr)] items-start gap-2 break-words">
+                <span aria-hidden="true" className="text-lg leading-none">⭐</span>
+                <span>
+                  The <b className="text-ink">€7 Urban Sports Club discount</b> still applies — it
+                  is deducted after each session, once your check-in has been validated on site.
+                </span>
+              </li>
+            </ul>
+          </div>
+          <p className="mt-5 font-display text-lg sm:text-xl uppercase text-ink break-words">
+            Ready to play?
+          </p>
+          <div className="mt-4 grid gap-2 sm:max-w-md">
+            <Button
+              type="button"
+              onClick={() => setPackOpen(true)}
+              className="w-full min-w-0 px-6 py-4 rounded-2xl bg-violet text-violet-foreground font-display text-lg uppercase tracking-wide hover:opacity-90 transition inline-flex items-center justify-center gap-2"
+            >
+              <span aria-hidden="true">🎾</span>
+              Buy the €{PACK_PRICE} Credit Pack
+            </Button>
+            <a
+              href={whatsappLink}
+              onClick={handleWhatsAppClick}
+              target="_blank"
+              rel="noopener"
+              className="w-full min-w-0 px-4 py-2.5 rounded-2xl border-2 border-ink text-center text-sm font-semibold hover:bg-muted transition inline-flex items-center justify-center gap-2"
+            >
+              <WhatsAppIcon className="text-[#25D366]" />
+              Questions about the pack? WhatsApp me <span aria-hidden="true">💬</span>
+            </a>
+          </div>
+          </details>
+        </div></section>
+
+      <div className="max-w-6xl mx-auto px-5 sm:px-6 pb-10"><a href="mailto:youpitennisclub@gmail.com?subject=Tennis%20lessons" className="inline-flex min-h-11 items-center font-semibold">💬 Questions? Contact me</a></div>
       {/* WINTER MODAL */}
       {winterOpen && (
         <Modal onClose={() => setWinterOpen(false)}>
@@ -1306,7 +1187,7 @@ function BookPage() {
             </a>
             <a
               href="mailto:youpitennisclub@gmail.com?subject=Winter%20season"
-              className="px-6 py-4 text-center rounded-2xl border-2 border-ink/15 font-semibold hover:bg-ball/40 transition"
+              className="px-6 py-4 text-center rounded-2xl border-2 border-ink/15 font-semibold hover:bg-muted transition"
             >
               <span aria-hidden="true">📧</span> Send an email
             </a>
@@ -1317,7 +1198,7 @@ function BookPage() {
       {/* PACK 200 € MODAL */}
       {packOpen && (
         <Modal onClose={() => setPackOpen(false)}>
-          <div className="text-xs font-bold uppercase tracking-widest text-clay mb-2">
+          <div className="text-xs font-bold uppercase tracking-widest text-violet mb-2">
             €{PACK_PRICE} Credit Pack
           </div>
           <h3 className="font-display text-2xl sm:text-3xl uppercase leading-tight pr-10 break-words">
@@ -1329,7 +1210,7 @@ function BookPage() {
             quick steps: pay, tell me, then book in the calendar.
           </p>
 
-          <div className="mt-4 rounded-2xl bg-ball/30 border-2 border-ink/10 p-4">
+          <div className="mt-4 rounded-2xl bg-muted border-2 border-ink/10 p-4">
             <div className="font-display text-sm uppercase mb-2">1 · Pay by bank transfer</div>
             <div className="text-xs text-muted-foreground">Recipient</div>
             <div className="text-sm font-semibold break-words">{PACK_ACCOUNT_HOLDER}</div>
@@ -1355,7 +1236,7 @@ function BookPage() {
             </div>
           </div>
 
-          <div className="mt-3 rounded-2xl bg-ball/30 border-2 border-ink/10 p-4">
+          <div className="mt-3 rounded-2xl bg-muted border-2 border-ink/10 p-4">
             <div className="font-display text-sm uppercase mb-2">2 · Send the proof by email</div>
             <p className="text-sm text-muted-foreground break-words">
               Check your details below, then attach your transfer confirmation in your email app. I will load your credits after receiving it.
@@ -1410,10 +1291,10 @@ function BookPage() {
             </div>
           </div>
 
-          <div className="mt-3 rounded-2xl bg-ball/30 border-2 border-ink/10 p-4">
+          <div className="mt-3 rounded-2xl bg-muted border-2 border-ink/10 p-4">
             <div className="font-display text-sm uppercase mb-2">3 · Book your sessions</div>
             {unlocked ? (
-              <button
+              <Button
                 type="button"
                 onClick={() => {
                   setPackOpen(false);
@@ -1428,7 +1309,7 @@ function BookPage() {
                 className="w-full min-w-0 px-6 py-3.5 rounded-2xl bg-violet text-violet-foreground font-semibold hover:opacity-90 transition"
               >
                 Open the calendar 🎾
-              </button>
+              </Button>
             ) : (
               <Link
                 to="/auth"
@@ -1495,7 +1376,7 @@ function BookPage() {
                 <li>🗣️ Coaching language: English (or French 😅)</li>
               </ul>
             </div>
-            <div className="rounded-2xl bg-ball/40 p-4 text-ink">
+            <div className="rounded-2xl bg-muted p-4 text-ink">
               <div className="font-display uppercase mb-2">Prices 💸</div>
               <ul className="space-y-1.5 text-sm">
                 <li>👥 Group of 4: BFC Alemannia members €130 / non-members €150</li>
@@ -1510,7 +1391,7 @@ function BookPage() {
               similar level, you can give your spot to a friend or family member.
             </p>
           </div>
-          <button
+          <Button
             type="button"
             onClick={() => {
               const slot = campInfo;
@@ -1520,14 +1401,14 @@ function BookPage() {
             className="mt-5 w-full px-7 py-4 rounded-2xl bg-violet text-violet-foreground font-semibold text-lg hover:opacity-90 transition"
           >
             Book my camp spot 🎾
-          </button>
+          </Button>
         </Modal>
       )}
 
       {/* BOOKING MODAL */}
       {selectedSlot && (
         <Modal onClose={() => setSelectedSlot(null)}>
-          <div className="text-xs font-bold uppercase tracking-widest text-clay mb-2">
+          <div className="text-xs font-bold uppercase tracking-widest text-violet mb-2">
             {selectedSlot.level === "open"
               ? "Open session — choose your level"
               : `${LEVEL_LABEL[selectedSlot.level]} group`}
@@ -1554,7 +1435,7 @@ function BookPage() {
             {participantsFor(selectedSlot).length}/{MAX_PER_SLOT} students
           </div>
 
-          <div className="mt-4 rounded-2xl bg-ball/30 border-2 border-ink/10 p-4">
+          <div className="mt-4 rounded-2xl bg-muted border-2 border-ink/10 p-4">
             <div className="font-display text-sm uppercase mb-2">
               Price · {selectedSlot.camp ? "3 days camp" : `${selectedSlot.duration} min`}
             </div>
@@ -1643,6 +1524,7 @@ function BookPage() {
           })()}
 
           <p className="mt-4 text-sm text-muted-foreground">{BOOKING_NOTICE}</p>
+          <p className="mt-3 text-muted-foreground">👤 Your first name and the first 2 letters of your last name are visible to other players.</p>
           <h3 className="font-display text-xl uppercase mt-6 mb-3">Your details</h3>
           <form onSubmit={submit} className="grid gap-3">
             <div className="grid sm:grid-cols-2 gap-3">
@@ -1693,21 +1575,21 @@ function BookPage() {
                   { key: "intermediate", label: "Intermediate", hint: "more than 6 months of tennis with training" },
                   { key: "advanced", label: "Advanced", hint: "years of experience, match play" },
                 ] as { key: Level; label: string; hint: string }[]).map((lv) => (
-                  <button
+                  <Button
                     type="button"
                     key={lv.key}
                     onClick={() => setLevel(lv.key)}
                     className={`w-full px-4 py-3 rounded-2xl border-2 text-left transition ${
                       level === lv.key
-                        ? "bg-clay text-primary-foreground border-clay"
-                        : "bg-background border-ink/10 hover:bg-ball/40"
+                        ? `${LEVEL_STYLE[lv.key]} ring-2 ring-ink ring-offset-2`
+                        : LEVEL_STYLE[lv.key]
                     }`}
                   >
                     <div className="font-semibold break-words">{lv.label}</div>
                     <div className={`text-xs ${level === lv.key ? "text-primary-foreground/80" : "text-muted-foreground"}`}>
                       {lv.hint}
                     </div>
-                  </button>
+                  </Button>
                 ))}
               </div>
             </fieldset>
@@ -1718,7 +1600,7 @@ function BookPage() {
               );
               if (!existing) return null;
               return (
-                <button
+                <Button
                   type="button"
                   disabled={cancellingId === existing.id}
                   onClick={() => cancelOne(existing.id)}
@@ -1729,20 +1611,20 @@ function BookPage() {
                     : existing.cancellable
                       ? "Cancel my booking ❌"
                       : "Cancel — payment due"}
-                </button>
+                </Button>
               );
             })()}
 
-            <button
+            <Button
               type="submit"
               disabled={submitting}
               className="mt-3 px-7 py-5 rounded-2xl bg-violet text-violet-foreground font-semibold text-lg hover:opacity-90 transition disabled:opacity-50"
             >
               {submitting ? "Booking…" : "Confirmation 🎾"}
-            </button>
+            </Button>
             <div className="mt-3 rounded-2xl bg-destructive/10 border-2 border-destructive p-4">
               <div className="font-display text-lg sm:text-xl uppercase text-destructive leading-tight">
-                Cancellation only up to 48h before the session
+                Free cancellation up to 48h; within 48h payment remains due unless replaced
               </div>
               <p className="mt-2 text-sm font-semibold text-ink">
                 Cancellation is free up to 48 hours before your session. Within 48 hours, the session is due unless another player takes your place. Bookings made less than 48 hours before are binding immediately.
@@ -1758,7 +1640,7 @@ function BookPage() {
       {/* AFTER-BOOKING CONFIRMATION — the recap the student reads right after booking. */}
       {confirmation && (
         <Modal onClose={() => setConfirmation(null)}>
-          <div className="text-xs font-bold uppercase tracking-widest text-clay mb-2">
+          <div className="text-xs font-bold uppercase tracking-widest text-violet mb-2">
             {confirmation.confirmed ? "Session confirmed" : "Spot saved"}
           </div>
           <h3 className="font-display text-xl sm:text-3xl uppercase leading-tight pr-10 break-words">
@@ -1770,7 +1652,7 @@ function BookPage() {
               : `Your spot is saved (${confirmation.count}/${confirmation.min} students). The session is confirmed automatically as soon as ${confirmation.min} students of your level join — you'll get an email.`}
           </p>
 
-          <div className="mt-3 rounded-2xl bg-ball/30 border-2 border-ink/10 p-3.5 sm:p-4">
+          <div className="mt-3 rounded-2xl bg-muted border-2 border-ink/10 p-3.5 sm:p-4">
             <div className="font-display text-sm uppercase mb-3">Session recap</div>
             <dl className="grid gap-1.5 sm:gap-2 text-sm">
               <ConfirmRow label="Date" value={fmtLongDay(confirmation.start)} />
@@ -1818,7 +1700,7 @@ function BookPage() {
           </div>
 
           <div className="mt-4 grid sm:grid-cols-2 gap-2">
-            <button
+            <Button
               type="button"
               onClick={() => {
                 setConfirmation(null);
@@ -1833,13 +1715,13 @@ function BookPage() {
               className="px-4 py-3 sm:py-3.5 rounded-2xl bg-violet text-violet-foreground font-semibold hover:opacity-90 transition"
             >
               See my bookings
-            </button>
+            </Button>
             <a
               href={whatsappLink}
               onClick={handleWhatsAppClick}
               target="_blank"
               rel="noopener"
-              className="px-4 py-3 sm:py-3.5 text-center rounded-2xl border-2 border-ink/15 font-semibold hover:bg-ball/40 transition"
+              className="px-4 py-3 sm:py-3.5 text-center rounded-2xl border-2 border-ink/15 font-semibold hover:bg-muted transition"
             >
               <WhatsAppIcon /> Ask a question
             </a>
@@ -1869,21 +1751,21 @@ function BookPage() {
             />
             Show password
           </label>
-          <button
+          <Button
             type="button"
             disabled={cancellingId === cancelId}
             onClick={confirmCancel}
             className="mt-5 w-full px-7 py-4 rounded-2xl bg-destructive text-destructive-foreground font-semibold text-lg hover:opacity-90 transition disabled:opacity-50"
           >
             {cancellingId === cancelId ? "Cancelling…" : "Cancel my booking ❌"}
-          </button>
-          <button
+          </Button>
+          <Button
             type="button"
             onClick={() => setCancelId(null)}
-            className="mt-3 w-full px-7 py-3.5 rounded-2xl border-2 border-ink/15 font-semibold hover:bg-ball/40 transition"
+            className="mt-3 w-full px-7 py-3.5 rounded-2xl border-2 border-ink/15 font-semibold hover:bg-muted transition"
           >
             Keep my booking
-          </button>
+          </Button>
         </Modal>
       )}
     </main>

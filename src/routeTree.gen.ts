@@ -25,6 +25,7 @@ import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as SummerSeasonRouteImport } from './routes/summer-season'
 import { Route as TennisEventsRouteImport } from './routes/tennis-events'
+import { Route as ApiPublicBookingNotificationsRouteImport } from './routes/api/public/booking-notifications'
 import { Route as LovableEmailAuthPreviewRouteImport } from './routes/lovable/email/auth/preview'
 import { Route as LovableEmailAuthWebhookRouteImport } from './routes/lovable/email/auth/webhook'
 
@@ -108,6 +109,12 @@ const TennisEventsRoute = TennisEventsRouteImport.update({
   path: '/tennis-events',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicBookingNotificationsRoute =
+  ApiPublicBookingNotificationsRouteImport.update({
+    id: '/api/public/booking-notifications',
+    path: '/api/public/booking-notifications',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const LovableEmailAuthPreviewRoute = LovableEmailAuthPreviewRouteImport.update({
   id: '/lovable/email/auth/preview',
   path: '/lovable/email/auth/preview',
@@ -136,6 +143,7 @@ export interface FileRoutesByFullPath {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/summer-season': typeof SummerSeasonRoute
   '/tennis-events': typeof TennisEventsRoute
+  '/api/public/booking-notifications': typeof ApiPublicBookingNotificationsRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
 }
@@ -156,6 +164,7 @@ export interface FileRoutesByTo {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/summer-season': typeof SummerSeasonRoute
   '/tennis-events': typeof TennisEventsRoute
+  '/api/public/booking-notifications': typeof ApiPublicBookingNotificationsRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
 }
@@ -177,6 +186,7 @@ export interface FileRoutesById {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/summer-season': typeof SummerSeasonRoute
   '/tennis-events': typeof TennisEventsRoute
+  '/api/public/booking-notifications': typeof ApiPublicBookingNotificationsRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
 }
@@ -199,6 +209,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/summer-season'
     | '/tennis-events'
+    | '/api/public/booking-notifications'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
   fileRoutesByTo: FileRoutesByTo
@@ -219,6 +230,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/summer-season'
     | '/tennis-events'
+    | '/api/public/booking-notifications'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
   id:
@@ -239,6 +251,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/summer-season'
     | '/tennis-events'
+    | '/api/public/booking-notifications'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
   fileRoutesById: FileRoutesById
@@ -260,6 +273,7 @@ export interface RootRouteChildren {
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SummerSeasonRoute: typeof SummerSeasonRoute
   TennisEventsRoute: typeof TennisEventsRoute
+  ApiPublicBookingNotificationsRoute: typeof ApiPublicBookingNotificationsRoute
   LovableEmailAuthPreviewRoute: typeof LovableEmailAuthPreviewRoute
   LovableEmailAuthWebhookRoute: typeof LovableEmailAuthWebhookRoute
 }
@@ -378,6 +392,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TennisEventsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/booking-notifications': {
+      id: '/api/public/booking-notifications'
+      path: '/api/public/booking-notifications'
+      fullPath: '/api/public/booking-notifications'
+      preLoaderRoute: typeof ApiPublicBookingNotificationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/lovable/email/auth/preview': {
       id: '/lovable/email/auth/preview'
       path: '/lovable/email/auth/preview'
@@ -412,6 +433,7 @@ const rootRouteChildren: RootRouteChildren = {
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   SummerSeasonRoute: SummerSeasonRoute,
   TennisEventsRoute: TennisEventsRoute,
+  ApiPublicBookingNotificationsRoute: ApiPublicBookingNotificationsRoute,
   LovableEmailAuthPreviewRoute: LovableEmailAuthPreviewRoute,
   LovableEmailAuthWebhookRoute: LovableEmailAuthWebhookRoute,
 }
