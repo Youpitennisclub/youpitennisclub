@@ -20,6 +20,7 @@ export function isOutdoorSlot(venue: PriceVenue, ymd: string, hour: number) {
   if (venue !== "alemannia" || ymd > OUTDOOR_UNTIL) return false;
   if (ymd === "2026-10-08") return false; // evening-only indoor day
   if (ymd === "2026-10-07" && hour >= 21) return false; // indoor evening slot
+  if (["2026-10-20", "2026-10-21"].includes(ymd) && hour >= 18) return false;
   return true;
 }
 
@@ -46,7 +47,7 @@ export function sessionPriceCents(opts: {
   const g = PRICE_GRID[opts.venue];
   const list = opts.outdoor ? SUMMER_GRID : opts.hour < 16 ? g.before16 : g.after16;
   const idx = Math.min(Math.max(opts.players, 2), 4) - 2;
-  const perHour = list[idx]! + (opts.nonMember ? g.nonMemberExtra : 0);
+  const perHour = (list[idx] ?? list[0] ?? 0) + (opts.nonMember ? g.nonMemberExtra : 0);
   return Math.round(perHour * 100 * (opts.duration / 60));
 }
 
