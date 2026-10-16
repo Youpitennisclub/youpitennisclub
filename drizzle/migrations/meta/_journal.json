@@ -43,6 +43,13 @@
       "when": 1792193029806,
       "tag": "0005_transactional_booking_groups",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1792193240086,
+      "tag": "0006_booking_delivery_retries",
+      "breakpoints": true
     }
   ]
 }

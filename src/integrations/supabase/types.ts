@@ -318,6 +318,7 @@ export type Database = {
         Args: { t: string; v: string }
         Returns: undefined
       }
+      retry_booking_notifications: { Args: never; Returns: undefined }
       submit_feedback: {
         Args: {
           _comment: string
