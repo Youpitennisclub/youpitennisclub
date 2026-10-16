@@ -14,6 +14,72 @@ export type Database = {
   }
   public: {
     Tables: {
+      booking_closed_slots: {
+        Row: {
+          starts_at: string
+          venue: string
+        }
+        Insert: {
+          starts_at: string
+          venue: string
+        }
+        Update: {
+          starts_at?: string
+          venue?: string
+        }
+        Relationships: []
+      }
+      booking_delivery_config: {
+        Row: {
+          callback_url: string
+          id: boolean
+          secret: string
+        }
+        Insert: {
+          callback_url: string
+          id?: boolean
+          secret: string
+        }
+        Update: {
+          callback_url?: string
+          id?: boolean
+          secret?: string
+        }
+        Relationships: []
+      }
+      booking_notifications: {
+        Row: {
+          attempts: number
+          body: string
+          id: string
+          locked_until: string | null
+          next_attempt_at: string
+          recipient: string
+          sent_at: string | null
+          subject: string
+        }
+        Insert: {
+          attempts?: number
+          body: string
+          id?: string
+          locked_until?: string | null
+          next_attempt_at?: string
+          recipient: string
+          sent_at?: string | null
+          subject: string
+        }
+        Update: {
+          attempts?: number
+          body?: string
+          id?: string
+          locked_until?: string | null
+          next_attempt_at?: string
+          recipient?: string
+          sent_at?: string | null
+          subject?: string
+        }
+        Relationships: []
+      }
       bookings: {
         Row: {
           cancel_token: string
@@ -24,12 +90,18 @@ export type Database = {
           duration: number
           email: string
           first_name: string
+          free_cancel_override: boolean
           id: string
           last_name: string
           level: Database["public"]["Enums"]["tennis_level"]
           non_member: boolean
+          payment_due: boolean
           phone: string
           photo_url: string | null
+          price_four: number | null
+          price_three: number | null
+          price_two: number | null
+          replacement_resolved: boolean
           starts_at: string
           user_id: string | null
           venue: string
@@ -43,12 +115,18 @@ export type Database = {
           duration?: number
           email: string
           first_name: string
+          free_cancel_override?: boolean
           id?: string
           last_name: string
           level: Database["public"]["Enums"]["tennis_level"]
           non_member?: boolean
+          payment_due?: boolean
           phone: string
           photo_url?: string | null
+          price_four?: number | null
+          price_three?: number | null
+          price_two?: number | null
+          replacement_resolved?: boolean
           starts_at: string
           user_id?: string | null
           venue?: string
@@ -62,12 +140,18 @@ export type Database = {
           duration?: number
           email?: string
           first_name?: string
+          free_cancel_override?: boolean
           id?: string
           last_name?: string
           level?: Database["public"]["Enums"]["tennis_level"]
           non_member?: boolean
+          payment_due?: boolean
           phone?: string
           photo_url?: string | null
+          price_four?: number | null
+          price_three?: number | null
+          price_two?: number | null
+          replacement_resolved?: boolean
           starts_at?: string
           user_id?: string | null
           venue?: string
@@ -166,6 +250,47 @@ export type Database = {
         }
         Returns: number
       }
+      booking_email: {
+        Args: {
+          b: Database["public"]["Tables"]["bookings"]["Row"]
+          kind: string
+          n: number
+        }
+        Returns: undefined
+      }
+      booking_group_key: {
+        Args: { l: Database["public"]["Enums"]["tennis_level"] }
+        Returns: string
+      }
+      booking_unit_price: {
+        Args: { b: Database["public"]["Tables"]["bookings"]["Row"]; n: number }
+        Returns: number
+      }
+      cancel_booking_v2: {
+        Args: { booking_id: string; owner_id?: string; token?: string }
+        Returns: Json
+      }
+      claim_booking_notifications: {
+        Args: never
+        Returns: {
+          attempts: number
+          body: string
+          id: string
+          locked_until: string | null
+          next_attempt_at: string
+          recipient: string
+          sent_at: string | null
+          subject: string
+        }[]
+        SetofOptions: {
+          from: "*"
+          to: "booking_notifications"
+          isOneToOne: false
+          isSetofReturn: true
+        }
+      }
+      create_booking_v2: { Args: { p: Json }; Returns: Json }
+      expire_lone_bookings: { Args: never; Returns: undefined }
       get_public_bookings: {
         Args: { from_ts: string }
         Returns: {
@@ -189,6 +314,11 @@ export type Database = {
           rating: number
         }[]
       }
+      reconcile_booking_slot: {
+        Args: { t: string; v: string }
+        Returns: undefined
+      }
+      retry_booking_notifications: { Args: never; Returns: undefined }
       submit_feedback: {
         Args: {
           _comment: string

@@ -45,6 +45,17 @@
   --color-violet-foreground: var(--violet-foreground);
   --color-sky: var(--sky);
   --color-navy: var(--navy);
+  --color-book-callout: #EA580C;
+  --color-book-callout-surface: #FFF7ED;
+  --color-book-club-blue: #1D4ED8;
+  --color-book-club-teal: #0F766E;
+  --color-level-total: #EDE9FE;
+  --color-level-total-ink: #4C1D95;
+  --color-level-beginner: #A78BFA;
+  --color-level-beginner-ink: #2E1065;
+  --color-level-intermediate: #7C3AED;
+  --color-level-advanced: #4C1D95;
+  --color-level-light: #FFFFFF;
 }
 
 :root {
@@ -108,6 +119,29 @@
 }
 
 @layer components {
+  .booking-page {
+    --background: #F8FAFC;
+    --foreground: #0F172A;
+    --ink: #0F172A;
+    --card: #FFFFFF;
+    --muted: #F1F5F9;
+    --muted-foreground: #475569;
+    --border: #CBD5E1;
+    --primary: #4C1D95;
+    --primary-foreground: #FFFFFF;
+    --ring: #4C1D95;
+    font-size: 16px;
+  }
+  .booking-page button {
+    min-height: 44px;
+    height: auto;
+    white-space: normal;
+  }
+  .booking-page :is(.text-xs, .text-sm, .text-\[10px\], .text-\[11px\]) {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+  .booking-page :is(h1,h2,h3) { line-height: 1.2; }
   .marquee {
     display: flex;
     gap: 3rem;

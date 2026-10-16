@@ -1,5 +1,7 @@
 # Roadmap
 
+- [ ] Redesign /book only: simplified intro, level/club filters, calendar first, optional balance, collapsed pack, new purple/blue/teal colors, player bubbles, indoor evening slots on 20–21 October.
+
 - [ ] Apply 2–4-player groups, 3h booking cutoff, 48h cancellation, automatic lone-player cancellation and emails, with transactional capacity and credit repricing.
 - [ ] Update only requested group/intro/FAQ/menu/badge copy; hide home BFC surcharge lines without changing prices.
 - [ ] Test booking rules and verify desktop/mobile display and authenticated booking flow.
