@@ -15,6 +15,7 @@ export async function sendMail(opts: {
   subject: string;
   html: string;
   replyTo?: string;
+  idempotencyKey?: string;
 }) {
   const key = process.env["RESEND_API_KEY"];
   const from = process.env["EMAIL_FROM"] ?? "Youpi Tennis Club <booking@youpitennisclub.com>";
@@ -29,6 +30,7 @@ export async function sendMail(opts: {
     headers: {
       Authorization: `Bearer ${key}`,
       "content-type": "application/json",
+      ...(opts.idempotencyKey ? { "Idempotency-Key": opts.idempotencyKey } : {}),
     },
     body: JSON.stringify({
       from,
