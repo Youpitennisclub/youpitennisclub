@@ -50,6 +50,13 @@
       "when": 1792193240086,
       "tag": "0006_booking_delivery_retries",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1792195519947,
+      "tag": "0007_booking_no_lone_late_start",
+      "breakpoints": true
     }
   ]
 }

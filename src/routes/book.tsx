@@ -743,6 +743,7 @@ function BookPage() {
           : msg.includes("BOOKING_CLOSED") ? "Bookings close 3 hours before the session."
           : msg.includes("LEVEL_MISMATCH") ? "Please join a group of your level. Intermediate and Advanced can train together."
           : msg.includes("ALREADY_BOOKED") ? "You have already booked this slot."
+          : msg.includes("LONE_TOO_LATE") ? "Less than 24 hours before the session, you can only join a group that already has a player."
           : msg.includes("SLOT_CANCELLED") ? "This session was cancelled because there were not enough players."
           : "Something went wrong. Please try again.",
       );
@@ -778,8 +779,8 @@ function BookPage() {
                 className="inline-flex min-w-0 max-w-full items-center gap-2 px-3 py-2 rounded-full border-2 border-violet/40 bg-muted text-xs sm:max-w-[14rem] sm:text-sm font-semibold"
               >
                 <span className="relative flex h-2.5 w-2.5 shrink-0">
-                  <span className="absolute inline-flex h-full w-full rounded-full bg-clay opacity-60 animate-ping" />
-                  <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-clay" />
+                  <span className="absolute inline-flex h-full w-full rounded-full bg-violet opacity-60 animate-ping" />
+                  <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-violet" />
                 </span>
                 <span className="min-w-0 break-all">
                   {firstName?.trim() || email.split("@")[0] || "Connected"}
@@ -1586,7 +1587,7 @@ function BookPage() {
                     }`}
                   >
                     <div className="font-semibold break-words">{lv.label}</div>
-                    <div className={`text-xs ${level === lv.key ? "text-primary-foreground/80" : "text-muted-foreground"}`}>
+                    <div className={`text-xs ${level === lv.key ? "opacity-90" : "opacity-90"}`}>
                       {lv.hint}
                     </div>
                   </Button>
