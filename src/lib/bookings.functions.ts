@@ -50,10 +50,8 @@ export const cancelMyBooking = createServerFn({ method: "POST" })
 export const claimMyBookings = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }) => {
-    const email = (context.claims as { email?: string }).email;
-    if (!email) return { ok: false as const };
     const { attachBookingsToAccount } = await import("./bookings.server");
-    return attachBookingsToAccount(context.userId, email);
+    return attachBookingsToAccount(context.userId);
   });
 
 export const confirmCancellation = createServerFn({ method: "POST" })
