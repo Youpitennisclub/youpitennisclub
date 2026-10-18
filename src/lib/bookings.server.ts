@@ -119,9 +119,43 @@ export async function requestCancellationRecord(email: string) {
   if (data?.length) await sendMail({ to: email, subject: "Confirm your cancellation — Youpi Tennis Club", replyTo: coachEmail(), html: wrap("Confirm your cancellation", `<p>Cancellation is free at least 48 hours before the session. Within 48 hours the session remains due unless replaced.</p><ul>${data.map(b => `<li>${escapeHtml(b.starts_at)} — <a href="${siteUrl()}/cancel?token=${b.cancel_token}">Cancel this session</a></li>`).join("")}</ul>`) });
   return { ok: true as const };
 }
-export async function attachBookingsToAccount(userId: string, email: string) {
-  const { error } = await supabaseAdmin.from("bookings").update({ user_id: userId }).is("user_id", null).ilike("email", email);
-  if (error) throw new Error(error.message);
+export async function attachBookingsToAccount(userId: string) {
+  const { data: userData, error: userError } =
+    await supabaseAdmin.auth.admin.getUserById(userId);
+
+  if (userError || !userData?.user) {
+    return { ok: false as const, error: "user_not_found" };
+  }
+
+  const user = userData.user;
+
+  if (!user.email_confirmed_at || !user.email) {
+    return { ok: false as const, error: "email_not_confirmed" };
+  }
+
+  const email = user.email.trim().toLowerCase();
+
+  const { data: bookings, error: fetchError } = await supabaseAdmin
+    .from("bookings")
+    .select("id, email")
+    .is("user_id", null);
+
+  if (fetchError) throw new Error(fetchError.message);
+
+  const matchingIds = (bookings ?? [])
+    .filter((b) => b.email?.trim().toLowerCase() === email)
+    .map((b) => b.id);
+
+  if (matchingIds.length > 0) {
+    const { error } = await supabaseAdmin
+      .from("bookings")
+      .update({ user_id: userId })
+      .in("id", matchingIds)
+      .is("user_id", null);
+
+    if (error) throw new Error(error.message);
+  }
+
   return { ok: true as const };
 }
 export async function listMyBookingsRecord(userId: string) {
