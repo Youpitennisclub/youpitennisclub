@@ -897,7 +897,7 @@ function BookPage() {
             ) : (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
                 {days.map((day) => {
-                  const slots = buildSlotsForDate(day).filter(slot => (clubFilter === "all" || slot.venue === clubFilter) && (participantsFor(slot).length === 0 || participantsFor(slot).some(p => compatibleLevels(level, p.level))));
+                  const slots = buildSlotsForDate(day).filter(slot => (clubFilter === "all" || slot.venue === clubFilter));
                   const isToday = day.toDateString() === new Date().toDateString();
                   const outdoor = isOutdoorDay(day);
                   return (
