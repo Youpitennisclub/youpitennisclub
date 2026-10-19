@@ -49,12 +49,12 @@
   --color-book-callout-surface: #FFF7ED;
   --color-book-club-blue: #1D4ED8;
   --color-book-club-teal: #0F766E;
-  --color-level-total: #EDE9FE;
-  --color-level-total-ink: #4C1D95;
-  --color-level-beginner: #A78BFA;
-  --color-level-beginner-ink: #2E1065;
-  --color-level-intermediate: #7C3AED;
-  --color-level-advanced: #4C1D95;
+  --color-level-total: #FEF3A6;
+  --color-level-total-ink: var(--ink);
+  --color-level-beginner: #F9CDE0;
+  --color-level-beginner-ink: var(--ink);
+  --color-level-intermediate: #F5B6B6;
+  --color-level-advanced: #D6B89C;
   --color-level-light: #FFFFFF;
 }
 

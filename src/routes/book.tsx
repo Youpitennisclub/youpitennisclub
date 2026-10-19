@@ -62,12 +62,12 @@ const LEVEL_LABEL: Record<SlotLevel, string> = {
   open: "",
 };
 
-/** Colors per group: total beginner = sky, beginner = yellow, intermediate = orange, advanced = pink. */
+/** Soft pastel group colors; club colors remain independent. */
 const LEVEL_STYLE: Record<SlotLevel, string> = {
   total_beginner: "bg-level-total text-level-total-ink border-level-total",
   beginner: "bg-level-beginner text-level-beginner-ink border-level-beginner",
-  intermediate: "bg-level-intermediate text-level-light border-level-intermediate",
-  advanced: "bg-level-advanced text-level-light border-level-advanced",
+  intermediate: "bg-level-intermediate text-ink border-level-intermediate",
+  advanced: "bg-level-advanced text-ink border-level-advanced",
   open: "bg-card text-ink border-border",
 };
 
@@ -495,7 +495,6 @@ function BookPage() {
   const [unlocked, setUnlocked] = useState(false);
   const [myBookings, setMyBookings] = useState<MyBooking[]>([]);
   const [credits, setCredits] = useState<{ balance_cents: number; available_cents: number } | null>(null);
-  const [nonMember, setNonMember] = useState(false);
   const [confirmation, setConfirmation] = useState<Confirmation | null>(null);
   const packEmailLink = useMemo(
     () =>
@@ -707,14 +706,14 @@ function BookPage() {
           photo_url: photo,
           duration: selectedSlot.duration,
           camp: Boolean(selectedSlot.camp),
-          non_member: selectedSlot.venue === "alemannia" && nonMember,
+          non_member: false,
         },
       })) as { confirmed?: boolean; count?: number };
       const slot = selectedSlot;
       const priceOpts = {
         venue: slot.venue,
         hour: berlinHourOf(slot.start),
-        nonMember: slot.venue === "alemannia" && nonMember,
+        nonMember: false,
         duration: slot.duration,
         outdoor: slotOutdoor(slot),
       };
@@ -808,21 +807,20 @@ function BookPage() {
 
       <section className="max-w-6xl mx-auto px-5 sm:px-6 pt-8 pb-6">
         <h1 className="font-display text-3xl sm:text-5xl leading-tight break-words">🎾 Book your tennis session</h1>
-        <div className="mt-5 rounded-lg border-2 border-book-callout bg-book-callout-surface p-5 sm:p-6 text-lg leading-relaxed text-ink">
+        <div className="mt-5 space-y-2 rounded-lg border-2 border-book-callout bg-book-callout-surface p-4 sm:p-6 text-base sm:text-lg leading-relaxed text-ink">
           <p>👆 Pick a time slot, choose your level, book.</p>
           <p className="mt-2">✅ Your session is confirmed by email as soon as 2 players of your level have joined (max. 4).</p>
           <p className="mt-2">💸 The more players join, the lower the price per person.</p>
           <p className="mt-2">⏰ Free cancellation up to 48 hours before the session.</p>
+          <p className="font-bold">⭐ Urban Sports Club or Wellhub member? Just book here and check in on site: €7 off.</p>
+          <p>💬 Private lesson? <a href={whatsappLink} onClick={handleWhatsAppClick} target="_blank" rel="noopener" className="inline-flex min-h-11 items-center font-semibold underline">WhatsApp</a> or <a href="mailto:youpitennisclub@gmail.com?subject=Tennis%20lessons" className="inline-flex min-h-11 items-center font-semibold underline">email me</a></p>
         </div>
-        <p className="mt-4 font-bold">⭐ Urban Sports Club or Wellhub member? Just book here and check in on site: €7 off.</p>
-        <p className="mt-2">💬 Private lesson? <a href={whatsappLink} onClick={handleWhatsAppClick} target="_blank" rel="noopener" className="inline-flex min-h-11 items-center font-semibold underline">WhatsApp</a> or <a href="mailto:youpitennisclub@gmail.com?subject=Tennis%20lessons" className="inline-flex min-h-11 items-center font-semibold underline">email me</a></p>
         <fieldset className="mt-5"><legend className="mb-2 font-semibold">Your level</legend>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
             {(["total_beginner", "beginner", "intermediate", "advanced"] as Level[]).map(lv => (
               <Button key={lv} type="button" onClick={() => setLevel(lv)} aria-pressed={level === lv} className={`min-h-12 h-auto whitespace-normal rounded-lg border-2 px-3 py-3 ${LEVEL_STYLE[lv]} ${level === lv ? "ring-2 ring-ink ring-offset-2" : "opacity-85"}`}>{LEVEL_LABEL[lv]}</Button>
             ))}
           </div>
-          <p className="mt-3 text-muted-foreground">🌱 → 🎾 → 🔥 → 🏆 (darker = more advanced)</p>
         </fieldset>
         <fieldset className="mt-5"><legend className="mb-2 font-semibold">Club</legend>
           <div className="flex flex-wrap gap-2">
@@ -865,7 +863,6 @@ function BookPage() {
                   Available slots{" "}
                   <span className="text-muted-foreground text-base normal-case">(Winter season)</span>
                 </h2>
-                <p className="mt-3 font-semibold">Sessions for: {LEVEL_LABEL[level]}</p>
                 <div className="mt-3 flex flex-wrap gap-2" aria-label="Club legend">{(["alemannia", "longline"] as Venue[]).map(v => <span key={v} className={`rounded-full px-3 py-2 font-semibold ${VENUE_STYLE[v]}`}>{VENUE_LABEL[v]}</span>)}</div>
               </div>
               <div className="flex gap-2 shrink-0">
@@ -905,8 +902,8 @@ function BookPage() {
                       key={day.toISOString()}
                       className="min-w-0 bg-card"
                     >
-                      <div className="sticky top-24 z-10 bg-background px-3 py-4 font-bold border-b border-border sm:static">{fmtDay(day)}</div>
-                      <div className="p-2.5 flex flex-col gap-2">
+                      <div className="sticky top-24 z-10 bg-background px-3 py-2 sm:py-4 font-bold border-b border-border sm:static">{fmtDay(day)}</div>
+                      <div className="p-1.5 sm:p-2.5 flex flex-col gap-1.5 sm:gap-2">
                         {slots.length === 0 ? (
                           <div className="text-sm text-muted-foreground px-2 py-3">Rest day</div>
                         ) : (
@@ -918,15 +915,16 @@ function BookPage() {
                               <Button
                                 key={`${slot.start.toISOString()}-${slot.venue}-${slot.camp ? "camp" : "lesson"}`}
                                 type="button" variant="outline" onClick={() => openSlot(slot)} disabled={full || past}
-                                className={`block h-auto w-full min-w-0 whitespace-normal rounded-lg border border-l-4 bg-card px-3 py-4 text-left text-ink disabled:opacity-55 ${slot.venue === "alemannia" ? "border-l-book-club-blue" : "border-l-book-club-teal"}`}
+                                className={`block h-auto w-full min-w-0 whitespace-normal rounded-lg border border-l-4 bg-card px-2.5 py-2.5 sm:px-3 sm:py-4 text-left text-ink disabled:opacity-55 ${slot.venue === "alemannia" ? "border-l-book-club-blue" : "border-l-book-club-teal"}`}
                               >
                                 <div className="font-bold text-lg">{fmtTime(slot.start)}–{endTime(slot)}</div>
                                 <div className="mt-2 flex flex-wrap gap-2"><span className={`rounded-full px-2 py-1 font-semibold ${VENUE_STYLE[slot.venue]}`}>{VENUE_LABEL[slot.venue]}</span><span className="rounded bg-muted px-2 py-1 text-muted-foreground">{slotOutdoor(slot) ? "☀️ Outdoor" : "🌙 Indoor"}</span></div>
-                                <div className="mt-2 font-semibold">{LEVEL_LABEL[parts[0]?.level ?? level]}</div>
-                                <p className="mt-2 font-normal text-muted-foreground">{parts.length === 0 ? "✨ Open" : parts.length === 1 ? "⏳ 1 player, waiting for 1 more" : parts.length === 4 ? "🔒 Full" : "✅ Confirmed"}<br/>{parts.length}/4 players 👥</p>
-                                <div className="mt-3 flex flex-wrap gap-2">
-                                  {parts.map((p,i) => <span key={i} title={LEVEL_LABEL[p.level]} aria-label={`${playerLabel(p.first_name,p.last_initials)} — ${LEVEL_LABEL[p.level]}`} className={`max-w-full rounded-full border px-3 py-1.5 font-semibold break-words ${LEVEL_STYLE[p.level]}`}>{playerLabel(p.first_name,p.last_initials)}</span>)}
-                                  {Array.from({length: Math.max(0, MAX_PER_SLOT-parts.length)},(_,i) => <span key={`free-${i}`} className="rounded-full border border-dashed border-border bg-muted px-3 py-1.5 font-normal text-muted-foreground">free spot</span>)}
+                                {parts[0] && !compatibleLevels(level, parts[0].level) && <div className="mt-1 sm:mt-2 font-semibold">{LEVEL_LABEL[parts[0].level]}</div>}
+                                <p className="mt-1 sm:mt-2 font-normal text-muted-foreground">{parts.length === 0 ? "0/4 players 👥" : parts.length === 1 ? "⏳ 1/4 · waiting for 1 more" : parts.length === 4 ? "🔒 Full · 4/4" : `✅ Confirmed · ${parts.length}/4`}</p>
+                                <div className="mt-2 sm:mt-3 flex flex-wrap gap-1 sm:gap-2">
+                                  {parts.map((p,i) => <span key={i} title={LEVEL_LABEL[p.level]} aria-label={`${playerLabel(p.first_name,p.last_initials)} — ${LEVEL_LABEL[p.level]}`} className={`max-w-full rounded-full border px-2 py-1 sm:px-3 sm:py-1.5 font-semibold break-words ${LEVEL_STYLE[p.level]}`}>{playerLabel(p.first_name,p.last_initials)}</span>)}
+                                  <span className="sm:hidden self-center font-normal text-muted-foreground">{MAX_PER_SLOT-parts.length > 0 ? `${MAX_PER_SLOT-parts.length} places left` : ""}</span>
+                                  {Array.from({length: Math.max(0, MAX_PER_SLOT-parts.length)},(_,i) => <span key={`free-${i}`} className="hidden sm:inline rounded-full border border-dashed border-border bg-muted px-3 py-1.5 font-normal text-muted-foreground">free spot</span>)}
                                 </div>
                               </Button>
                             );
@@ -1469,9 +1467,6 @@ function BookPage() {
                         </li>
                       ))}
                     </ul>
-                    {r.nonMemberExtra > 0 && (
-                      <div className="mt-2 text-xs text-ink/60">Non-members of BFC Alemannia: +€{r.nonMemberExtra} per person</div>
-                    )}
                     <div className="mt-3 border-t border-ink/10 pt-3">
                       <div className="flex items-center gap-3">
                         <img
@@ -1501,16 +1496,10 @@ function BookPage() {
 
           {!selectedSlot.camp && (() => {
             const hour = Number(new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/Berlin", hour: "2-digit", hour12: false }).format(selectedSlot.start));
-            const need = maxSessionPriceCents({ venue: selectedSlot.venue, hour, nonMember: selectedSlot.venue === "alemannia" && nonMember, duration: selectedSlot.duration, outdoor: slotOutdoor(selectedSlot) });
+            const need = maxSessionPriceCents({ venue: selectedSlot.venue, hour, nonMember: false, duration: selectedSlot.duration, outdoor: slotOutdoor(selectedSlot) });
             const avail = credits?.available_cents ?? 0;
             return (
               <div className="mt-4 rounded-2xl border-2 border-ink/10 p-4 text-sm">
-                {selectedSlot.venue === "alemannia" && (
-                  <label className="mb-3 flex items-center gap-2 font-semibold">
-                    <input type="checkbox" checked={nonMember} onChange={(e) => setNonMember(e.target.checked)} className="h-4 w-4" />
-                    I'm not a member of BFC Alemannia (+€2)
-                  </label>
-                )}
                 <div className="flex justify-between gap-3">
                   <span className="text-ink/70">Your credits available</span>
                   <span className="font-display">€{(avail / 100).toFixed(2)}</span>

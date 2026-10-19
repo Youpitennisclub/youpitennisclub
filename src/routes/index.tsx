@@ -14,8 +14,7 @@ import { FeedbackSection } from "@/components/FeedbackSection";
 import { SiteHeader } from "@/components/SiteHeader";
 
 const SITE = "https://youpitennisclub.com";
-const OG_IMAGE =
-  "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/b0e94463-7995-4710-9e4d-a291721f56ed";
+const OG_IMAGE = posterAsset.url;
 const TITLE = "Tennis Lessons in Berlin (English) — Youpi Tennis Club";
 const DESCRIPTION =
   "Tennis lessons in Berlin in English, French and German: private, duo and small-group coaching on clay courts in Reinickendorf, plus social tennis events. Book online.";
@@ -371,10 +370,11 @@ function Index() {
       {/* FEEDBACK */}
       <FeedbackSection />
 
-      {/* LOCATION — BFC Alemannia */}
+      {/* LOCATIONS */}
       <section id="location" className="max-w-7xl mx-auto px-5 sm:px-6 py-8 sm:py-10">
-        <div className="max-w-3xl">
-          <h2 className="text-3xl sm:text-4xl font-display uppercase mb-3 break-words">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="min-w-0 flex flex-col">
+          <h2 className="text-2xl sm:text-3xl font-display uppercase mb-3 break-words">
             <span aria-hidden="true">📍</span> BFC Alemannia Tennis Club
           </h2>
           <p className="mb-2 max-w-full break-words text-base font-semibold text-ink sm:text-lg">
@@ -384,7 +384,7 @@ function Index() {
             🚉 4 min walk from U8 Lindauer Allee &amp; S25 Karl-Bonhoeffer-Nervenklinik — easy from
             all of Berlin.
           </p>
-          <div className="rounded-3xl border-2 border-ink/10 bg-card p-2 sm:p-3">
+          <div className="mt-auto rounded-3xl border-2 border-ink/10 bg-card p-2 sm:p-3">
             <iframe
               title="Map showing BFC Alemannia Tennis Club at Ollenhauerstr. 64e, 13403 Berlin"
               src="https://maps.google.com/maps?q=Ollenhauerstr.%2064e%2C%2013403%20Berlin&t=&z=15&ie=UTF8&iwloc=&output=embed"
@@ -397,10 +397,19 @@ function Index() {
             href="https://www.google.com/maps/search/?api=1&query=Ollenhauerstr.%2064e%2C%2013403%20Berlin"
             target="_blank"
             rel="noopener"
-            className="mt-4 inline-flex items-center gap-2 rounded-full border-2 border-ink/15 px-5 py-3 text-sm font-semibold uppercase tracking-wide transition hover:border-clay hover:text-clay"
+            className="mt-4 inline-flex self-start items-center gap-2 rounded-full border-2 border-ink/15 px-5 py-3 text-sm font-semibold uppercase tracking-wide transition hover:border-clay hover:text-clay"
           >
             Open in Google Maps →
           </a>
+        </div>
+        <div className="min-w-0 flex flex-col">
+          <h2 className="text-2xl sm:text-3xl font-display uppercase mb-3 break-words"><span aria-hidden="true">📍</span> TC Longline Tennis Club</h2>
+          <p className="mb-6 break-words text-base font-semibold text-ink sm:text-lg">Nordufer 28A, 13351 Berlin, Germany</p>
+          <div className="mt-auto rounded-3xl border-2 border-ink/10 bg-card p-2 sm:p-3">
+            <iframe title="Map showing TC Longline at Nordufer 28A, 13351 Berlin" src="https://maps.google.com/maps?q=Nordufer%2028A%2C%2013351%20Berlin%2C%20Germany&t=&z=15&ie=UTF8&iwloc=&output=embed" loading="lazy" referrerPolicy="no-referrer-when-downgrade" className="h-72 w-full min-w-0 rounded-2xl border-0 sm:h-96" />
+          </div>
+          <a href="https://www.google.com/maps/dir/?api=1&destination=Nordufer%2028A%2C%2013351%20Berlin%2C%20Germany" target="_blank" rel="noopener" className="mt-4 inline-flex self-start items-center gap-2 rounded-full border-2 border-ink/15 px-5 py-3 text-sm font-semibold uppercase tracking-wide transition hover:border-clay hover:text-clay">Directions in Google Maps →</a>
+        </div>
         </div>
       </section>
 
