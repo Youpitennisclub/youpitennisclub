@@ -1,6 +1,6 @@
 # Roadmap
 
-- [ ] Uploaded six improvements: pastel levels, unified booking info, simpler/compact calendar, remove BFC surcharge, add TC Longline map; verify tests and views without DB writes or publishing.
+- [x] Uploaded six improvements: pastel levels, unified booking info, simpler/compact calendar, remove BFC surcharge for new bookings, add TC Longline map; 19 tests and desktop/mobile views verified without DB writes or publishing. Existing stored prices and legacy DB fallback intentionally untouched.
 
 - [x] Redesign /book only: simplified intro, level/club filters, calendar first, optional balance, collapsed pack, new purple/blue/teal colors, player bubbles, indoor evening slots on 20–21 October.
 
