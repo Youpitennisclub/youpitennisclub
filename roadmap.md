@@ -1,5 +1,7 @@
 # Roadmap
 
+- [ ] Uploaded six improvements: pastel levels, unified booking info, simpler/compact calendar, remove BFC surcharge, add TC Longline map; verify tests and views without DB writes or publishing.
+
 - [x] Redesign /book only: simplified intro, level/club filters, calendar first, optional balance, collapsed pack, new purple/blue/teal colors, player bubbles, indoor evening slots on 20–21 October.
 
 - [x] Apply 2–4-player groups, 3h booking cutoff, 48h cancellation, automatic lone-player cancellation and emails, with transactional capacity and credit repricing.

@@ -6,7 +6,7 @@ export const PARTNER_DISCOUNT = 7;
 
 export const PRICE_GRID: Record<PriceVenue, { before16: number[]; after16: number[]; nonMemberExtra: number }> = {
   // index 0 = 2 players, 1 = 3 players, 2 = 4 players
-  alemannia: { before16: [37, 30, 24], after16: [39, 32, 26], nonMemberExtra: 2 },
+  alemannia: { before16: [37, 30, 24], after16: [39, 32, 26], nonMemberExtra: 0 },
   longline: { before16: [39, 31, 25], after16: [41, 33, 27], nonMemberExtra: 0 },
 };
 
@@ -47,7 +47,8 @@ export function sessionPriceCents(opts: {
   const g = PRICE_GRID[opts.venue];
   const list = opts.outdoor ? SUMMER_GRID : opts.hour < 16 ? g.before16 : g.after16;
   const idx = Math.min(Math.max(opts.players, 2), 4) - 2;
-  const perHour = (list[idx] ?? list[0] ?? 0) + (opts.nonMember ? g.nonMemberExtra : 0);
+  // Membership never adds a surcharge. Keep the input for existing server callers.
+  const perHour = list[idx] ?? list[0] ?? 0;
   return Math.round(perHour * 100 * (opts.duration / 60));
 }
 
