@@ -51,10 +51,10 @@
   --color-book-club-teal: #0F766E;
   --color-level-total: #FEF3A6;
   --color-level-total-ink: var(--ink);
-  --color-level-beginner: #F9CDE0;
+  --color-level-beginner: #FAD7B5;
   --color-level-beginner-ink: var(--ink);
   --color-level-intermediate: #F5B6B6;
-  --color-level-advanced: #D6B89C;
+  --color-level-advanced: #BD9875;
   --color-level-light: #FFFFFF;
 }
 
