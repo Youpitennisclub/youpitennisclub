@@ -390,7 +390,31 @@ function buildSlotsForDate(date: Date): Slot[] {
     camp.setHours(18, 30, 0, 0);
     slots.push({ start: camp, duration: 120, level: "open", venue: "alemannia", camp: true });
   }
+  // Extra indoor slots at BFC Alemannia
+  const dateStr = ymd(date);
+  const nextWeek = dateStr >= "2026-10-26" && dateStr <= "2026-10-30";
+  let extraHours: number[] = [];
 
+  if (nextWeek) {
+    extraHours = [18, 19, 20]; // Mon–Fri, 18:00–21:00
+  } else if (dateStr >= "2026-11-02") {
+    if (day === 1) extraHours = [20, 21];      // Monday
+    if (day === 3) extraHours = [21];          // Wednesday
+    if (day === 4 || day === 5) extraHours = [20, 21]; // Thu–Fri
+  }
+
+  for (const h of extraHours) {
+    if (slots.some(s => s.venue === "alemannia" && s.start.getHours() === h)) continue;
+    const d = new Date(date);
+    d.setHours(h, 0, 0, 0);
+    slots.push({
+      start: d,
+      duration: 60,
+      level: "open",
+      venue: "alemannia",
+      indoor: true,
+    });
+  }
   return slots.sort((a, b) => a.start.getTime() - b.start.getTime());
 }
 
