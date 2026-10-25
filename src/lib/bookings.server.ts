@@ -44,7 +44,15 @@ export async function verifyAccountPassword(email: string, password: string) {
   const { data, error } = await client.auth.signInWithPassword({ email, password });
   return !error && !!data.user;
 }
-
+function formatBookingEmailPrices(value: string) {
+  return value.replace(
+    /€(\d+)\.(\d{2,})/g,
+    (_, euros: string, decimals: string) =>
+      decimals.split("").every((digit: string) => digit === "0")
+        ? `€${euros}`
+        : `€${euros}.${decimals.replace(/0+$/, "")}`,
+  );
+}
 
 function escapeHtml(value: string) {
   return value.replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c] ?? c));
@@ -60,21 +68,52 @@ export async function configureBookingDelivery() {
 export async function deliverBookingNotifications() {
   const { data, error } = await supabaseAdmin.rpc("claim_booking_notifications");
   if (error) throw new Error(error.message);
+
   let sent = 0;
+
   for (const row of data ?? []) {
     try {
-      const result = await sendMail({ to: row.recipient, subject: row.subject, replyTo: coachEmail(), idempotencyKey: row.id, html: wrap(escapeHtml(row.subject), `<p>${escapeHtml(row.body).replace(/\n/g, "<br/>")}</p><p><a href="${siteUrl()}/book">My bookings</a></p>`) });
+      const result = await sendMail({
+        to: row.recipient,
+        subject: row.subject,
+        replyTo: coachEmail(),
+        idempotencyKey: row.id,
+        html: wrap(
+          escapeHtml(row.subject),
+          `<p>${escapeHtml(formatBookingEmailPrices(row.body)).replace(/\n/g, "<br/>")}</p><p><a href="${siteUrl()}/book">My bookings</a></p>`,
+        ),
+      });
+
       if (result.sent) {
-        const { error: updateError } = await supabaseAdmin.from("booking_notifications").update({ sent_at: new Date().toISOString(), locked_until: null }).eq("id", row.id);
+        const { error: updateError } = await supabaseAdmin
+          .from("booking_notifications")
+          .update({ sent_at: new Date().toISOString(), locked_until: null })
+          .eq("id", row.id);
+
         if (updateError) throw new Error(updateError.message);
         sent++;
       } else {
-        await supabaseAdmin.from("booking_notifications").update({ locked_until: null, next_attempt_at: new Date(Date.now() + Math.min(60, 2 ** row.attempts) * 60000).toISOString() }).eq("id", row.id);
+        await supabaseAdmin
+          .from("booking_notifications")
+          .update({
+            locked_until: null,
+            next_attempt_at: new Date(
+              Date.now() + Math.min(60, 2 ** row.attempts) * 60000,
+            ).toISOString(),
+          })
+          .eq("id", row.id);
       }
     } catch {
-      await supabaseAdmin.from("booking_notifications").update({ locked_until: null, next_attempt_at: new Date(Date.now() + 5 * 60000).toISOString() }).eq("id", row.id);
+      await supabaseAdmin
+        .from("booking_notifications")
+        .update({
+          locked_until: null,
+          next_attempt_at: new Date(Date.now() + 5 * 60000).toISOString(),
+        })
+        .eq("id", row.id);
     }
   }
+
   return { sent };
 }
 
