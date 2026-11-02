@@ -1,19 +1,31 @@
 /** Winter season price grid — 1 hour, per person. */
 export type PriceVenue = "alemannia" | "longline";
 
-/** Partner benefit available at both clubs for eligible Wellhub and Urban Sports Club members. */
+/** Partner benefit available at both clubs for eligible members (Wellhub, Urban Sports Club, Epassi). */
 export const PARTNER_DISCOUNT = 7;
 
-export const PRICE_GRID: Record<PriceVenue, { before16: number[]; after16: number[]; nonMemberExtra: number }> = {
-  // index 0 = 2 players, 1 = 3 players, 2 = 4 players
-  alemannia: { before16: [37, 30, 24], after16: [39, 32, 26], nonMemberExtra: 0 },
-  longline: { before16: [39, 31, 25], after16: [41, 33, 27], nonMemberExtra: 0 },
+export type PriceTier = {
+  /** Hour from which the evening rates apply — BFC Alemannia 15:00, TC Longline 16:00. */
+  boundaryHour: number;
+  /** Rates before the boundary hour: index 0 = 2 players, 1 = 3 players, 2 = 4 players. */
+  before: number[];
+  /** Rates from the boundary hour on. */
+  after: number[];
+  nonMemberExtra: number;
+};
+
+export const PRICE_GRID: Record<PriceVenue, PriceTier> = {
+  alemannia: { boundaryHour: 15, before: [37, 30, 24], after: [39, 32, 26], nonMemberExtra: 0 },
+  longline: { boundaryHour: 16, before: [39, 31, 25], after: [41, 33, 27], nonMemberExtra: 0 },
 };
 
 /** Summer-season grid (outdoor, no court fee) — 1 hour, per person, index 0 = 2 players. */
 export const SUMMER_GRID = [25, 19, 17];
 /** Until this day (inclusive) BFC Alemannia is played outdoor and charged at summer prices. */
 export const OUTDOOR_UNTIL = "2026-10-24";
+
+/** 15 -> "15:00" */
+const hourLabel = (h: number) => `${String(h).padStart(2, "0")}:00`;
 
 /** True when a BFC Alemannia slot is outdoor (summer prices). `ymd` = Berlin date YYYY-MM-DD. */
 export function isOutdoorSlot(venue: PriceVenue, ymd: string, hour: number) {
@@ -26,9 +38,12 @@ export function isOutdoorSlot(venue: PriceVenue, ymd: string, hour: number) {
 
 export function ratesFor(venue: PriceVenue, hour: number, outdoor = false) {
   const g = PRICE_GRID[venue];
-  const list = outdoor ? SUMMER_GRID : hour < 16 ? g.before16 : g.after16;
+  const earlier = hour < g.boundaryHour;
+  const list = outdoor ? SUMMER_GRID : earlier ? g.before : g.after;
   return {
-    period: outdoor ? "Outdoor · summer prices" : hour < 16 ? "Before 16:00" : "From 16:00",
+    period: outdoor
+      ? "Outdoor · summer prices"
+      : `${earlier ? "Before" : "From"} ${hourLabel(g.boundaryHour)}`,
     nonMemberExtra: g.nonMemberExtra,
     rates: list.map((p, i) => ({ n: `${i + 2} players`, p: `€${p}` })),
   };
@@ -45,7 +60,7 @@ export function sessionPriceCents(opts: {
   outdoor?: boolean;
 }) {
   const g = PRICE_GRID[opts.venue];
-  const list = opts.outdoor ? SUMMER_GRID : opts.hour < 16 ? g.before16 : g.after16;
+  const list = opts.outdoor ? SUMMER_GRID : opts.hour < g.boundaryHour ? g.before : g.after;
   const idx = Math.min(Math.max(opts.players, 2), 4) - 2;
   // Membership never adds a surcharge. Keep the input for existing server callers.
   const perHour = list[idx] ?? list[0] ?? 0;

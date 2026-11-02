@@ -71,3 +71,8 @@
 - [x] Calendrier : séances du coach du 07.10 (Schnuppertraining 5, Gruppe 1 Int., Damenmannschaft) et du 10.10 (Gruppe 1 Fort., Privatraining mit Kristin) affichées en cartes dédiées ; navigation « ← Previous » possible jusqu'à la semaine du 07.10
 - [x] Calendrier 10.10 : Anna K. et Olesia indiquées « Total beginner » (bulles bleues), Kristin « Advanced » (bulle rose) ; chaque carte du coach affiche maintenant l'étiquette de niveau à côté du titre
 - [x] Agenda : creneaux OUTDOOR BFC Alemannia 12h-18h tous les jours de semaine jusqu au 24.10 (vendredi inclus, en plus de TC Longline)
+- [x] Accueil : bulle Epassi (ex Hansefit) ajoutee sous celle de Wellhub/Urban Sports (meme design, 7 EUR, max 4 seances/mois, des 01.12.2026)
+- [x] Accueil et reservation : horaires BFC « From 16:00 » remplace par « From 15:00 » (tarifs du soir des 15h, TC Longline inchange a 16h)
+- [x] FAQ : Epassi (ex Hansefit) ajoute a la question Wellhub/Urban Sports + phrase « (For the record: ...) » supprimee
+- [x] Pages du site : logo WhatsApp et icone enveloppe affiches devant chaque mention visible de WhatsApp / email
+- [x] Menu : plus aucun defilement lateral de 320 a 768px (nom complet de la langue des 520px, logo autorise a se replier)

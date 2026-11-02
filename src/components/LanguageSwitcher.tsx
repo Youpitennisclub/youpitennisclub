@@ -57,9 +57,9 @@ export function LanguageSwitcher({ className = "" }: { className?: string }) {
         aria-expanded={open}
         aria-label={`Choose language, current: ${current.label}`}
         onClick={() => setOpen((v) => !v)}
-        className="inline-flex items-center gap-1.5 max-w-[7.75rem] min-[420px]:max-w-none truncate rounded-full border-2 border-ink/15 bg-background px-2.5 py-1.5 text-xs font-semibold outline-none focus:border-clay hover:border-clay/50 transition-colors"
+        className="inline-flex items-center gap-1.5 max-w-[7.75rem] min-[520px]:max-w-none truncate rounded-full border-2 border-ink/15 bg-background px-2.5 py-1.5 text-xs font-semibold outline-none focus:border-clay hover:border-clay/50 transition-colors"
       >
-        <Globe className="h-4 w-4 shrink-0 text-ink" strokeWidth={2.25} aria-hidden />
+        <Globe className="hidden min-[520px]:block h-4 w-4 shrink-0 text-ink" strokeWidth={2.25} aria-hidden />
         <img
           src={current.flag}
           alt=""
@@ -69,7 +69,7 @@ export function LanguageSwitcher({ className = "" }: { className?: string }) {
           className="h-3 w-4 shrink-0 rounded-[2px] object-cover"
         />
         <span className="truncate">{current.code.toUpperCase()}</span>
-        <span className="hidden min-[420px]:inline truncate">{current.label}</span>
+        <span className="hidden min-[520px]:inline truncate">{current.label}</span>
         <ChevronDown
           className={`h-3.5 w-3.5 shrink-0 text-muted-foreground transition-transform ${open ? "rotate-180" : ""}`}
           aria-hidden

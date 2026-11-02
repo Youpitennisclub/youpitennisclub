@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { claimMyBookings } from "@/lib/bookings.functions";
+import { EmailIcon, WithIcons } from "@/components/WordIcons";
+
 import {
   Dialog,
   DialogContent,
@@ -220,7 +222,7 @@ function AuthPage() {
               className={inputCls}
             />
             <p className="text-xs text-muted-foreground">
-              You sign in with your <b>email address</b> — not with a nickname. Your first name is
+              You sign in with your <EmailIcon className="text-clay" /> <b>email address</b> — not with a nickname. Your first name is
               only your display name on the calendar.
             </p>
           </div>
@@ -280,7 +282,7 @@ function AuthPage() {
               Reset password
             </DialogTitle>
             <DialogDescription>
-              Enter your account email. You will receive a link to choose a new password.
+              <WithIcons text="Enter your account email. You will receive a link to choose a new password." />
             </DialogDescription>
           </DialogHeader>
           <form onSubmit={forgotPassword} className="mt-2 grid gap-3">

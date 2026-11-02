@@ -2,6 +2,8 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import { FeedbackBoard, GoogleReviewCard } from "@/components/FeedbackSection";
 import { SiteHeader } from "@/components/SiteHeader";
+import { WithIcons } from "@/components/WordIcons";
+
 
 const TITLE = "Leave a review — Youpi Tennis Club Berlin";
 const DESCRIPTION =
@@ -36,10 +38,9 @@ function LeaveAReviewPage() {
             Leave a <span className="text-clay">review</span>
           </h1>
           <p className="text-lg text-muted-foreground">
-            Already trained with me? Leave a comment — reviews are only possible with the email
-            address you used to book a session. Only your first name and the first letter of your
-            last name are shown publicly, never your email.
+            <WithIcons text="Already trained with me? Leave a comment — reviews are only possible with the email address you used to book a session. Only your first name and the first letter of your last name are shown publicly, never your email." />
           </p>
+
         </div>
 
         <GoogleReviewCard />

@@ -7,6 +7,8 @@ import { Button } from "@/components/ui/button";
 import { PhotoPicker } from "@/components/PhotoPicker";
 import { CopyNumberButton } from "@/components/CopyNumberButton";
 import { handleWhatsAppClick, useWhatsAppLink, WhatsAppIcon } from "@/components/WhatsAppIcon";
+import { EmailIcon, WithIcons } from "@/components/WordIcons";
+
 import { BOOKING_NOTICE, MAX_PLAYERS, MIN_PLAYERS, canJoin, compatibleLevels } from "@/lib/booking-rules";
 import { createBooking, listMyBookings, cancelMyBooking, getMyCredits } from "@/lib/bookings.functions";
 import { isAdmin } from "@/lib/admin.functions";
@@ -833,11 +835,11 @@ function BookPage() {
         <h1 className="font-display text-3xl sm:text-5xl leading-tight break-words">🎾 Book your tennis session</h1>
         <div className="mt-5 space-y-2 rounded-lg border-2 border-book-callout bg-book-callout-surface p-4 sm:p-6 text-base sm:text-lg leading-relaxed text-ink">
           <p>👆 Pick a time slot, choose your level, book.</p>
-          <p className="mt-2">✅ Your session is confirmed by email as soon as 2 players of your level have joined (max. 4).</p>
+          <p className="mt-2">✅ <WithIcons text="Your session is confirmed by email as soon as 2 players of your level have joined (max. 4)." /></p>
           <p className="mt-2">💸 The more players join, the lower the price per person.</p>
           <p className="mt-2">⏰ Free cancellation up to 48 hours before the session.</p>
           <p className="font-bold">⭐ Urban Sports Club or Wellhub member? Just book here and check in on site: €7 off.</p>
-          <p>💬 Private lesson? <a href={whatsappLink} onClick={handleWhatsAppClick} target="_blank" rel="noopener" className="inline-flex min-h-11 items-center font-semibold underline">WhatsApp</a> or <a href="mailto:youpitennisclub@gmail.com?subject=Tennis%20lessons" className="inline-flex min-h-11 items-center font-semibold underline">email me</a></p>
+          <p>Private lesson? <a href={whatsappLink} onClick={handleWhatsAppClick} target="_blank" rel="noopener" className="inline-flex min-h-11 items-center gap-1 font-semibold underline"><WhatsAppIcon className="text-[#25D366]" />WhatsApp</a> or <a href="mailto:youpitennisclub@gmail.com?subject=Tennis%20lessons" className="inline-flex min-h-11 items-center gap-1 font-semibold underline"><EmailIcon className="text-clay" />email me</a></p>
         </div>
         <fieldset className="mt-5"><legend className="mb-2 font-semibold">Your level</legend>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
@@ -1174,14 +1176,17 @@ function BookPage() {
               rel="noopener"
               className="w-full min-w-0 px-4 py-2.5 rounded-2xl border-2 border-ink text-center text-sm font-semibold hover:bg-muted transition inline-flex items-center justify-center gap-2"
             >
-              <WhatsAppIcon className="text-[#25D366]" />
-              Questions about the pack? WhatsApp me <span aria-hidden="true">💬</span>
+              Questions about the pack?{" "}
+              <span className="inline-flex items-center gap-1">
+                <WhatsAppIcon className="text-[#25D366]" /> WhatsApp me
+              </span>
+
             </a>
           </div>
           </details>
         </div></section>
 
-      <div className="max-w-6xl mx-auto px-5 sm:px-6 pb-10"><a href="mailto:youpitennisclub@gmail.com?subject=Tennis%20lessons" className="inline-flex min-h-11 items-center font-semibold">💬 Questions? Contact me</a></div>
+      <div className="max-w-6xl mx-auto px-5 sm:px-6 pb-10"><a href="mailto:youpitennisclub@gmail.com?subject=Tennis%20lessons" className="inline-flex min-h-11 items-center gap-1.5 font-semibold"><EmailIcon className="text-clay" /> Questions? Contact me by email</a></div>
       {/* WINTER MODAL */}
       {winterOpen && (
         <Modal onClose={() => setWinterOpen(false)}>
@@ -1212,7 +1217,7 @@ function BookPage() {
               href="mailto:youpitennisclub@gmail.com?subject=Winter%20season"
               className="px-6 py-4 text-center rounded-2xl border-2 border-ink/15 font-semibold hover:bg-muted transition"
             >
-              <span aria-hidden="true">📧</span> Send an email
+              <EmailIcon className="text-clay" /> Send an email
             </a>
           </div>
         </Modal>
@@ -1260,9 +1265,9 @@ function BookPage() {
           </div>
 
           <div className="mt-3 rounded-2xl bg-muted border-2 border-ink/10 p-4">
-            <div className="font-display text-sm uppercase mb-2">2 · Send the proof by email</div>
+            <div className="font-display text-sm uppercase mb-2"><EmailIcon className="text-clay" /> 2 · Send the proof by email</div>
             <p className="text-sm text-muted-foreground break-words">
-              Check your details below, then attach your transfer confirmation in your email app. I will load your credits after receiving it.
+              <WithIcons text="Check your details below, then attach your transfer confirmation in your email app. I will load your credits after receiving it." />
             </p>
             <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-3">
               <label className="grid gap-1 text-xs font-semibold">
@@ -1309,7 +1314,7 @@ function BookPage() {
                 href={packEmailLink}
                 className="px-6 py-4 text-center rounded-2xl bg-violet text-violet-foreground font-semibold hover:opacity-90 transition break-words"
               >
-                <span aria-hidden="true">📧</span> Open the pre-filled email
+                <EmailIcon className="text-clay" /> Open the pre-filled email
               </a>
             </div>
           </div>
@@ -1661,9 +1666,14 @@ function BookPage() {
             {confirmation.confirmed ? "🎾 You're in!" : "⏳ You're booked"}
           </h3>
           <p className="mt-2 text-sm text-muted-foreground break-words">
-            {confirmation.confirmed
-              ? "Your session is confirmed — up to 4 players can join. A confirmation email is on its way."
-              : `Your spot is saved (${confirmation.count}/${confirmation.min} students). The session is confirmed automatically as soon as ${confirmation.min} students of your level join — you'll get an email.`}
+            {confirmation.confirmed ? (
+              <WithIcons text="Your session is confirmed — up to 4 players can join. A confirmation email is on its way." />
+            ) : (
+              <WithIcons
+                text={`Your spot is saved (${confirmation.count}/${confirmation.min} students). The session is confirmed automatically as soon as ${confirmation.min} students of your level join — you'll get an email.`}
+              />
+            )}
+
           </p>
 
           <div className="mt-3 rounded-2xl bg-muted border-2 border-ink/10 p-3.5 sm:p-4">

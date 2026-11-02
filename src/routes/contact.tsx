@@ -2,6 +2,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 
 import { handleWhatsAppClick, useWhatsAppLink, WhatsAppIcon } from "@/components/WhatsAppIcon";
+import { EmailIcon } from "@/components/WordIcons";
+
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -84,7 +86,7 @@ function ContactPage() {
             WhatsApp preferable 💬
           </p>
           <div className="font-display text-xl uppercase mt-6 mb-2">
-            <span aria-hidden="true">📧</span> Email
+            <EmailIcon className="text-clay" /> Email
           </div>
           <a href={`mailto:${EMAIL}`} className="hover:text-clay transition break-all">
             {EMAIL}
