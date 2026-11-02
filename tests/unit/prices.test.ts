@@ -48,3 +48,31 @@ describe("outdoor BFC slots until 24 Oct use summer prices", () => {
     expect(isOutdoorSlot("longline", "2026-10-16", 12)).toBe(false);
   });
 });
+
+describe("BFC Alemannia evening rates start at 15:00", () => {
+  it("a 15:00 session is charged at the evening rates", () => {
+    [3900, 3200, 2600].forEach((price, i) =>
+      expect(
+        sessionPriceCents({ venue: "alemannia", hour: 15, players: i + 2, nonMember: false, duration: 60 }),
+      ).toBe(price),
+    );
+  });
+  it("a 14:00 session keeps the day rates", () => {
+    [3700, 3000, 2400].forEach((price, i) =>
+      expect(
+        sessionPriceCents({ venue: "alemannia", hour: 14, players: i + 2, nonMember: false, duration: 60 }),
+      ).toBe(price),
+    );
+  });
+  it("the BFC labels read Before 15:00 and From 15:00", () => {
+    expect(ratesFor("alemannia", 14).period).toBe("Before 15:00");
+    expect(ratesFor("alemannia", 15).period).toBe("From 15:00");
+  });
+  it("TC Longline keeps its 16:00 boundary", () => {
+    expect(ratesFor("longline", 15).period).toBe("Before 16:00");
+    expect(ratesFor("longline", 15).rates[0].p).toBe("€39");
+    expect(ratesFor("longline", 16).period).toBe("From 16:00");
+    expect(ratesFor("longline", 16).rates[0].p).toBe("€41");
+  });
+});
+
