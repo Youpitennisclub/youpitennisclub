@@ -1,4 +1,7 @@
 import { PARTNER_DISCOUNT, ratesFor } from "@/lib/prices";
+import { PartnerBubble } from "@/components/PartnerBubble";
+import { WithIcons } from "@/components/WordIcons";
+
 import { createFileRoute, Link } from "@tanstack/react-router";
 
 import posterAsset from "@/assets/youpi-court.jpg.asset.json";
@@ -167,7 +170,7 @@ function Index() {
                     <span className="min-w-0 break-words">Join a group</span>
                   </div>
                   <p className="mt-1 pl-7 text-sm sm:text-base text-ink/75">
-                    Up to 4 players of your level. As soon as 2 players have joined, the session is confirmed by email, and up to 2 more can still join. The more players join, the lower the price per person.
+                    <WithIcons text="Up to 4 players of your level. As soon as 2 players have joined, the session is confirmed by email, and up to 2 more can still join. The more players join, the lower the price per person." />
                   </p>
                 </li>
                 <li className="min-w-0">
@@ -176,15 +179,15 @@ function Index() {
                     <span className="min-w-0 break-words">Get ready to play!</span>
                   </div>
                   <p className="mt-1 pl-7 text-sm sm:text-base text-ink/75">
-                    You receive a confirmation email as soon as your session is confirmed.
+                    <WithIcons text="You receive a confirmation email as soon as your session is confirmed." />
                   </p>
                 </li>
               </ol>
             </div>
 
-            <article className="mx-auto mt-6 w-full max-w-md md:max-w-lg lg:w-fit lg:max-w-4xl rounded-2xl bg-background text-ink py-4 md:py-5 lg:py-6 px-[max(1rem,env(safe-area-inset-left))] pr-[max(1rem,env(safe-area-inset-right))] md:px-[max(1.25rem,env(safe-area-inset-left))] md:pr-[max(1.25rem,env(safe-area-inset-right))] lg:px-[max(1.5rem,env(safe-area-inset-left))] lg:pr-[max(1.5rem,env(safe-area-inset-right))] border-2 border-pink/40">
-              <div className="flex flex-col gap-2 md:gap-3 lg:flex-row lg:items-center lg:gap-6">
-                <div className="mx-auto grid w-fit max-w-full grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-2 rounded-xl border border-ink/10 bg-ball/40 px-2.5 py-2 md:gap-3 md:px-3.5 md:py-3 lg:mx-0 lg:w-auto lg:gap-4 lg:px-5 lg:py-4">
+            <PartnerBubble
+              band={
+                <>
                   <img
                     src={wellhubLogoAsset.url}
                     alt="Wellhub"
@@ -200,20 +203,28 @@ function Index() {
                     height={56}
                     className="h-9 w-28 min-w-0 max-w-full object-contain md:h-11 md:w-40 lg:h-14 lg:w-44"
                   />
-                </div>
-                <div className="min-w-0 text-center lg:text-left">
-                  <div className="font-display text-sm uppercase text-clay break-words md:text-base lg:text-lg">
-                    €{PARTNER_DISCOUNT} off every tennis session <span aria-hidden="true">🎾</span>
-                  </div>
-                  <p className="mt-1 text-xs text-ink/70 break-words md:text-[13px] lg:whitespace-nowrap">
-                    For members with a Classic plan or higher — max. 4 sessions/month.
-                  </p>
-                  <div className="mt-1.5 inline-flex items-center rounded-full border border-destructive/25 bg-destructive/10 px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wider text-destructive">
-                    From 15 October 2026
-                  </div>
-                </div>
-              </div>
-            </article>
+                </>
+              }
+              headline={`€${PARTNER_DISCOUNT} off every tennis session`}
+              note="For members with a Classic plan or higher — max. 4 sessions/month."
+              pill="From 15 October 2026"
+            />
+
+            <PartnerBubble
+              bandClass="grid-cols-1"
+              band={
+                <span className="px-4 py-1 text-center font-display text-2xl uppercase leading-tight text-ink md:text-3xl">
+                  Epassi
+                  <span className="block font-sans text-xs font-normal normal-case text-ink/60 md:text-sm">
+                    (ex Hansefit)
+                  </span>
+                </span>
+              }
+              headline={`€${PARTNER_DISCOUNT} off every tennis session`}
+              note="For Epassi (ex Hansefit) members — max. 4 sessions/month."
+              pill="From 01 December 2026"
+            />
+
 
             <Link to="/book" className="block text-center mt-6 px-7 py-4 rounded-full bg-violet text-violet-foreground font-semibold hover:opacity-90 transition">
               Book Your Winter Season →
@@ -354,7 +365,7 @@ function Index() {
             { q: "I don't speak German. Is that ok?", a: "Absolutely — most of our community is international. Lessons run in English by default." },
             { q: "Do I need my own racket?", a: "No — but you can rent a racket for €2 per session." },
             { q: "How do I pay?", a: "PayPal, SEPA or cash on court. Packs are non-refundable but transferable." },
-            { q: "What advantage do I get with Wellhub or Urban Sports Club?", a: "With a Wellhub or Urban Sports Club membership on a Classic plan or higher, you get €7 off every tennis session — up to 4 discounted sessions per month — at BFC Alemannia and TC Longline, from 15 October 2026. Just bring your membership and check in on site: the €7 is deducted after your session. The discount also works with the €200 Credit Pack. (For the record: Urban Sports Club and Wellhub are sports memberships that give you access to gyms, studios and sports partners all over Berlin.)" },
+            { q: "What advantage do I get with Wellhub, Urban Sports Club or Epassi (ex Hansefit)?", a: "With a Wellhub or Urban Sports Club membership on a Classic plan or higher, or an Epassi (ex Hansefit) card, you get €7 off every tennis session — up to 4 discounted sessions per month — at BFC Alemannia and TC Longline. Wellhub and Urban Sports Club: from 15 October 2026. Epassi (ex Hansefit): from 01 December 2026. Just bring your membership and check in on site: the €7 is deducted after your session. The discount also works with the €200 Credit Pack." },
           ].map((f) => (
             <details key={f.q} className="group py-6 cursor-pointer">
               <summary className="flex items-start justify-between gap-4 font-display text-lg sm:text-xl uppercase list-none">
