@@ -69,7 +69,7 @@ export function LanguageSwitcher({ className = "" }: { className?: string }) {
           className="h-3 w-4 shrink-0 rounded-[2px] object-cover"
         />
         <span className="truncate">{current.code.toUpperCase()}</span>
-        <span className="hidden min-[420px]:inline truncate">{current.label}</span>
+        <span className="hidden min-[520px]:inline truncate">{current.label}</span>
         <ChevronDown
           className={`h-3.5 w-3.5 shrink-0 text-muted-foreground transition-transform ${open ? "rotate-180" : ""}`}
           aria-hidden
