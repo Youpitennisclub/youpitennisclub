@@ -1,5 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 
+import { EmailIcon, WithIcons } from "@/components/WordIcons";
+
+
 export const Route = createFileRoute("/cookies")({
   head: () => ({
     meta: [
@@ -48,9 +51,10 @@ function CookiesPage() {
         <p>We keep it minimal. On this website we use:</p>
         <ul>
           <li>
-            <strong>Strictly necessary local storage</strong> — we store the contact details you
-            enter to unlock the booking calendar (first name, last name, email, phone) in your
-            browser's local storage under the key <code>youpi_visitor_v1</code>, so you don't
+            <strong>Strictly necessary local storage</strong>{" "}
+            <WithIcons text="— we store the contact details you enter to unlock the booking calendar (first name, last name, email, phone) in your browser's local storage under the key" />{" "}
+            <code>youpi_visitor_v1</code>, so you don't
+
             have to fill the form every time. This data stays on your device and is only
             sent to our servers when you actually book a lesson.
           </li>
@@ -102,7 +106,7 @@ function CookiesPage() {
 
         <h2 className="font-display text-2xl uppercase mt-10 mb-3">7. Contact</h2>
         <p>
-          Questions about cookies or your privacy? Email{" "}
+          Questions about cookies or your privacy? <EmailIcon className="text-clay" /> Email{" "}
           <a href="mailto:youpitennisclub@gmail.com" className="text-clay font-semibold underline underline-offset-2 hover:text-clay/80 transition break-all">
             youpitennisclub@gmail.com
           </a>.

@@ -1,5 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 
+import { EmailIcon, WithIcons } from "@/components/WordIcons";
+
+
 export const Route = createFileRoute("/privacy")({
   head: () => ({
     meta: [
@@ -42,7 +45,7 @@ function PrivacyPage() {
         <p>
           The controller responsible for processing your personal data is:<br/>
           Youpi (Youcef Chaouch) — Tennis coaching in Berlin, Germany<br/>
-          Email:{" "}
+          <EmailIcon className="text-clay" /> Email:{" "}
           <a href="mailto:youpitennisclub@gmail.com" className="text-clay font-semibold underline underline-offset-2 hover:text-clay/80 transition break-all">
             youpitennisclub@gmail.com
           </a>{" "}
@@ -52,8 +55,8 @@ function PrivacyPage() {
 
         <h2 className="font-display text-2xl uppercase mt-10 mb-3">2. What data we collect</h2>
         <ul>
-          <li><strong>Booking data:</strong> first name, last name, email address, phone number, chosen session date/time, tennis level.</li>
-          <li><strong>Communication data:</strong> messages you send us by email, WhatsApp or through the site.</li>
+          <li><strong>Booking data:</strong> <WithIcons text="first name, last name, email address, phone number, chosen session date/time, tennis level." /></li>
+          <li><strong>Communication data:</strong> <WithIcons text="messages you send us by email, WhatsApp or through the site." /></li>
           <li><strong>Technical data:</strong> IP address, browser type, device type, referrer, pages visited (via server logs).</li>
         </ul>
 
@@ -69,15 +72,16 @@ function PrivacyPage() {
         <p>
           To coordinate group sessions, other players who have unlocked the calendar can see
           your <strong>first name and the first two letters of your last name</strong> next to
-          the slot you booked. Your email address, phone number and full last name are never
-          shown to other visitors.
+          the slot you booked.{" "}
+          <WithIcons text="Your email address, phone number and full last name are never shown to other visitors." />
+
         </p>
 
         <h2 className="font-display text-2xl uppercase mt-10 mb-3">5. Data recipients & processors</h2>
         <ul>
           <li><strong>Hosting & database:</strong> Supabase / Lovable Cloud infrastructure (EU region) to store bookings.</li>
           <li><strong>Payments:</strong> Stripe Payments Europe when you pay online (see stripe.com/privacy).</li>
-          <li><strong>Email:</strong> Your inbox provider when we contact you.</li>
+          <li><strong><EmailIcon className="text-clay" /> Email:</strong> Your inbox provider when we contact you.</li>
         </ul>
         <p>We do not sell your data. We do not transfer it outside the EU/EEA unless adequate safeguards are in place.</p>
 
@@ -101,7 +105,7 @@ function PrivacyPage() {
           <li>Withdraw consent at any time, without affecting prior processing</li>
           <li>Lodge a complaint with a supervisory authority, e.g. the Berlin Beauftragte für Datenschutz und Informationsfreiheit</li>
         </ul>
-        <p>To exercise any of these rights, email{" "}
+        <p>To exercise any of these rights, <EmailIcon className="text-clay" /> email{" "}
           <a href="mailto:youpitennisclub@gmail.com" className="text-clay font-semibold underline underline-offset-2 hover:text-clay/80 transition break-all">
             youpitennisclub@gmail.com
           </a>.

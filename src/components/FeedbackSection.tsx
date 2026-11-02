@@ -3,6 +3,8 @@ import { Link } from "@tanstack/react-router";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { PhotoPicker } from "@/components/PhotoPicker";
+import { EmailIcon, WithIcons } from "@/components/WordIcons";
+
 
 // Google Business Profile direct review link — opens the review form for Youpi Tennis Club's listing.
 const GOOGLE_REVIEW_URL =
@@ -44,10 +46,9 @@ export function FeedbackSection() {
         Feedback
       </h2>
       <p className="text-muted-foreground mb-4 max-w-2xl">
-        Already trained with me? Leave a comment — reviews are only possible with the email
-        address you used to book a session. Only your first name and the first letter of your last
-        name are shown publicly, never your email.
+        <WithIcons text="Already trained with me? Leave a comment — reviews are only possible with the email address you used to book a session. Only your first name and the first letter of your last name are shown publicly, never your email." />
       </p>
+
 
       <GoogleReviewCard />
 
@@ -138,15 +139,21 @@ export function FeedbackBoard() {
             className={inputCls}
           />
         </div>
-        <input
-          required
-          type="email"
-          maxLength={120}
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="Email used for booking"
-          className={inputCls}
-        />
+        <label className="grid gap-1 text-sm font-semibold">
+          <span className="inline-flex items-center gap-1.5">
+            <EmailIcon className="text-clay" /> Email used for booking
+          </span>
+          <input
+            required
+            type="email"
+            maxLength={120}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="you@example.com"
+            className={inputCls}
+          />
+        </label>
+
         <PhotoPicker
           value={photo}
           onChange={setPhoto}
