@@ -211,7 +211,7 @@ function Index() {
             />
 
             <PartnerBubble
-              bandClass="grid-cols-1"
+              bandClass="grid-cols-1 lg:min-w-[26rem]"
               band={
                 <span className="px-4 py-1 text-center font-display text-2xl uppercase leading-tight text-ink md:text-3xl">
                   Epassi
