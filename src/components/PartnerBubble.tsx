@@ -25,7 +25,7 @@ export function PartnerBubble({
   pill: string;
 }) {
   return (
-    <article className="mx-auto mt-6 w-full max-w-md md:max-w-lg lg:w-fit lg:max-w-4xl rounded-2xl bg-background text-ink py-4 md:py-5 lg:py-6 px-[max(1rem,env(safe-area-inset-left))] pr-[max(1rem,env(safe-area-inset-right))] md:px-[max(1.25rem,env(safe-area-inset-left))] md:pr-[max(1.25rem,env(safe-area-inset-right))] lg:px-[max(1.5rem,env(safe-area-inset-left))] lg:pr-[max(1.5rem,env(safe-area-inset-right))] border-2 border-pink/40">
+    <article className="mx-auto mt-6 w-full max-w-md md:max-w-lg lg:w-full lg:max-w-4xl rounded-2xl bg-background text-ink py-4 md:py-5 lg:py-6 px-[max(1rem,env(safe-area-inset-left))] pr-[max(1rem,env(safe-area-inset-right))] md:px-[max(1.25rem,env(safe-area-inset-left))] md:pr-[max(1.25rem,env(safe-area-inset-right))] lg:px-[max(1.5rem,env(safe-area-inset-left))] lg:pr-[max(1.5rem,env(safe-area-inset-right))] border-2 border-pink/40">
       <div className="flex flex-col gap-2 md:gap-3 lg:flex-row lg:items-center lg:gap-6">
         <div className={`${BAND_BASE} ${bandClass}`}>{band}</div>
         <div className="min-w-0 text-center lg:text-left">
