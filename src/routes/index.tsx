@@ -7,6 +7,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import posterAsset from "@/assets/youpi-court.jpg.asset.json";
 import wellhubLogoAsset from "@/assets/wellhub-logo.png.asset.json";
 import urbanSportsClubLogoAsset from "@/assets/urban-sports-club-logo.png.asset.json";
+import epassiLogoAsset from "@/assets/epassi-logo.png.asset.json";
 import franceFlag from "@/assets/flags/fr.png.asset.json";
 import germanyFlag from "@/assets/flags/de.png.asset.json";
 import usaFlag from "@/assets/flags/us.png.asset.json";
@@ -213,9 +214,15 @@ function Index() {
             <PartnerBubble
               bandClass="grid-cols-1 lg:min-w-[26rem]"
               band={
-                <span className="px-4 py-1 text-center font-display text-2xl uppercase leading-tight text-ink md:text-3xl">
-                  Epassi
-                  <span className="block font-sans text-xs font-normal normal-case text-ink/60 md:text-sm">
+                <span className="flex flex-col items-center gap-1 px-4 py-1">
+                  <img
+                    src={epassiLogoAsset.url}
+                    alt="Epassi"
+                    width={600}
+                    height={146}
+                    className="h-9 w-auto min-w-0 max-w-full object-contain md:h-11 lg:h-12"
+                  />
+                  <span className="font-sans text-xs font-normal text-ink/60 md:text-sm">
                     (ex Hansefit)
                   </span>
                 </span>
