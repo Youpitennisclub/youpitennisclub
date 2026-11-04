@@ -228,7 +228,7 @@ function Index() {
                 </span>
               }
               headline={`€${PARTNER_DISCOUNT} off every tennis session`}
-              note="For Epassi (ex Hansefit) members — max. 4 sessions/month."
+              note="For Epassi (ex Hansefit) members — 1 session per day."
               pill="From 01 December 2026"
             />
 
@@ -372,7 +372,7 @@ function Index() {
             { q: "I don't speak German. Is that ok?", a: "Absolutely — most of our community is international. Lessons run in English by default." },
             { q: "Do I need my own racket?", a: "No — but you can rent a racket for €2 per session." },
             { q: "How do I pay?", a: "PayPal, SEPA or cash on court. Packs are non-refundable but transferable." },
-            { q: "What advantage do I get with Wellhub, Urban Sports Club or Epassi (ex Hansefit)?", a: "With a Wellhub or Urban Sports Club membership on a Classic plan or higher, or an Epassi (ex Hansefit) card, you get €7 off every tennis session — up to 4 discounted sessions per month — at BFC Alemannia and TC Longline. Wellhub and Urban Sports Club: from 15 October 2026. Epassi (ex Hansefit): from 01 December 2026. Just bring your membership and check in on site: the €7 is deducted after your session. The discount also works with the €200 Credit Pack." },
+            { q: "What advantage do I get with Wellhub, Urban Sports Club or Epassi (ex Hansefit)?", a: "With a Wellhub or Urban Sports Club membership on a Classic plan or higher, or an Epassi (ex Hansefit) card, you get €7 off every tennis session — up to 4 discounted sessions per month — at BFC Alemannia and TC Longline. Wellhub and Urban Sports Club: from 15 October 2026. Epassi (ex Hansefit): from 01 December 2026, 1 check-in per day. Just bring your membership and check in on site: the €7 is deducted after your session. The discount also works with the €200 Credit Pack." },
           ].map((f) => (
             <details key={f.q} className="group py-6 cursor-pointer">
               <summary className="flex items-start justify-between gap-4 font-display text-lg sm:text-xl uppercase list-none">
@@ -440,6 +440,7 @@ function Index() {
             <Link to="/contact" className="hover:text-ball transition">Contact</Link>
             <Link to="/privacy" className="hover:text-ball transition">Privacy</Link>
             <Link to="/cookies" className="hover:text-ball transition">Cookies</Link>
+            <Link to="/impressum" className="hover:text-ball transition">Impressum</Link>
           </div>
         </div>
         <div className="border-t border-background/10 py-5 text-xs text-background/40 px-6 max-w-7xl mx-auto">

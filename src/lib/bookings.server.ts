@@ -155,7 +155,7 @@ export async function cancelByEmailRecord(email: string) {
 export async function requestCancellationRecord(email: string) {
   const { data, error } = await supabaseAdmin.from("bookings").select("starts_at,cancel_token").ilike("email", email).is("cancelled_at", null).gt("starts_at", new Date().toISOString());
   if (error) throw new Error(error.message);
-  if (data?.length) await sendMail({ to: email, subject: "Confirm your cancellation — Youpi Tennis Club", replyTo: coachEmail(), html: wrap("Confirm your cancellation", `<p>Cancellation is free at least 48 hours before the session. Within 48 hours the session remains due unless replaced.</p><ul>${data.map(b => `<li>${escapeHtml(b.starts_at)} — <a href="${siteUrl()}/cancel?token=${b.cancel_token}">Cancel this session</a></li>`).join("")}</ul>`) });
+  if (data?.length) await sendMail({ to: email, subject: "Confirm your cancellation — Youpi Tennis Club", replyTo: coachEmail(), html: wrap("Confirm your cancellation", `<p>Cancellation is free at least 48 hours before the session. Within 48 hours the session remains due unless replaced.</p><ul>${data.map(b => `<li>${escapeHtml(new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/Berlin", dateStyle: "full", timeStyle: "short" }).format(new Date(b.starts_at)))} (Berlin time) — <a href="${siteUrl()}/cancel?token=${b.cancel_token}">Cancel this session</a></li>`).join("")}</ul>`) });
   return { ok: true as const };
 }
 export async function attachBookingsToAccount(userId: string) {
