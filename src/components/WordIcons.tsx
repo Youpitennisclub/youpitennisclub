@@ -28,8 +28,8 @@ export function WithIcons({ text, className = "" }: { text: string; className?: 
         if (i % 2 === 0) return part;
         const isWhatsApp = /whatsapp/i.test(part);
         return (
-          <span key={i} className="inline-flex items-center gap-1 whitespace-nowrap">
-            {isWhatsApp ? <WhatsAppIcon className="text-[#25D366]" /> : <EmailIcon className="text-clay" />}
+          <span key={i} className="whitespace-nowrap">
+            {isWhatsApp ? <WhatsAppIcon className="text-[#25D366]" /> : <EmailIcon className="text-clay" />}{" "}
             {part}
           </span>
         );

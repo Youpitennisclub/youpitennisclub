@@ -17,6 +17,7 @@ import { Route as BookRouteImport } from './routes/book'
 import { Route as CancelRouteImport } from './routes/cancel'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CookiesRouteImport } from './routes/cookies'
+import { Route as ImpressumRouteImport } from './routes/impressum'
 import { Route as LeaveAReviewRouteImport } from './routes/leave-a-review'
 import { Route as MembershipRouteImport } from './routes/membership'
 import { Route as PhotosRouteImport } from './routes/photos'
@@ -67,6 +68,11 @@ const ContactRoute = ContactRouteImport.update({
 const CookiesRoute = CookiesRouteImport.update({
   id: '/cookies',
   path: '/cookies',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ImpressumRoute = ImpressumRouteImport.update({
+  id: '/impressum',
+  path: '/impressum',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LeaveAReviewRoute = LeaveAReviewRouteImport.update({
@@ -135,6 +141,7 @@ export interface FileRoutesByFullPath {
   '/cancel': typeof CancelRoute
   '/contact': typeof ContactRoute
   '/cookies': typeof CookiesRoute
+  '/impressum': typeof ImpressumRoute
   '/leave-a-review': typeof LeaveAReviewRoute
   '/membership': typeof MembershipRoute
   '/photos': typeof PhotosRoute
@@ -156,6 +163,7 @@ export interface FileRoutesByTo {
   '/cancel': typeof CancelRoute
   '/contact': typeof ContactRoute
   '/cookies': typeof CookiesRoute
+  '/impressum': typeof ImpressumRoute
   '/leave-a-review': typeof LeaveAReviewRoute
   '/membership': typeof MembershipRoute
   '/photos': typeof PhotosRoute
@@ -178,6 +186,7 @@ export interface FileRoutesById {
   '/cancel': typeof CancelRoute
   '/contact': typeof ContactRoute
   '/cookies': typeof CookiesRoute
+  '/impressum': typeof ImpressumRoute
   '/leave-a-review': typeof LeaveAReviewRoute
   '/membership': typeof MembershipRoute
   '/photos': typeof PhotosRoute
@@ -201,6 +210,7 @@ export interface FileRouteTypes {
     | '/cancel'
     | '/contact'
     | '/cookies'
+    | '/impressum'
     | '/leave-a-review'
     | '/membership'
     | '/photos'
@@ -222,6 +232,7 @@ export interface FileRouteTypes {
     | '/cancel'
     | '/contact'
     | '/cookies'
+    | '/impressum'
     | '/leave-a-review'
     | '/membership'
     | '/photos'
@@ -243,6 +254,7 @@ export interface FileRouteTypes {
     | '/cancel'
     | '/contact'
     | '/cookies'
+    | '/impressum'
     | '/leave-a-review'
     | '/membership'
     | '/photos'
@@ -265,6 +277,7 @@ export interface RootRouteChildren {
   CancelRoute: typeof CancelRoute
   ContactRoute: typeof ContactRoute
   CookiesRoute: typeof CookiesRoute
+  ImpressumRoute: typeof ImpressumRoute
   LeaveAReviewRoute: typeof LeaveAReviewRoute
   MembershipRoute: typeof MembershipRoute
   PhotosRoute: typeof PhotosRoute
@@ -334,6 +347,13 @@ declare module '@tanstack/react-router' {
       path: '/cookies'
       fullPath: '/cookies'
       preLoaderRoute: typeof CookiesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/impressum': {
+      id: '/impressum'
+      path: '/impressum'
+      fullPath: '/impressum'
+      preLoaderRoute: typeof ImpressumRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/leave-a-review': {
@@ -425,6 +445,7 @@ const rootRouteChildren: RootRouteChildren = {
   CancelRoute: CancelRoute,
   ContactRoute: ContactRoute,
   CookiesRoute: CookiesRoute,
+  ImpressumRoute: ImpressumRoute,
   LeaveAReviewRoute: LeaveAReviewRoute,
   MembershipRoute: MembershipRoute,
   PhotosRoute: PhotosRoute,

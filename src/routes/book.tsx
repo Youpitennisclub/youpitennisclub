@@ -233,6 +233,8 @@ type CoachEvent = {
   /** Colors the player pills like the calendar levels. */
   level?: SlotLevel;
   note?: string;
+  /** Red highlight for special events (tournaments). */
+  red?: boolean;
 };
 
 const COACH_EVENTS: Record<string, CoachEvent[]> = {
@@ -256,6 +258,7 @@ const COACH_EVENTS: Record<string, CoachEvent[]> = {
     },
     { title: "Privatraining mit Kristin", time: "14:40–16:00", players: ["Kristin"], level: "advanced" },
   ],
+  "2027-01-30": [{ title: "Tournament", time: "15:00–18:00", players: [], red: true }],
 };
 
 /** Price grid shown in the booking modal: see ratesFor (club + hour). */
@@ -960,13 +963,13 @@ function BookPage() {
                       {(COACH_EVENTS[ymd(day)] ?? []).map((ev, evIndex) => (
                         <div
                           key={`coach-${evIndex}`}
-                          className="rounded-2xl border-2 border-dashed border-ink/25 bg-ink/5 px-3.5 py-3 text-left"
+                          className={`rounded-2xl border-2 px-3.5 py-3 text-left ${ev.red ? "border-destructive bg-destructive/15 text-destructive" : "border-dashed border-ink/25 bg-ink/5"}`}
                         >
                           <div className="min-w-0 break-words text-base sm:text-lg font-semibold">
                             {ev.time}
                           </div>
                           <div className="mt-1.5 flex flex-wrap items-center gap-x-2 gap-y-1">
-                            <span className="min-w-0 break-words text-xs font-bold uppercase tracking-wide text-ink/80">
+                            <span className={`min-w-0 break-words text-xs font-bold uppercase tracking-wide ${ev.red ? "text-destructive" : "text-ink/80"}`}>
                               {ev.title}
                             </span>
                             {ev.level && ev.level !== "open" && (
@@ -977,7 +980,7 @@ function BookPage() {
                               </span>
                             )}
                           </div>
-                          <div className="mt-2 flex flex-wrap gap-1.5">
+                          {ev.players.length > 0 && <div className="mt-2 flex flex-wrap gap-1.5">
                             {ev.players.map((p, pIndex) => (
                               <span
                                 key={pIndex}
@@ -990,7 +993,7 @@ function BookPage() {
                                 {p}
                               </span>
                             ))}
-                          </div>
+                          </div>}
                           {ev.note && (
                             <div className="mt-2 break-words text-xs leading-snug text-ink/70">
                               {ev.note}

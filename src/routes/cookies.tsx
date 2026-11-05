@@ -31,7 +31,7 @@ function CookiesPage() {
 
       <article className="max-w-3xl mx-auto px-6 py-16 prose prose-neutral">
         <h1 className="font-display text-4xl md:text-5xl uppercase mb-4">Cookies Notice</h1>
-        <p className="text-sm text-muted-foreground mb-10">Last updated: 26 July 2026</p>
+        <p className="text-sm text-muted-foreground mb-10">Last updated: 5 November 2026</p>
 
         <p>
           This Cookies Notice (Cookies-Hinweis) explains how <strong>Youpi Multi Culti Tennis</strong>{" "}
@@ -65,8 +65,11 @@ function CookiesPage() {
           </li>
         </ul>
         <p>
-          We do <strong>not</strong> use advertising cookies, tracking pixels, cross-site
-          trackers or analytics profiling on this site.
+          <strong>Statistics (Google Analytics)</strong> — only if you accept in the cookie
+          popup, we collect anonymous statistical data (pages visited, device type, approximate
+          location) via Google Analytics to improve the site. You can refuse; your choice is
+          stored in your browser under <code>youpi_cookie_consent</code>. We do not use
+          advertising cookies.
         </p>
 
         <h2 className="font-display text-2xl uppercase mt-10 mb-3">3. Legal basis</h2>
