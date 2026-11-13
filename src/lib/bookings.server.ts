@@ -123,7 +123,7 @@ export async function createBookingRecord(input: {
 }) {
   const hour = berlinHour(input.starts_at);
   const outdoor = isOutdoorSlot(input.venue, berlinYmd(input.starts_at), hour);
-  const prices = [2, 3, 4].map(players => sessionPriceCents({ venue: input.venue, hour, players, nonMember: input.non_member, duration: input.duration, outdoor }));
+  const prices = [2, 3, 4].map(players => sessionPriceCents({ venue: input.venue, hour, players, nonMember: input.non_member, duration: input.duration, outdoor, ymd: berlinYmd(input.starts_at) }));
   await configureBookingDelivery();
   const { data, error } = await supabaseAdmin.rpc("create_booking_v2", { p: { ...input, price_two: prices[0], price_three: prices[1], price_four: prices[2] } });
   if (error) throw new Error(error.message);

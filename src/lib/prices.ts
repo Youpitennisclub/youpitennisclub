@@ -36,9 +36,14 @@ export function isOutdoorSlot(venue: PriceVenue, ymd: string, hour: number) {
   return true;
 }
 
-export function ratesFor(venue: PriceVenue, hour: number, outdoor = false) {
+/** TC Longline Saturdays are always charged at the evening rates (same as Friday evenings). */
+export function isLonglineSaturday(venue: PriceVenue, ymd?: string) {
+  return venue === "longline" && !!ymd && new Date(`${ymd}T12:00:00Z`).getUTCDay() === 6;
+}
+
+export function ratesFor(venue: PriceVenue, hour: number, outdoor = false, ymd?: string) {
   const g = PRICE_GRID[venue];
-  const earlier = hour < g.boundaryHour;
+  const earlier = hour < g.boundaryHour && !isLonglineSaturday(venue, ymd);
   const list = outdoor ? SUMMER_GRID : earlier ? g.before : g.after;
   return {
     period: outdoor
@@ -58,9 +63,12 @@ export function sessionPriceCents(opts: {
   nonMember: boolean;
   duration: number;
   outdoor?: boolean;
+  /** Berlin date YYYY-MM-DD — TC Longline Saturdays use the evening rates. */
+  ymd?: string;
 }) {
   const g = PRICE_GRID[opts.venue];
-  const list = opts.outdoor ? SUMMER_GRID : opts.hour < g.boundaryHour ? g.before : g.after;
+  const earlier = opts.hour < g.boundaryHour && !isLonglineSaturday(opts.venue, opts.ymd);
+  const list = opts.outdoor ? SUMMER_GRID : earlier ? g.before : g.after;
   const idx = Math.min(Math.max(opts.players, 2), 4) - 2;
   // Membership never adds a surcharge. Keep the input for existing server callers.
   const perHour = list[idx] ?? list[0] ?? 0;
