@@ -8,6 +8,7 @@ import { PhotoPicker } from "@/components/PhotoPicker";
 import { CopyNumberButton } from "@/components/CopyNumberButton";
 import { handleWhatsAppClick, useWhatsAppLink, WhatsAppIcon } from "@/components/WhatsAppIcon";
 import { EmailIcon, WithIcons } from "@/components/WordIcons";
+import { TournamentModal, useTournamentSpots, TOURNAMENT_CAPACITY } from "@/components/TournamentModal";
 
 import { BOOKING_NOTICE, MAX_PLAYERS, MIN_PLAYERS, canJoin, compatibleLevels } from "@/lib/booking-rules";
 import { createBooking, listMyBookings, cancelMyBooking, getMyCredits } from "@/lib/bookings.functions";
@@ -669,6 +670,8 @@ function BookPage() {
   };
 
 
+  const [tournamentOpen, setTournamentOpen] = useState(false);
+  const tournamentSpots = useTournamentSpots();
   const days = useMemo(() => {
     const arr: Date[] = [];
     for (let i = 0; i < 14; i++) {
@@ -947,6 +950,8 @@ function BookPage() {
               </div>
             </div>
 
+            <p className="mb-2 text-xs text-muted-foreground">All times are shown in Berlin time (Europe/Berlin).</p>
+            {tournamentOpen && <TournamentModal onClose={() => { setTournamentOpen(false); tournamentSpots.refresh(); }} />}
             {loading ? (
               <div className="py-16 text-muted-foreground">Loading schedule…</div>
             ) : (
@@ -989,7 +994,18 @@ function BookPage() {
                           })
                         )}
 
-                      {(COACH_EVENTS[ymd(day)] ?? []).map((ev, evIndex) => (
+                      {(COACH_EVENTS[ymd(day)] ?? []).map((ev, evIndex) => ev.red ? (
+                        <button
+                          key={`coach-${evIndex}`}
+                          type="button"
+                          onClick={() => setTournamentOpen(true)}
+                          className="min-h-12 rounded-2xl border-2 border-destructive bg-destructive/15 px-3.5 py-3 text-left text-destructive"
+                        >
+                          <div className="text-base font-semibold sm:text-lg">{ev.time}</div>
+                          <div className="mt-1 text-xs font-bold uppercase tracking-wide">🎾 {ev.title} 🔥</div>
+                          <div className="mt-1 text-xs font-semibold">€25 · {tournamentSpots.left}/{TOURNAMENT_CAPACITY} spots left</div>
+                        </button>
+                      ) : (
                         <div
                           key={`coach-${evIndex}`}
                           className={`rounded-2xl border-2 px-3.5 py-3 text-left ${ev.red ? "border-destructive bg-destructive/15 text-destructive" : "border-dashed border-ink/25 bg-ink/5"}`}
