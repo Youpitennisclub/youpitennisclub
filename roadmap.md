@@ -76,3 +76,6 @@
 - [x] FAQ : Epassi (ex Hansefit) ajoute a la question Wellhub/Urban Sports + phrase « (For the record: ...) » supprimee
 - [x] Pages du site : logo WhatsApp et icone enveloppe affiches devant chaque mention visible de WhatsApp / email
 - [x] Menu : plus aucun defilement lateral de 320 a 768px (nom complet de la langue des 520px, logo autorise a se replier)
+
+- [x] Nov 2026 batch: Longline Saturdays (evening rates), BFC Mondays 19–22, no BFC Saturdays, 7-day desktop calendar, Berlin time, restyled booking emails, Tournament 30.01.2027 popup + registration
+- [ ] Google Analytics: waiting for the G- measurement ID
