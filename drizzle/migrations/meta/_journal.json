@@ -64,6 +64,13 @@
       "when": 1793662996941,
       "tag": "0008_bfc_evening_rates_from_15",
       "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1794613495623,
+      "tag": "0009_booking_emails_and_tournament",
+      "breakpoints": true
     }
   ]
 }

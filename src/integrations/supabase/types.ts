@@ -236,6 +236,48 @@ export type Database = {
         }
         Relationships: []
       }
+      tournament_registrations: {
+        Row: {
+          cancelled_at: string | null
+          created_at: string
+          email: string
+          first_name: string
+          hour: number
+          id: string
+          last_name: string
+          paid_at: string | null
+          partner_discount: boolean
+          price_cents: number
+          user_id: string
+        }
+        Insert: {
+          cancelled_at?: string | null
+          created_at?: string
+          email: string
+          first_name: string
+          hour: number
+          id?: string
+          last_name: string
+          paid_at?: string | null
+          partner_discount?: boolean
+          price_cents: number
+          user_id: string
+        }
+        Update: {
+          cancelled_at?: string | null
+          created_at?: string
+          email?: string
+          first_name?: string
+          hour?: number
+          id?: string
+          last_name?: string
+          paid_at?: string | null
+          partner_discount?: boolean
+          price_cents?: number
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -314,6 +356,7 @@ export type Database = {
           rating: number
         }[]
       }
+      join_tournament: { Args: { p: Json }; Returns: Json }
       reconcile_booking_slot: {
         Args: { t: string; v: string }
         Returns: undefined
@@ -329,6 +372,13 @@ export type Database = {
           _rating: number
         }
         Returns: undefined
+      }
+      tournament_spots: {
+        Args: never
+        Returns: {
+          hour: number
+          taken: number
+        }[]
       }
     }
     Enums: {

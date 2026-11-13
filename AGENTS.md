@@ -12,3 +12,4 @@
 - Booking creation/cancellation and group credit repricing use transactional database RPCs with slot advisory locks; server-computed prices are stored per booking to prevent capacity races and price divergence.
 - Booking expiry and notification retries share one wake-on-enqueue lifecycle job, stopped when no future bookings or undelivered notifications remain; signed callback delivery uses idempotent email keys to avoid duplicate messages.
 - The booking page scopes its own semantic colors and accessible level/club treatments under `.booking-page`; other pages retain their existing theme.
+- Tournament spots live in `tournament_registrations` and are reserved only through the service-role `join_tournament` RPC (advisory lock, 8 per hour) — so capacity cannot be exceeded from the browser.

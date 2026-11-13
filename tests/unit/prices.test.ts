@@ -76,3 +76,14 @@ describe("BFC Alemannia evening rates start at 15:00", () => {
   });
 });
 
+
+import { sessionPriceCents as spc, ratesFor as rf } from "../../src/lib/prices";
+describe("TC Longline Saturdays", () => {
+  it("charge the evening rates even at 14:00", () => {
+    expect(spc({ venue: "longline", hour: 14, players: 2, nonMember: false, duration: 60, ymd: "2026-11-21" })).toBe(4100);
+    expect(rf("longline", 14, false, "2026-11-21").rates.map(r => r.p)).toEqual(["€41", "€33", "€27"]);
+  });
+  it("keep the daytime rates on a Friday at 14:00", () => {
+    expect(spc({ venue: "longline", hour: 14, players: 2, nonMember: false, duration: 60, ymd: "2026-11-20" })).toBe(3900);
+  });
+});

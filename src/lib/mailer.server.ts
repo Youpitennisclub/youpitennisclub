@@ -49,8 +49,8 @@ export async function sendMail(opts: {
 }
 
 export function wrap(title: string, body: string) {
-  return `<div style="font-family:system-ui,sans-serif;line-height:1.5;color:#101c17">
-    <h1 style="font-size:26px;margin:0 0 16px">${title}</h1>
+  return `<div style="font-family:system-ui,-apple-system,Segoe UI,sans-serif;font-size:16px;line-height:1.65;color:#101c17;max-width:560px;margin:0 auto;padding:20px 16px">
+    <h1 style="font-size:22px;line-height:1.3;margin:0 0 18px;letter-spacing:0.02em">${title}</h1>
     ${body}
     <p style="margin-top:28px;font-size:12px;color:#6b7280">Youpi Tennis Club · Berlin</p>
   </div>`;

@@ -80,7 +80,7 @@ export async function deliverBookingNotifications() {
         idempotencyKey: row.id,
         html: wrap(
           escapeHtml(row.subject),
-          `<p>${escapeHtml(formatBookingEmailPrices(row.body)).replace(/\n/g, "<br/>")}</p><p><a href="${siteUrl()}/book">My bookings</a></p>`,
+          `<p style="margin:0">${escapeHtml(formatBookingEmailPrices(row.body)).replace(/\n/g, "<br/>")}</p><p style="margin-top:24px"><a href="${siteUrl()}/book" style="display:inline-block;background:#d9643a;color:#ffffff;text-decoration:none;font-weight:600;padding:12px 22px;border-radius:999px">📅 My bookings</a></p>`,
         ),
       });
 
@@ -123,7 +123,7 @@ export async function createBookingRecord(input: {
 }) {
   const hour = berlinHour(input.starts_at);
   const outdoor = isOutdoorSlot(input.venue, berlinYmd(input.starts_at), hour);
-  const prices = [2, 3, 4].map(players => sessionPriceCents({ venue: input.venue, hour, players, nonMember: input.non_member, duration: input.duration, outdoor }));
+  const prices = [2, 3, 4].map(players => sessionPriceCents({ venue: input.venue, hour, players, nonMember: input.non_member, duration: input.duration, outdoor, ymd: berlinYmd(input.starts_at) }));
   await configureBookingDelivery();
   const { data, error } = await supabaseAdmin.rpc("create_booking_v2", { p: { ...input, price_two: prices[0], price_three: prices[1], price_four: prices[2] } });
   if (error) throw new Error(error.message);

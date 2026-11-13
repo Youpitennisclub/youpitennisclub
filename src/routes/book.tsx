@@ -8,6 +8,7 @@ import { PhotoPicker } from "@/components/PhotoPicker";
 import { CopyNumberButton } from "@/components/CopyNumberButton";
 import { handleWhatsAppClick, useWhatsAppLink, WhatsAppIcon } from "@/components/WhatsAppIcon";
 import { EmailIcon, WithIcons } from "@/components/WordIcons";
+import { TournamentModal, useTournamentSpots, TOURNAMENT_CAPACITY } from "@/components/TournamentModal";
 
 import { BOOKING_NOTICE, MAX_PLAYERS, MIN_PLAYERS, canJoin, compatibleLevels } from "@/lib/booking-rules";
 import { createBooking, listMyBookings, cancelMyBooking, getMyCredits } from "@/lib/bookings.functions";
@@ -164,8 +165,24 @@ const CLUB_HOURS: Record<number, { club: Venue; hours: number[] }[]> = {
   3: [{ club: "alemannia", hours: [14, 15, 16] }], // Wed — BFC Alemannia 14–17h
   4: [{ club: "alemannia", hours: [12, 13, 14] }], // Thu — BFC Alemannia 12–15h
   5: [{ club: "longline", hours: [11, 12, 13, 14, 15, 16] }], // Fri — TC Longline 11–17h
-  6: [{ club: "alemannia", hours: [9, 10, 13, 14] }], // Sat — BFC Alemannia 09–11h & 13–15h
+  // Sat — no BFC Alemannia slots any more; TC Longline Saturdays are listed in LONGLINE_SATURDAYS.
 };
+
+/** One-off TC Longline Saturday slots (evening rates apply). */
+const LONGLINE_SATURDAYS: Record<string, number[]> = {
+  "2026-11-21": [14, 15],
+  "2026-11-28": [16],
+  "2026-12-05": [15],
+  "2026-12-12": [14, 15],
+  "2026-12-19": [15],
+  "2027-01-02": [14, 15, 16],
+  "2027-01-09": [15, 16],
+  "2027-01-16": [14, 15],
+  "2027-01-23": [14, 15],
+};
+/** BFC Alemannia Monday evening slots 19:00–22:00, until the end of March 2027. */
+const MONDAY_EVENING_HOURS = [19, 20, 21];
+const MONDAY_EVENING_UNTIL = "2027-03-31";
 
 /** Summer camp: 18:30–20:30 (2h), 2 coaches, groups of 4–6. */
 const CAMP_DAYS = ["2026-08-17", "2026-08-18", "2026-08-20"];
@@ -201,7 +218,6 @@ function isOutdoorWeekday(date: Date) {
   return day >= 1 && day <= 5 && ymd(date) <= OUTDOOR_UNTIL;
 }
 /** Until OUTDOOR_UNTIL, Saturdays are outdoor at BFC Alemannia 12:00–16:00 (replaces the indoor hours). */
-const OUTDOOR_SATURDAY_HOURS = [12, 13, 14, 15];
 function isOutdoorSaturday(date: Date) {
   return date.getDay() === 6 && ymd(date) <= OUTDOOR_UNTIL;
 }
@@ -356,9 +372,7 @@ function buildSlotsForDate(date: Date): Slot[] {
     // TC Longline: winter season starts 12 Oct — no Longline slots before that.
     if (club === "longline" && ymd(date) < LONGLINE_FROM) continue;
     const effectiveHours =
-      isOutdoorSaturday(date) && club === "alemannia"
-        ? OUTDOOR_SATURDAY_HOURS
-        : outdoorWeekday && club === "alemannia"
+      outdoorWeekday && club === "alemannia"
         ? [...new Set([...hours, ...OUTDOOR_WEEKDAY_HOURS])].sort((a, b) => a - b)
         : hours;
     for (const h of effectiveHours) {
@@ -420,6 +434,21 @@ function buildSlotsForDate(date: Date): Slot[] {
       indoor: true,
     });
   }
+  // TC Longline Saturdays.
+  for (const h of LONGLINE_SATURDAYS[dateStr] ?? []) {
+    const d = new Date(date);
+    d.setHours(h, 0, 0, 0);
+    slots.push({ start: d, duration: 60, level: "open", venue: "longline", indoor: true });
+  }
+  // BFC Alemannia Monday evenings 19:00–22:00 until end of March.
+  if (day === 1 && dateStr >= "2026-11-16" && dateStr <= MONDAY_EVENING_UNTIL) {
+    for (const h of MONDAY_EVENING_HOURS) {
+      if (slots.some(s => s.venue === "alemannia" && s.start.getHours() === h)) continue;
+      const d = new Date(date);
+      d.setHours(h, 0, 0, 0);
+      slots.push({ start: d, duration: 60, level: "open", venue: "alemannia", indoor: true });
+    }
+  }
   return slots.sort((a, b) => a.start.getTime() - b.start.getTime());
 }
 
@@ -438,7 +467,7 @@ function fmtLongDay(d: Date) {
 }
 
 function fmtTime(d: Date) {
-  return d.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" });
+  return d.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit", timeZone: "Europe/Berlin" });
 }
 
 function endTime(slot: Slot) {
@@ -641,6 +670,8 @@ function BookPage() {
   };
 
 
+  const [tournamentOpen, setTournamentOpen] = useState(false);
+  const tournamentSpots = useTournamentSpots();
   const days = useMemo(() => {
     const arr: Date[] = [];
     for (let i = 0; i < 14; i++) {
@@ -745,6 +776,7 @@ function BookPage() {
         nonMember: false,
         duration: slot.duration,
         outdoor: slotOutdoor(slot),
+        ymd: ymd(slot.start),
       };
       setConfirmation({
         start: slot.start,
@@ -918,10 +950,12 @@ function BookPage() {
               </div>
             </div>
 
+            <p className="mb-2 text-xs text-muted-foreground">All times are shown in Berlin time (Europe/Berlin).</p>
+            {tournamentOpen && <TournamentModal onClose={() => { setTournamentOpen(false); tournamentSpots.refresh(); }} />}
             {loading ? (
               <div className="py-16 text-muted-foreground">Loading schedule…</div>
             ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-7 gap-3 xl:gap-2">
                 {days.map((day) => {
                   const slots = buildSlotsForDate(day).filter(slot => (clubFilter === "all" || slot.venue === clubFilter));
                   const isToday = day.toDateString() === new Date().toDateString();
@@ -946,7 +980,7 @@ function BookPage() {
                                 type="button" variant="outline" onClick={() => openSlot(slot)} disabled={full || past}
                                 className={`block h-auto w-full min-w-0 whitespace-normal rounded-lg border border-l-4 bg-card px-2.5 py-2.5 sm:px-3 sm:py-4 text-left text-ink disabled:opacity-55 ${slot.venue === "alemannia" ? "border-l-book-club-blue" : "border-l-book-club-teal"}`}
                               >
-                                <div className="font-bold text-lg">{fmtTime(slot.start)}–{endTime(slot)}</div>
+                                <div className="font-bold text-lg xl:text-base">{fmtTime(slot.start)}–{endTime(slot)}</div>
                                 <div className="mt-2 flex flex-wrap gap-2"><span className={`rounded-full px-2 py-1 font-semibold ${VENUE_STYLE[slot.venue]}`}>{VENUE_LABEL[slot.venue]}</span><span className="rounded bg-muted px-2 py-1 text-muted-foreground">{slotOutdoor(slot) ? "☀️ Outdoor" : "🌙 Indoor"}</span></div>
                                 {parts[0] && !compatibleLevels(level, parts[0].level) && <div className="mt-1 sm:mt-2 font-semibold">{LEVEL_LABEL[parts[0].level]}</div>}
                                 <p className="mt-1 sm:mt-2 font-normal text-muted-foreground">{parts.length === 0 ? "0/4 players 👥" : parts.length === 1 ? "⏳ 1/4 · waiting for 1 more" : parts.length === 4 ? "🔒 Full · 4/4" : `✅ Confirmed · ${parts.length}/4`}</p>
@@ -960,7 +994,18 @@ function BookPage() {
                           })
                         )}
 
-                      {(COACH_EVENTS[ymd(day)] ?? []).map((ev, evIndex) => (
+                      {(COACH_EVENTS[ymd(day)] ?? []).map((ev, evIndex) => ev.red ? (
+                        <button
+                          key={`coach-${evIndex}`}
+                          type="button"
+                          onClick={() => setTournamentOpen(true)}
+                          className="min-h-12 rounded-2xl border-2 border-destructive bg-destructive/15 px-3.5 py-3 text-left text-destructive"
+                        >
+                          <div className="text-base font-semibold sm:text-lg">{ev.time}</div>
+                          <div className="mt-1 text-xs font-bold uppercase tracking-wide">🎾 {ev.title} 🔥</div>
+                          <div className="mt-1 text-xs font-semibold">€25 · {tournamentSpots.left}/{TOURNAMENT_CAPACITY} spots left</div>
+                        </button>
+                      ) : (
                         <div
                           key={`coach-${evIndex}`}
                           className={`rounded-2xl border-2 px-3.5 py-3 text-left ${ev.red ? "border-destructive bg-destructive/15 text-destructive" : "border-dashed border-ink/25 bg-ink/5"}`}
@@ -1056,7 +1101,9 @@ function BookPage() {
                           month: "short",
                           hour: "2-digit",
                           minute: "2-digit",
-                        })}
+                          timeZone: "Europe/Berlin",
+                        })}{" "}
+                        <span className="text-xs font-normal text-muted-foreground">(Berlin time)</span>
                         <span className={`ml-2 inline-flex items-center gap-1.5 rounded-full border-2 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide ${VENUE_STYLE[b.venue ?? "alemannia"]}`}>
                           <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-background" />
                           {VENUE_LABEL[b.venue ?? "alemannia"]}
@@ -1487,6 +1534,7 @@ function BookPage() {
                   selectedSlot.venue,
                   Number(new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/Berlin", hour: "2-digit", hour12: false }).format(selectedSlot.start)),
                   slotOutdoor(selectedSlot),
+                  ymd(selectedSlot.start),
                 );
                 return (
                   <>

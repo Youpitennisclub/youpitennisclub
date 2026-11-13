@@ -68,3 +68,32 @@ export const getMyCredits = createServerFn({ method: "POST" })
     const { getCreditSummary } = await import("./bookings.server");
     return getCreditSummary(context.userId);
   });
+
+/** Remaining tournament spots per hour (public). */
+export const getTournamentSpots = createServerFn({ method: "GET" }).handler(async () => {
+  const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+  const { data, error } = await supabaseAdmin.rpc("tournament_spots");
+  if (error) throw new Error(error.message);
+  return (data ?? []) as { hour: number; taken: number }[];
+});
+
+/** Reserves one individual tournament spot for the signed-in student. */
+export const joinTournament = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator(z.object({
+    hour: z.union([z.literal(15), z.literal(16), z.literal(17)]),
+    first_name: z.string().trim().min(1).max(60),
+    last_name: z.string().trim().min(1).max(60),
+    partner_discount: z.boolean(),
+  }))
+  .handler(async ({ data, context }) => {
+    const email = (context.claims as { email?: string }).email;
+    if (!email) return { ok: false as const, error: "no_email" };
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { configureBookingDelivery, deliverBookingNotifications } = await import("./bookings.server");
+    await configureBookingDelivery();
+    const { data: res, error } = await supabaseAdmin.rpc("join_tournament", { p: { ...data, email, user_id: context.userId } });
+    if (error) throw new Error(error.message);
+    await deliverBookingNotifications().catch(() => {});
+    return res as { ok: boolean; error?: string; price_cents?: number };
+  });
