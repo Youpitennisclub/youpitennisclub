@@ -980,7 +980,7 @@ function BookPage() {
                                 type="button" variant="outline" onClick={() => openSlot(slot)} disabled={full || past}
                                 className={`block h-auto w-full min-w-0 whitespace-normal rounded-lg border border-l-4 bg-card px-2.5 py-2.5 sm:px-3 sm:py-4 text-left text-ink disabled:opacity-55 ${slot.venue === "alemannia" ? "border-l-book-club-blue" : "border-l-book-club-teal"}`}
                               >
-                                <div className="font-bold text-lg">{fmtTime(slot.start)}–{endTime(slot)}</div>
+                                <div className="font-bold text-lg xl:text-base">{fmtTime(slot.start)}–{endTime(slot)}</div>
                                 <div className="mt-2 flex flex-wrap gap-2"><span className={`rounded-full px-2 py-1 font-semibold ${VENUE_STYLE[slot.venue]}`}>{VENUE_LABEL[slot.venue]}</span><span className="rounded bg-muted px-2 py-1 text-muted-foreground">{slotOutdoor(slot) ? "☀️ Outdoor" : "🌙 Indoor"}</span></div>
                                 {parts[0] && !compatibleLevels(level, parts[0].level) && <div className="mt-1 sm:mt-2 font-semibold">{LEVEL_LABEL[parts[0].level]}</div>}
                                 <p className="mt-1 sm:mt-2 font-normal text-muted-foreground">{parts.length === 0 ? "0/4 players 👥" : parts.length === 1 ? "⏳ 1/4 · waiting for 1 more" : parts.length === 4 ? "🔒 Full · 4/4" : `✅ Confirmed · ${parts.length}/4`}</p>
