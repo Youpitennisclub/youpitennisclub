@@ -80,7 +80,7 @@ export async function deliverBookingNotifications() {
         idempotencyKey: row.id,
         html: wrap(
           escapeHtml(row.subject),
-          `<p>${escapeHtml(formatBookingEmailPrices(row.body)).replace(/\n/g, "<br/>")}</p><p><a href="${siteUrl()}/book">My bookings</a></p>`,
+          `<p style="margin:0">${escapeHtml(formatBookingEmailPrices(row.body)).replace(/\n/g, "<br/>")}</p><p style="margin-top:24px"><a href="${siteUrl()}/book" style="display:inline-block;background:#d9643a;color:#ffffff;text-decoration:none;font-weight:600;padding:12px 22px;border-radius:999px">📅 My bookings</a></p>`,
         ),
       });
 
