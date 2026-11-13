@@ -20,8 +20,13 @@ export const createBooking = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator(bookingSchema)
   .handler(async ({ data, context }) => {
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { data: u } = await supabaseAdmin.auth.admin.getUserById(context.userId);
+    const email = u?.user?.email_confirmed_at ? u.user.email : null;
+    if (!email) throw new Error("Please confirm your email address before booking.");
     const { createBookingRecord } = await import("./bookings.server");
-    return createBookingRecord({ ...data, user_id: context.userId });
+    // Notifications always go to the signed-in account's verified email.
+    return createBookingRecord({ ...data, email, user_id: context.userId });
   });
 
 /** Bookings of the signed-in student only. */
