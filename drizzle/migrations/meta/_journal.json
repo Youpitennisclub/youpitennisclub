@@ -71,6 +71,13 @@
       "when": 1794613495623,
       "tag": "0009_booking_emails_and_tournament",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1794615397666,
+      "tag": "0010_tournament_single_block",
+      "breakpoints": true
     }
   ]
 }
