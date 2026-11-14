@@ -435,7 +435,9 @@ function buildSlotsForDate(date: Date): Slot[] {
     });
   }
   // TC Longline Saturdays.
-  for (const h of LONGLINE_SATURDAYS[dateStr] ?? []) {
+  // Saturdays not listed: TC Longline 14:00–16:00.
+  const satHours = LONGLINE_SATURDAYS[dateStr] ?? (day === 6 && dateStr >= "2026-11-14" && dateStr !== "2027-01-30" ? [14, 15] : []);
+  for (const h of satHours) {
     const d = new Date(date);
     d.setHours(h, 0, 0, 0);
     slots.push({ start: d, duration: 60, level: "open", venue: "longline", indoor: true });
@@ -459,7 +461,7 @@ function startOfDay(d: Date) {
 }
 
 function fmtDay(d: Date, locale = "en-GB") {
-  return d.toLocaleDateString(locale, { weekday: "short", day: "2-digit", month: "short" });
+  return d.toLocaleDateString(locale, { weekday: "long", day: "2-digit", month: "long" });
 }
 
 function fmtLongDay(d: Date) {
@@ -999,11 +1001,15 @@ function BookPage() {
                           key={`coach-${evIndex}`}
                           type="button"
                           onClick={() => setTournamentOpen(true)}
-                          className="min-h-12 rounded-2xl border-2 border-destructive bg-destructive/15 px-3.5 py-3 text-left text-destructive"
+                          className="min-h-[24rem] rounded-2xl border-2 border-destructive bg-destructive/15 px-3.5 py-3 text-left text-destructive"
                         >
                           <div className="text-base font-semibold sm:text-lg">{ev.time}</div>
                           <div className="mt-1 text-xs font-bold uppercase tracking-wide">🎾 {ev.title} 🔥</div>
-                          <div className="mt-1 text-xs font-semibold">€25 · {tournamentSpots.left}/{TOURNAMENT_CAPACITY} spots left</div>
+                          <div className="mt-1 text-xs font-semibold">{tournamentSpots.left}/{TOURNAMENT_CAPACITY} spots left</div>
+                          <div className="mt-3 flex flex-wrap gap-1">
+                            {tournamentSpots.players.map((p, i) => <span key={i} className="rounded-full border border-destructive/40 bg-card px-2 py-1 text-xs font-semibold text-ink">{playerLabel(p.first_name, p.last_initial)}</span>)}
+                            {Array.from({ length: Math.max(0, tournamentSpots.left) }, (_, i) => <span key={`t-${i}`} className="rounded-full border border-dashed border-destructive/40 px-2 py-1 text-xs text-destructive/80">free</span>)}
+                          </div>
                         </button>
                       ) : (
                         <div
@@ -1052,6 +1058,30 @@ function BookPage() {
                 })}
               </div>
             )}
+            <div className="mt-6">
+              <div className="flex gap-2 shrink-0 justify-center">
+                <Button
+                  onClick={() => {
+                    if (prevWeekStart.getTime() < FIRST_WEEK_START.getTime()) return;
+                    setWeekStart(prevWeekStart);
+                  }}
+                  className="flex-1 md:flex-none px-4 py-2.5 rounded-full border-2 border-ink/15 text-sm font-semibold disabled:opacity-40 hover:bg-muted transition"
+                  disabled={prevWeekStart.getTime() < FIRST_WEEK_START.getTime()}
+                >
+                  ← Previous
+                </Button>
+                <Button
+                  onClick={() => {
+                    if (nextWeekStart.getTime() > SEASON_END.getTime()) return;
+                    setWeekStart(nextWeekStart);
+                  }}
+                  className="flex-1 md:flex-none px-4 py-2.5 rounded-full border-2 border-ink/15 text-sm font-semibold hover:bg-muted transition disabled:opacity-40"
+                  disabled={nextWeekStart.getTime() > SEASON_END.getTime()}
+                >
+                  Next →
+                </Button>
+              </div>
+            </div>
 
             {adminView && <AdminCredits />}
 
@@ -1096,9 +1126,9 @@ function BookPage() {
                     >
                       <span className="font-semibold">
                         {new Date(b.starts_at).toLocaleString("en-GB", {
-                          weekday: "short",
+                          weekday: "long",
                           day: "2-digit",
-                          month: "short",
+                          month: "long",
                           hour: "2-digit",
                           minute: "2-digit",
                           timeZone: "Europe/Berlin",

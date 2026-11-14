@@ -373,6 +373,13 @@ export type Database = {
         }
         Returns: undefined
       }
+      tournament_players: {
+        Args: never
+        Returns: {
+          first_name: string
+          last_initial: string
+        }[]
+      }
       tournament_spots: {
         Args: never
         Returns: {

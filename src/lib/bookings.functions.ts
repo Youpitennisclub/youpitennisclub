@@ -74,20 +74,19 @@ export const getMyCredits = createServerFn({ method: "POST" })
     return getCreditSummary(context.userId);
   });
 
-/** Remaining tournament spots per hour (public). */
+/** Registered tournament players (first name + initial, public). */
 export const getTournamentSpots = createServerFn({ method: "GET" }).handler(async () => {
   const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-  const { data, error } = await supabaseAdmin.rpc("tournament_spots");
+  const { data, error } = await supabaseAdmin.rpc("tournament_players");
   if (error) throw new Error(error.message);
-  return (data ?? []) as { hour: number; taken: number }[];
+  return (data ?? []) as { first_name: string; last_initial: string }[];
 });
 
 /** Reserves one individual tournament spot for the signed-in student. */
 export const joinTournament = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator(z.object({
-    hour: z.union([z.literal(15), z.literal(16), z.literal(17)]),
-    first_name: z.string().trim().min(1).max(60),
+        first_name: z.string().trim().min(1).max(60),
     last_name: z.string().trim().min(1).max(60),
     partner_discount: z.boolean(),
   }))
