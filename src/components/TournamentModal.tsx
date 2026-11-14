@@ -5,8 +5,6 @@ import { supabase } from "@/integrations/supabase/client";
 import { getTournamentSpots, joinTournament } from "@/lib/bookings.functions";
 
 export const TOURNAMENT_CAPACITY = 24;
-export const TOURNAMENT_PER_HOUR = 8;
-const HOURS = [15, 16, 17] as const;
 
 const POINTS = [
   "⚡ First come, first booked!",
@@ -19,26 +17,20 @@ const POINTS = [
   "💰 €25 per player",
   "✅ €7 off for Urban Sports Club and Wellhub members (final price: €18)",
   "💳 Payment required in advance before 15 January 2027",
-  "🕒 Free cancellation up to 48 hours before the tournament",
 ];
 
 export function useTournamentSpots() {
-  const [taken, setTaken] = useState<Record<number, number>>({});
-  const refresh = () =>
-    getTournamentSpots()
-      .then((rows) => setTaken(Object.fromEntries(rows.map((r) => [r.hour, r.taken]))))
-      .catch(() => {});
+  const [players, setPlayers] = useState<{ first_name: string; last_initial: string }[]>([]);
+  const refresh = () => getTournamentSpots().then(setPlayers).catch(() => {});
   useEffect(() => {
     refresh();
   }, []);
-  const total = HOURS.reduce((n, h) => n + (taken[h] ?? 0), 0);
-  return { taken, left: TOURNAMENT_CAPACITY - total, refresh };
+  return { players, left: TOURNAMENT_CAPACITY - players.length, refresh };
 }
 
 export function TournamentModal({ onClose }: { onClose: () => void }) {
-  const { taken, left, refresh } = useTournamentSpots();
+  const { left, refresh } = useTournamentSpots();
   const [signedIn, setSignedIn] = useState<boolean | null>(null);
-  const [hour, setHour] = useState<15 | 16 | 17 | null>(null);
   const [first, setFirst] = useState("");
   const [last, setLast] = useState("");
   const [partner, setPartner] = useState(false);
@@ -58,14 +50,14 @@ export function TournamentModal({ onClose }: { onClose: () => void }) {
   }, [onClose]);
 
   const submit = async () => {
-    if (!hour || !first.trim() || !last.trim()) return toast.error("Pick an hour and enter your name.");
+    if (!first.trim() || !last.trim()) return toast.error("Please enter your name.");
     setBusy(true);
     try {
-      const res = await joinTournament({ data: { hour, first_name: first, last_name: last, partner_discount: partner } });
+      const res = await joinTournament({ data: { first_name: first, last_name: last, partner_discount: partner } });
       if (res.ok) {
         setDone(res.price_cents ?? 2500);
         refresh();
-      } else toast.error(res.error === "full" ? "This hour is full — pick another one." : res.error === "already" ? "You are already registered 🎾" : "Could not register.");
+      } else toast.error(res.error === "full" ? "The tournament is full." : res.error === "already" ? "You are already registered 🎾" : "Could not register.");
     } catch {
       toast.error("Could not register — please try again.");
     } finally {
@@ -99,19 +91,6 @@ export function TournamentModal({ onClose }: { onClose: () => void }) {
           </Link>
         ) : (
           <div className="mt-5 grid gap-3">
-            <div className="font-semibold">Pick your hour (individual spot):</div>
-            <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
-              {HOURS.map((h) => {
-                const free = TOURNAMENT_PER_HOUR - (taken[h] ?? 0);
-                return (
-                  <button key={h} type="button" disabled={free <= 0} onClick={() => setHour(h)} aria-pressed={hour === h}
-                    className={`min-h-12 rounded-xl border-2 px-3 py-2 text-left font-semibold disabled:opacity-40 ${hour === h ? "border-destructive bg-destructive/10" : "border-ink/15"}`}>
-                    {h}:00–{h + 1}:00
-                    <span className="block text-xs font-normal text-muted-foreground">{free}/{TOURNAMENT_PER_HOUR} spots left</span>
-                  </button>
-                );
-              })}
-            </div>
             <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
               <input value={first} onChange={(e) => setFirst(e.target.value)} placeholder="First name" maxLength={60} className="min-h-12 rounded-xl border-2 border-ink/15 bg-background px-3 text-base" />
               <input value={last} onChange={(e) => setLast(e.target.value)} placeholder="Last name" maxLength={60} className="min-h-12 rounded-xl border-2 border-ink/15 bg-background px-3 text-base" />
