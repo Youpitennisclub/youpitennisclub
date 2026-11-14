@@ -1058,6 +1058,30 @@ function BookPage() {
                 })}
               </div>
             )}
+            <div className="mt-6">
+              <div className="flex gap-2 shrink-0 justify-center">
+                <Button
+                  onClick={() => {
+                    if (prevWeekStart.getTime() < FIRST_WEEK_START.getTime()) return;
+                    setWeekStart(prevWeekStart);
+                  }}
+                  className="flex-1 md:flex-none px-4 py-2.5 rounded-full border-2 border-ink/15 text-sm font-semibold disabled:opacity-40 hover:bg-muted transition"
+                  disabled={prevWeekStart.getTime() < FIRST_WEEK_START.getTime()}
+                >
+                  ← Previous
+                </Button>
+                <Button
+                  onClick={() => {
+                    if (nextWeekStart.getTime() > SEASON_END.getTime()) return;
+                    setWeekStart(nextWeekStart);
+                  }}
+                  className="flex-1 md:flex-none px-4 py-2.5 rounded-full border-2 border-ink/15 text-sm font-semibold hover:bg-muted transition disabled:opacity-40"
+                  disabled={nextWeekStart.getTime() > SEASON_END.getTime()}
+                >
+                  Next →
+                </Button>
+              </div>
+            </div>
 
             {adminView && <AdminCredits />}
 
