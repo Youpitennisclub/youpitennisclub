@@ -969,7 +969,7 @@ function BookPage() {
                     >
                       <div className="sticky top-24 z-10 bg-background px-3 py-2 sm:py-4 font-bold border-b border-border sm:static">{fmtDay(day)}</div>
                       <div className="p-1.5 sm:p-2.5 flex flex-col gap-1.5 sm:gap-2">
-                        {slots.length === 0 ? (localYmd(day) === "2027-01-30" ? null :
+                        {slots.length === 0 ? (ymd(day) === "2027-01-30" ? null :
                           <div className="text-sm text-muted-foreground px-2 py-3">Rest day</div>
                         ) : (
                           slots.map((slot) => {
