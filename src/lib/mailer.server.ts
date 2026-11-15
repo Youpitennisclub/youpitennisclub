@@ -21,7 +21,7 @@ export async function sendMail(opts: {
   const from = process.env["EMAIL_FROM"] ?? "Youpi Tennis Club <booking@youpitennisclub.com>";
 
   if (!key) {
-    console.warn("[mail] RESEND_API_KEY missing — email not sent:", opts.subject, "→", opts.to);
+    console.warn("[mail] RESEND_API_KEY missing — email not sent");
     return { sent: false as const };
   }
 
@@ -42,7 +42,7 @@ export async function sendMail(opts: {
   });
 
   if (!res.ok) {
-    console.error("[mail] send failed", res.status, await res.text());
+    console.error("[mail] send failed", res.status);
     return { sent: false as const };
   }
   return { sent: true as const };
