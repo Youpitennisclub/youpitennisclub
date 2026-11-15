@@ -312,6 +312,7 @@ export type Database = {
         Args: { booking_id: string; owner_id?: string; token?: string }
         Returns: Json
       }
+      cancel_tournament: { Args: { p_user: string }; Returns: Json }
       claim_booking_notifications: {
         Args: never
         Returns: {
@@ -357,6 +358,7 @@ export type Database = {
         }[]
       }
       join_tournament: { Args: { p: Json }; Returns: Json }
+      my_tournament: { Args: { p_user: string }; Returns: boolean }
       reconcile_booking_slot: {
         Args: { t: string; v: string }
         Returns: undefined

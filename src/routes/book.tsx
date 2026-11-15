@@ -969,7 +969,7 @@ function BookPage() {
                     >
                       <div className="sticky top-24 z-10 bg-background px-3 py-2 sm:py-4 font-bold border-b border-border sm:static">{fmtDay(day)}</div>
                       <div className="p-1.5 sm:p-2.5 flex flex-col gap-1.5 sm:gap-2">
-                        {slots.length === 0 ? (
+                        {slots.length === 0 ? (ymd(day) === "2027-01-30" ? null :
                           <div className="text-sm text-muted-foreground px-2 py-3">Rest day</div>
                         ) : (
                           slots.map((slot) => {
@@ -1175,7 +1175,7 @@ function BookPage() {
             €{PACK_PRICE} Credit Pack
           </h2>
           <p className="mt-3">More freedom, more tennis: prepay €200 of sessions for the next 3 months. 🎾</p>
-          <details className="mt-3"><summary className="min-h-11 cursor-pointer py-3 font-semibold">See details 👇</summary>
+          <div className="mt-3">
           <ul className="mt-3 grid gap-2 text-sm text-ink/80">
             <li className="break-words">
               <span aria-hidden="true">📅</span> <b className="text-ink">Plan ahead</b> — organize
@@ -1263,7 +1263,7 @@ function BookPage() {
 
             </a>
           </div>
-          </details>
+          </div>
         </div></section>
 
       <div className="max-w-6xl mx-auto px-5 sm:px-6 pb-10"><a href="mailto:youpitennisclub@gmail.com?subject=Tennis%20lessons" className="inline-flex min-h-11 items-center gap-1.5 font-semibold"><EmailIcon className="text-clay" /> Questions? Contact me by email</a></div>

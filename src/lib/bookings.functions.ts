@@ -101,3 +101,26 @@ export const joinTournament = createServerFn({ method: "POST" })
     await deliverBookingNotifications().catch(() => {});
     return res as { ok: boolean; error?: string; price_cents?: number };
   });
+
+/** Is the signed-in student registered for the tournament? */
+export const getMyTournament = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { data, error } = await supabaseAdmin.rpc("my_tournament", { p_user: context.userId });
+    if (error) throw new Error(error.message);
+    return { registered: Boolean(data) };
+  });
+
+/** Cancels the student's own tournament spot (allowed until 15 days before). */
+export const cancelTournament = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { configureBookingDelivery, deliverBookingNotifications } = await import("./bookings.server");
+    await configureBookingDelivery();
+    const { data, error } = await supabaseAdmin.rpc("cancel_tournament", { p_user: context.userId });
+    if (error) throw new Error(error.message);
+    await deliverBookingNotifications().catch(() => {});
+    return data as { ok: boolean; error?: string };
+  });

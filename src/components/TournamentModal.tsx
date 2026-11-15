@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
-import { getTournamentSpots, joinTournament } from "@/lib/bookings.functions";
+import { getTournamentSpots, joinTournament, getMyTournament, cancelTournament } from "@/lib/bookings.functions";
 
 export const TOURNAMENT_CAPACITY = 24;
 
@@ -36,10 +36,13 @@ export function TournamentModal({ onClose }: { onClose: () => void }) {
   const [partner, setPartner] = useState(false);
   const [busy, setBusy] = useState(false);
   const [done, setDone] = useState<number | null>(null);
+  const [registered, setRegistered] = useState(false);
+  const canCancel = Date.now() < Date.parse("2027-01-15T15:00:00+01:00");
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data }) => {
       setSignedIn(!!data.session);
+      if (data.session) getMyTournament().then((r) => setRegistered(r.registered)).catch(() => {});
       const meta = data.session?.user.user_metadata as { first_name?: string; last_name?: string } | undefined;
       if (meta?.first_name) setFirst(meta.first_name);
       if (meta?.last_name) setLast(meta.last_name);
@@ -65,6 +68,16 @@ export function TournamentModal({ onClose }: { onClose: () => void }) {
     }
   };
 
+  const cancel = async () => {
+    if (!window.confirm("Cancel your Tournament registration?")) return;
+    setBusy(true);
+    try {
+      const res = await cancelTournament();
+      if (res.ok) { toast.success("Your registration is cancelled."); setRegistered(false); setDone(null); refresh(); }
+      else toast.error(res.error === "too_late" ? "Cancellation is no longer possible (less than 15 days before)." : "Could not cancel.");
+    } catch { toast.error("Could not cancel — please try again."); } finally { setBusy(false); }
+  };
+
   return (
     <div className="fixed inset-0 z-[110] flex items-end justify-center sm:items-center" role="dialog" aria-modal="true" aria-label="Tournament">
       <button aria-label="Close" onClick={onClose} className="absolute inset-0 bg-ink/60 backdrop-blur-sm" />
@@ -80,7 +93,13 @@ export function TournamentModal({ onClose }: { onClose: () => void }) {
           {POINTS.map((p) => <li key={p}>{p}</li>)}
         </ul>
 
-        {done !== null ? (
+        <p className="mt-3 text-sm text-muted-foreground">↩️ Cancellation possible until 15 January 2027 (15 days before). After that, it is no longer possible.</p>
+        {(registered || done !== null) && canCancel && (
+          <button type="button" onClick={cancel} disabled={busy} className="mt-4 min-h-11 w-full rounded-full border-2 border-destructive px-5 font-bold text-destructive disabled:opacity-50">Cancel my registration</button>
+        )}
+        {registered && done === null ? (
+          <p className="mt-4 rounded-2xl bg-muted p-4 font-bold">You are registered 🎾</p>
+        ) : done !== null ? (
           <div className="mt-5 rounded-2xl border-2 border-ink/10 bg-muted p-4 text-base">
             <p className="font-bold">You're in! 🎉 €{done / 100} per player.</p>
             <p className="mt-2">💳 Please pay before 15 January 2027 by bank transfer: <b>Youcef Chaouch</b> · IBAN <b className="break-all">DE84 1001 1001 2694 8756 79</b> · reference “{first} {last} Tournament”. A confirmation email is on its way.</p>

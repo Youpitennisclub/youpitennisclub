@@ -146,7 +146,7 @@ function Index() {
             <h2 className="text-[min(6.2vw,3.75rem)] font-display uppercase tracking-tight mb-6">
               <span className="inline-flex items-center gap-1.5 whitespace-nowrap">
                 Winter schedule
-                <span aria-hidden="true" className="shrink-0 leading-none text-[0.85em]">🥶</span>
+                <span aria-hidden="true" className="shrink-0 leading-none text-[0.85em]">❄️</span>
               </span>
             </h2>
 
@@ -318,7 +318,7 @@ function Index() {
               <strong>No place in a Berlin tennis club?</strong> Tired of coaches who just{" "}
               <strong>feed balls</strong> and rarely correct your technique? Whether you want to{" "}
               <strong>learn tennis from scratch</strong> or <strong>take your game to the next level</strong>{" "}
-              with a passionate and dedicated coach — I'm here for it. 💪🎾
+              with a passionate and dedicated coach — I'm here for YOU. 💪🎾
             </p>
             <p className="max-w-full text-muted-foreground text-base leading-relaxed sm:text-lg mb-4 break-words">
               🌍 Join our <strong>multicultural tennis classes</strong> and meet students from all over the
@@ -335,7 +335,7 @@ function Index() {
             </p>
             <p className="max-w-full text-muted-foreground text-base leading-relaxed sm:text-lg mb-6 break-words">
               👫 <strong>Want to train with your partner or with your friends?</strong><br/>
-              I can build a group just for you. And I really take care of putting players together by level, so
+              I can build a group just for you. And I really take care putting players together by level, so
               everyone enjoys the session — something most coaches simply don't do.
             </p>
             <p className="max-w-full font-display text-base uppercase leading-tight text-clay md:text-lg xl:whitespace-nowrap">
@@ -422,11 +422,12 @@ function Index() {
         </div>
         <div className="min-w-0 flex flex-col">
           <h2 className="text-2xl sm:text-3xl font-display uppercase mb-3 break-words"><span aria-hidden="true">📍</span> TC Longline Tennis Club</h2>
-          <p className="mb-6 break-words text-base font-semibold text-ink sm:text-lg">Nordufer 28A, 13351 Berlin, Germany</p>
+          <p className="mb-6 break-words text-base font-semibold text-ink sm:text-lg">Nordufer 28A, 13351 Berlin</p>
+          <p className="-mt-4 mb-6 break-words text-base text-muted-foreground">🚊 tram M13 or 50 · 13 minutes walk from tram station Virchow-Klinikum</p>
           <div className="mt-auto rounded-3xl border-2 border-ink/10 bg-card p-2 sm:p-3">
             <iframe title="Map showing TC Longline at Nordufer 28A, 13351 Berlin" src="https://maps.google.com/maps?q=Nordufer%2028A%2C%2013351%20Berlin%2C%20Germany&t=&z=15&ie=UTF8&iwloc=&output=embed" loading="lazy" referrerPolicy="no-referrer-when-downgrade" className="h-72 w-full min-w-0 rounded-2xl border-0 sm:h-96" />
           </div>
-          <a href="https://www.google.com/maps/dir/?api=1&destination=Nordufer%2028A%2C%2013351%20Berlin%2C%20Germany" target="_blank" rel="noopener" className="mt-4 inline-flex self-start items-center gap-2 rounded-full border-2 border-ink/15 px-5 py-3 text-sm font-semibold uppercase tracking-wide transition hover:border-clay hover:text-clay">Directions in Google Maps →</a>
+          <a href="https://www.google.com/maps/dir/?api=1&destination=Nordufer%2028A%2C%2013351%20Berlin%2C%20Germany" target="_blank" rel="noopener" className="mt-4 inline-flex self-start items-center gap-2 rounded-full border-2 border-ink/15 px-5 py-3 text-sm font-semibold uppercase tracking-wide transition hover:border-clay hover:text-clay">Open in Google Maps →</a>
         </div>
         </div>
       </section>
