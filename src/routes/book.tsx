@@ -10,7 +10,7 @@ import { handleWhatsAppClick, useWhatsAppLink, WhatsAppIcon } from "@/components
 import { EmailIcon, WithIcons } from "@/components/WordIcons";
 import { TournamentModal, useTournamentSpots, TOURNAMENT_CAPACITY } from "@/components/TournamentModal";
 
-import { BOOKING_NOTICE, MAX_PLAYERS, MIN_PLAYERS, canJoin, compatibleLevels } from "@/lib/booking-rules";
+import { BOOKING_NOTICE, CANCELLATION_POLICY, PARTNER_CANCELLATION_NOTE, MAX_PLAYERS, MIN_PLAYERS, canJoin, compatibleLevels } from "@/lib/booking-rules";
 import { createBooking, listMyBookings, cancelMyBooking, getMyCredits } from "@/lib/bookings.functions";
 import { isAdmin } from "@/lib/admin.functions";
 import { AdminCredits } from "@/components/AdminCredits";
@@ -451,7 +451,21 @@ function buildSlotsForDate(date: Date): Slot[] {
       slots.push({ start: d, duration: 60, level: "open", venue: "alemannia", indoor: true });
     }
   }
-  return slots.sort((a, b) => a.start.getTime() - b.start.getTime());
+  const removed = REMOVED_HOURS[dateStr];
+  const kept = removed ? slots.filter((s) => !removed.includes(s.start.getHours())) : slots;
+  return kept.sort((a, b) => a.start.getTime() - b.start.getTime());
+}
+
+/** One-off removals: these start hours are not offered on that single date only. */
+const REMOVED_HOURS: Record<string, number[]> = {
+  "2026-11-19": [14, 20], // Thu 19.11 — 14:00–15:00 and 20:00–21:00 removed (13:00 kept: a student is booked)
+};
+
+/** Monday of the week containing d — the calendar always starts on Monday (weekStartsOn: 1). */
+function startOfWeekMonday(d: Date) {
+  const x = startOfDay(d);
+  x.setDate(x.getDate() - ((x.getDay() + 6) % 7));
+  return x;
 }
 
 function startOfDay(d: Date) {
@@ -524,7 +538,7 @@ function BookPage() {
   const whatsappLink = useWhatsAppLink();
   const navigate = useNavigate();
   const today = startOfDay(new Date());
-  const [weekStart, setWeekStart] = useState<Date>(today);
+  const [weekStart, setWeekStart] = useState<Date>(() => startOfWeekMonday(today));
   const [selectedSlot, setSelectedSlot] = useState<Slot | null>(null);
   const [campInfo, setCampInfo] = useState<Slot | null>(null);
   const [winterOpen, setWinterOpen] = useState(false);
@@ -874,7 +888,8 @@ function BookPage() {
           <p>👆 Pick a time slot, choose your level, book.</p>
           <p className="mt-2">✅ <WithIcons text="Your session is confirmed by email as soon as 2 players of your level have joined (max. 4)." /></p>
           <p className="mt-2">💸 The more players join, the lower the price per person.</p>
-          <p className="mt-2">⏰ Free cancellation up to 48 hours before the session.</p>
+          <p className="mt-2 font-bold">⏰ {CANCELLATION_POLICY}</p>
+          <p className="text-sm">{PARTNER_CANCELLATION_NOTE}</p>
           <p className="font-bold">⭐ Urban Sports Club or Wellhub member? Just book here and check in on site: €7 off.</p>
           <p>Private lesson? <a href={whatsappLink} onClick={handleWhatsAppClick} target="_blank" rel="noopener" className="inline-flex min-h-11 items-center gap-1 font-semibold underline"><WhatsAppIcon className="text-[#25D366]" />WhatsApp</a> or <a href="mailto:youpitennisclub@gmail.com?subject=Tennis%20lessons" className="inline-flex min-h-11 items-center gap-1 font-semibold underline"><EmailIcon className="text-clay" />email me</a></p>
         </div>
@@ -1113,7 +1128,7 @@ function BookPage() {
               </div>
               )}
               <p className="mt-2 text-sm text-muted-foreground">
-                Free cancellation up to 48 hours before the session. Late cancellations remain due unless replaced.
+                {CANCELLATION_POLICY} {PARTNER_CANCELLATION_NOTE}
               </p>
               {myBookings.length === 0 ? (
                 <p className="mt-4 text-sm text-muted-foreground">No upcoming booking yet.</p>
@@ -1624,6 +1639,7 @@ function BookPage() {
           })()}
 
           <p className="mt-4 text-sm text-muted-foreground">{BOOKING_NOTICE}</p>
+          <p className="mt-3 rounded-xl border-2 border-destructive bg-destructive/10 p-3 text-sm font-bold text-ink">⏰ {CANCELLATION_POLICY} <span className="font-normal">{PARTNER_CANCELLATION_NOTE}</span></p>
           <p className="mt-3 text-muted-foreground">👤 Your first name and the first 2 letters of your last name are visible to other players.</p>
           <h3 className="font-display text-xl uppercase mt-6 mb-3">Your details</h3>
           <form onSubmit={submit} className="grid gap-3">
@@ -1727,7 +1743,7 @@ function BookPage() {
                 Free cancellation up to 48h; within 48h payment remains due unless replaced
               </div>
               <p className="mt-2 text-sm font-semibold text-ink">
-                Cancellation is free up to 48 hours before your session. Within 48 hours, the session is due unless another player takes your place. Bookings made less than 48 hours before are binding immediately.
+                {CANCELLATION_POLICY} {PARTNER_CANCELLATION_NOTE} Bookings made less than 48 hours before are binding immediately.
               </p>
             </div>
 

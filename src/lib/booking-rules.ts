@@ -21,3 +21,5 @@ export function canCancelFree(startsAt: number, groupLostConfirmation = false, n
 export function shouldExpire(startsAt: number, count: number, now = Date.now()) {
   return count === 1 && startsAt - now <= LONE_PLAYER_CUTOFF_MS;
 }
+export const CANCELLATION_POLICY = "Free cancellation up to 48 hours before the session. After that, the full price is due.";
+export const PARTNER_CANCELLATION_NOTE = "This also applies to Urban Sports Club and Wellhub members: less than 48 hours before, the full regular price is due, without the platform discount, even if USC or Wellhub allows a later cancellation.";
