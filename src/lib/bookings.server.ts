@@ -80,7 +80,7 @@ export async function deliverBookingNotifications() {
         idempotencyKey: row.id,
         html: wrap(
           escapeHtml(row.subject),
-          `<p style="margin:0">${escapeHtml(formatBookingEmailPrices(row.body)).replace(/\n/g, "<br/>")}</p><p class="yp-policy" style="margin:20px 0 0;padding:12px 14px;border:2px solid #d9643a;border-radius:12px;font-weight:600">⏰ Free cancellation up to 48 hours before the session.<br/>After that, the full price is due.<br/><span style="font-weight:400;font-size:0.85em">${escapeHtml(PARTNER_CANCELLATION_NOTE)}</span></p><p class="yp-cta" style="margin-top:24px"><a href="${siteUrl()}/book" style="display:inline-block;background:#d9643a;color:#ffffff;text-decoration:none;font-weight:600;padding:12px 22px;border-radius:999px">📅 My bookings</a></p>`,
+          `<p class="yp-p" style="margin:0">${escapeHtml(formatBookingEmailPrices(row.body)).replace(/\n/g, "<br/>")}</p><p class="yp-policy" style="margin:20px 0 0;padding:12px 14px;border:2px solid #d9643a;border-radius:12px;font-weight:600">⏰ Free cancellation up to 48 hours before the session.<br/>After that, the full price is due.<br/><span class="yp-small" style="font-weight:400;font-size:0.85em">${escapeHtml(PARTNER_CANCELLATION_NOTE)}</span></p><p class="yp-cta" style="margin-top:24px"><a class="yp-btn" href="${siteUrl()}/book" style="display:inline-block;background:#d9643a;color:#ffffff;text-decoration:none;font-weight:600;padding:12px 22px;border-radius:999px">📅 My bookings</a></p>`,
         ),
       });
 
