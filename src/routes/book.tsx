@@ -458,7 +458,7 @@ function buildSlotsForDate(date: Date): Slot[] {
 
 /** One-off removals: these start hours are not offered on that single date only. */
 const REMOVED_HOURS: Record<string, number[]> = {
-  "2026-11-19": [14, 20], // Thu 19.11 — 14:00–15:00 and 20:00–21:00 removed (13:00 kept: a student is booked)
+  "2026-11-19": [13, 14, 20], // Thu 19.11 — 13:00–15:00 and 20:00–21:00 removed
 };
 
 /** Monday of the week containing d — the calendar always starts on Monday (weekStartsOn: 1). */
